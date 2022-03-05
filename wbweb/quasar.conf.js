@@ -30,7 +30,7 @@ module.exports = function (/* ctx */) {
     extras: [
       // 'ionicons-v4',
       // 'mdi-v5',
-      // 'fontawesome-v5',
+      'fontawesome-v5',
       // 'eva-icons',
       // 'themify',
       // 'line-awesome',
@@ -70,14 +70,23 @@ module.exports = function (/* ctx */) {
     // Full list of options: https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       https: false,
-      port: 8083,
-      open: true // opens browser window automatically
+      port: 8084,
+      open: true, // opens browser window automatically
+      proxy: {
+        '/wbcore/api': {
+          target: 'http://127.0.0.1:8000',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/wbcore/api': '/api'
+          }
+        }
+      }
     },
 
     // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
       iconSet: 'material-icons', // Quasar icon set
-      lang: 'en-us', // Quasar language pack
+      lang: 'pt-br', // Quasar language pack
       config: {},
 
       // Possible values for "importStrategy":
