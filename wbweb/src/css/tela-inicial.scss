@@ -4,6 +4,7 @@
 }
 .icon{
     border-radius: none !important;
+    cursor: pointer;
 }
 .avatar-inicio{
     margin: 19px 0 0px 14px;
@@ -30,9 +31,9 @@
 }
 
 .mascote-image{
-    width: 433px;
+    width: 375px;
     // position: absolute;
-    margin: -571px 289px 0 92px;
+    margin: -468px 289px 0 92px;
     float: right;
 }
 
@@ -43,11 +44,11 @@
 .texto{
     font-family: "javaneze Text", serif;
     font-size: 18px;
-    padding: 0 107px 0 37px;
+    padding: 0 792px 0 37px;
     text-align: justify;
 }
 .segundaPlataforma{
-    font-size: 22px;
+    font-size: 20px;
     padding: 0 0px 0 37px;
     font-family: "javaneze Text";
     font-weight: bold;
@@ -58,10 +59,10 @@
 }
 .welcomeWorldBooks{
     margin: 69px 0 42px 0px;
-    font-size: 4em;
+    font-size: 3.5em;
     text-transform: uppercase;
     line-height: 49px;
-    padding: 0 108px 0 37px;
+    padding: 0 87px 0 37px;
     font-family: "javaneze text", serif;
 }
 
@@ -75,4 +76,14 @@
     color: rgb(255 255 255);
     background-color: #7a22a7;
     margin: 31px 0px 0px 37px;
+}
+
+body{
+    background-image: url('~assets/background1.png') ;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+}
+.q-body--fullscreen-mixin, .q-body--prevent-scroll {
+    position: inherit !important;
 }

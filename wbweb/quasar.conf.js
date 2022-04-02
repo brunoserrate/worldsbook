@@ -69,12 +69,14 @@ module.exports = function (/* ctx */) {
 
     // Full list of options: https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
-      https: false,
+      // https: false,
+      host: '0.0.0.0',
       port: 8084,
       open: true, // opens browser window automatically
       proxy: {
         '/wbcore/api': {
-          target: 'http://127.0.0.1:8000',
+          target: 'http://localhost:1337/api/',
+          // target: 'http://127.0.0.1:8000',
           changeOrigin: true,
           pathRewrite: {
             '^/wbcore/api': '/api'
@@ -102,7 +104,9 @@ module.exports = function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        
+      ],
     },
 
     // animations: 'all', // --- includes all animations
