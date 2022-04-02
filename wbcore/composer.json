@@ -9,12 +9,25 @@
     "license": "MIT",
     "require": {
         "php": "^7.3",
+        "appointer/swaggervel": "dev-master",
+        "doctrine/dbal": "~2.3",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "infyomlabs/adminlte-templates": "^3.0",
+        "infyomlabs/laravel-generator": "^3.0",
+        "infyomlabs/swagger-generator": "^1.0",
         "laravel/framework": "^8.0",
-        "laravel/tinker": "^2.0"
+        "laravel/sanctum": "^2.15",
+        "laravel/tinker": "^2.0",
+        "laravelcollective/html": "^6.2"
     },
+    "repositories": [
+       {
+          "type": "vcs",
+          "url": "git@github.com:InfyOmLabs/swaggervel.git"
+       }
+    ],
     "require-dev": {
         "facade/ignition": "^2.3.6",
         "fzaninotto/faker": "^1.9.1",
