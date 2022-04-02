@@ -1,5 +1,33 @@
 <template>
   <q-layout view="hHh lpR fFf">
+    <!-- Header -->
+    <q-header class="header">
+      <q-toolbar>
+        <q-toolbar-title>
+          <div class="row">
+            <div  class="col">
+              <q-avatar size="100px" square class="avatar-inicio">
+                <img src="~/assets/logo.png" class="icon" @click="goIndex">
+              </q-avatar>
+            </div>
+            <div class="col" style="margin: 41px 546px 0 0px;">
+              <q-input outlined rounded bottom-slots v-model="text" label="Procurar" :dense="true" class="input_search">
+                <template v-slot:append>
+                    <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
+                    <q-icon name="search" />
+                </template>
+              </q-input>
+            </div>
+            <div class="col">
+              <q-btn flat style="color: #7A22A7" label="Iniciar Sessão" class="iniciar-sessao" @click="logar_conta"/>
+            </div>
+          </div>
+        </q-toolbar-title>
+      </q-toolbar>
+    </q-header>
+    <!-- Header -->
+
+    <!-- Login -->
     <q-dialog v-model="logar" class="navbar_classe">
       <q-card class="cadastrar">
         <q-card class="card_titulo">
@@ -27,6 +55,9 @@
           <p class="p_criar-conta">Não possui uma conta? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="section">Cadastre-se</span></a></p>
       </q-card>
     </q-dialog>
+    <!-- Login -->
+
+    <!-- Cadastro -->
     <q-dialog v-model="sessao" class="navbar_classe">
       <q-card class="cadastrar">
         <q-card class="card_titulo">
@@ -63,43 +94,15 @@
           <p class="p_criar-conta">Já possui uma conta? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="logar_conta">Faça login!</span></a></p>
       </q-card>
     </q-dialog>
+    <!-- Cadastro -->
 
-    <q-header class="header">
-      <q-toolbar>
-        <q-toolbar-title>
-          <div class="row">
-            <div  class="col">
-              <q-avatar size="100px" square class="avatar-inicio">
-                <img src="~/assets/logo.png" class="icon" @click="goIndex">
-              </q-avatar>
-            </div>
-            <div class="col" style="margin: 41px 546px 0 0px;">
-              <q-input outlined rounded bottom-slots v-model="text" label="Procurar" :dense="true" class="input_search">
-                <template v-slot:append>
-                    <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
-                    <q-icon name="search" />
-                </template>
-              </q-input>
-            </div>
-            <div class="col">
-              <q-btn flat style="color: #7A22A7" label="Iniciar Sessão" class="iniciar-sessao" @click="logar_conta"/>
-            </div>
-          </div>
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-header>
     <q-page-container>
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
-<style lang="scss" scoped>
-  // $
-  @import '../css/tela-inicial.scss';
-  @import '../css/dialogs.scss'
-</style>
+
 <script>
-import { ref } from 'vue'
 export default {
   name: 'MainLayout',
   data () {
@@ -132,3 +135,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  // $
+  @import '../css/tela-inicial.scss';
+  @import '../css/dialogs.scss'
+</style>

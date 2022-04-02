@@ -33,7 +33,7 @@
 .mascote-image{
     width: 375px;
     // position: absolute;
-    margin: -468px 289px 0 92px;
+    // margin: -468px 289px 0 92px;
     float: right;
 }
 
@@ -44,12 +44,12 @@
 .texto{
     font-family: "javaneze Text", serif;
     font-size: 18px;
-    padding: 0 792px 0 37px;
+    // padding: 0 792px 0 37px;
     text-align: justify;
 }
 .segundaPlataforma{
     font-size: 20px;
-    padding: 0 0px 0 37px;
+    // padding: 0 0px 0 37px;
     font-family: "javaneze Text";
     font-weight: bold;
     color: #7a22a7;
@@ -69,21 +69,21 @@
 .btn_iniciar-leitura {
     color: rgb(255 255 255);
     background-color: #7a22a7;
-    margin: 31px 0px 0px 37px;
+    // margin: 31px 0px 0px 37px;
 }
 
 .btn_comece-escrever{
     color: rgb(255 255 255);
     background-color: #7a22a7;
-    margin: 31px 0px 0px 37px;
+    // margin: 31px 0px 0px 37px;
 }
 
-body{
-    background-image: url('~assets/background1.png') ;
-    background-repeat: no-repeat;
-    background-position: right;
-    background-size: contain;
-}
-.q-body--fullscreen-mixin, .q-body--prevent-scroll {
-    position: inherit !important;
-}
+// body{
+//     background-image: url('~assets/background1.png') ;
+//     background-repeat: no-repeat;
+//     background-position: right;
+//     background-size: contain;
+// }
+// .q-body--fullscreen-mixin, .q-body--prevent-scroll {
+//     position: inherit !important;
+// }
