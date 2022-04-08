@@ -10,7 +10,7 @@
                 <img src="~/assets/logo.png" class="icon" @click="goIndex">
               </q-avatar>
             </div>
-            <div class="col" style="margin: 41px 546px 0 0px;">
+            <div class="col" style="margin: 33px 546px 0 0px;">
               <q-input outlined rounded bottom-slots v-model="text" label="Procurar" :dense="true" class="input_search">
                 <template v-slot:append>
                     <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
