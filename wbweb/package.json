@@ -13,9 +13,12 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "quasar": "^1.0.0",
-    "vuelidate": "^0.7.7"
+    "vue-slick-carousel": "^1.0.6",
+    "vuelidate": "^0.7.7",
+    "vueperslides": "^2.15.2"
   },
   "devDependencies": {
+    "@nuxtjs/vuetify": "^1.12.3",
     "@quasar/app": "^2.0.0"
   },
   "browserslist": [
