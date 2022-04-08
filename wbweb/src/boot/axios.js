@@ -1,12 +1,8 @@
 import Vue from 'vue'
 import axios from 'axios'
-Vue.prototype.$axios = axios
 
+axios.defaults.withCredentials = true;
 
-const api = axios.create({ 
-  baseURL: 'http://localhost:1337/api/' 
-})
 export default ({ Vue }) => {
-  Vue.prototype.$axios = api
+  Vue.prototype.$axios = axios
 }
-export { api }

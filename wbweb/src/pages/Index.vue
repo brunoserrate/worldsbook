@@ -67,19 +67,16 @@ export default {
 			usuarios: []
 		}
 	},
+	mounted(){
+		let that = this
+
+	},
 	methods:{
 		goIniciarLeitura(){
 			this.$router.push({path: `iniciar_leitura`})
 		},
-		async getUsuarios(){
-			this.usuarios = await this.$axios.get('users');
-			this.usuarios = this.usuarios.data
-			console.log("usuarios: ", this.usuarios)
-		}
 	},
-	mounted(){
-		this.getUsuarios()
-	},
+
 };
 </script>
 

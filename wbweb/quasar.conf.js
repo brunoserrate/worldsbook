@@ -75,13 +75,28 @@ module.exports = function (/* ctx */) {
       open: true, // opens browser window automatically
       proxy: {
         '/wbcore/api': {
-          target: 'http://localhost:1337/api/',
-          // target: 'http://127.0.0.1:8000',
+          // target: 'http://localhost:1337/api/',
+          target: 'http://127.0.0.1:8000',
           changeOrigin: true,
           pathRewrite: {
             '^/wbcore/api': '/api'
           }
+        },
+        '/wbcore/sanctum': {
+          target: 'http://127.0.0.1:8000/',
+          changeOrigin: false,
+          pathRewrite: {
+            '^/wbcore/sanctum': '/sanctum/csrf-cookie'
+          }
+        },
+        '/wbcore': {
+          target: 'http://127.0.0.1:8000',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/wbcore': '/'
+          }
         }
+
       }
     },
 

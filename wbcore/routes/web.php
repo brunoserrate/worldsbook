@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/login', [UserController::class, 'authenticate'] );
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return User::get();
+// });

@@ -49,8 +49,8 @@
         </q-card-section>
 
         <q-card-actions align="center" class="text-primary" style="padding: 0px 0 26px 0;">
-          <q-btn flat label="Logar" v-close-popup @click="sessao=false" class="btn_cadastrar"/>
-          <q-btn flat label="Fechar" v-close-popup class="btn_cancelar"/>
+          <q-btn flat label="Logar" @click="login()" class="btn_cadastrar"/>
+          <q-btn flat label="Fechar" @click="teste()" class="btn_cancelar"/>
         </q-card-actions>
           <p class="p_criar-conta">Não possui uma conta? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="section">Cadastre-se</span></a></p>
       </q-card>
@@ -131,7 +131,32 @@ export default {
     logar_conta(){
       this.sessao=false
       this.logar=true
-		}
+		},
+    login(){
+      let that = this
+
+      that.$axios.post(that.$pathWeb + '/login', {
+        email: 'brunostj@hotmail.com',
+        password: 'e3q1o9p0r41006'
+      })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err.response)
+      })
+    },
+    teste(){
+      let that = this
+
+      that.$axios.get(that.$pathAPI + '/user')
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
   }
 }
 </script>

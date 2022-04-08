@@ -1,15 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuelidate from 'vuelidate'
+import axios from 'axios'
 
 import routes from './routes'
 
 if(process.env.DEV){
-  Vue.prototype.$pathAPI = '/backend/api'
+  Vue.prototype.$pathAPI = '/wbcore/api';
+  Vue.prototype.$pathWeb = '/wbcore';
 }
 else{
-  Vue.prototype.$pathAPI = 'backend/public/api'
+  Vue.prototype.$pathAPI = 'wbcore/public/api'
+  Vue.prototype.$pathWeb = '/wbcore/public';
 }
+
+// Busca o CSRF Token para autenticação
+axios.get('/wbcore/sanctum').then((res)=> {
+  // console.log(res);
+})
 
 // Filtros
 Vue.filter('converterBoolean', (valor) => {
