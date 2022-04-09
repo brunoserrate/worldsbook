@@ -18,20 +18,21 @@ use Response;
  */
 class AppBaseController extends Controller
 {
-
     public function sendResponse($result, $message)
     {
-    	$response = ResponseUtil::makeResponse($message, $result);
-    	$response['response_time'] =  date('Y-m-d H:i-s');
-        return Response::json($response);
+        return Response::json(ResponseUtil::makeResponse($message, $result));
     }
 
     public function sendError($error, $code = 404, $data = [])
     {
+        return Response::json(ResponseUtil::makeError($error, $data), $code);
+    }
 
-    	$response = ResponseUtil::makeError($error,$data);
-    	$response['response_time'] =  date('Y-m-d H:i-s');
-    	return Response::json($response, $code);
-
+    public function sendSuccess($message)
+    {
+        return Response::json([
+            'success' => true,
+            'message' => $message
+        ], 200);
     }
 }

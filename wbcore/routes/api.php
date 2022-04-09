@@ -15,6 +15,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
+Route::resource('historia', HistoriaAPIController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
