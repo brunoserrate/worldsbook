@@ -15,7 +15,3 @@ use App\Models\User;
 |
 */
 Route::post('/login', [UserController::class, 'authenticate'] );
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return User::get();
-// });

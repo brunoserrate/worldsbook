@@ -16,6 +16,13 @@ use App\Http\Controllers\UserController;
 */
 
 Route::resource('historia', HistoriaAPIController::class);
+Route::resource('capitulo', CapituloAPIController::class);
+Route::resource('categoria', CategoriaAPIController::class);
+Route::resource('comentario', ComentarioAPIController::class);
+Route::resource('direitos_autorais', DireitosAutoraisAPIController::class);
+Route::resource('idioma', IdiomaAPIController::class);
+Route::resource('publico_alvo', PublicoAlvoAPIController::class);
+Route::resource('tags', TagsAPIController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
