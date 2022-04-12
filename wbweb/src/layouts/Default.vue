@@ -40,17 +40,17 @@
         <q-card-section class="q-pt-none">
           <div class="row">
             <div class="col-12">
-              <q-input v-model="usuario.email" label="E-mail" type="email" outlined class="input_cadastro"/>
+              <q-input v-model="formLogin.email" label="E-mail" type="email" outlined class="input_cadastro"/>
             </div>
             <div class="col-12">
-              <q-input v-model="usuario.senha" label="Senha" type="password" outlined class="input_cadastro"/>
+              <q-input v-model="formLogin.senha" label="Senha" type="password" outlined class="input_cadastro"/>
             </div>
           </div>
         </q-card-section>
 
         <q-card-actions align="center" class="text-primary" style="padding: 0px 0 26px 0;">
           <q-btn flat label="Logar" @click="login()" class="btn_cadastrar"/>
-          <q-btn flat label="Fechar" @click="teste()" class="btn_cancelar"/>
+          <q-btn flat label="Fechar" @click="logar = false" class="btn_cancelar"/>
         </q-card-actions>
           <p class="p_criar-conta">Não possui uma conta? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="section">Cadastre-se</span></a></p>
       </q-card>
@@ -67,28 +67,83 @@
           </q-card-section>
         </q-card>
 
+        <!-- Form -->
         <q-card-section class="q-pt-none">
           <div class="row">
             <div class="col-12">
-              <q-input v-model="usuario.nome" label="Nome" outlined class="input_cadastro" />
+              <q-input
+                v-model="$v.formRegister.nome.$model"
+                label="Nome *"
+                outlined
+                class="input_cadastro"
+                :error="$v.formRegister.nome.$error"
+                error-message="Campo obrigatório"
+              />
             </div>
             <div class="col-12">
-              <q-input v-model="usuario.email" label="E-mail" type="email" outlined class="input_cadastro"/>
+              <q-input
+                v-model="$v.formRegister.apelido.$model"
+                label="Apelido *"
+                outlined
+                class="input_cadastro"
+                :error="$v.formRegister.apelido.$error"
+                error-message="Campo obrigatório"
+              />
             </div>
             <div class="col-12">
-              <q-input v-model="usuario.senha" label="Senha" type="password" outlined class="input_cadastro"/>
+              <q-input
+                v-model="$v.formRegister.email.$model"
+                label="E-mail *"
+                type="email"
+                outlined
+                class="input_cadastro"
+                :error="$v.formRegister.email.$error"
+                :error-message="
+                  $v.formRegister.email.email ? 'Campo obrigatório': 'Digite um e-mail válido'
+                "
+              />
             </div>
             <div class="col-12">
-              <q-input v-model="usuario.repita_senha" label="Repita a senha" type="password" outlined class="input_cadastro"/>
+              <q-input
+                v-model="$v.formRegister.senha.$model"
+                label="Senha *"
+                type="password"
+                outlined
+                class="input_cadastro"
+                :error="$v.formRegister.senha.$error"
+                error-message="Campo obrigatório"
+              />
             </div>
             <div class="col-12">
-              <q-input v-model="usuario.data_nascimento" type="date" outlined class="input_cadastro"/>
+              <q-input
+                v-model="$v.formRegister.repita_senha.$model"
+                label="Confirmar a senha *"
+                type="password"
+                outlined
+                class="input_cadastro"
+                :error="$v.formRegister.repita_senha.$error"
+                :error-message="
+                  $v.formRegister.repita_senha.sameAsPassword ? 'Campo obrigatório': 'Senhas não coincidem'
+                "
+              />
+            </div>
+            <div class="col-12">
+                <!-- label="Data de nascimento *" -->
+              <q-input
+                v-model="$v.formRegister.data_nascimento.$model"
+                type="date"
+                outlined
+                class="input_cadastro"
+                :error="$v.formRegister.data_nascimento.$error"
+                error-message="Campo obrigatório"
+              />
             </div>
           </div>
         </q-card-section>
+        <!-- Form -->
 
         <q-card-actions align="center" class="text-primary" style="padding: 0px 0 26px 0;">
-          <q-btn flat label="Cadastrar" v-close-popup @click="sessao=false" class="btn_cadastrar"/>
+          <q-btn flat label="Cadastrar" @click="cadastrarUsuario()" class="btn_cadastrar"/>
           <q-btn flat label="Cancelar" v-close-popup class="btn_cancelar"/>
         </q-card-actions>
           <p class="p_criar-conta">Já possui uma conta? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="logar_conta">Faça login!</span></a></p>
@@ -103,6 +158,8 @@
 </template>
 
 <script>
+import { required, sameAs, email } from 'vuelidate/lib/validators'
+
 export default {
   name: 'MainLayout',
   data () {
@@ -111,19 +168,47 @@ export default {
       sessao: false,
       logar: false,
       text: '',
-      usuario: {
+      formLogin: {
+          email: '',
+          senha: '',
+      },
+      formRegister: {
           nome: '',
+          apelido: '',
           email: '',
           senha: '',
           repita_senha: '',
           data_nascimento: '',
-      }
+      },
     }
+  },
+  validations: {
+      formRegister: {
+        nome: { required },
+        apelido: { required },
+        email: { required, email },
+        senha: { required },
+        repita_senha: { required, sameAsPassword: sameAs('senha') },
+        data_nascimento: { required },
+      }
+  },
+  mounted(){
+    this.$v.$reset()
   },
   methods: {
     section(){
       this.logar=false
       this.sessao=true
+
+      this.$set(this,'formRegister', {
+        nome: '',
+        apelido: '',
+        email: '',
+        senha: '',
+        repita_senha: '',
+        data_nascimento: '',
+      })
+
 		},
     goIndex(){
       this.$router.push({path: `/`})
@@ -135,10 +220,12 @@ export default {
     login(){
       let that = this
 
-      that.$axios.post(that.$pathWeb + '/login', {
-        email: 'brunostj@hotmail.com',
-        password: 'e3q1o9p0r41006'
-      })
+      let params = {
+        email: that.formLogin.email,
+        senha: that.formLogin.senha
+      }
+
+      that.$axios.post(that.$pathWeb + '/login', params)
       .then((res) => {
         console.log(res)
       })
@@ -146,16 +233,56 @@ export default {
         console.log(err.response)
       })
     },
-    teste(){
+    cadastrarUsuario(){
       let that = this
 
-      that.$axios.get(that.$pathAPI + '/user')
+      if(!this.validar()) return false
+
+      let params = {
+        name: that.formRegister.nome,
+        apelido: that.formRegister.apelido,
+        email: that.formRegister.email,
+        password: that.formRegister.senha,
+        password_confirmation: that.formRegister.repita_senha,
+        data_nascimento: that.formRegister.data_nascimento
+      }
+
+      that.$axios.post(that.$pathAPI + '/register', params)
       .then((res) => {
-        console.log(res)
+        this.sessao = false
+        this.$set(this,'formRegister', {
+          nome: '',
+          apelido: '',
+          email: '',
+          senha: '',
+          repita_senha: '',
+          data_nascimento: '',
+        })
+
+        this.$v.$reset()
       })
       .catch((err) => {
         console.log(err)
       })
+    },
+    validar() {
+      this.$v.formRegister.$touch()
+
+      if (this.$v.formRegister.$anyError) {
+
+        this.$q.notify({
+          position: 'top',
+          color: 'warning',
+          message: 'Preencha os campos obrigatórios',
+          icon: 'report_problem'
+        })
+
+        return false
+
+      }
+
+      return true
+
     }
   }
 }

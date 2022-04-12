@@ -15,6 +15,15 @@ use App\Http\Controllers\UserController;
 |
 */
 
+// Rota registrar usuario
+Route::post('/register', [UserController::class, 'register'] );
+
+// Esqueci minha senha
+Route::post('/forgot_password', [UserController::class, 'forgotPassword'] );
+
+// Resetar senha
+Route::post('/reset_password', [UserController::class, 'resetPassword'] );
+
 Route::resource('historia', HistoriaAPIController::class);
 Route::resource('capitulo', CapituloAPIController::class);
 Route::resource('categoria', CategoriaAPIController::class);
@@ -23,7 +32,3 @@ Route::resource('direitos_autorais', DireitosAutoraisAPIController::class);
 Route::resource('idioma', IdiomaAPIController::class);
 Route::resource('publico_alvo', PublicoAlvoAPIController::class);
 Route::resource('tags', TagsAPIController::class);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
