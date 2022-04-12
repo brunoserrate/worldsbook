@@ -41,11 +41,20 @@
     border-radius: 5px !important;
 }
 .card_imagem{
-    padding: 12px 18px;
-    width: 261px;
+    padding: 12px 12px;
+    width: 203px;
 }
 .coverImage{
     font-family: "Raleway", "Century Gothic", serif;
     color: #fff;
     text-transform: uppercase;
+}
+.cover_style{
+    border-radius: 5px;
+    width: 100%;
+    height: 250px;
+}
+
+.slides_style{
+    padding: 0 50px;
 }
