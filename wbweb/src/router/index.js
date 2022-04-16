@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Vuelidate from 'vuelidate'
 import axios from 'axios'
 
+import functions from '../mixins/functions'
+
 import routes from './routes'
 
 if(process.env.DEV){
@@ -13,6 +15,8 @@ else{
   Vue.prototype.$pathAPI = 'wbcore/public/api'
   Vue.prototype.$pathWeb = '/wbcore/public';
 }
+
+Vue.mixin(functions)
 
 // Busca o CSRF Token para autenticação
 axios.get('/wbcore/sanctum').then((res)=> {
