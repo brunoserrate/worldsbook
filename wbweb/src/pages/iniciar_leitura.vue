@@ -1,5 +1,5 @@
 <template>
-    <q-page>
+    <q-page class="bgIniciar-leitura">
         <div class="row" >
             <div class="col-12">
                 <p class="text-over-cover">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque et sollicitudin nisi.</p>
@@ -16,41 +16,34 @@
 				</div>
 			</div>
         </div>
-		<!-- <div class="row">
-            <div class="col-2" v-for="(livro, i) in livros.slice(0, 5)" :key="i" style="margin: 0px -34px 0px 51px;">
-                <q-card class="card_imagem">
-					<q-card>
-						<div>
-							<div class="flex flex-center">
-								<img :src="livro.caminho_capa" class="cover_style"/>
-							</div>
-						</div>
-					</q-card>
-
-                </q-card>
-            </div>
-		</div> -->
 		<div class="row">
-			<div class="col">
-				<vueper-slides
-					class="no-shadow slides_style"
-					:visible-slides="5"
-					:arrows="true"
-					:slide-ratio="1 / 4"
-					 slide-multiple
-					:gap="3"
-					:bullets="false"
-					:dragging-distance="70">
-						<vueper-slide
-							v-for="(livro, i) in livros" :key="i"
-							:image="livro.caminho_capa"
-						/>
-				</vueper-slides>
+			<div class="col-12 colLivros">
+				<categoria-historia categoriaID="">
+				</categoria-historia>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-2">
-				
+			<div class="col-12">
+				<h3 class="welcomeUser">Encontre as melhores entre os gêneros!</h3>
+			</div>
+			<div class="col-12">
+				<p class="bestChooses">Categoria de Romance</p>
+			</div>
+			<div class="col-12 colLivros">
+				<categoria-historia categoriaID="3">
+				</categoria-historia>
+			</div>
+			<div class="col-12">
+				<p class="bestChooses">Categoria de Terror</p>
+			</div>
+			<div class="col-12 colLivros">
+				<categoria-historia categoriaID="4">
+				</categoria-historia>
+			</div>
+			<div class="col-12">
+				<p class="bestChooses">Categoria de Aventura</p>
+			</div>
+			<div class="col-12 colLivros">
+				<categoria-historia categoriaID="2">
+				</categoria-historia>
 			</div>
 		</div>
     </q-page>
@@ -58,6 +51,7 @@
 <script>
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
+import slideCategoriaVue from 'src/components/IniciarLeitura/slideCategoria.vue';
 export default {
 	// props:['breadcrumbs'],
 	data (){
@@ -78,19 +72,19 @@ export default {
 		// this.getLivros()
 		this.buscarLivros()
 	},
-	components: { VueperSlides, VueperSlide },
+	components: { 
+		VueperSlides, 
+		VueperSlide, 
+		categoriaHistoria: slideCategoriaVue 
+	},
 	methods:{
-		 /*async getLivros(){
-			this.livros = await this.$axios.get('livros');
-			this.livros = this.livros.data.data
-			console.log("livros: ", this.livros)
-			this.cutSinopse()
-		}, */
-		
+		click(){
+            console.log("click")
+        },
 		buscarLivros(){
 			let that = this
 
-			that.$axios.get(that.$pathAPI + '/historia?limit=10')
+			that.$axios.get(that.$pathAPI + '/historia?limit=15')
 			.then((res) => {
 				that.livros = res.data.data
 				console.log(that.livros)

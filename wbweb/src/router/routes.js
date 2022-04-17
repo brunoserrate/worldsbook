@@ -5,7 +5,8 @@ const routes = [
     component: () => import('layouts/Default.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
-      { path: 'iniciar_leitura', component: () => import('pages/iniciar_leitura.vue') }
+      { path: 'iniciar_leitura', component: () => import('pages/iniciar_leitura.vue') },
+      { path: 'livro/:livro_id', component: () => import('pages/livro.vue') }
     ]
   },
   {

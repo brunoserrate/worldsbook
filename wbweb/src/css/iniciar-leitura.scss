@@ -1,3 +1,8 @@
+.bgIniciar-leitura{
+    // background: url('~assets/background-leitura.png');
+    // background-repeat: no-repeat;
+}
+
 .cover{
     width: 92%;
     height: 26em;
@@ -23,9 +28,12 @@
 }
 
 .bestChooses{
-    margin: 0 0 36px 51px;
+    margin: 50px 0 -20px 51px;
     font-family: "Raleway", "Century Gothic", serif;
     font-size: 20px;
+}
+.colLivros{
+    margin: 30px 0;
 }
 .titulo_livro{
     font-size: 16px;
@@ -56,5 +64,18 @@
 }
 
 .slides_style{
-    padding: 0 50px;
+    padding: 0 70px;
+    border-radius: 8px;
+}
+.slides_historias{
+    border-radius: 8px;
+    cursor: pointer;
+    &:hover{
+        border: solid 4px #fff;
+        border-radius: 12px;
+    }
+}
+.vueperslides__arrow {
+    width: 37px !important;
+    color: #7a22a7  !important;
 }
