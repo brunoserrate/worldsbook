@@ -1,0 +1,36 @@
+
+.footer_pages{
+    background-color: #E0E0E0 !important;
+    height: auto;
+    position: absolute;
+    box-shadow: none;
+    padding: 23px 0;
+    margin: 0 0 -260px 0;
+}
+
+.div_footer{
+
+}
+.footer_titles{
+    font-size: 18px;
+    color: #a616b1;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.footer_subs{
+    color: #4c4c4c;
+    text-transform: uppercase;
+    margin: 0 0 3px 0;
+    cursor: pointer;
+    padding: 4px 12px;
+    &:hover{
+        color: #000;
+        background-color: rgb(0 0 0 / 6%);
+    }
+    
+}
+.logo_footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

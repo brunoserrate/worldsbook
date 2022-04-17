@@ -26,7 +26,34 @@
       </q-toolbar>
     </q-header>
     <!-- Header -->
-
+    <!-- Footer -->
+    <q-footer elevated class="text-white footer_pages">
+      <div class="row">
+        <div class="col-5 logo_footer">
+          <img alt="logo" src="~assets/logo-footer.png"  />
+        </div>
+        <div class="col-2">
+          <h3 class="footer_titles">Inicio</h3>
+          <p class="footer_subs">Home</p>
+          <p class="footer_subs">Iniciar Leitura</p>
+          <p class="footer_subs">Começar a Escrever</p>
+        </div>
+        <div class="col-2">
+          <h3 class="footer_titles">Sobre nós</h3>
+          <p class="footer_subs">Sobre a empresa</p>
+          <p class="footer_subs">Contato</p>
+          <p class="footer_subs">Redes Sociais</p>
+          <p class="footer_subs">Desenvolvedores</p>
+        </div>
+        <div class="col-2">
+          <h3 class="footer_titles">Suporte</h3>
+          <p class="footer_subs">FAQ</p>
+          <p class="footer_subs">GitHub</p>
+          <p class="footer_subs">Chat</p>
+        </div>
+      </div>
+    </q-footer>
+    <!-- Footer -->
     <!-- Login -->
     <q-dialog v-model="logar" class="navbar_classe">
       <q-card class="cadastrar">
@@ -70,6 +97,7 @@
           <p class="p_criar-conta">Esqueceu a senha? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="limparEsqueciSenha(true)">Recuperar senha</span></a></p>
       </q-card>
     </q-dialog>
+
     <!-- Login -->
 
     <!-- Cadastro -->
@@ -255,6 +283,7 @@ export default {
       isPwd: true,
       isPwdConf: true,
       isPwdLogin: true,
+      isIndex: true,
       formLogin: {
           email: '',
           senha: '',
@@ -272,6 +301,11 @@ export default {
         confirma_email: ''
       }
     }
+  },
+  watch:{
+    '$route' (to,from){
+      this.$set(this,'isIndex', this.$route.params.token)
+    },
   },
   validations: {
       formRegister: {
@@ -479,5 +513,7 @@ export default {
 <style lang="scss" scoped>
   // $
   @import '../css/tela-inicial.scss';
-  @import '../css/dialogs.scss'
+  @import '../css/footer.scss';
+  @import '../css/dialogs.scss';
+
 </style>

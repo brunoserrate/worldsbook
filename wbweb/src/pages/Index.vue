@@ -64,7 +64,8 @@ export default {
 		return {
 			sessao: false,
 			livros:[],
-			usuarios: []
+			usuarios: [],
+			index: false
 		}
 	},
 	mounted(){

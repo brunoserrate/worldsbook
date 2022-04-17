@@ -30,5 +30,11 @@
     background-color: #7a22a71a;
     padding: 7px 8px 0px 8px;
 }
-
-
+.vueperslides__arrow, .vueperslides__arrow svg {
+    transition: .3s ease-in-out;
+    width: 40px !important;
+}
+.q-footer .q-layout__shadow:after {
+    top: 10px;
+    box-shadow: none;
+}
