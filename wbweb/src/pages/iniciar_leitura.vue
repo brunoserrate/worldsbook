@@ -74,10 +74,10 @@ export default {
 		this.user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
 		this.buscarLivros()
 	},
-	components: { 
-		VueperSlides, 
-		VueperSlide, 
-		categoriaHistoria: slideCategoriaVue 
+	components: {
+		VueperSlides,
+		VueperSlide,
+		categoriaHistoria: slideCategoriaVue
 	},
 	methods:{
 		click(){
@@ -95,7 +95,6 @@ export default {
 				console.log(err.response)
 			})
 		},
-<<<<<<< HEAD
 		cutSinopse(){
 			for(let i=0; i < this.livros.length; i++){
 				this.livros[i].attributes.sinopse = this.livros[i].attributes.sinopse.substring(0, 200);
@@ -107,8 +106,6 @@ export default {
 				return valor[0].toUpperCase() + valor.slice(1).toLowerCase()
 			}
 		}
-=======
->>>>>>> a97c235573cd8fff59d1162c501fd99eda8edfa9
 	},
 };
 </script>
