@@ -13,9 +13,41 @@
             <vueper-slide
                 v-for="(livro, i) in livros" :key="i"
                 :image="livro.caminho_capa" class="slides_historias"
-                @click.native="click(livro)"
+                @click.native="openDialog(livro)"
             />
         </vueper-slides>
+		<q-dialog v-model="livro_dialog" class="navbar_classe">
+			<q-card class="card_detail_historia">
+				<div class="row">
+					<div class="col-6">
+						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
+					</div>
+					<div class="col-6">
+						<h1 class="title_dialog_historia">{{livro_detail.titulo}}</h1>
+						<div class="row">
+							<div class="col-12" style="display: flex; justify-content: center;">
+								<hr style="margin: 0 0 0 0; width: 80%;"/>
+							</div>
+							<div class="col-10 col_btn_detail">
+								<q-btn unelevated label="Iniciar leitura" class="btn_detail_iniciar_leitura" @click="getLivro(livro_detail)"/>
+							</div>
+							<div class="col-2 col_btn_detail">
+								<q-btn unelevated label="+" class="btn_detail_iniciar_leitura"/>
+							</div>
+							<div class="col-12 col_btn_detail">
+								<p class="col_descricao_detail">{{livro_detail.descricao | cutDescricao}}</p>
+							</div>
+						</div>
+						<q-separator style="margin: 58px 0 0px 0;"></q-separator>
+						<div class="row">
+							<div class="col-12 col_btn_detail">
+								<p class="col_data_atualizacao"><span>Data de atualização: </span>09/04/2022</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</q-card>
+		</q-dialog>
     </div>
 </template>
 <script>
@@ -28,8 +60,21 @@ export default {
 	data (){
 		return {
 			sessao: false,
-			
+			livro_dialog: false,
 			livros:[],
+			livro_detail: {
+				caminho_capa: '',
+				categoria_id: '',
+				conteudo_adulto: '',
+				data_atualizacao: '',
+				data_criacao: '',
+				descricao: '',
+				direitos_autorais_id: '',
+				idioma_id: '',
+				publico_alvo_id: '',
+				titulo: '',
+				usuario_id: '',
+			},
 			slide: 1,
 			slides: [
 				{
@@ -45,10 +90,28 @@ export default {
         console.log(this.categoriaID)
 	},
 	components: { VueperSlides, VueperSlide },
+	filters: {
+		cutDescricao(value){
+			let tamanho_max = 300;
+
+			if(value != undefined && value != null) {
+				if(value.length > tamanho_max) {
+					return value.substring(0, tamanho_max) + '...'
+				}
+				return value
+			}
+			
+		}
+	},
 	methods:{
-        click(livro){
-            this.$router.push({path: `livro/` + livro.id})
+        getLivro(livro_detail){
+            this.$router.push({path: `livro/` + livro_detail.id})
         },
+		openDialog(livro){
+			this.livro_dialog = true
+			this.livro_detail = livro
+			console.log(this.livro_detail)
+		},
 		buscarLivros(){
 			let that = this
 
@@ -67,15 +130,12 @@ export default {
 				console.log(err.response)
 			})
 		},
-		cutSinopse(){
-			for(let i=0; i < this.livros.length; i++){
-				this.livros[i].attributes.sinopse = this.livros[i].attributes.sinopse.substring(0, 200);
-				// console.log(this.livros[i].attributes.sinopse)
-			}
-		},
 	},
 };
 </script>
 <style lang="scss" scoped>
     @import '../../css/iniciar-leitura.scss';
+    @import '../../css/dialogs.scss';
+
+	
 </style>
