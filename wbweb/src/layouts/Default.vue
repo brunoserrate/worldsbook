@@ -19,7 +19,7 @@
               </q-input>
             </div>
             <div class="col">
-              <q-btn flat style="color: #7A22A7" label="Iniciar Sessão" class="iniciar-sessao" @click="logar_conta"/>
+              <q-btn flat style="color: #7A22A7" label="Iniciar Sessão" class="iniciar-sessao" @click="logar_conta()"/>
             </div>
           </div>
         </q-toolbar-title>
@@ -70,7 +70,21 @@
               <q-input v-model="formLogin.email" label="E-mail" type="email" outlined class="input_cadastro"/>
             </div>
             <div class="col-12">
-              <q-input v-model="formLogin.senha" label="Senha" type="password" outlined class="input_cadastro"/>
+              <q-input
+                v-model="formLogin.senha"
+                label="Senha"
+                :type="isPwdLogin ? 'password' : 'text'"
+                outlined
+                class="input_cadastro"
+              >
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwdLogin ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwdLogin = !isPwdLogin"
+                  />
+                </template>
+              </q-input>
             </div>
           </div>
         </q-card-section>
@@ -79,7 +93,8 @@
           <q-btn flat label="Logar" @click="login()" class="btn_cadastrar"/>
           <q-btn flat label="Fechar" @click="logar = false" class="btn_cancelar"/>
         </q-card-actions>
-          <p class="p_criar-conta">Não possui uma conta? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="section">Cadastre-se</span></a></p>
+          <p class="p_criar-conta">Não possui uma conta? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="section()">Cadastre-se</span></a></p>
+          <p class="p_criar-conta">Esqueceu a senha? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="limparEsqueciSenha(true)">Recuperar senha</span></a></p>
       </q-card>
     </q-dialog>
 
@@ -135,25 +150,41 @@
               <q-input
                 v-model="$v.formRegister.senha.$model"
                 label="Senha *"
-                type="password"
+                :type="isPwd ? 'password' : 'text'"
                 outlined
                 class="input_cadastro"
                 :error="$v.formRegister.senha.$error"
                 error-message="Campo obrigatório"
-              />
+              >
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwd ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwd = !isPwd"
+                  />
+                </template>
+              </q-input>
             </div>
             <div class="col-12">
               <q-input
                 v-model="$v.formRegister.repita_senha.$model"
                 label="Confirmar a senha *"
-                type="password"
+                :type="isPwdConf ? 'password' : 'text'"
                 outlined
                 class="input_cadastro"
                 :error="$v.formRegister.repita_senha.$error"
                 :error-message="
                   $v.formRegister.repita_senha.sameAsPassword ? 'Campo obrigatório': 'Senhas não coincidem'
                 "
-              />
+              >
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwdConf ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwdConf = !isPwdConf"
+                  />
+                </template>
+              </q-input>
             </div>
             <div class="col-12">
                 <!-- label="Data de nascimento *" -->
@@ -174,10 +205,61 @@
           <q-btn flat label="Cadastrar" @click="cadastrarUsuario()" class="btn_cadastrar"/>
           <q-btn flat label="Cancelar" v-close-popup class="btn_cancelar"/>
         </q-card-actions>
-          <p class="p_criar-conta">Já possui uma conta? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="logar_conta">Faça login!</span></a></p>
+          <p class="p_criar-conta">Já possui uma conta? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="logar_conta()">Faça login!</span></a></p>
       </q-card>
     </q-dialog>
     <!-- Cadastro -->
+
+    <!-- esqueci Senha -->
+    <q-dialog v-model="esqueciSenhaModal" class="navbar_classe">
+      <q-card class="cadastrar">
+        <q-card class="card_titulo">
+          <q-card-section>
+            <div class="titulo_cadastrar">Esqueceu a senha?</div>
+            <p class="p_cadastrar">Digite e confirme o e-mail da sua conta</p>
+          </q-card-section>
+        </q-card>
+
+        <!-- Form -->
+        <q-card-section class="q-pt-none">
+          <div class="row">
+            <div class="col-12">
+              <q-input
+                v-model="$v.formEsqueciSenha.email.$model"
+                label="E-mail *"
+                type="email"
+                outlined
+                class="input_cadastro"
+                :error="$v.formEsqueciSenha.email.$error"
+                :error-message="
+                  $v.formEsqueciSenha.email.email ? 'Campo obrigatório': 'Digite um e-mail válido'
+                "
+              />
+            </div>
+            <div class="col-12">
+              <q-input
+                v-model="$v.formEsqueciSenha.confirma_email.$model"
+                label="Confirmar e-mail *"
+                type="email"
+                outlined
+                class="input_cadastro"
+                :error="$v.formEsqueciSenha.confirma_email.$error"
+                :error-message="
+                  $v.formEsqueciSenha.confirma_email.sameAsEmail ? 'Campo obrigatório': 'E-mails não coincidem'
+                "
+              />
+            </div>
+          </div>
+        </q-card-section>
+        <!-- Form -->
+
+        <q-card-actions align="center" class="text-primary" style="padding: 0px 0 26px 0;">
+          <q-btn flat label="Enviar" @click="enviarRedefinirSenha()" class="btn_cadastrar"/>
+          <q-btn flat label="Cancelar"  @click="limparEsqueciSenha(false)" class="btn_cancelar"/>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- esqueci Senha -->
 
     <q-page-container>
       <router-view />
@@ -194,8 +276,13 @@ export default {
     return {
       dense: true,
       sessao: false,
+      esqueciSenhaModal: false,
       logar: false,
       text: '',
+      // Is password?
+      isPwd: true,
+      isPwdConf: true,
+      isPwdLogin: true,
       isIndex: true,
       formLogin: {
           email: '',
@@ -209,6 +296,10 @@ export default {
           repita_senha: '',
           data_nascimento: '',
       },
+      formEsqueciSenha: {
+        email: '',
+        confirma_email: ''
+      }
     }
   },
   watch:{
@@ -224,6 +315,14 @@ export default {
         senha: { required },
         repita_senha: { required, sameAsPassword: sameAs('senha') },
         data_nascimento: { required },
+      },
+      formLogin: {
+        email: { required },
+        senha: { required }
+      },
+      formEsqueciSenha: {
+        email: { required },
+        confirma_email: { required, sameAsEmail: sameAs('email') }
       }
   },
   mounted(){
@@ -233,6 +332,7 @@ export default {
     section(){
       this.logar=false
       this.sessao=true
+      this.esqueciSenhaModal = false
 
       this.$set(this,'formRegister', {
         nome: '',
@@ -250,27 +350,40 @@ export default {
     logar_conta(){
       this.sessao=false
       this.logar=true
+      this.esqueciSenhaModal = false
+
+      this.$set(this,'formRegister', {
+        nome: '',
+        apelido: '',
+        email: '',
+        senha: '',
+        repita_senha: '',
+        data_nascimento: '',
+      })
 		},
     login(){
       let that = this
 
       let params = {
         email: that.formLogin.email,
-        senha: that.formLogin.senha
+        password: that.formLogin.senha
       }
 
       that.$axios.post(that.$pathWeb + '/login', params)
       .then((res) => {
-        console.log(res)
+        // console.log(res)
+        this.$q.sessionStorage.set('auth', JSON.stringify( res.data.data ))
+        that.sucesso()
       })
       .catch((err) => {
-        console.log(err.response)
+        // console.log(err.response)
+        that.falha('Falha na operação. Por favor verifique o formulário e tente novamente')
       })
     },
     cadastrarUsuario(){
       let that = this
 
-      if(!this.validar()) return false
+      if(!this.validarCadastro()) return false
 
       let params = {
         name: that.formRegister.nome,
@@ -284,6 +397,8 @@ export default {
       that.$axios.post(that.$pathAPI + '/register', params)
       .then((res) => {
         this.sessao = false
+        this.logar=true
+
         this.$set(this,'formRegister', {
           nome: '',
           apelido: '',
@@ -293,13 +408,45 @@ export default {
           data_nascimento: '',
         })
 
+        that.sucesso('Cadastrado com sucesso! Conecte-se na plataforma.')
+
         this.$v.$reset()
       })
       .catch((err) => {
-        console.log(err)
+        that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
+        // console.log(err)
       })
     },
-    validar() {
+    enviarRedefinirSenha(){
+      let that = this
+
+      if(!this.validarRedefinirSenha()) return false
+
+      let params = {
+        email: that.formEsqueciSenha.email,
+        email_confirmation: that.formEsqueciSenha.confirma_email
+      }
+
+      that.$axios.post(that.$pathAPI + '/forgot_password', params)
+      .then((res) => {
+        // this.$set(this,'formEsqueciSenha', {
+        //   email: '',
+        //   confirma_email: '',
+        // })
+
+        console.log(res)
+
+        // that.sucesso('Cadastrado com sucesso! Conecte-se na plataforma.')
+
+        this.$v.$reset()
+      })
+      .catch((err) => {
+        console.log(err.response)
+        // that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
+
+      })
+    },
+    validarCadastro() {
       this.$v.formRegister.$touch()
 
       if (this.$v.formRegister.$anyError) {
@@ -307,8 +454,13 @@ export default {
         this.$q.notify({
           position: 'top',
           color: 'warning',
+          textColor: 'black',
           message: 'Preencha os campos obrigatórios',
-          icon: 'report_problem'
+          icon: 'report_problem',
+          timeout: 10000,
+          actions: [
+            { label: 'Fechar', color: 'black', handler: () => {} }
+          ]
         })
 
         return false
@@ -317,7 +469,43 @@ export default {
 
       return true
 
-    }
+    },
+    validarRedefinirSenha() {
+      this.$v.formEsqueciSenha.$touch()
+
+      if (this.$v.formEsqueciSenha.$anyError) {
+
+        this.$q.notify({
+          position: 'top',
+          color: 'warning',
+          textColor: 'black',
+          message: 'Preencha os campos obrigatórios',
+          icon: 'report_problem',
+          timeout: 10000,
+          actions: [
+            { label: 'Fechar', color: 'black', handler: () => {} }
+          ]
+        })
+
+        return false
+
+      }
+
+      return true
+
+    },
+    limparEsqueciSenha(modal){
+      this.sessao = false
+      this.logar = false
+      this.esqueciSenhaModal = modal
+
+      this.$set(this,'formEsqueciSenha', {
+        email: '',
+        confirma_email: ''
+      })
+
+    },
+
   }
 }
 </script>
