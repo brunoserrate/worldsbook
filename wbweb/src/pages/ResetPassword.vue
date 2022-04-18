@@ -133,7 +133,7 @@ export default {
 				that.sucesso('Senha alterada com sucesso! Siga com o login')
 			})
 			.catch((err) => {
-				console.log(err.response)
+				// console.log(err.response)
 				that.falha('Falha na operação. Por favor verifique o formulário e tente novamente')
 			})
 		},

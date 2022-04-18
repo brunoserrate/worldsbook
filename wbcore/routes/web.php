@@ -15,3 +15,7 @@ use App\Models\User;
 |
 */
 Route::post('/login', [UserController::class, 'authenticate'] );
+
+Route::middleware('auth:sanctum')->group(function() {
+	Route::post('/logout', [UserController::class, 'logoutWeb'] );
+});

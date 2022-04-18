@@ -5,6 +5,8 @@ import axios from 'axios'
 
 import functions from '../mixins/functions'
 
+import { SessionStorage, Notify } from 'quasar'
+
 import routes from './routes'
 
 if(process.env.DEV){
@@ -34,6 +36,13 @@ Vue.filter('converterBoolean', (valor) => {
   }
 
 })
+
+Vue.filter('ucfirst', (valor) => {
+  if(valor != undefined || valor != null || valor === ''){
+    return valor[0].toUpperCase() + valor.slice(1).toLowerCase()
+  }
+})
+
 // Filtros
 
 Vue.use(Vuelidate)
@@ -61,23 +70,28 @@ export default function (/* { store, ssrContext } */) {
     base: process.env.VUE_ROUTER_BASE
   })
 
-  // Verificação de rotas
-  // Router.beforeEach((to, from, next) => {
-  //   if (to.matched.some(record => record.meta.requiresAuth)) {
+  Router.beforeEach((to, from, next) => {
 
-  //     if(sessionStorage.getItem('autenticado')){
-  //       next()
-  //     }
-  //     else
-  //     {
-  //       //next({ path: '/auth', query: { redirect: to.fullPath }});
-  //       next({path:'/auth'})
-  //     }
-  //   }
-  //   else {
-  //     next();
-  //   }
-  // });
+    // Caso público, continua para a próxima rota/pagina
+    if(to.matched.some(record => record.meta.public)){
+      next();
+    }
+    // Rota privada
+    else {
+      let user = JSON.parse( SessionStorage.getItem('auth') )
+
+      // Usuário poosui token
+      if(user !== null) {
+        next();
+      }
+      // Usuário não possui token. Não está logado
+      else {
+        next( { path:from.path } )
+      }
+
+    }
+
+  })
 
   return Router
 }

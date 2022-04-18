@@ -18,8 +18,23 @@
                 </template>
               </q-input>
             </div>
-            <div class="col">
+            <div v-if="!logado && user == null" class="col">
               <q-btn flat style="color: #7A22A7" label="Iniciar Sessão" class="iniciar-sessao" @click="logar_conta()"/>
+            </div>
+            <div v-else class="col"  style="margin: 25px 546px 0 0px;">
+              <q-btn round size="lg">
+                <q-menu>
+                  <q-item clickable v-close-popup>
+                    <q-item-section @click="logout()" >Logout</q-item-section>
+                  </q-item>
+                  <!-- <q-item clickable v-close-popup>
+                    <q-item-section @click="testeAuth()" >teste</q-item-section>
+                  </q-item> -->
+                </q-menu>
+                <q-avatar size="52px">
+                  <img :src="user.avatar" />
+                </q-avatar>
+              </q-btn>
             </div>
           </div>
         </q-toolbar-title>
@@ -284,6 +299,8 @@ export default {
       isPwdConf: true,
       isPwdLogin: true,
       isIndex: true,
+      logado:false,
+      user: null,
       formLogin: {
           email: '',
           senha: '',
@@ -327,6 +344,13 @@ export default {
   },
   mounted(){
     this.$v.$reset()
+
+    let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
+
+    if(user !== null) {
+      this.user = user
+      this.logado = true
+    }
   },
   methods: {
     section(){
@@ -373,11 +397,40 @@ export default {
       .then((res) => {
         // console.log(res)
         this.$q.sessionStorage.set('auth', JSON.stringify( res.data.data ))
+        this.user = res.data.data
+        this.logado = true
         that.sucesso()
       })
       .catch((err) => {
         // console.log(err.response)
         that.falha('Falha na operação. Por favor verifique o formulário e tente novamente')
+      })
+    },
+    logout(){
+      let that = this
+
+      that.$axios.post(that.$pathWeb + '/logout', this.user)
+      .then((res) => {
+        // console.log(res)
+        this.user = null
+        this.logado = false
+        this.$q.sessionStorage.remove('auth')
+
+        this.$router.push({path: '/'})
+      })
+      .catch((err) => {
+        // console.log(err.response)
+      })
+    },
+    testeAuth(){
+      let that = this
+
+      that.$axios.get(that.$pathAPI + '/testeAuth')
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err.response)
       })
     },
     cadastrarUsuario(){
@@ -429,12 +482,12 @@ export default {
 
       that.$axios.post(that.$pathAPI + '/forgot_password', params)
       .then((res) => {
-        // this.$set(this,'formEsqueciSenha', {
-        //   email: '',
-        //   confirma_email: '',
-        // })
+        this.$set(this,'formEsqueciSenha', {
+          email: '',
+          confirma_email: '',
+        })
 
-        console.log(res)
+        // console.log(res)
 
         // that.sucesso('Cadastrado com sucesso! Conecte-se na plataforma.')
 

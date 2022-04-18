@@ -9,7 +9,7 @@
             </div>
             <div class="row">
 				<div class="col-12">
-					<h3 class="welcomeUser">Bem-vindo, User</h3>
+					<h3 class="welcomeUser">Bem-vindo(a){{ (user !== null) ? ', ' + ucFirstFiltro(user.apelido) : '' }}</h3>
 				</div>
 				<div class="col-12">
 					<p class="bestChooses">As melhores escolhas para si</p>
@@ -64,12 +64,13 @@ export default {
 					title: 'Slide #1',
 					content: 'Slide content.'
 				}
-			]
-			
+			],
+			user: {}
 		}
 	},
 	mounted(){
 		// this.getLivros()
+		this.user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
 		this.buscarLivros()
 	},
 	components: { 
@@ -99,6 +100,11 @@ export default {
 				// console.log(this.livros[i].attributes.sinopse)
 			}
 		},
+		ucFirstFiltro(valor){
+			if(valor != undefined || valor != null || valor === ''){
+				return valor[0].toUpperCase() + valor.slice(1).toLowerCase()
+			}
+		}
 	},
 };
 </script>
