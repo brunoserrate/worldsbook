@@ -59,12 +59,43 @@
                 </q-card>
             </div>
         </div>
-        <div class="row justify-around">
-            <div class="col-12 col-md-auto">
-                <q-avatar size="35px">
-                    <img :src="user.avatar" />
+        <div class="row">
+            <div class="col-12 offset-2">
+                <q-avatar size="40px" style="background-color: #ddd;">
+                    <img :src="livro.foto_perfil" />
                 </q-avatar>
-                {{livro.nome_usuario}}
+                <span class="apelido_usuario">{{livro.apelido_usuario}}</span>
+            </div>
+            <div class="col-12 offset-2">
+                <q-chip class="historia_finalizada">{{getHistoriaFinalizada(livro.historia_finalizada)}}</q-chip>
+                <q-chip class="historia_finalizada">{{getConteudoAdulto(livro.conteudo_adulto)}}</q-chip>
+            </div>
+            <div class="col-12 offset-2 col-sm-8">
+                <p class="descricao_p">{{livro.descricao}}</p>
+            </div>
+            <div class="col-12 offset-2">
+                <p style="font-weight: bold;"><q-icon name="copyright"></q-icon> {{livro.direito_autoral}}</p>
+            </div>
+            <div class="col-12">
+                <q-separator class="separator_livro" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 offset-2  col-sm-8">
+                <q-chip v-for="(tag, i) in livro.tags" :key="i" >{{tag}}</q-chip>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 offset-2  col-sm-8">
+                <q-card class="card_indice">
+                    <h3 class="title_indice_card">Índice</h3>
+                    <q-list>
+                        <q-item v-if="livro.capitulos.length == 0">Essa história ainda não tem capítulos!</q-item>
+                        <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_list">
+                            {{capitulo.titulo}}
+                        </q-item>
+                    </q-list>
+                </q-card>
             </div>
         </div>
     </q-page>
@@ -75,6 +106,7 @@ export default {
 		return {
 			livro_id: this.$route.params.livro_id,
             livro: {
+                apelido_usuario: '',
                 caminho_capa: '',
                 capitulos: [],
                 categoria_id: '',
@@ -84,6 +116,8 @@ export default {
                 descricao: '',
                 direito_autoral: '',
                 direitos_autorais_id: '',
+                foto_perfil: '',
+                historia_finalizada: '',
                 id: '',
                 idioma_id: '',
                 nome_usuario: '',
@@ -93,6 +127,7 @@ export default {
                 total_capitulos: '',
                 total_visualizacoes: '',
                 total_votos: '',
+                usar_apelido: '',
                 usuario_id: '',
             },
             user: {
@@ -115,6 +150,7 @@ export default {
                 console.log(res)
                 that.livro = res.data.data
                 this.getAvatar()
+                this.getHistoriaFinalizada()
             })
             .catch((err) => {
                 console.log(err.response)
@@ -122,7 +158,14 @@ export default {
         },
         getAvatar(){
             this.user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
-            console.log("auth: ", this.user)
+        },
+        getHistoriaFinalizada(historia_finalizada){
+            if(historia_finalizada == 0){ return "Em andamento" }
+            return "Concluída"
+        },
+        getConteudoAdulto(conteudo_adulto){
+            if (conteudo_adulto){return "Conteúdo Adulto"}
+            return "Conteúdo Livre"
         }
     }
 

@@ -1,11 +1,12 @@
 .card_livro{
     box-shadow: 0px 4px 6px #00000042;
-    height: 360px;
-    margin: 46px 0 6px 0;
+    height: 27em;
+    margin: 46px 0 46px 0;
 }
 .capa_card{
-    width: 70%;
+    width: 16em;
     border-radius: 14px;
+    margin: 0px 35px 0 0;
 }
 .title_card{
     font-family: Raleway;
@@ -36,4 +37,49 @@
 }
 .align_text_details{
     text-align: center;
+}
+.apelido_usuario{
+    font-family: "Raleway", serif;
+    font-weight: bold;
+    margin: 0px 0px 0 14px;
+    cursor: pointer;
+    &:hover{
+        color: #4a4a4a
+    }
+}
+.historia_finalizada{
+    background-color: #7A22A7;
+    color: #FFF;
+    border-radius: 10px;
+    height: 24px;
+    font-size: 14px;
+    justify-content: center;
+    margin: 20px 11px 20px 0;
+}
+.descricao_p{
+    text-align: justify;
+}
+.separator_livro{
+    background-color: #00000024;
+    height: 1px;
+    margin: 0px 0 18px 0px;
+}
+.card_indice{
+    padding: 10px 50px 30px 50px;
+    margin: 40px 0 0 0;
+}
+.title_indice_card{
+    font-size: 1.2em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 0;
+}
+.item_list{
+    background-color: #fcf5ff;
+    margin: 6px 0;
+    align-items: center;
+    &:hover{
+        border-left: solid 3px #ba8ed1;
+        background-color: #f2d9ff;
+    }
 }
