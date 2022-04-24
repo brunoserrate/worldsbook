@@ -105,7 +105,6 @@ CREATE TABLE `historia_tag` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `tag_id` bigint(20) NOT NULL,
   `historia_id` bigint(20) NOT NULL,
-  `usuario_id (bigint),` bigint(20) NOT NULL,
   `data_criacao` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `data_atualizacao` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),

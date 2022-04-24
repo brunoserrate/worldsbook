@@ -112,7 +112,12 @@ class HistoriaAPIController extends AppBaseController
 
         $historia = $this->historiaRepository->create($input);
 
-        return $this->sendResponse($historia->toArray(), 'Historia saved successfully');
+        // Caso tenha falha
+        if(!$historia['result']){
+            return $this->sendError($historia['message'], $historia['code'], $historia['data']);
+        }
+
+        return $this->sendResponse($historia['data'], 'História grava com sucesso');
     }
 
     /**

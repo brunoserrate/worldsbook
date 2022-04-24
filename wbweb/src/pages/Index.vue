@@ -27,8 +27,8 @@
 				</div>
 				<div class="row q-ml-xl">
 					<div class="col">
-						<q-btn style="color: #fff" label="Iniciar leitura" class="btn_iniciar-leitura" @click="goIniciarLeitura"/>
-						<q-btn style="color: #fff" label="Comece a escrever" class="btn_comece-escrever q-ml-xl"/>
+						<q-btn style="color: #fff" label="Iniciar leitura" class="btn_iniciar-leitura" @click="logar = !logar" />
+						<q-btn style="color: #fff" label="Comece a escrever" class="btn_comece-escrever q-ml-xl" @click="logar = !logar" />
 					</div>
 				</div>
 
@@ -38,44 +38,58 @@
 			</div>
 		</div>
 
-		<q-dialog v-model="sessao">
-			<q-card style="min-width: 350px">
-				<q-card-section>
-					<div class="text-h6">Your address</div>
-				</q-card-section>
 
-				<q-card-section class="q-pt-none">
-					<!-- <q-input dense v-model="address" autofocus @keyup.enter="sessao=false" /> -->
-				</q-card-section>
+		<login-register-forgot
+			:loginModal="logar"
+			:cadastrarModal="sessao"
+			:forgotModal="esqueciSenhaModal"
 
-				<q-card-actions align="right" class="text-primary">
-					<q-btn flat label="Cancel" v-close-popup @click="sessao=false"/>
-					<q-btn flat label="Add address" v-close-popup />
-				</q-card-actions>
-			</q-card>
-		</q-dialog>
+			@hideLogin="(value) => {
+				this.logar = value
+			}"
+
+			@hideCadastro="(value) => {
+				this.sessao = value
+			}"
+
+			@hideForgot="(value) => {
+				this.esqueciSenhaModal = value
+			}"
+		/>
+
 	</q-page>
 </template>
 
 <script>
+import LoginRegisterForgot from '../components/LoginRegisterForgot.vue';
+import SelectIdioma from '../components/utils/SelectIdioma.vue';
+import SelectCategoria from '../components/utils/SelectCategoria.vue';
+import SelectDireitosAutorais from '../components/utils/SelectDireitosAutorais.vue';
+import SelectPublicoAlvo from '../components/utils/SelectPublicoAlvo.vue';
+
 export default {
-	// props:['breadcrumbs'],
+	name:'IndexNoAuth',
 	data (){
 		return {
+			logar: false,
 			sessao: false,
-			livros:[],
-			usuarios: [],
-			index: false
+			esqueciSenhaModal: false,
+			idioma_id: '',
+			categoria_id: '',
+			direitos_autorais_id: '',
+			publico_alvo_id: '',
 		}
 	},
+	components: {
+		LoginRegisterForgot,
+		SelectIdioma,
+		SelectCategoria,
+		SelectDireitosAutorais,
+		SelectPublicoAlvo,
+	},
 	mounted(){
-		let that = this
-
 	},
 	methods:{
-		goIniciarLeitura(){
-			this.$router.push({path: `iniciar_leitura`})
-		},
 	},
 
 };

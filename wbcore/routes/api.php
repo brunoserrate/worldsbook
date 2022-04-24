@@ -24,13 +24,6 @@ Route::post('/forgot_password', [UserController::class, 'forgotPassword'] );
 // Resetar senha
 Route::post('/reset_password', [UserController::class, 'resetPassword'] );
 
-// Grupo de requisições com middleware
-Route::middleware('auth:sanctum')->group(function() {
-	Route::get('/testeAuth', function() {
-		return 'Teste user';
-	});
-});
-
 Route::resource('historia', HistoriaAPIController::class);
 Route::resource('capitulo', CapituloAPIController::class);
 Route::resource('categoria', CategoriaAPIController::class);

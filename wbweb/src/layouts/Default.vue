@@ -19,7 +19,7 @@
               </q-input>
             </div>
             <div v-if="!logado && user == null" class="col">
-              <q-btn flat style="color: #7A22A7" label="Iniciar Sessão" class="iniciar-sessao" @click="logar_conta()"/>
+              <q-btn flat style="color: #7A22A7" label="Iniciar Sessão" class="iniciar-sessao" @click="logar = !logar"/>
             </div>
             <div v-else class="col"  style="margin: 25px 546px 0 0px;">
               <q-btn round size="lg">
@@ -69,212 +69,24 @@
       </div>
     </q-footer>
     <!-- Footer -->
-    <!-- Login -->
-    <q-dialog v-model="logar" class="navbar_classe">
-      <q-card class="cadastrar">
-        <q-card class="card_titulo">
-          <q-card-section>
-            <div class="titulo_cadastrar">Bem-vindo de volta ao WorldBooks!</div>
-            <p class="p_cadastrar">Bem-vindo de volta ao Worldbook! Logue e continue apoiando escritores e mostrando ao mundo os seus universos!</p>
-          </q-card-section>
-        </q-card>
 
-        <q-card-section class="q-pt-none">
-          <div class="row">
-            <div class="col-12">
-              <q-input v-model="formLogin.email" label="E-mail" type="email" outlined class="input_cadastro"/>
-            </div>
-            <div class="col-12">
-              <q-input
-                v-model="formLogin.senha"
-                label="Senha"
-                :type="isPwdLogin ? 'password' : 'text'"
-                outlined
-                class="input_cadastro"
-              >
-                <template v-slot:append>
-                  <q-icon
-                    :name="isPwdLogin ? 'visibility_off' : 'visibility'"
-                    class="cursor-pointer"
-                    @click="isPwdLogin = !isPwdLogin"
-                  />
-                </template>
-              </q-input>
-            </div>
-          </div>
-        </q-card-section>
+    <login-register-forgot
+      :loginModal="logar"
+      :cadastrarModal="sessao"
+      :forgotModal="esqueciSenhaModal"
 
-        <q-card-actions align="center" class="text-primary" style="padding: 0px 0 26px 0;">
-          <q-btn flat label="Logar" @click="login()" class="btn_cadastrar"/>
-          <q-btn flat label="Fechar" @click="logar = false" class="btn_cancelar"/>
-        </q-card-actions>
-          <p class="p_criar-conta">Não possui uma conta? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="section()">Cadastre-se</span></a></p>
-          <p class="p_criar-conta">Esqueceu a senha? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="limparEsqueciSenha(true)">Recuperar senha</span></a></p>
-      </q-card>
-    </q-dialog>
+      @hideLogin="(value) => {
+        this.logar = value
+      }"
 
-    <!-- Login -->
+      @hideCadastro="(value) => {
+        this.sessao = value
+      }"
 
-    <!-- Cadastro -->
-    <q-dialog v-model="sessao" class="navbar_classe">
-      <q-card class="cadastrar">
-        <q-card class="card_titulo">
-          <q-card-section>
-            <div class="titulo_cadastrar">Junte-se ao WorldBooks!</div>
-            <p class="p_cadastrar">Faça parte da comunidade global de leitores e escritores, todos conectados através do poder das histórias</p>
-          </q-card-section>
-        </q-card>
-
-        <!-- Form -->
-        <q-card-section class="q-pt-none">
-          <div class="row">
-            <div class="col-12">
-              <q-input
-                v-model="$v.formRegister.nome.$model"
-                label="Nome *"
-                outlined
-                class="input_cadastro"
-                :error="$v.formRegister.nome.$error"
-                error-message="Campo obrigatório"
-              />
-            </div>
-            <div class="col-12">
-              <q-input
-                v-model="$v.formRegister.apelido.$model"
-                label="Apelido *"
-                outlined
-                class="input_cadastro"
-                :error="$v.formRegister.apelido.$error"
-                error-message="Campo obrigatório"
-              />
-            </div>
-            <div class="col-12">
-              <q-input
-                v-model="$v.formRegister.email.$model"
-                label="E-mail *"
-                type="email"
-                outlined
-                class="input_cadastro"
-                :error="$v.formRegister.email.$error"
-                :error-message="
-                  $v.formRegister.email.email ? 'Campo obrigatório': 'Digite um e-mail válido'
-                "
-              />
-            </div>
-            <div class="col-12">
-              <q-input
-                v-model="$v.formRegister.senha.$model"
-                label="Senha *"
-                :type="isPwd ? 'password' : 'text'"
-                outlined
-                class="input_cadastro"
-                :error="$v.formRegister.senha.$error"
-                error-message="Campo obrigatório"
-              >
-                <template v-slot:append>
-                  <q-icon
-                    :name="isPwd ? 'visibility_off' : 'visibility'"
-                    class="cursor-pointer"
-                    @click="isPwd = !isPwd"
-                  />
-                </template>
-              </q-input>
-            </div>
-            <div class="col-12">
-              <q-input
-                v-model="$v.formRegister.repita_senha.$model"
-                label="Confirmar a senha *"
-                :type="isPwdConf ? 'password' : 'text'"
-                outlined
-                class="input_cadastro"
-                :error="$v.formRegister.repita_senha.$error"
-                :error-message="
-                  $v.formRegister.repita_senha.sameAsPassword ? 'Campo obrigatório': 'Senhas não coincidem'
-                "
-              >
-                <template v-slot:append>
-                  <q-icon
-                    :name="isPwdConf ? 'visibility_off' : 'visibility'"
-                    class="cursor-pointer"
-                    @click="isPwdConf = !isPwdConf"
-                  />
-                </template>
-              </q-input>
-            </div>
-            <div class="col-12">
-                <!-- label="Data de nascimento *" -->
-              <q-input
-                v-model="$v.formRegister.data_nascimento.$model"
-                type="date"
-                outlined
-                class="input_cadastro"
-                :error="$v.formRegister.data_nascimento.$error"
-                error-message="Campo obrigatório"
-              />
-            </div>
-          </div>
-        </q-card-section>
-        <!-- Form -->
-
-        <q-card-actions align="center" class="text-primary" style="padding: 0px 0 26px 0;">
-          <q-btn flat label="Cadastrar" @click="cadastrarUsuario()" class="btn_cadastrar"/>
-          <q-btn flat label="Cancelar" v-close-popup class="btn_cancelar"/>
-        </q-card-actions>
-          <p class="p_criar-conta">Já possui uma conta? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="logar_conta()">Faça login!</span></a></p>
-      </q-card>
-    </q-dialog>
-    <!-- Cadastro -->
-
-    <!-- esqueci Senha -->
-    <q-dialog v-model="esqueciSenhaModal" class="navbar_classe">
-      <q-card class="cadastrar">
-        <q-card class="card_titulo">
-          <q-card-section>
-            <div class="titulo_cadastrar">Esqueceu a senha?</div>
-            <p class="p_cadastrar">Digite e confirme o e-mail da sua conta</p>
-          </q-card-section>
-        </q-card>
-
-        <!-- Form -->
-        <q-card-section class="q-pt-none">
-          <div class="row">
-            <div class="col-12">
-              <q-input
-                v-model="$v.formEsqueciSenha.email.$model"
-                label="E-mail *"
-                type="email"
-                outlined
-                class="input_cadastro"
-                :error="$v.formEsqueciSenha.email.$error"
-                :error-message="
-                  $v.formEsqueciSenha.email.email ? 'Campo obrigatório': 'Digite um e-mail válido'
-                "
-              />
-            </div>
-            <div class="col-12">
-              <q-input
-                v-model="$v.formEsqueciSenha.confirma_email.$model"
-                label="Confirmar e-mail *"
-                type="email"
-                outlined
-                class="input_cadastro"
-                :error="$v.formEsqueciSenha.confirma_email.$error"
-                :error-message="
-                  $v.formEsqueciSenha.confirma_email.sameAsEmail ? 'Campo obrigatório': 'E-mails não coincidem'
-                "
-              />
-            </div>
-          </div>
-        </q-card-section>
-        <!-- Form -->
-
-        <q-card-actions align="center" class="text-primary" style="padding: 0px 0 26px 0;">
-          <q-btn flat label="Enviar" @click="enviarRedefinirSenha()" class="btn_cadastrar"/>
-          <q-btn flat label="Cancelar"  @click="limparEsqueciSenha(false)" class="btn_cancelar"/>
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-    <!-- esqueci Senha -->
+      @hideForgot="(value) => {
+        this.esqueciSenhaModal = value
+      }"
+    />
 
     <q-page-container>
       <router-view />
@@ -284,6 +96,7 @@
 
 <script>
 import { required, sameAs, email } from 'vuelidate/lib/validators'
+import LoginRegisterForgot from '../components/LoginRegisterForgot.vue'
 
 export default {
   name: 'MainLayout',
@@ -319,32 +132,15 @@ export default {
       }
     }
   },
+  components: {
+    LoginRegisterForgot: LoginRegisterForgot
+  },
   watch:{
     '$route' (to,from){
       this.$set(this,'isIndex', this.$route.params.token)
     },
   },
-  validations: {
-      formRegister: {
-        nome: { required },
-        apelido: { required },
-        email: { required, email },
-        senha: { required },
-        repita_senha: { required, sameAsPassword: sameAs('senha') },
-        data_nascimento: { required },
-      },
-      formLogin: {
-        email: { required },
-        senha: { required }
-      },
-      formEsqueciSenha: {
-        email: { required },
-        confirma_email: { required, sameAsEmail: sameAs('email') }
-      }
-  },
   mounted(){
-    this.$v.$reset()
-
     let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
 
     if(user !== null) {
@@ -369,7 +165,20 @@ export default {
 
 		},
     goIndex(){
-      this.$router.push({path: `/`})
+      if(this.user !== null) {
+        this.$router.push({ path: `/iniciar_leitura` })
+      }
+      else {
+        let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
+        if(user !== null) {
+          this.$router.push({ path: `/iniciar_leitura` })
+        }
+        else {
+          if(this.$route.path != '/'){
+            this.$router.push({path: '/', replace: true })
+          }
+        }
+      }
     },
     logar_conta(){
       this.sessao=false
@@ -383,6 +192,11 @@ export default {
         senha: '',
         repita_senha: '',
         data_nascimento: '',
+      })
+
+      this.$set(this,'formLogin', {
+        email: '',
+        senha: '',
       })
 		},
     login(){
@@ -399,7 +213,14 @@ export default {
         this.$q.sessionStorage.set('auth', JSON.stringify( res.data.data ))
         this.user = res.data.data
         this.logado = true
+
+        this.sessao = false
+        this.logar = false
+        this.esqueciSenhaModal = false
+
         that.sucesso()
+        this.$router.push({path: '/iniciar_leitura'})
+
       })
       .catch((err) => {
         // console.log(err.response)
@@ -420,17 +241,6 @@ export default {
       })
       .catch((err) => {
         // console.log(err.response)
-      })
-    },
-    testeAuth(){
-      let that = this
-
-      that.$axios.get(that.$pathAPI + '/testeAuth')
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log(err.response)
       })
     },
     cadastrarUsuario(){
@@ -487,15 +297,17 @@ export default {
           confirma_email: '',
         })
 
-        // console.log(res)
+        this.sessao=false
+        this.logar=false
+        this.esqueciSenhaModal = false
 
-        // that.sucesso('Cadastrado com sucesso! Conecte-se na plataforma.')
+        that.sucesso('Cadastrado com sucesso! Conecte-se na plataforma.')
 
         this.$v.$reset()
       })
       .catch((err) => {
-        console.log(err.response)
-        // that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
+        // console.log(err.response)
+        that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
 
       })
     },
