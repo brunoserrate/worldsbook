@@ -211,7 +211,8 @@ class HistoriaRepository extends BaseRepository
                             'direitos_autorais.tipo_autoral as direito_autoral',
                             'users.name as nome_usuario',
                             'users.apelido as apelido_usuario',
-                            'users.usar_apelido'
+                            'users.usar_apelido',
+                            'users.foto_perfil'
                         )
                         ->first();
 
