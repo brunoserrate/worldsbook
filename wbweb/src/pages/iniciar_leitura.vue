@@ -9,7 +9,7 @@
             </div>
             <div class="row">
 				<div class="col-12">
-					<h3 class="welcomeUser">Bem-vindo(a){{ (user !== null) ? ', ' + ucFirstFiltro(user.apelido) : '' }}</h3>
+					<h3 class="welcomeUser">Bem-vindo(a){{ (user !== null) ? ', ' + (user.usar_apelido ? ucWordsFiltro(user.apelido) : ucWordsFiltro(user.nome)) : '' }}</h3>
 				</div>
 				<div class="col-12">
 					<p class="bestChooses">As melhores escolhas para si</p>
@@ -105,7 +105,21 @@ export default {
 			if(valor != undefined || valor != null || valor === ''){
 				return valor[0].toUpperCase() + valor.slice(1).toLowerCase()
 			}
-		}
+		},
+		ucWordsFiltro(valor){
+			if(valor != undefined || valor != null || valor === ''){
+				let arr = valor.split(' ')
+				let result
+
+				for (let i = 0; i < arr.length; i++) {
+					arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+				}
+
+				result = arr.join(' ')
+
+				return result
+			}
+		},
 	},
 };
 </script>

@@ -194,6 +194,18 @@ class UserController extends AppBaseController
         Auth::guard('web')->logout();
     }
 
+    public function preferenciaUsarApelido(){
+        $user = User::where('id', Auth::user()->id)
+                    ->where('ativo', 1)
+                    ->first();
+
+        $user->usar_apelido = !$user->usar_apelido;
+
+        $user->save();
+
+        return $this->sendSuccess('Preferência alterada com sucesso');
+    }
+
     private function removeAcento($str)
     {
 
