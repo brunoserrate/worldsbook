@@ -106,7 +106,7 @@ class HistoriaRepository extends BaseRepository
         // para que o Controller consiga retornar de forma correta
         if ($validador->fails()) {
             return [
-                'result' => false,
+                'success' => false,
                 'message' => 'Falha na operação! Formulário com informações inregulares.',
                 'code' => 400,
                 'data' => $input
@@ -134,7 +134,7 @@ class HistoriaRepository extends BaseRepository
             $model->save();
         } catch (Exception $e) {
             return [
-                'result' => false,
+                'success' => false,
                 'message' => 'Falha na operação! Falha ao gravar a história, verifique as informações enviadas.',
                 'code' => 400,
                 'data' => $input
@@ -180,11 +180,11 @@ class HistoriaRepository extends BaseRepository
         // fim das tags
         }
 
-        // Grava as tagas na tabela auxiliar
+        // Grava as tags na tabela auxiliar
         DB::table('historia_tag')->insert($insertHistoriaTag);
 
         return [
-            'result' => true,
+            'success' => true,
             'message' => 'História grava com sucesso',
             'code' => 200,
             'data' => []
@@ -202,32 +202,39 @@ class HistoriaRepository extends BaseRepository
      */
     public function find($id, $columns = ['*']) {
 
+        // Busca as informações do registro da tabela história
         $historia = Historia::where('historia.id', $id)
                         ->join('users', 'users.id', '=', 'historia.usuario_id')
                         ->join('direitos_autorais', 'direitos_autorais.id', '=', 'historia.direitos_autorais_id')
                         ->select(
                             'historia.*',
                             'direitos_autorais.tipo_autoral as direito_autoral',
-                            'users.name as nome_usuario'
+                            'users.name as nome_usuario',
+                            'users.apelido as apelido_usuario',
+                            'users.usar_apelido'
                         )
                         ->first();
 
+        // Caso não exista nenhum valor, retorna com erro
         if(empty($historia)){
             return [
-                'result' => false,
+                'success' => false,
                 'message' => 'História não localizada',
                 'code' => 404,
                 'data' => []
             ];
         }
 
+        // Transforma o retorno em array para facilitar as próximas etapas
         $historia = $historia->toArray();
 
+        // Inicializa os indexes de capitulos
         $historia['total_capitulos'] = 0;
         $historia['total_visualizacoes'] = 0;
         $historia['total_votos'] = 0;
         $historia['capitulos'] = [];
 
+        // Busca os capitulos existentes na história
         $capitulos = Capitulo::where('historia_id', $id)
                         ->select(
                             'id',
@@ -237,6 +244,8 @@ class HistoriaRepository extends BaseRepository
                             'caminho_capa'
                         )->get()->toArray();
 
+        // Caso exista registros, faz a contabilização das votações, visualizações e quantidade de capitulos
+        // Caso contrário utiliza as informações dos indexes iniciais
         if(!empty($capitulos)){
             foreach ($capitulos as $cap) {
                 $historia['total_capitulos']++;
@@ -246,6 +255,7 @@ class HistoriaRepository extends BaseRepository
             }
         }
 
+        // Mesmo processo feito para os capítulos, mas com as informações das tags.
         $historia['tags'] = [];
 
         $tags = Tags::where('historia_tag.historia_id', $id)
@@ -255,16 +265,12 @@ class HistoriaRepository extends BaseRepository
 
         if(!empty($tags)){
             foreach ($tags as $tag) {
-
-                $historia['tags'][] = [
-                    'id' => $tag['id'],
-                    'nome' => $tag['nome'],
-                ];
+                $historia['tags'][] = $tag['nome'];
             }
         }
 
         return [
-            'result' => true,
+            'success' => true,
             'message' => 'História retornada com sucesso',
             'code' => 200,
             'data' => $historia

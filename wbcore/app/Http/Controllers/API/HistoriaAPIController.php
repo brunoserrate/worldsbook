@@ -113,7 +113,7 @@ class HistoriaAPIController extends AppBaseController
         $historia = $this->historiaRepository->create($input);
 
         // Caso tenha falha
-        if(!$historia['result']){
+        if(!$historia['success']){
             return $this->sendError($historia['message'], $historia['code'], $historia['data']);
         }
 
@@ -164,7 +164,7 @@ class HistoriaAPIController extends AppBaseController
         $historia = $this->historiaRepository->find($id);
 
         // Caso tenha falha
-        if(!$historia['result']){
+        if(!$historia['success']){
             return $this->sendError($historia['message'], $historia['code'], $historia['data']);
         }
 
