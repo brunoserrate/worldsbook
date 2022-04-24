@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Historia;
+use App\Models\Capitulo;
 use App\Models\Tags;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\Validator;
@@ -194,34 +195,81 @@ class HistoriaRepository extends BaseRepository
      * Encontrar o registro da história selecionada
      *
      * @param int $id ID da história
+     * @param array $columns
      *
      * @return array $result Retorna um array com o resultado da função,
      *                       seja o retorno positivo ou negativo
      */
     public function find($id, $columns = ['*']) {
 
-        /**
-         * Informações a serem retornadas:
-         * Historia:
-         *  titulo
-         *  descrição
-         *  caminho_capa
-         *  nome_usuario
-         *  direitos_autorais
-         * Capitulos
-         *  qtd_capitulos
-         *  qtd_visualizações
-         *  qtd_votos
-         *  titulo capitulo
-         *  capitulos
-         * Tags
-         *  tags da historia
-         * */
+        $historia = Historia::where('historia.id', $id)
+                        ->join('users', 'users.id', '=', 'historia.usuario_id')
+                        ->join('direitos_autorais', 'direitos_autorais.id', '=', 'historia.direitos_autorais_id')
+                        ->select(
+                            'historia.*',
+                            'direitos_autorais.tipo_autoral as direito_autoral',
+                            'users.name as nome_usuario'
+                        )
+                        ->first();
 
-        /**
-         *  1º encontrar a história
-         *  2º
-         * */
+        if(empty($historia)){
+            return [
+                'result' => false,
+                'message' => 'História não localizada',
+                'code' => 404,
+                'data' => []
+            ];
+        }
+
+        $historia = $historia->toArray();
+
+        $historia['total_capitulos'] = 0;
+        $historia['total_visualizacoes'] = 0;
+        $historia['total_votos'] = 0;
+        $historia['capitulos'] = [];
+
+        $capitulos = Capitulo::where('historia_id', $id)
+                        ->select(
+                            'id',
+                            'titulo',
+                            'quantidade_visualizacao',
+                            'votacao',
+                            'caminho_capa'
+                        )->get()->toArray();
+
+        if(!empty($capitulos)){
+            foreach ($capitulos as $cap) {
+                $historia['total_capitulos']++;
+                $historia['total_visualizacoes'] += $cap['quantidade_visualizacao'];
+                $historia['total_votos'] += $cap['votacao'];
+                $historia['capitulos'][] = $cap;
+            }
+        }
+
+        $historia['tags'] = [];
+
+        $tags = Tags::where('historia_tag.historia_id', $id)
+                    ->select('tags.id','tags.nome')
+                    ->join('historia_tag', 'historia_tag.tag_id', '=', 'tags.id')
+                    ->get()->toArray();
+
+        if(!empty($tags)){
+            foreach ($tags as $tag) {
+
+                $historia['tags'][] = [
+                    'id' => $tag['id'],
+                    'nome' => $tag['nome'],
+                ];
+            }
+        }
+
+        return [
+            'result' => true,
+            'message' => 'História retornada com sucesso',
+            'code' => 200,
+            'data' => $historia
+        ];
+
     }
 
 }

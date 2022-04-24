@@ -163,11 +163,12 @@ class HistoriaAPIController extends AppBaseController
         /** @var Historia $historia */
         $historia = $this->historiaRepository->find($id);
 
-        if (empty($historia)) {
-            return $this->sendError('Historia not found');
+        // Caso tenha falha
+        if(!$historia['result']){
+            return $this->sendError($historia['message'], $historia['code'], $historia['data']);
         }
 
-        return $this->sendResponse($historia->toArray(), 'Historia retrieved successfully');
+        return $this->sendResponse($historia['data'], $historia['message']);
     }
 
     /**

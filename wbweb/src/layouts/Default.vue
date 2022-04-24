@@ -86,6 +86,12 @@
       @hideForgot="(value) => {
         this.esqueciSenhaModal = value
       }"
+
+      @usuarioLogado="(value) => {
+        this.user = value
+        this.logar = false
+        this.logado = true
+      }"
     />
 
     <q-page-container>

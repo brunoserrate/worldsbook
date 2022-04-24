@@ -359,8 +359,9 @@ export default {
                 this.logar=false
                 this.esqueciSenhaModal = false
 
-                that.sucesso()
                 this.$router.push({path: '/iniciar_leitura'})
+                this.$emit('usuarioLogado', this.user)
+                that.sucesso()
 
             })
             .catch((err) => {
