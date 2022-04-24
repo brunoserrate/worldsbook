@@ -278,4 +278,15 @@ class CapituloAPIController extends AppBaseController
 
         return $this->sendSuccess('Capitulo deleted successfully');
     }
+
+    public function capituloVisualizado($capituloId) {
+
+        $result = $this->capituloRepository->adicionarVisualizacao($capituloId);
+
+        if(!$result['success']){
+            return $this->sendError($result['message'], $result['code'], $result['data']);
+        }
+
+        return $this->sendSuccess('Capítulo visualizado');
+    }
 }

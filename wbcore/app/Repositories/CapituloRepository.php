@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Capitulo;
 use App\Repositories\BaseRepository;
+use DB;
 
 /**
  * Class CapituloRepository
@@ -41,5 +42,30 @@ class CapituloRepository extends BaseRepository
     public function model()
     {
         return Capitulo::class;
+    }
+
+    public function adicionarVisualizacao($capituloId) {
+
+        try {
+            Capitulo::where('id', $capituloId)
+                ->update([
+                    'quantidade_visualizacao' => DB::raw('quantidade_visualizacao + 1')
+                ]);
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Falha ao atualizar a contagem. Por favor contatar o suporte.',
+                'code' => 500,
+                'data' => []
+            ];
+        }
+
+        return [
+            'success' => true,
+            'message' => 'Contagem atualizada com sucesso.',
+            'code' => 200,
+            'data' => []
+        ];
+
     }
 }

@@ -43,7 +43,11 @@ class UserController extends AppBaseController
                         ->where('ativo', 1)
                         ->first();
 
-            $avatar = Cache::get('user_avatar_' . $user->id);
+            $avatar = $user->foto_perfil;
+
+            if(empty($avatar)){
+                $avatar = Cache::get('user_avatar_' . $user->id);
+            }
 
             if (empty($avatar)) {
 
@@ -62,6 +66,7 @@ class UserController extends AppBaseController
                 'token' => $token,
                 'nome' => $user->name,
                 'apelido' => $user->apelido,
+                'usar_apelido' => $user->usar_apelido,
                 'avatar' => $avatar,
             ], 'autenticado com sucesso');
         }

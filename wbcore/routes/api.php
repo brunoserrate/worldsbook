@@ -24,6 +24,9 @@ Route::post('/forgot_password', [UserController::class, 'forgotPassword'] );
 // Resetar senha
 Route::post('/reset_password', [UserController::class, 'resetPassword'] );
 
+// Chamada para quando o usuário visualizar o capítulo
+Route::post('capitulo/visualizado/{id}', 'CapituloAPIController@capituloVisualizado');
+
 Route::resource('historia', HistoriaAPIController::class);
 Route::resource('capitulo', CapituloAPIController::class);
 Route::resource('categoria', CategoriaAPIController::class);
