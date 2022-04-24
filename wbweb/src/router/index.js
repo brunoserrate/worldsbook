@@ -27,11 +27,11 @@ axios.get('/wbcore/sanctum').then((res)=> {
 
 // Filtros
 Vue.filter('converterBoolean', (valor) => {
-  if(valor == true){
+  if(valor == true || valor == 1){
     return "Sim"
   }
 
-  if(valor == false) {
+  if(valor == false || valor == 0) {
     return "Não"
   }
 
@@ -40,6 +40,21 @@ Vue.filter('converterBoolean', (valor) => {
 Vue.filter('ucfirst', (valor) => {
   if(valor != undefined || valor != null || valor === ''){
     return valor[0].toUpperCase() + valor.slice(1).toLowerCase()
+  }
+})
+
+Vue.filter('ucwords', (valor) => {
+  if(valor != undefined || valor != null || valor === ''){
+    let arr = valor.split(' ')
+    let result
+
+    for (let i = 0; i < arr.length; i++) {
+      arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+    }
+
+    result = arr.join(' ')
+
+    return result
   }
 })
 

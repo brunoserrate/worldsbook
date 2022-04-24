@@ -24,6 +24,21 @@
             <div v-else class="col"  style="margin: 25px 546px 0 0px;">
               <q-btn round size="lg">
                 <q-menu>
+                  <q-item>
+                    <q-item-section>
+                      <q-toggle
+                        v-model="user.usar_apelido"
+                        label="Usar apelido?"
+                        left-label
+                        @input="alterarParametro"
+                      >
+                        {{ user.usar_apelido | converterBoolean }}
+                      </q-toggle>
+                        <q-tooltip content-class="bg-primary" content-style="font-size:14px">
+                          Utilize o seu apelido ao invés do nome cadastrado na plataforma!
+                        </q-tooltip>
+                    </q-item-section>
+                  </q-item>
                   <q-item clickable v-close-popup>
                     <q-item-section @click="logout()" >Logout</q-item-section>
                   </q-item>
@@ -237,7 +252,7 @@ export default {
         this.logar = false
         this.esqueciSenhaModal = false
 
-        that.sucesso()
+        // that.sucesso()
         this.$router.push({path: '/iniciar_leitura'})
 
       })
@@ -320,13 +335,24 @@ export default {
         this.logar=false
         this.esqueciSenhaModal = false
 
-        that.sucesso('Cadastrado com sucesso! Conecte-se na plataforma.')
+        that.sucesso('Redefinição de senha enviada com sucesso! Instrunções foram enviadas por e-mail')
 
         this.$v.$reset()
       })
       .catch((err) => {
         // console.log(err.response)
         that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
+
+      })
+    },
+    alterarParametro(){
+      let that = this
+
+      that.$axios.post(that.$pathAPI + '/user/preferencia/apelido')
+      .then((res) => {
+        this.$q.sessionStorage.set('auth', JSON.stringify( this.user ))
+      })
+      .catch((err) => {
 
       })
     },

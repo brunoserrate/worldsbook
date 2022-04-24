@@ -27,6 +27,9 @@ Route::post('/reset_password', [UserController::class, 'resetPassword'] );
 // Chamada para quando o usuário visualizar o capítulo
 Route::post('capitulo/visualizado/{id}', 'CapituloAPIController@capituloVisualizado');
 
+// Função para alterar o campo usar_apelido do usuário
+Route::post('user/preferencia/apelido', [UserController::class, 'preferenciaUsarApelido']);
+
 Route::resource('historia', HistoriaAPIController::class);
 Route::resource('capitulo', CapituloAPIController::class);
 Route::resource('categoria', CategoriaAPIController::class);
