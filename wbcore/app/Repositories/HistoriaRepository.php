@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\Historia;
 use App\Models\Tags;
-use App\Models\Tags
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -189,8 +188,40 @@ class HistoriaRepository extends BaseRepository
             'code' => 200,
             'data' => []
         ];
+    }
 
+    /**
+     * Encontrar o registro da história selecionada
+     *
+     * @param int $id ID da história
+     *
+     * @return array $result Retorna um array com o resultado da função,
+     *                       seja o retorno positivo ou negativo
+     */
+    public function find($id) {
 
+        /**
+         * Informações a serem retornadas:
+         * Historia:
+         *  titulo
+         *  descrição
+         *  caminho_capa
+         *  nome_usuario
+         *  direitos_autorais
+         * Capitulos
+         *  qtd_capitulos
+         *  qtd_visualizações
+         *  qtd_votos
+         *  titulo capitulo
+         *  capitulos
+         * Tags
+         *  tags da historia
+         * */
+
+        /**
+         *  1º encontrar a história
+         *  2º
+         * */
     }
 
 }
