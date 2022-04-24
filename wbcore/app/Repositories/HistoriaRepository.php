@@ -256,10 +256,7 @@ class HistoriaRepository extends BaseRepository
         if(!empty($tags)){
             foreach ($tags as $tag) {
 
-                $historia['tags'][] = [
-                    'id' => $tag['id'],
-                    'nome' => $tag['nome'],
-                ];
+                $historia['tags'][] = $tag['nome'];
             }
         }
 
