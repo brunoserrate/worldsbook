@@ -198,7 +198,7 @@ class HistoriaRepository extends BaseRepository
      * @return array $result Retorna um array com o resultado da função,
      *                       seja o retorno positivo ou negativo
      */
-    public function find($id) {
+    public function find($id, $columns = ['*']) {
 
         /**
          * Informações a serem retornadas:
