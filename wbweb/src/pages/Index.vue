@@ -27,8 +27,8 @@
 				</div>
 				<div class="row q-ml-xl">
 					<div class="col">
-						<q-btn style="color: #fff" label="Iniciar leitura" class="btn_iniciar-leitura" @click="logar = !logar" />
-						<q-btn style="color: #fff" label="Comece a escrever" class="btn_comece-escrever q-ml-xl" @click="logar = !logar" />
+						<q-btn style="color: #fff" label="Iniciar leitura" class="btn_iniciar-leitura" @click="iniciarLeitura" />
+						<q-btn style="color: #fff" label="Comece a escrever" class="btn_comece-escrever q-ml-xl" @click="comeceEscrever" />
 					</div>
 				</div>
 
@@ -55,6 +55,12 @@
 			@hideForgot="(value) => {
 				this.esqueciSenhaModal = value
 			}"
+
+			@usuarioLogado="(value) => {
+				this.user = value
+				this.logar = false
+				this.logado = true
+			}"
 		/>
 
 	</q-page>
@@ -78,6 +84,8 @@ export default {
 			categoria_id: '',
 			direitos_autorais_id: '',
 			publico_alvo_id: '',
+			logado: false,
+			user: null
 		}
 	},
 	components: {
@@ -88,8 +96,30 @@ export default {
 		SelectPublicoAlvo,
 	},
 	mounted(){
+		let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
+
+		if(user !== null) {
+			this.user = user
+			this.logado = true
+		}
 	},
 	methods:{
+		iniciarLeitura(){
+			if(this.user != null){
+				this.$router.push({ path: '/iniciar_leitura' })
+			}
+			else {
+				this.logar = !this.logar
+			}
+		},
+		comeceEscrever(){
+			if(this.user != null){
+				this.$router.push({ path: '/iniciar_leitura' })
+			}
+			else {
+				this.logar = !this.logar
+			}
+		}
 	},
 
 };

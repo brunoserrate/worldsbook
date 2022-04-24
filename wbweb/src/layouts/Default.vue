@@ -42,7 +42,8 @@
     </q-header>
     <!-- Header -->
     <!-- Footer -->
-    <q-footer elevated class="text-white footer_pages">
+    <!-- Caso seja index inclui as classes personalizadas mais o "hidden", caso o contrário, apenas as classes personalizadas -->
+    <q-footer elevated :class="(isIndex) ? 'text-white footer_pages hidden' : 'text-white footer_pages' ">
       <div class="row">
         <div class="col-5 logo_footer">
           <img alt="logo" src="~assets/logo-footer.png"  />
@@ -143,7 +144,12 @@ export default {
   },
   watch:{
     '$route' (to,from){
-      this.$set(this,'isIndex', this.$route.params.token)
+      if(this.$route.path == '/'){
+        this.$set(this,'isIndex', true)
+      }
+      else {
+        this.$set(this,'isIndex', false)
+      }
     },
   },
   mounted(){
@@ -152,6 +158,13 @@ export default {
     if(user !== null) {
       this.user = user
       this.logado = true
+    }
+
+    if(this.$route.path == '/'){
+      this.$set(this,'isIndex', true)
+    }
+    else {
+      this.$set(this,'isIndex', false)
     }
   },
   methods: {
