@@ -21,7 +21,7 @@
             <div v-if="!logado && user == null" class="col">
               <q-btn flat style="color: #7A22A7" label="Iniciar Sessão" class="iniciar-sessao" @click="logar = !logar"/>
             </div>
-            <div v-else class="col"  style="margin: 25px 546px 0 0px;">
+            <div v-else class="col"  style="margin: 25px 0px 0 0px;">
               <q-btn round size="lg">
                 <q-menu>
                   <q-item clickable v-close-popup>

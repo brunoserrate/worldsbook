@@ -38,12 +38,14 @@
 								<p class="col_descricao_detail">{{livro_detail.descricao | cutDescricao}}</p>
 							</div>
 						</div>
-						<q-separator style="margin: 58px 0 0px 0;"></q-separator>
-						<div class="row">
-							<div class="col-12 col_btn_detail">
-								<p class="col_data_atualizacao"><span>Data de atualização: </span>09/04/2022</p>
+						<q-separator></q-separator>
+						<template q-slot="footer">
+							<div class="row">
+								<div class="col-12 col_btn_detail">
+									<p class="col_data_atualizacao"><span>Data de atualização: </span>09/04/2022</p>
+								</div>
 							</div>
-						</div>
+						</template>
 					</div>
 				</div>
 			</q-card>
@@ -87,7 +89,6 @@ export default {
 	},
 	mounted(){
 		this.buscarLivros()
-        console.log(this.categoriaID)
 	},
 	components: { VueperSlides, VueperSlide },
 	filters: {
@@ -110,7 +111,6 @@ export default {
 		openDialog(livro){
 			this.livro_dialog = true
 			this.livro_detail = livro
-			console.log(this.livro_detail)
 		},
 		buscarLivros(){
 			let that = this
