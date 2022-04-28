@@ -150,7 +150,7 @@ class HistoriaRepository extends BaseRepository
         foreach ($tags as $tag) {
             // Tag buscada
             $tagSearch = null;
-            $tagSearch = Tags::where('nome', substr($tag, 100))->first();
+            $tagSearch = Tags::where('nome', '=',substr(trim($tag), 0, 100))->first();
 
             // inicialização da tag ID
             $tagId = 0;
@@ -159,8 +159,8 @@ class HistoriaRepository extends BaseRepository
             if(empty($tagSearch)) {
                 // Reseta a tag ID inserida
                 $tagId = 0;
-                DB::table('tags')->insertGetId([
-                    'nome' => $tag,
+                $tagId = DB::table('tags')->insertGetId([
+                    'nome' => trim($tag),
                     'data_criacao' => date('Y-m-d H:i:s'),
                     'data_atualizacao' => date('Y-m-d H:i:s')
                 ]);
@@ -269,6 +269,9 @@ class HistoriaRepository extends BaseRepository
                 $historia['tags'][] = $tag['nome'];
             }
         }
+
+        // Limpa as duplicatas
+        $historia['tags'] = array_unique( $historia['tags'] );
 
         return [
             'success' => true,

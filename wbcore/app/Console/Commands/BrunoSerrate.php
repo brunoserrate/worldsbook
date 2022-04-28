@@ -43,14 +43,6 @@ class BrunoSerrate extends Command
      */
     public function handle() {
 
-        $tags = Tags::where('historia_tag.historia_id', 1)
-                    ->select('tags.nome')
-                    ->join('historia_tag', 'historia_tag.tag_id', '=', 'tags.id')
-                    ->get()->toArray();
-
-
-        var_dump($tags);
-
     }
 
 
