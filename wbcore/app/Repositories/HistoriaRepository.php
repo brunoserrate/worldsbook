@@ -96,7 +96,7 @@ class HistoriaRepository extends BaseRepository
             'publico_alvo_id' => 'required|numeric',
             'idioma_id' => 'required|numeric',
             'direitos_autorais_id' => 'required|numeric',
-            'conteudo_adulto' => 'required|string',
+            'conteudo_adulto' => 'required|boolean',
             'caminho_capa' => 'required|string',
             'usuario_id' => 'sometimes|required|numeric',
             'tags' => 'required',

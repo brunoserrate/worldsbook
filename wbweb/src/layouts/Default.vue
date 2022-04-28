@@ -21,7 +21,15 @@
             <div v-if="!logado && user == null" class="col">
               <q-btn flat style="color: #7A22A7" label="Iniciar Sessão" class="iniciar-sessao" @click="logar = !logar"/>
             </div>
-            <div v-else class="col"  style="margin: 25px 0px 0 0px;">
+            <div v-else class="col" style="margin: 25px 0px 0 0px;">
+              <q-btn-dropdown unelevated label="Escrever" class="btn_dropdown_escrever">
+                 <q-item clickable v-close-popup>
+                    <q-item-section>
+                      <q-item-label @click="getNewHistoria"><q-icon name="post_add" class="icon_criar_historia"></q-icon>Criar História</q-item-label>
+                    </q-item-section>
+                  </q-item>
+              </q-btn-dropdown>
+
               <q-btn round size="lg">
                 <q-menu>
                   <q-item>
@@ -183,6 +191,9 @@ export default {
     }
   },
   methods: {
+    getNewHistoria(){
+      this.$router.push({ path: '/criar_historia' })
+    },
     section(){
       this.logar=false
       this.sessao=true
