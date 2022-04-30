@@ -68,12 +68,9 @@ class Capitulo extends Model
 
 
     public $table = 'capitulos';
-    
+
     const CREATED_AT = 'data_criacao';
     const UPDATED_AT = 'data_atualizacao';
-
-
-
 
     public $fillable = [
         'titulo',

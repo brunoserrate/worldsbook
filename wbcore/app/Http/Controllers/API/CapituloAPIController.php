@@ -158,11 +158,12 @@ class CapituloAPIController extends AppBaseController
         /** @var Capitulo $capitulo */
         $capitulo = $this->capituloRepository->find($id);
 
-        if (empty($capitulo)) {
-            return $this->sendError('Capitulo not found');
+        // Caso tenha falha
+        if(!$capitulo['success']){
+            return $this->sendError($capitulo['message'], $capitulo['code'], $capitulo['data']);
         }
 
-        return $this->sendResponse($capitulo->toArray(), 'Capitulo retrieved successfully');
+        return $this->sendResponse($capitulo['data'], $capitulo['message']);
     }
 
     /**
