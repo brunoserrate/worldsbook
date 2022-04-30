@@ -91,7 +91,7 @@
                     <h3 class="title_indice_card">Índice</h3>
                     <q-list>
                         <q-item v-if="livro.capitulos.length == 0">Essa história ainda não tem capítulos!</q-item>
-                        <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_list">
+                        <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_list" @click="goChapter(capitulo)">
                             {{capitulo.titulo}}
                         </q-item>
                     </q-list>
@@ -155,6 +155,9 @@ export default {
             .catch((err) => {
                 console.log(err.response)
             })
+        },
+        goChapter(capitulo){
+            this.$router.push({path: `capitulo/` + capitulo.id})
         },
         getAvatar(){
             this.user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
