@@ -127,7 +127,7 @@ export default {
 				token: that.token
 			}
 
-			that.$axios.post(that.$pathAPI + '/reset_password', params)
+			that.$axios.post(that.$pathAPI + '/reset-password', params)
 			.then((res) => {
 				// console.log(res)
 				that.sucesso('Senha alterada com sucesso! Siga com o login')

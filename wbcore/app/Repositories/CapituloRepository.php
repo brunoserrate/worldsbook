@@ -97,7 +97,9 @@ class CapituloRepository extends BaseRepository
                             'users.apelido as apelido_usuario',
                             'users.usar_apelido',
                             'users.foto_perfil'
-                        )->get()->toArray();
+                        )
+                        ->orderBy('comentarios.id', 'DESC')
+                        ->get()->toArray();
 
 
         if(!empty($comentarios)){

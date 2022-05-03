@@ -19,16 +19,19 @@ use App\Http\Controllers\UserController;
 Route::post('/register', [UserController::class, 'register'] );
 
 // Esqueci minha senha
-Route::post('/forgot_password', [UserController::class, 'forgotPassword'] );
+Route::post('/forgot-password', [UserController::class, 'forgotPassword'] );
 
 // Resetar senha
-Route::post('/reset_password', [UserController::class, 'resetPassword'] );
+Route::post('/reset-password', [UserController::class, 'resetPassword'] );
 
 // Chamada para quando o usuário visualizar o capítulo
 Route::post('capitulo/visualizado/{id}', 'CapituloAPIController@capituloVisualizado');
 
 // Função para alterar o campo usar_apelido do usuário
 Route::post('user/preferencia/apelido', [UserController::class, 'preferenciaUsarApelido']);
+
+// Rota para buscar mais comentários sem necessidade de recarregar tudo
+Route::get('comentario/mais-comentarios', 'ComentarioAPIController@carregarComentarios');
 
 Route::resource('historia', HistoriaAPIController::class);
 Route::resource('capitulo', CapituloAPIController::class);

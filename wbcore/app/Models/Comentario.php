@@ -52,12 +52,9 @@ class Comentario extends Model
 
 
     public $table = 'comentarios';
-    
+
     const CREATED_AT = 'data_criacao';
     const UPDATED_AT = 'data_atualizacao';
-
-
-
 
     public $fillable = [
         'capitulo_id',
@@ -86,8 +83,6 @@ class Comentario extends Model
         'capitulo_id' => 'required',
         'comentario' => 'required|string',
         'usuario_id' => 'required',
-        'data_criacao' => 'required',
-        'data_atualizacao' => 'required'
     ];
 
     /**

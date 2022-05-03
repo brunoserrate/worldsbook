@@ -42,7 +42,9 @@ class BrunoSerrate extends Command
      * @return mixed
      */
     public function handle() {
+        $result = DB::table('comentarios')->skip(6)->take(2)->get()->toArray();
 
+        var_dump($result);
     }
 
 

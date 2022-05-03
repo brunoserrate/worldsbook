@@ -432,7 +432,7 @@ export default {
                 email_confirmation: that.formEsqueciSenha.confirma_email
             }
 
-            that.$axios.post(that.$pathAPI + '/forgot_password', params)
+            that.$axios.post(that.$pathAPI + '/forgot-password', params)
             .then((res) => {
                 this.$set(this,'formEsqueciSenha', {
                     email: '',

@@ -68,6 +68,7 @@ class UserController extends AppBaseController
                 'apelido' => $user->apelido,
                 'usar_apelido' => $user->usar_apelido,
                 'avatar' => $avatar,
+                'user_id' => $user->id,
             ], 'autenticado com sucesso');
         }
 

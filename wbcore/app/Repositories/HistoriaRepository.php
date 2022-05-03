@@ -87,6 +87,10 @@ class HistoriaRepository extends BaseRepository
      *                       seja o retorno positivo ou negativo
      **/
     public function create($input) {
+
+        // Busca o usuário que fez a requisição
+        $input['usuario_id'] = Auth::user()->id;
+
         // Utiliza a própria classe de validação do framework
         // para validar os dados recebidos
         $validador = Validator::make($input, [
@@ -98,7 +102,6 @@ class HistoriaRepository extends BaseRepository
             'direitos_autorais_id' => 'required|numeric',
             'conteudo_adulto' => 'required|boolean',
             'caminho_capa' => 'required|string',
-            'usuario_id' => 'sometimes|required|numeric',
             'tags' => 'required',
         ]);
 

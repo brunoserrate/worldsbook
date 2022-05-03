@@ -112,7 +112,7 @@ class ComentarioAPIController extends AppBaseController
 
         $comentario = $this->comentarioRepository->create($input);
 
-        return $this->sendResponse($comentario->toArray(), 'Comentario saved successfully');
+        return $this->sendResponse($comentario, 'Comentario saved successfully');
     }
 
     /**
@@ -277,5 +277,14 @@ class ComentarioAPIController extends AppBaseController
         $comentario->delete();
 
         return $this->sendSuccess('Comentario deleted successfully');
+    }
+
+    public function carregarComentarios(Request $request) {
+
+        $input = $request->all();
+
+        $comentarios = $this->comentarioRepository->carregarComentarios($input);
+
+        return $this->sendResponse($comentarios, 'Comentariso carregados com sucesso!');
     }
 }
