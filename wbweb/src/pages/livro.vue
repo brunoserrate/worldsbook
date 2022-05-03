@@ -86,7 +86,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 offset-2  col-sm-8">
+            <div class="col-12 offset-2 col-sm-8">
                 <q-card class="card_indice">
                     <h3 class="title_indice_card">Índice</h3>
                     <q-list>
@@ -141,6 +141,7 @@ export default {
 	},
     mounted(){
         this.carregarLivro(this.livro_id)
+        
     },
     methods: {
         carregarLivro(livro_id){

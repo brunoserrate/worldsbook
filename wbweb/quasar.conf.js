@@ -20,6 +20,7 @@ module.exports = function (/* ctx */) {
     boot: [
       'axios',
       'vuevalidate',
+      'user'
     ],
 
     // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
