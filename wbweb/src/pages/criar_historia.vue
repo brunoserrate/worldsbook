@@ -178,14 +178,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-4">
-                                        <p class="label_select">Classificação</p>
+                                        <p class="label_select">Conteúdo Adulto?</p>
                                     </div>
                                     <div class="col-8">
                                         <q-select 
                                             filled 
                                             v-model="historia.conteudo_adulto" 
                                             :options="classificacoes" 
-                                            label="Direitos Autorais"
+                                            label="Conteúdo Adulto"
                                             :dense="dense" 
                                             class="inputs_form_historia_descricao"
                                             option-value="value"
