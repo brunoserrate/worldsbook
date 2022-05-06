@@ -31,19 +31,6 @@
                                     <p class="label_input">Descrição</p>
                                     <q-input filled v-model="historia.descricao" type="textarea" :dense="dense" class="inputs_form_historia_descricao"/>
                                 </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <p class="label_input">Personagens Principais</p>
-                                    </div>
-                                    <div class="col-10">
-                                    <!-- <div class="col-10" v-for="(personagem, i) in personagens" :key="i"> -->
-                                        <q-input filled v-model="historia.personagens_principais" :dense="dense" class="inputs_form_historia_descricao"/>
-                                    </div>
-                                    <div class="col-2">
-                                        <q-btn unelevated icon="add" class="btn_add_personagem"  @click="addNewCharacter" />
-                                        <!-- <q-btn unelevated icon="add" class="btn_add_personagem"  /> -->
-                                    </div>
-                                </div>
                                 <div class="col-12">
                                     <q-separator class="separator_card"/>
                                 </div>
@@ -200,10 +187,17 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <q-btn flat label="Seguinte" class="btn_seguinte" @click="setLivro"/>
+                                        <q-btn flat label="Seguinte" class="btn_seguinte" @click="setLivro">
+                                            <q-inner-loading 
+                                                :showing="visible"
+                                                label-class="text-teal"
+                                                label-style="font-size: 1.1em"
+                                            >
+                                            </q-inner-loading>
+                                        </q-btn>
                                     </div>
                                     <div class="col-6">
-                                        <q-btn flat label="Cancelar" class="btn_cancelar" />
+                                        <q-btn flat label="Cancelar" class="btn_cancelar" @click="cancel"></q-btn>
                                     </div>
                                 </div>
                             </q-card>
@@ -252,8 +246,9 @@ export default {
             idiomas: [],
             historias: [],
             direitos_autorais: [],
-            personagens: [],
-            user: {}
+            user: {},
+            visible: false,
+            showSimulatedReturnData: false
         }
     },
     mounted(){
@@ -261,40 +256,48 @@ export default {
         this.getPublicoAlvo()
         this.getIdiomas()
         this.getDireitoAutorais()
-        this.personagemLength()
         this.user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
         console.log(this.user)
     },
     watch: {
 
     },
-    methods: {   
-        personagemLength(){
-            this.personagens.length = 0
-        },
-        addNewCharacter () {
-            this.personagens.length += 1
-            console.log(this.personagens.length)
-            console.log(this.personagens)
-        },
-
+    methods: { 
         setLivro(){
             let that = this
-            this.historia.usuario_id = 2
-            this.historia.data_atualizacao = Date.now()
-            this.historia.data_criacao = Date.now()
-            this.historia.historia_finalizada = 0
-            console.log(this.historia)
+            that.historia.usuario_id = that.user.user_id
+            that.historia.data_atualizacao = Date.now()
+            that.historia.data_criacao = Date.now()
+            that.historia.historia_finalizada = 0
+            console.log(that.historia)
 
-            this.historias = that.$axios.post(that.$pathAPI + '/historia', this.historia)
+            that.visible = true
+            that.showSimulatedReturnData = false
+
+            that.$axios.post(that.$pathAPI + '/historia', that.historia)
 			.then((res) => {
-				console.log(res)
+				console.log("res: ", res)
+                that.historias = res.data.data
+                that.visible = false
+                that.showSimulatedReturnData = true
+                
+                this.historiaCriadaSucesso()
+                console.log("A: ", that.historias)
 			})
 			.catch((err) => {
 				console.log(err.response)
+                this.erroCriacao()
+                that.visible = false
+                that.showSimulatedReturnData = true
 			})
         },
-        
+        cancel(){
+            
+        },
+        goCapitulo(){
+            // console.log("A: ", this.historias)
+            // this.$router.push({path: `criar_historia/` + livro_detail.id})
+        },
         getCategorias(){
             let that = this
 

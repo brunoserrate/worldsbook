@@ -71,7 +71,7 @@
     height: 100px;
 }
 .separador{
-    margin: 20px 0;
+    margin: 4px 0 20px 0;
     background-color: transparent;
 }
 .comment_textarea{
@@ -110,4 +110,14 @@
 .row_btn{
     display: flex;
     justify-content: flex-end;
+}
+.p_votar{
+    font-size: 15px;
+    font-family: Raleway;
+    font-weight: bold;
+}
+.icon_votar{
+    font-size: 26px;
+    cursor: pointer;
+    margin: 0 13px 0 0;
 }
