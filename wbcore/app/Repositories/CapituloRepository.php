@@ -82,6 +82,18 @@ class CapituloRepository extends BaseRepository
         // Transforma o retorno em array para facilitar as próximas etapas
         $capitulo = $capitulo->toArray();
 
+        $proximo_capitulo = Capitulo::where('historia_id', $capitulo['historia_id'])
+                                        ->where('id', '>', $capitulo['id'])
+                                            ->select('id')
+                                            ->orderBy('id', 'ASC')
+                                            ->first();
+
+        if(!empty($proximo_capitulo)) {
+            $proximo_capitulo = $proximo_capitulo->id;
+        }
+
+        $capitulo['proximo_capitulo'] = $proximo_capitulo;
+
         // Altera o tipo de dado de int para boolean (por conta do mysql)
         $capitulo['usar_apelido'] = (bool) $capitulo['usar_apelido'];
 
