@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UtilsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,9 @@ Route::post('user/preferencia/apelido', [UserController::class, 'preferenciaUsar
 
 // Rota para buscar mais comentários sem necessidade de recarregar tudo
 Route::get('comentario/mais-comentarios', 'ComentarioAPIController@carregarComentarios');
+
+// Upload de capa da história
+Route::post('historia/upload/capa', 'HistoriaAPIController@uploadCapaHistoria');
 
 Route::resource('historia', HistoriaAPIController::class);
 Route::resource('capitulo', CapituloAPIController::class);

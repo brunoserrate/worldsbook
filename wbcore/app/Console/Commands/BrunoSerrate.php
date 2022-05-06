@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Artisan;
 use GuzzleHttp\Client;
 use App\Models\Tags;
-
+use Illuminate\Support\Facades\Storage;
+use File;
 
 class BrunoSerrate extends Command
 {
@@ -42,9 +43,10 @@ class BrunoSerrate extends Command
      * @return mixed
      */
     public function handle() {
-        $result = DB::table('comentarios')->skip(6)->take(2)->get()->toArray();
 
-        var_dump($result);
+        Storage::disk('ftp')->put('worldbooks/spa/upload/historia/' . 'teste.txt', 'teste');
+
+
     }
 
 

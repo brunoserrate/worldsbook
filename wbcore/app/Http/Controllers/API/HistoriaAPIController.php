@@ -284,4 +284,17 @@ class HistoriaAPIController extends AppBaseController
 
         return $this->sendSuccess('Historia deleted successfully');
     }
+
+
+    public function uploadCapaHistoria(Request $request) {
+
+        $result = $this->historiaRepository->uploadCapaHistoria($request);
+
+        // Caso tenha falha
+        if(!$result['success']){
+            return $this->sendError($result['message'], $result['code'], $result['data']);
+        }
+
+        return $this->sendResponse($result['data'], $result['message']);
+    }
 }

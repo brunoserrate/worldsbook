@@ -12,10 +12,12 @@ import routes from './routes'
 if(process.env.DEV){
   Vue.prototype.$pathAPI = '/wbcore/api';
   Vue.prototype.$pathWeb = '/wbcore';
+  Vue.prototype.$pathFile = 'http://127.0.0.1:8087/';
 }
 else{
   Vue.prototype.$pathAPI = 'wbcore/public/api'
   Vue.prototype.$pathWeb = '/wbcore/public';
+  Vue.prototype.$pathFile = '';
 }
 
 Vue.mixin(functions)
