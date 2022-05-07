@@ -207,6 +207,67 @@ class UserController extends AppBaseController
         return $this->sendSuccess('Preferência alterada com sucesso');
     }
 
+    /**
+     * Função para fazer upload de imagem para a foto do perfil
+     * também será feito a atualização do campo no banco de dados
+     *
+     * @param @type class Request $request binário da imagem através da classe Request
+     *
+     * @return array $result Retorna um array com o resultado da função,
+     *                       seja o retorno positivo ou negativo
+     **/
+    public function uploadFoto($request) {
+
+        // Classe auxiliar para fazer upload da imagem localmente
+        $result = UtilsController::uploads($request);
+
+        // Em caso de falha, para a rotina imediatamente
+        if(!$result['success']) {
+            return $result;
+        }
+
+        // Caminhos da imagem
+        $data = $result['data'];
+        $localFile = NULL;
+
+        // Caminho da imagem
+        $envPath = env('IMG_PATH');
+
+        // Busca o arquivo no caminho temporário
+        $localFile = File::get($data['path_file']);
+
+        // Sobe o arquivo no FTP
+        try {
+            Storage::disk('ftp')->put('worldbooks/spa/upload/user/' . $data['file_name'], $localFile);
+        } catch (Exception $e) {
+            \Log::channel('daily')->error( 'Falha ao fazer o upload da imagem: ' . $e->getMessage() );
+
+            return [
+                'success' => false,
+                'code' => 500,
+                'message' => 'Falha ao fazer o upload da imagem',
+                'data' => []
+            ];
+        }
+
+        User::where('id', Auth::user()->id)
+            ->update([
+                'foto_perfil' => $envPath . 'user/' . $data['file_name']
+            ]);
+
+        return [
+            'success' => true,
+            'code' => 200,
+            'message' => 'Upload realizado com sucesso',
+            'data' => [
+                'path' => $envPath . 'user/',
+                'file_name' => $data['file_name'],
+                'full_path' => $envPath . 'user/' . $data['file_name']
+            ]
+        ];
+
+    }
+
     private function removeAcento($str)
     {
 

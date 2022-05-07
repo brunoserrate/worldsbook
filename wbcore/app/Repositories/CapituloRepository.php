@@ -5,6 +5,11 @@ namespace App\Repositories;
 use App\Models\Capitulo;
 use App\Models\Comentario;
 use App\Repositories\BaseRepository;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use File;
+
 use DB;
 
 /**
@@ -159,4 +164,60 @@ class CapituloRepository extends BaseRepository
         ];
 
     }
+
+    /**
+     * Função para fazer upload de imagem para a capa do capítulo
+     *
+     * @param @type class Request $request binário da imagem através da classe Request
+     *
+     * @return array $result Retorna um array com o resultado da função,
+     *                       seja o retorno positivo ou negativo
+     **/
+    public function uploadCapaCapitulo($request) {
+
+        // Classe auxiliar para fazer upload da imagem localmente
+        $result = UtilsController::uploads($request);
+
+        // Em caso de falha, para a rotina imediatamente
+        if(!$result['success']) {
+            return $result;
+        }
+
+        // Caminhos da imagem
+        $data = $result['data'];
+        $localFile = NULL;
+
+        // Caminho da imagem
+        $envPath = env('IMG_PATH');
+
+        // Busca o arquivo no caminho temporário
+        $localFile = File::get($data['path_file']);
+
+        // Sobe o arquivo no FTP
+        try {
+            Storage::disk('ftp')->put('worldbooks/spa/upload/capitulo/' . $data['file_name'], $localFile);
+        } catch (Exception $e) {
+            \Log::channel('daily')->error( 'Falha ao fazer o upload da imagem: ' . $e->getMessage() );
+
+            return [
+                'success' => false,
+                'code' => 500,
+                'message' => 'Falha ao fazer o upload da imagem',
+                'data' => []
+            ];
+        }
+
+        return [
+            'success' => true,
+            'code' => 200,
+            'message' => 'Upload realizado com sucesso',
+            'data' => [
+                'path' => $envPath . 'capitulo/',
+                'file_name' => $data['file_name'],
+                'full_path' => $envPath . 'capitulo/' . $data['file_name']
+            ]
+        ];
+
+    }
+
 }
