@@ -50,12 +50,19 @@
                         <h3 class="corpo_capitulo">{{capitulo.capitulo}}</h3>
                         <div class="row justify-center">
                             <div class="col-12 row_status">
-                                <q-btn unelevated label="Ir para o próximo capítulo >" class="btn_proximo_capitulo"/>
+                                <q-btn unelevated label="Ir para o próximo capítulo >" class="btn_proximo_capitulo" @click="nextChapter"/>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- BOTÃO -->
+                <q-separator class="separador"></q-separator>
+                <div class="row justify-center">
+                    <div class="col-4">
+                        <q-icon :name="votar.icone_name" class="icon_votar" @click="vote"/>
+                        <span class="p_votar">{{ votar.span }}</span>
+                    </div>
+                </div>
                 <q-separator class="separador"></q-separator>
                 <div class="row justify-center">
                     <div class="col-1 offset-1">
@@ -64,7 +71,14 @@
                         </q-avatar>
                     </div>
                     <div class="col-6">
-                        <q-input v-model="comment.comentario" outlined type="textarea" class="comment_textarea"/>
+                        <q-input v-model="comment.comentario" outlined type="textarea" class="comment_textarea">
+                            <q-inner-loading
+                                :showing="visible"
+                                label="Please wait..."
+                                label-class="text-teal"
+                                label-style="font-size: 1.1em"
+                            />
+                        </q-input>
                     </div>
                     <div class="col-6 offset-2 row_btn">
                         <q-btn unelevated label="enviar" class="btn_enviar_comentario" v-if="comment.comentario" @click="setComentario"/>
@@ -139,13 +153,18 @@
                     usar_apelido: '',
                     usuario_id: '',
                 },
-                comentarios: []
+                comentarios: [],
+                visible: false,
+                showSimulatedReturnData: false,
+                votar: {
+                    icone_name: 'star_border' , 
+                    span: 'votar'
+                }
             }
         },
         mounted(){
             this.getCapitulo(this.capitulo_id)
             this.getUser()
-            console.log(this.user)
         },
         methods: {
             getCapitulo(capitulo_id){
@@ -159,9 +178,14 @@
                     console.log(err.response)
                 })
             },
-
+            nextChapter(){
+                console.log("next")
+            },
             setComentario(){
                 try{
+                    this.visible = true
+                    this.showSimulatedReturnData = false
+
                     let that = this
                     that.comment.usuario_id = 2
                     that.comment.data_atualizacao = Date.now()
@@ -175,6 +199,10 @@
                         console.log("RES: ", res)
                         that.capitulo.comentarios.unshift(res.data.data)
                         console.log(that.capitulo.comentarios)
+                        this.visible = false
+                        this.showSimulatedReturnData = true
+                        that.comment.comentario = ''
+
                     })
                     .catch((err) => {
                         console.log(err.response)
@@ -182,6 +210,21 @@
                 }catch (error){
                     console.log(error)
                 }
+            },
+            
+            vote(){
+                if(this.votar.icone_name == 'star') {
+                    this.votar.icone_name = 'star_border'
+                    this.votar.span = 'Votar!'
+
+                } else {
+                    this.votar.icone_name = 'star'
+                    this.votar.span = 'Votado!'
+                }
+            },
+
+            setVoto(){
+
             }
         },
     }
