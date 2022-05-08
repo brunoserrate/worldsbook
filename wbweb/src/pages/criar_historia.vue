@@ -279,20 +279,7 @@ export default {
     watch: {
 
     },
-<<<<<<< HEAD
     methods: { 
-=======
-    methods: {
-        personagemLength(){
-            this.personagens.length = 0
-        },
-        addNewCharacter () {
-            this.personagens.length += 1
-            console.log(this.personagens.length)
-            console.log(this.personagens)
-        },
-
->>>>>>> 91d211df5e9bb9719e0cadce8aec0183a5c55450
         setLivro(){
             let that = this
             that.historia.usuario_id = that.user.user_id
@@ -321,7 +308,6 @@ export default {
                 that.showSimulatedReturnData = true
 			})
         },
-<<<<<<< HEAD
         cancel(){
             
         },
@@ -329,9 +315,6 @@ export default {
             // console.log("A: ", this.historias)
             // this.$router.push({path: `criar_historia/` + livro_detail.id})
         },
-=======
-
->>>>>>> 91d211df5e9bb9719e0cadce8aec0183a5c55450
         getCategorias(){
             let that = this
 
