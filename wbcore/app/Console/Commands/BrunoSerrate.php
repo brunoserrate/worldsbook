@@ -44,7 +44,9 @@ class BrunoSerrate extends Command
      */
     public function handle() {
 
-        Storage::disk('ftp')->put('worldbooks/spa/upload/historia/' . 'teste.txt', 'teste');
+        $id = DB::table('capitulos')->select('id')->where('id', 1)->first()->id;
+
+        var_dump($id);
 
 
     }

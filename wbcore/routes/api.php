@@ -37,6 +37,12 @@ Route::get('comentario/mais-comentarios', 'ComentarioAPIController@carregarComen
 // Upload de capa da história
 Route::post('historia/upload/capa', 'HistoriaAPIController@uploadCapaHistoria');
 
+// Upload de capa do capítulo
+Route::post('capitulo/upload/capa', 'CapituloAPIController@uploadCapaCapitulo');
+
+// Upload da foto perfil para ser utilizada pelo usuário
+Route::post('user/upload/foto', [UserController::class, 'uploadFoto']);
+
 Route::resource('historia', HistoriaAPIController::class);
 Route::resource('capitulo', CapituloAPIController::class);
 Route::resource('categoria', CategoriaAPIController::class);

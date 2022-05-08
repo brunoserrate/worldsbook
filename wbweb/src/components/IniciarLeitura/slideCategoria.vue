@@ -84,7 +84,7 @@ export default {
 					content: 'Slide content.'
 				}
 			]
-			
+
 		}
 	},
 	mounted(){
@@ -101,7 +101,7 @@ export default {
 				}
 				return value
 			}
-			
+
 		}
 	},
 	methods:{
@@ -124,10 +124,10 @@ export default {
 			that.$axios.get(that.$pathAPI + url)
 			.then((res) => {
 				that.livros = res.data.data
-				console.log(that.livros)
+				// console.log(that.livros)
 			})
 			.catch((err) => {
-				console.log(err.response)
+				// console.log(err.response)
 			})
 		},
 	},
@@ -137,5 +137,5 @@ export default {
     @import '../../css/iniciar-leitura.scss';
     @import '../../css/dialogs.scss';
 
-	
+
 </style>

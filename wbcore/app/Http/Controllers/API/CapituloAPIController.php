@@ -290,4 +290,16 @@ class CapituloAPIController extends AppBaseController
 
         return $this->sendSuccess('Capítulo visualizado');
     }
+
+    public function uploadCapaCapitulo(Request $request) {
+
+        $result = $this->capituloRepository->uploadCapaCapitulo($request);
+
+        // Caso tenha falha
+        if(!$result['success']){
+            return $this->sendError($result['message'], $result['code'], $result['data']);
+        }
+
+        return $this->sendResponse($result['data'], $result['message']);
+    }
 }
