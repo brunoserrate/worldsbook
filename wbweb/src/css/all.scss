@@ -1,0 +1,13 @@
+.title_capitulo {
+    .q-field__native, .q-field__input {
+        text-align: center;
+    }
+}
+.q-editor > div:first-child, .q-editor__toolbars-container, .q-editor__toolbars-container > div:first-child {
+    border: 0;
+}
+.criar_capitulo {
+    .input_search {
+        display: none;
+    }
+}

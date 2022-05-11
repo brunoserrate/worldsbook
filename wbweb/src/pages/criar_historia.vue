@@ -286,6 +286,7 @@ export default {
             that.historia.data_atualizacao = Date.now()
             that.historia.data_criacao = Date.now()
             that.historia.historia_finalizada = 0
+            that.historia.caminho_capa = 'https://1.bp.blogspot.com/-tllV4g139Nc/XYODAw2eV3I/AAAAAAAAdkg/u7DOSlKhgv0DPy_AKsFZdFzXLxuGNVbHwCNcBGAsYHQ/s1600/to-the-sky-qu-1440x2560.jpg'
             console.log(that.historia)
 
             that.visible = true
@@ -300,6 +301,7 @@ export default {
                 
                 this.historiaCriadaSucesso()
                 console.log("A: ", that.historias)
+                this.$router.push({path: `criar_historia/` + that.historias.historia_id})
 			})
 			.catch((err) => {
 				console.log(err.response)
@@ -314,53 +316,6 @@ export default {
         goCapitulo(){
             // console.log("A: ", this.historias)
             // this.$router.push({path: `criar_historia/` + livro_detail.id})
-        },
-        getCategorias(){
-            let that = this
-
-			that.$axios.get(that.$pathAPI + '/categoria')
-			.then((res) => {
-				that.categorias = res.data.data
-			})
-			.catch((err) => {
-				console.log(err.response)
-			})
-        },
-
-        getPublicoAlvo(){
-            let that = this
-
-			that.$axios.get(that.$pathAPI + '/publico_alvo')
-			.then((res) => {
-				that.publicos_alvo = res.data.data
-			})
-			.catch((err) => {
-				console.log(err.response)
-			})
-        },
-
-        getIdiomas(){
-            let that = this
-
-			that.$axios.get(that.$pathAPI + '/idioma')
-			.then((res) => {
-				that.idiomas = res.data.data
-			})
-			.catch((err) => {
-				console.log(err.response)
-			})
-        },
-
-        getDireitoAutorais(){
-            let that = this
-
-			that.$axios.get(that.$pathAPI + '/direitos_autorais')
-			.then((res) => {
-				that.direitos_autorais = res.data.data
-			})
-			.catch((err) => {
-				console.log(err.response)
-			})
         },
 
         // Uploader
