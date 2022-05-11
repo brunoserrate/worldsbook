@@ -110,9 +110,14 @@ class CapituloAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $capitulo = $this->capituloRepository->create($input);
+        $result = $this->capituloRepository->create($input);
 
-        return $this->sendResponse($capitulo->toArray(), 'Capitulo saved successfully');
+        // Caso tenha falha
+        if(!$result['success']){
+            return $this->sendError($result['message'], $result['code'], $result['data']);
+        }
+
+        return $this->sendResponse($result['data'], $result['message']);
     }
 
     /**

@@ -43,6 +43,8 @@ Route::post('capitulo/upload/capa', 'CapituloAPIController@uploadCapaCapitulo');
 // Upload da foto perfil para ser utilizada pelo usuário
 Route::post('user/upload/foto', [UserController::class, 'uploadFoto']);
 
+Route::get('historia/pesquisa', 'HistoriaAPIController@pesquisarHistoria');
+
 Route::resource('historia', HistoriaAPIController::class);
 Route::resource('capitulo', CapituloAPIController::class);
 Route::resource('categoria', CategoriaAPIController::class);

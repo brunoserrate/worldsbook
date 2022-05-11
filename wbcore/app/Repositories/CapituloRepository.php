@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Capitulo;
 use App\Models\Comentario;
+use App\Models\Historia;
 use App\Repositories\BaseRepository;
 
 use Illuminate\Support\Facades\Auth;
@@ -138,6 +139,57 @@ class CapituloRepository extends BaseRepository
             'data' => $capitulo
         ];
 
+    }
+
+    /**
+     * Grava o capítulo
+     *
+     * @param array $input
+     *
+     * @return array $result Retorna um array com o resultado da função,
+     *                       seja o retorno positivo ou negativo
+     */
+    public function create($input) {
+
+        $usuario_id = Auth::user()->id;
+
+        if(!empty($input['usuario_id']) ){
+            $usuario_id = $input['usuario_id'];
+        }
+
+        $historia = Historia::where('id', $input['historia_id'])
+                        ->select('usuario_id')
+                        ->first();
+
+        if(empty($historia)) {
+            return [
+                'success' => false,
+                'message' => 'História não encontrada! Favor verificar os parâmetros enviados.',
+                'code' => 404,
+                'data' => []
+            ];
+        }
+
+        $usuario_historia = $historia->usuario_id;
+
+        if($usuario_historia != $usuario_id) {
+            return [
+                'success' => false,
+                'message' => 'Divergência de usuários! Sem permissão para criar capítulos para essa história.',
+                'code' => 400,
+                'data' => []
+            ];
+        }
+
+        $model = $this->model->newInstance($input);
+        $model->save();
+
+        return [
+            'success' => true,
+            'message' => 'Capítulo criado com sucesso',
+            'code' => 200,
+            'data' => $model->toArray()
+        ];
     }
 
     public function adicionarVisualizacao($capituloId) {

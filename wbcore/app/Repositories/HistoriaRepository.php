@@ -345,10 +345,76 @@ class HistoriaRepository extends BaseRepository
                 'full_path' => $envPath . 'historia/' . $data['file_name']
             ]
         ];
-
-
     }
 
+    /**
+     * Função para pesquisar as histórias por título da história e por tag atrelada
+     *
+     * @param array {
+     *              pesquisa: string,
+     *        } $input
+     *
+     * @return array $result Retorna um array com o resultado da função,
+     *                       seja o retorno positivo ou negativo
+     *
+     **/
+    public function pesquisarHistoria($input){
+
+        // Instanciando variável de pesquisa
+        $pesquisa = '';
+
+        // Caso o input de pesquisa não esteja vazio, atrela a variável de pesquisa
+        if( !empty($input['pesquisa'] ) ) {
+            $pesquisa = trim( $input['pesquisa']  );
+        }
+
+        // Query para fazer a busca de histórias
+        $result = DB::table('historia')
+                    ->select(
+                        'historia.id',
+                        'historia.titulo',
+                        'historia.descricao',
+                        'historia.historia_finalizada',
+                        'historia.caminho_capa',
+                        DB::raw(
+                            '(CASE
+                                WHEN capitulos.quantidade_visualizacao IS NULL THEN 0
+                                ELSE SUM(capitulos.quantidade_visualizacao)
+                            END) AS total_visualizacoes'
+                        ),
+                        DB::raw(
+                            '(CASE
+                                WHEN capitulos.votacao IS NULL THEN 0
+                                ELSE SUM(capitulos.votacao)
+                            END) AS total_votos'
+                        ),
+                        DB::raw('COUNT(capitulos.id) AS total_capitulos')
+                    )
+                    ->leftJoin('capitulos', 'capitulos.historia_id', '=', 'historia.id')
+                    // Subquery para buscar os ids das histórias que contém a palavra pesquisada
+                    // Tanto no título, quanto nos nomes das tags
+                    ->whereIn('historia.id', function($query) use ($pesquisa) {
+                        $query->from('historia')
+                            ->select('historia.id')
+                            ->leftJoin('historia_tag', 'historia_tag.historia_id', '=', 'historia.id')
+                            ->leftJoin('tags', 'tags.id', '=', 'historia_tag.tag_id')
+                            // Encapsulamento do where
+                            ->where( function($query2) use ($pesquisa) {
+                                $query2->orWhere('historia.titulo', 'LIKE', '%'. $pesquisa . '%')
+                                ->orWhere('tags.nome', 'LIKE', '%'. $pesquisa . '%');
+                            });
+                    })
+                    ->groupBy('historia.id')
+                    ->get()
+                    ->toArray();
+
+        return [
+            'success' => true,
+            'message' => 'Hístórias retornadas com sucesso',
+            'code' => 200,
+            'data' => $result
+        ];
+    }
 
 
 }
