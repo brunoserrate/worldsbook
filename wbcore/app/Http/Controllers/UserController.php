@@ -208,6 +208,55 @@ class UserController extends AppBaseController
     }
 
     /**
+     * Qtd de histórias
+     * Nome
+     * Apelido
+    */
+    public function pesquisarUsuarios(Request $request){
+        $input = $request->all();
+
+        // Instanciando variável de pesquisa
+        $pesquisa = '';
+
+        // Caso o input de pesquisa não esteja vazio, atrela a variável de pesquisa
+        if( !empty($input['pesquisa'] ) ) {
+            $pesquisa = trim( $input['pesquisa']  );
+        }
+
+        $user = User::where('users.id', $pesquisa)
+                    ->select(
+                        'users.id as user_id',
+                        'users.email',
+                        'users.name',
+                        'users.apelido',
+                        'users.foto_perfil',
+                        DB::RAW('COUNT(historia.id) AS qtd_historias')
+                    )
+                    ->join('historia', 'historia.usuario_id', '=', 'users.id')
+                    ->first();
+
+        if(empty($user)){
+            return $this->sendError('Usuário não localizado', 400);
+        }
+
+        return $this->sendResponse($user->toArray(), 'Usuário localizado com sucesso');
+    }
+
+    public function atualizarPerfil(Request $request) {
+
+        $input = $request->all();
+
+        $usuario_id = Auth::user()->id;
+
+        $user = User::findOrFail($usuario_id);
+
+        $user->fill($input);
+        $user->save();
+
+        return $user;
+    }
+
+    /**
      * Função para fazer upload de imagem para a foto do perfil
      * também será feito a atualização do campo no banco de dados
      *

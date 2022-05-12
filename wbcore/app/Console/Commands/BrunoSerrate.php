@@ -10,6 +10,7 @@ use GuzzleHttp\Client;
 use App\Models\Tags;
 use Illuminate\Support\Facades\Storage;
 use File;
+use App\Models\User;
 
 class BrunoSerrate extends Command
 {
@@ -44,10 +45,21 @@ class BrunoSerrate extends Command
      */
     public function handle() {
 
-        $id = DB::table('capitulos')->select('id')->where('id', 1)->first()->id;
+        $pesquisa = 1;
 
-        var_dump($id);
+        $user = User::where('users.id', $pesquisa)
+                    ->select(
+                        'users.id as user_id',
+                        'users.email',
+                        'users.name',
+                        'users.apelido',
+                        'users.foto_perfil',
+                        DB::RAW('COUNT(historia.id) AS qtd_historias')
+                    )
+                    ->join('historia', 'historia.usuario_id', '=', 'users.id')
+                    ->first();
 
+        var_dump($user->toArray());
 
     }
 
