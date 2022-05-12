@@ -35,6 +35,17 @@ Vue.mixin({
                     { label: 'OK', color: 'white', handler: () => { /* ... */ } }
                 ]
             })
+        },
+        erroCarregar(err) {
+            this.$q.notify({
+                message: 'Erro ao carregar!', err,
+                color: 'negative',
+                icon: 'error_outline',
+                multiLine: true,
+                actions: [
+                    { label: 'OK', color: 'white', handler: () => { /* ... */ } }
+                ]
+            })
         }
     }
 })

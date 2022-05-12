@@ -53,6 +53,11 @@
                                 <div class="col-2">
                                     <q-btn unelevated icon="add" class="btn_add_lista"/>
                                 </div>
+                                <!-- <div class="row"> -->
+                                    <div class="col-12 col-sm-8">
+                                        <q-btn flat label="Editar história" icon="edit" class="btn-editar-historia" @click="goEditHistoria" v-if="livro.usuario_id == user.user_id"/>
+                                    </div>
+                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
@@ -105,9 +110,18 @@
                     </div>
                     <q-list>
                         <q-item v-if="livro.capitulos.length == 0">Essa história ainda não tem capítulos!</q-item>
-                        <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_list" @click="goChapter(capitulo)">
-                            {{capitulo.titulo}}
-                        </q-item>
+                        <div class="row">
+                            <div class="col-11">
+                                <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_list" @click="goChapter(capitulo)" >
+                                    {{capitulo.titulo}}
+                                </q-item>
+                            </div>
+                            <div class="col-1">
+                                <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_edit" @click="goEditCapitulo(capitulo)">
+                                    <q-icon name="edit" color="#7A22A7"></q-icon>
+                                </q-item>
+                            </div>
+                        </div>
                     </q-list>
                 </q-card>
             </div>
@@ -175,6 +189,13 @@ export default {
             .catch((err) => {
                 console.log(err.response)
             })
+        },
+        goEditHistoria(){
+            this.$router.push({path: `../editar_livro/` + this.livro_id})
+        },
+        goEditCapitulo(capitulo){
+            console.log(capitulo)
+            this.$router.push({path: `../editar_capitulo/` + capitulo.id})
         },
         goAddCapitulo(){
             console.log(this.livro_id)

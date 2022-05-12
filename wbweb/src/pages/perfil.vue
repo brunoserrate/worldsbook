@@ -20,7 +20,7 @@
             <div cols="12" style="width: 100%;">
                 <q-card class="card_barra">
                     <p class="a-seguir">A Seguir</p>
-                    <q-btn flat style="primary" label="Editar Perfil" icon="settings" class="btn-editar-perfil"/>
+                    <q-btn flat style="primary" label="Editar Perfil" icon="settings" class="btn-editar-perfil" @click="goEditPerfil"/>
                 </q-card>
             </div>
         </div>
@@ -36,6 +36,15 @@
                         </div>
                         <div class="col-11 offset-1">
                             <p class="p-descricao">{{ descricao }}</p>
+                        </div>
+                    </div>
+                </q-card>
+            </div>
+            <div class="col-6">
+                <q-card class="card_historias">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="historias-de-usuario">Historias de {{ user.apelido }}</h4>
                         </div>
                     </div>
                 </q-card>
@@ -63,10 +72,13 @@ export default {
     
     mounted(){
         this.getUser()
+        console.log(this.user)
     },
 
     methods: {
-
+        goEditPerfil(){
+            this.$router.push({path: `../editar_perfil/` + this.user.user_id})
+        }
     }
 }
 </script>
