@@ -32,6 +32,14 @@
 
               <q-btn round size="lg">
                 <q-menu>
+                  <q-item clickable v-close-popup>
+                    <q-item-section @click="goPerfil">
+                         Perfil
+                    </q-item-section>
+                    <q-item-section avatar>
+                        <q-icon name="account_circle" color="primary" size="32px" />
+                    </q-item-section>
+                  </q-item>
                   <q-item>
                     <q-item-section>
                       <q-toggle
@@ -142,7 +150,8 @@ export default {
       isPwdConf: true,
       isPwdLogin: true,
       isIndex: true,
-      logado:false,
+      isCriarCapitulo: false,
+      logado: false,
       user: null,
       formLogin: {
           email: '',
@@ -170,6 +179,12 @@ export default {
       if(this.$route.path == '/'){
         this.$set(this,'isIndex', true)
       }
+      if (this.$route.path == '/criar_historia/' + this.$route.params.historia_id){
+        this.$set(this,'isCriarCapitulo', true)
+      }
+      if (!this.$route.path == '/criar_historia/' + this.$route.params.historia_id){
+        this.$set(this,'isCriarCapitulo', false)
+      }
       else {
         this.$set(this,'isIndex', false)
       }
@@ -191,6 +206,9 @@ export default {
     }
   },
   methods: {
+    goPerfil(){
+      this.$router.push({ path: '/perfil' })
+    },
     getNewHistoria(){
       this.$router.push({ path: '/criar_historia' })
     },

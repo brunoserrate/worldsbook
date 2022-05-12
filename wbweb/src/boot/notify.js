@@ -8,9 +8,37 @@ Vue.mixin({
               message: `História criada!`
             })
         },
+        capituloCriadoSucesso () {
+            this.$q.notify({
+              type: 'positive',
+              message: `Capítulo criado!`
+            })
+        },
         erroCriacao () {
             this.$q.notify({
                 message: 'Erro na criação da história!',
+                color: 'negative',
+                icon: 'error_outline',
+                multiLine: true,
+                actions: [
+                    { label: 'OK', color: 'white', handler: () => { /* ... */ } }
+                ]
+            })
+        },
+        erroCriacaoCapitulo () {
+            this.$q.notify({
+                message: 'Erro na criação do capítulo!',
+                color: 'negative',
+                icon: 'error_outline',
+                multiLine: true,
+                actions: [
+                    { label: 'OK', color: 'white', handler: () => { /* ... */ } }
+                ]
+            })
+        },
+        erroCarregar(err) {
+            this.$q.notify({
+                message: 'Erro ao carregar!', err,
                 color: 'negative',
                 icon: 'error_outline',
                 multiLine: true,

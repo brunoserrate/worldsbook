@@ -2,13 +2,14 @@
     <q-page class="criar_capitulo">
         <div class="row justify-end items-center content-center navbar_capitulo">
             <div class="col-2 col_btn">
+                <q-inner-loading 
+                    :showing="visible_page"
+                    label-class="text-teal"
+                    label-style="font-size: 1.1em"
+                    label="Carregando capítulo..."
+                >
+                </q-inner-loading>
                 <q-btn flat label="Publicar" class="btn_seguinte" @click="setCapitulo">
-                    <q-inner-loading 
-                        :showing="visible"
-                        label-class="text-teal"
-                        label-style="font-size: 1.1em"
-                    >
-                    </q-inner-loading>
                 </q-btn>
             </div>
             <div class="col-2">
@@ -46,7 +47,7 @@
     export default {
         data (){
             return {
-                historia_id: this.$route.params.historia_id,
+                capitulo_id: this.$route.params.capitulo_id,
                 capitulo: {
                     titulo: '',
                     capitulo: '',
@@ -57,20 +58,45 @@
                 },
                 capitulos: [],
                 visible: false,
+                visible_page: false,
                 showSimulatedReturnData: false
             }
         },
         mounted(){
-            console.log(this.$route.params.historia_id)
+            console.log(this.capitulo_id)
+            this.getCapitulo()
         },
         methods: {
+            async getCapitulo(){
+                let that = this
+
+                that.visible_page = true
+                that.showSimulatedReturnData = false
+
+                that.$axios.get(that.$pathAPI + '/capitulo/' + this.capitulo_id)
+                .then((res) => {
+                    that.capitulo = res.data.data
+                    console.log("cap", that.capitulo)
+                    
+                    that.visible_page = false
+                    that.showSimulatedReturnData = true
+                })
+                .catch((err) => {
+                    console.log(err.response)
+                    this.erroCarregar()
+                    that.visible_page = false
+                    that.showSimulatedReturnData = true
+                })
+                
+                
+            },
             setCapitulo(){
                 let that = this
 
                 that.visible = true
                 that.showSimulatedReturnData = false
 
-                that.$axios.post(that.$pathAPI + '/capitulo', that.capitulo)
+                that.$axios.patch(that.$pathAPI + '/capitulo', that.capitulo)
                 .then((res) => {
                     console.log("res: ", res)
                     that.capitulos = res.data.data
@@ -87,7 +113,7 @@
                 })
             },
             cancelar(){
-                this.$router.push({path: `../livro/` + this.$route.params.historia_id})
+                this.$router.push({path: `../livro/` + this.capitulo.historia_id})
             }
         }
     }

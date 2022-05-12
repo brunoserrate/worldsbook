@@ -47,7 +47,10 @@
                     </div>
                     <!-- CORPO DO CAPÍTULO -->
                     <div class="col-6">
-                        <h3 class="corpo_capitulo">{{capitulo.capitulo}}</h3>
+                        <q-card flat>
+                            <q-card-section class="corpo_capitulo" v-html="capitulo.capitulo" />
+                        </q-card>
+                        <!-- <p class="corpo_capitulo">{{capitulo.capitulo}}</p> -->
                         <div class="row justify-center">
                             <div class="col-12 row_status">
                                 <q-btn unelevated label="Ir para o próximo capítulo >" class="btn_proximo_capitulo" @click="nextChapter"/>

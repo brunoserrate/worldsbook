@@ -22,11 +22,23 @@
                         />
                     </div>
                     <div v-else class="col-12 col-md-auto text-right">
-                        <img :src="historia.caminho_capa" alt="" height="50%">
+                        <q-inner-loading
+                            :showing="visible_page"
+                            label="Carregando história..."
+                            label-class="text-teal"
+                            label-style="font-size: 1.5em"
+                        />
+                        <img :src="historia.caminho_capa" alt="" height="50%" class="edit-cover">
                     </div>
                     <div class="row">
                         <div class="col-12" style="margin: 0 0px 0 58px;">
                             <q-card class="card_form_historia">
+                                <q-inner-loading
+                                    :showing="visible_page"
+                                    label="Carregando história..."
+                                    label-class="text-teal"
+                                    label-style="font-size: 1.5em"
+                                />
                                 <div class="col-6">
                                     <h3 class="title_historia">Detalhes das História</h3>
                                 </div>
@@ -197,7 +209,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <q-btn flat label="Seguinte" class="btn_seguinte" @click="setLivro">
+                                        <q-btn flat label="Postar" class="btn_seguinte" @click="setLivro">
                                             <q-inner-loading 
                                                 :showing="visible"
                                                 label-class="text-teal"
@@ -226,6 +238,7 @@ export default {
             // Uploader
             uploadPercentage: 0,
             uploadPercent:null,
+            livro_id: this.$route.params.livro_id,
             files:null,
             errors: null,
             data: null,
@@ -265,6 +278,7 @@ export default {
             direitos_autorais: [],
             user: {},
             visible: false,
+            visible_page: false,
             showSimulatedReturnData: false
         }
     },
@@ -274,25 +288,49 @@ export default {
         this.getIdiomas()
         this.getDireitoAutorais()
         this.getUser()
-        console.log(this.user)
+        this.getLivro()
+        console.log(this.livro_id)
     },
     watch: {
 
     },
     methods: { 
+        async getLivro(){
+            let that = this
+
+            that.visible_page = true
+            that.showSimulatedReturnData = false
+
+            that.$axios.get(that.$pathAPI + '/historia/' + this.$route.params.livro_id)
+			.then((res) => {
+				that.historia = res.data.data
+                console.log(that.historia)
+                
+                that.visible_page = false
+                that.showSimulatedReturnData = true
+			})
+			.catch((err) => {
+				console.log(err.response)
+                this.erroCarregar()
+                that.visible_page = false
+                that.showSimulatedReturnData = true
+			})
+            
+            
+        },
         setLivro(){
             let that = this
-            that.historia.usuario_id = that.user.user_id
-            that.historia.data_atualizacao = Date.now()
-            that.historia.data_criacao = Date.now()
-            that.historia.historia_finalizada = 0
-            that.historia.caminho_capa = 'https://1.bp.blogspot.com/-tllV4g139Nc/XYODAw2eV3I/AAAAAAAAdkg/u7DOSlKhgv0DPy_AKsFZdFzXLxuGNVbHwCNcBGAsYHQ/s1600/to-the-sky-qu-1440x2560.jpg'
+            // that.historia.usuario_id = that.user.user_id
+            // that.historia.data_atualizacao = Date.now()
+            // that.historia.data_criacao = Date.now()
+            // that.historia.historia_finalizada = 0
+            // that.historia.caminho_capa = 'https://1.bp.blogspot.com/-tllV4g139Nc/XYODAw2eV3I/AAAAAAAAdkg/u7DOSlKhgv0DPy_AKsFZdFzXLxuGNVbHwCNcBGAsYHQ/s1600/to-the-sky-qu-1440x2560.jpg'
             console.log(that.historia)
 
             that.visible = true
             that.showSimulatedReturnData = false
 
-            that.$axios.post(that.$pathAPI + '/historia', that.historia)
+            that.$axios.patch(that.$pathAPI + '/historia', that.historia)
 			.then((res) => {
 				console.log("res: ", res)
                 that.historias = res.data.data
