@@ -19,7 +19,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'apelido','data_nascimento','ativo'
+        'name',
+        'email',
+        'password',
+        'apelido',
+        'data_nascimento',
+        'sobre',
+        'foto_perfil'
     ];
 
     /**
@@ -44,6 +50,7 @@ class User extends Authenticatable
         'data_nascimento' => 'date',
         'ativo' => 'boolean',
         'usar_apelido' => 'boolean',
-        'foto_perfil' => 'string'
+        'foto_perfil' => 'string',
+        'sobre' => 'string'
     ];
 }
