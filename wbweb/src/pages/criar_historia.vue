@@ -273,7 +273,7 @@ export default {
         this.getPublicoAlvo()
         this.getIdiomas()
         this.getDireitoAutorais()
-        this.user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
+        this.getUser()
         console.log(this.user)
     },
     watch: {
