@@ -30,7 +30,8 @@ class CapituloRepository extends BaseRepository
         'historia_id',
         'caminho_capa',
         'quantidade_visualizacao',
-        'votacao'
+        'votacao',
+        'usuario_id'
     ];
 
     /**
@@ -182,11 +183,42 @@ class CapituloRepository extends BaseRepository
         }
 
         $model = $this->model->newInstance($input);
+        $model->usuario_id = $usuario_id;
         $model->save();
 
         return [
             'success' => true,
             'message' => 'Capítulo criado com sucesso',
+            'code' => 200,
+            'data' => $model->toArray()
+        ];
+    }
+
+
+    public function update($input, $id) {
+
+        $usuario_id = Auth::user()->id;
+
+        $query = $this->model->newQuery();
+        $model = $query->findOrFail($id);
+
+        if($model->usuario_id != $usuario_id) {
+            return [
+                'success' => false,
+                'message' => 'Sem permissão para alterar o capítulo de outro usuário.',
+                'code' => 400,
+                'data' => []
+            ];
+        }
+
+        $model->fill($input);
+        $model->data_atualizacao = date('Y-m-d H:i:s');
+
+        $model->save();
+
+        return [
+            'success' => true,
+            'message' => 'Capítulo atualizado com sucesso',
             'code' => 200,
             'data' => $model->toArray()
         ];

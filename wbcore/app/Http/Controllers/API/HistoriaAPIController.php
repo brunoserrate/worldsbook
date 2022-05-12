@@ -161,7 +161,7 @@ class HistoriaAPIController extends AppBaseController
     public function show($id)
     {
         /** @var Historia $historia */
-        $historia = $this->historiaRepository->find($id);
+        $historia = $this->historiaRepository->buscarHistoria($id);
 
         // Caso tenha falha
         if(!$historia['success']){
@@ -225,12 +225,16 @@ class HistoriaAPIController extends AppBaseController
         $historia = $this->historiaRepository->find($id);
 
         if (empty($historia)) {
-            return $this->sendError('Historia not found');
+            return $this->sendError('História não localizada');
         }
 
-        $historia = $this->historiaRepository->update($input, $id);
+        $result = $this->historiaRepository->update($input, $id);
 
-        return $this->sendResponse($historia->toArray(), 'Historia updated successfully');
+        if(!$result['success']){
+            return $this->sendError($result['message'], $result['code'], $result['data']);
+        }
+
+        return $this->sendResponse($result['data'], $result['message']);
     }
 
     /**

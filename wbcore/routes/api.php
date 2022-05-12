@@ -44,7 +44,7 @@ Route::post('capitulo/upload/capa', 'CapituloAPIController@uploadCapaCapitulo');
 Route::post('user/upload/foto', [UserController::class, 'uploadFoto']);
 
 // Atualizar configurações de perfil
-Route::put('user/perfil', [UserController::class, 'atualizarPerfil']);
+Route::patch('user/perfil', [UserController::class, 'atualizarPerfil']);
 
 // Buscar usuários
 Route::get('user/pesquisa', [UserController::class, 'pesquisarUsuarios']);

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Artisan;
 use GuzzleHttp\Client;
 use App\Models\Tags;
+use App\Models\Historia;
 use Illuminate\Support\Facades\Storage;
 use File;
 use App\Models\User;
@@ -45,21 +46,28 @@ class BrunoSerrate extends Command
      */
     public function handle() {
 
-        $pesquisa = 1;
+        $historia = Historia::where('usuario_id', 1)->select('id')->get()->toArray();
 
-        $user = User::where('users.id', $pesquisa)
-                    ->select(
-                        'users.id as user_id',
-                        'users.email',
-                        'users.name',
-                        'users.apelido',
-                        'users.foto_perfil',
-                        DB::RAW('COUNT(historia.id) AS qtd_historias')
-                    )
-                    ->join('historia', 'historia.usuario_id', '=', 'users.id')
-                    ->first();
+        foreach ($historia as $hist) {
+            echo $hist['id'] . PHP_EOL;
+        }
 
-        var_dump($user->toArray());
+
+        // $pesquisa = 1;
+
+        // $user = User::where('users.id', $pesquisa)
+        //             ->select(
+        //                 'users.id as user_id',
+        //                 'users.email',
+        //                 'users.name',
+        //                 'users.apelido',
+        //                 'users.foto_perfil',
+        //                 DB::RAW('COUNT(historia.id) AS qtd_historias')
+        //             )
+        //             ->join('historia', 'historia.usuario_id', '=', 'users.id')
+        //             ->first();
+
+        // var_dump($user->toArray());
 
     }
 

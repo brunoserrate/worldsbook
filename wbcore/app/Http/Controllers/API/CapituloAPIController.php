@@ -228,9 +228,13 @@ class CapituloAPIController extends AppBaseController
             return $this->sendError('Capitulo not found');
         }
 
-        $capitulo = $this->capituloRepository->update($input, $id);
+        $result = $this->capituloRepository->update($input, $id);
 
-        return $this->sendResponse($capitulo->toArray(), 'Capitulo updated successfully');
+        if(!$result['success']){
+            return $this->sendError($result['message'], $result['code'], $result['data']);
+        }
+
+        return $this->sendResponse($result['data'], $result['message']);
     }
 
     /**
