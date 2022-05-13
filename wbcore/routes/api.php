@@ -25,38 +25,67 @@ Route::post('/forgot-password', [UserController::class, 'forgotPassword'] );
 // Resetar senha
 Route::post('/reset-password', [UserController::class, 'resetPassword'] );
 
-// Chamada para quando o usuário visualizar o capítulo
-Route::post('capitulo/visualizado/{id}', 'CapituloAPIController@capituloVisualizado');
-
-// Função para alterar o campo usar_apelido do usuário
-Route::post('user/preferencia/apelido', [UserController::class, 'preferenciaUsarApelido']);
-
 // Rota para buscar mais comentários sem necessidade de recarregar tudo
 Route::get('comentario/mais-comentarios', 'ComentarioAPIController@carregarComentarios');
 
-// Upload de capa da história
-Route::post('historia/upload/capa', 'HistoriaAPIController@uploadCapaHistoria');
+// Buscar historias
+Route::get('historia', 'HistoriaAPIController@index');
 
-// Upload de capa do capítulo
-Route::post('capitulo/upload/capa', 'CapituloAPIController@uploadCapaCapitulo');
-
-// Upload da foto perfil para ser utilizada pelo usuário
-Route::post('user/upload/foto', [UserController::class, 'uploadFoto']);
-
-// Atualizar configurações de perfil
-Route::patch('user/perfil', [UserController::class, 'atualizarPerfil']);
-
-// Buscar usuários
-Route::get('user/pesquisa', [UserController::class, 'pesquisarUsuarios']);
+// Buscar historia pelo ID
+Route::get('historia/{id}', 'HistoriaAPIController@find');
 
 // Buscar histórias
 Route::get('historia/pesquisa', 'HistoriaAPIController@pesquisarHistoria');
 
-Route::resource('historia', HistoriaAPIController::class);
-Route::resource('capitulo', CapituloAPIController::class);
-Route::resource('categoria', CategoriaAPIController::class);
-Route::resource('comentario', ComentarioAPIController::class);
-Route::resource('direitos_autorais', DireitosAutoraisAPIController::class);
-Route::resource('idioma', IdiomaAPIController::class);
-Route::resource('publico_alvo', PublicoAlvoAPIController::class);
-Route::resource('tags', TagsAPIController::class);
+// Buscar capitulos
+Route::get('capitulo', 'CapituloAPIController@index');
+
+// Buscar capitulo pelo ID
+Route::get('capitulo/{id}', 'CapituloAPIController@find');
+
+// Chamada para quando o usuário visualizar o capítulo
+Route::post('capitulo/visualizado/{id}', 'CapituloAPIController@capituloVisualizado');
+
+// Buscar usuários
+Route::get('user/pesquisa', [UserController::class, 'pesquisarUsuarios']);
+
+// Auxiliares
+Route::get('categoria', 'CategoriaAPIController@index');
+Route::get('comentario', 'ComentarioAPIController@index');
+Route::get('direitos_autorais', 'DireitosAutoraisAPIController@index');
+Route::get('idioma', 'IdiomaAPIController@index');
+Route::get('publico_alvo', 'PublicoAlvoAPIController@index');
+Route::get('tags', 'TagsAPIController@index');
+
+// Rotas autênticadas
+Route::middleware('auth:sanctum')->group(function() {
+
+	// Upload de capa da história
+	Route::post('historia/upload/capa', 'HistoriaAPIController@uploadCapaHistoria');
+
+	// Gravar a história
+	Route::post('historia', 'HistoriaAPIController@store');
+
+	// Atualizar historia
+	Route::patch('historia/{id}', 'HistoriaAPIController@update');
+
+	// Upload de capa do capítulo
+	Route::post('capitulo/upload/capa', 'CapituloAPIController@uploadCapaCapitulo');
+
+	// Gravar a capítulo
+	Route::post('capitulo', 'CapituloAPIController@store');
+
+	// Atualizar capítulo
+	Route::patch('capitulo/{id}', 'CapituloAPIController@update');
+
+	// Upload da foto perfil para ser utilizada pelo usuário
+	Route::post('user/upload/foto', [UserController::class, 'uploadFoto']);
+
+	// Função para alterar o campo usar_apelido do usuário
+	Route::post('user/preferencia/apelido', [UserController::class, 'preferenciaUsarApelido']);
+
+	// Atualizar configurações de perfil
+	Route::patch('user/perfil', [UserController::class, 'atualizarPerfil']);
+});
+
+
