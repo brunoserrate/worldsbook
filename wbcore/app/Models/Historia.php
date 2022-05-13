@@ -85,12 +85,9 @@ class Historia extends Model
 
 
     public $table = 'historia';
-    
+
     const CREATED_AT = 'data_criacao';
     const UPDATED_AT = 'data_atualizacao';
-
-
-
 
     public $fillable = [
         'titulo',
@@ -119,7 +116,8 @@ class Historia extends Model
         'direitos_autorais_id' => 'integer',
         'conteudo_adulto' => 'boolean',
         'caminho_capa' => 'string',
-        'usuario_id' => 'integer'
+        'usuario_id' => 'integer',
+        'historia_finalizada' => 'boolean',
     ];
 
     /**
@@ -137,8 +135,6 @@ class Historia extends Model
         'conteudo_adulto' => 'required|boolean',
         'caminho_capa' => 'required|string',
         'usuario_id' => 'required',
-        'data_criacao' => 'required',
-        'data_atualizacao' => 'required'
     ];
 
     /**

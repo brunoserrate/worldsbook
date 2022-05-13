@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AppBaseController;
 use App\Models\User;
+use App\Models\Historia;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Password;
@@ -14,6 +15,8 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
+use App\Repositories\HistoriaRepository;
+
 
 class UserController extends AppBaseController
 {
@@ -239,7 +242,24 @@ class UserController extends AppBaseController
             return $this->sendError('Usuário não localizado', 400);
         }
 
-        return $this->sendResponse($user->toArray(), 'Usuário localizado com sucesso');
+        $user = $user->toArray();
+
+        $histRepo = new HistoriaRepository(app());
+        $historias = [];
+
+        $histIds = Historia::where('usuario_id', $user['user_id'])->select('id')->get()->toArray();
+
+        foreach ($histIds as $hist) {
+            $result = $histRepo->find($hist['id']);
+
+            if($result['success']) {
+                $historias[] = $result['data'];
+            }
+        }
+
+        $user['historias'] = $historias;
+
+        return $this->sendResponse($user, 'Usuário localizado com sucesso');
     }
 
     public function atualizarPerfil(Request $request) {

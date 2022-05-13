@@ -211,7 +211,7 @@ class HistoriaRepository extends BaseRepository
      * @return array $result Retorna um array com o resultado da função,
      *                       seja o retorno positivo ou negativo
      */
-    public function find($id, $columns = ['*']) {
+    public function buscarHistoria($id) {
 
         // Busca as informações do registro da tabela história
         $historia = Historia::where('historia.id', $id)
@@ -291,6 +291,35 @@ class HistoriaRepository extends BaseRepository
             'data' => $historia
         ];
 
+    }
+
+    public function update($input, $id) {
+
+        $usuario_id = Auth::user()->id;
+
+        $query = $this->model->newQuery();
+        $model = $query->findOrFail($id);
+
+        if($model->usuario_id != $usuario_id) {
+            return [
+                'success' => false,
+                'message' => 'Sem permissão para alterar a história de outro usuário.',
+                'code' => 400,
+                'data' => []
+            ];
+        }
+
+        $model->fill($input);
+        $model->data_atualizacao = date('Y-m-d H:i:s');
+
+        $model->save();
+
+        return [
+            'success' => true,
+            'message' => 'História atualizada com sucesso',
+            'code' => 200,
+            'data' => $model->toArray()
+        ];
     }
 
     /**

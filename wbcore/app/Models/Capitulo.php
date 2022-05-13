@@ -93,7 +93,8 @@ class Capitulo extends Model
         'historia_id' => 'integer',
         'caminho_capa' => 'string',
         'quantidade_visualizacao' => 'integer',
-        'votacao' => 'integer'
+        'votacao' => 'integer',
+        'usuario_id' => 'integer'
     ];
 
     /**
@@ -108,8 +109,6 @@ class Capitulo extends Model
         'caminho_capa' => 'required|string',
         'quantidade_visualizacao' => 'required',
         'votacao' => 'required',
-        'data_criacao' => 'required',
-        'data_atualizacao' => 'required'
     ];
 
     /**
