@@ -286,7 +286,6 @@ export default {
             that.historia.data_atualizacao = Date.now()
             that.historia.data_criacao = Date.now()
             that.historia.historia_finalizada = 0
-            that.historia.caminho_capa = 'https://1.bp.blogspot.com/-tllV4g139Nc/XYODAw2eV3I/AAAAAAAAdkg/u7DOSlKhgv0DPy_AKsFZdFzXLxuGNVbHwCNcBGAsYHQ/s1600/to-the-sky-qu-1440x2560.jpg'
             console.log(that.historia)
 
             that.visible = true
@@ -312,10 +311,6 @@ export default {
         },
         cancel(){
             
-        },
-        goCapitulo(){
-            // console.log("A: ", this.historias)
-            // this.$router.push({path: `criar_historia/` + livro_detail.id})
         },
 
         // Uploader
