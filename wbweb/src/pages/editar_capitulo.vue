@@ -95,8 +95,9 @@
 
                 that.visible = true
                 that.showSimulatedReturnData = false
+                console.log(that.capitulo)
 
-                that.$axios.patch(that.$pathAPI + '/capitulo', that.capitulo)
+                that.$axios.patch(that.$pathAPI + `/capitulo/${this.capitulo_id}`, that.capitulo)
                 .then((res) => {
                     console.log("res: ", res)
                     that.capitulos = res.data.data

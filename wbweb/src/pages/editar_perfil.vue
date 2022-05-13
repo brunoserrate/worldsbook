@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col-10 offset-2" style="margin-top: 20px;">
                 <p class="p-altere-informacoes">Altere as informações da sua conta</p>
+                <q-btn label="Salvar" @click="setPerfil"></q-btn>
             </div>
         </div>
         <div class="row" style="margin-top: 20px;">
@@ -114,9 +115,10 @@ export default {
             uploadPercent:null,
             confirm: false,
             user: {
-                nome: 'Laís de Assis Requena',
-                descricao: 'Dama',
-                data_nascimento: '09042001',
+                nome: '',
+                descricao: '',
+                data_nascimento: '',
+                descricao: '',
                 avatar: '',
                 foto_perfil: '',
                 apelido: '',
@@ -141,7 +143,7 @@ export default {
             that.visible = true
             that.showSimulatedReturnData = false
 
-            that.$axios.patch(that.$pathAPI + '/user/perfil/', that.user.user_id)
+            that.$axios.patch(that.$pathAPI + `/user/perfil/${this.user.user_id}`, that.user)
             .then((res) => {
                 console.log("res: ", res)
                 that.users = res.data.data
