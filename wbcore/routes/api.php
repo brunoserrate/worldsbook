@@ -32,7 +32,7 @@ Route::get('comentario/mais-comentarios', 'ComentarioAPIController@carregarComen
 Route::get('historia', 'HistoriaAPIController@index');
 
 // Buscar historia pelo ID
-Route::get('historia/{id}', 'HistoriaAPIController@find');
+Route::get('historia/{id}', 'HistoriaAPIController@show');
 
 // Buscar histórias
 Route::get('historia/pesquisa', 'HistoriaAPIController@pesquisarHistoria');
@@ -41,7 +41,7 @@ Route::get('historia/pesquisa', 'HistoriaAPIController@pesquisarHistoria');
 Route::get('capitulo', 'CapituloAPIController@index');
 
 // Buscar capitulo pelo ID
-Route::get('capitulo/{id}', 'CapituloAPIController@find');
+Route::get('capitulo/{id}', 'CapituloAPIController@show');
 
 // Chamada para quando o usuário visualizar o capítulo
 Route::post('capitulo/visualizado/{id}', 'CapituloAPIController@capituloVisualizado');
