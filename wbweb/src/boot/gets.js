@@ -21,6 +21,7 @@ Vue.mixin({
 			that.$axios.get(that.$pathAPI + '/categoria')
 			.then((res) => {
 				that.categorias = res.data.data
+				// console.log("cat: ", this.categorias)
 			})
 			.catch((err) => {
 				console.log(err.response)

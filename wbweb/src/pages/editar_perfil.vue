@@ -1,9 +1,8 @@
 <template>
-    <q-page>
-        <div class="row">
+    <q-page class="bgindex">
+        <div class="row" style="margin-top: 8%;">
             <div class="col-10 offset-2" style="margin-top: 20px;">
                 <p class="p-altere-informacoes">Altere as informações da sua conta</p>
-                <q-btn label="Salvar" @click="setPerfil"></q-btn>
             </div>
         </div>
         <div class="row" style="margin-top: 20px;">
@@ -39,11 +38,20 @@
                     <div class="col-7">
                         <q-input v-model="user.sobre" outlined type="textarea" style="border-radius: 0"/>
                     </div>
+                    <div class="col-7 offset-4">
+                        <q-btn label="Salvar" flat @click="setPerfil" class="btn-salvar">
+                            <q-inner-loading 
+                                :showing="visible"
+                                label-class="text-teal"
+                                label-style="font-size: 1.1em"
+                        ></q-inner-loading>
+                        </q-btn>
+                    </div>
                 </div>
             </div>
             <div class="col-5">
                 <div class="row">
-                    <div v-if="user.avatar === '' " class="col-6 col-md-auto">
+                    <div v-if="user.foto_perfil === '' " class="col-6 col-md-auto">
                         <q-uploader
                             :factory="uploadFiles"
                             @finish="finishedUpload"
@@ -62,7 +70,7 @@
                         />
                     </div>
                     <div v-else class="col-6">
-                        <q-img :src="user.avatar" alt="" class="foto_perfil">
+                        <q-img :src="user.foto_perfil" alt="" class="foto_perfil">
                             <q-btn-dropdown
                                 dropdown-icon="info"
                                 push
@@ -80,11 +88,6 @@
                                     </q-item>
                                 </q-list>
                             </q-btn-dropdown>
-                            <!-- <q-icon class="absolute all-pointer-events" size="32px" name="info" color="white" style="top: 8px; left: 8px">
-                                <q-tooltip>
-                                    Tooltip
-                                </q-tooltip>
-                            </q-icon> -->
                         </q-img>
                     </div>
                 </div>
@@ -126,7 +129,9 @@ export default {
             },
             visible: false,
             showSimulatedReturnData: false,
-            users: []
+            users: [],
+            visible: false,
+            showSimulatedReturnData: false
         }
     },
 
@@ -157,12 +162,14 @@ export default {
                 console.log(that.users)
                 that.visible = false
                 that.showSimulatedReturnData = true
-                this.capituloCriadoSucesso()
+                this.perfilEditado()
 
             })
             .catch((err) => {
                 console.log(err.response)
-                this.erroCriacaoCapitulo()
+                this.erroEditar()
+                that.visible = false
+                that.showSimulatedReturnData = true
             })
         },
 		uploadFiles(file){
