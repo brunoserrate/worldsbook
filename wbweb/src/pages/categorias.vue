@@ -1,14 +1,41 @@
 <template>
     <q-page>
-        <div class="row" style="margin: 90px 0 0 324px;">
-            <div class="col-4" v-for="(categoria, i) in categorias" :key="i">
-                <q-card class="card-categorias" >
+        <div class="row row_categorias" >
+            <div class="col-4">
+                <q-card style="height: 100%;" class="card_search">
                     <div class="row">
-                        <div class="col-6">
-                            <p>{{categoria.genero}}</p>
+                        <div class="col-12">
+                            <p class="p_search">Busque pelas melhores obras de acordo com a sua categoria favorita!</p>
+                        </div>
+                        <div class="col-12">
+                            <p class="p_text">Diversas categorias para todos os gostos!</p>
+                        </div>
+                        <div class="col-12">
+                            <p class="p_search_label">Não encontrou o que procurava? Pesquise aqui!</p>
+                        </div>
+                        <div class="col-12">
+                            <q-input rounded outlined v-model="search.categoria" dense="true" class="input_search_categoria">
+                                <template v-slot:append>
+                                    <q-icon v-if="search.categoria !== ''" name="close" @click="search.categoria = ''" class="cursor-pointer" />
+                                    <q-icon name="search" />
+                                </template>
+                            </q-input>
                         </div>
                     </div>
                 </q-card>
+            </div>
+            <div class="col-7">
+                <div class="row">
+                    <div class="col-4" v-for="(categoria, i) in categorias" :key="i">
+                        <q-card class="card-categorias" >
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>{{categoria.genero}}</p>
+                                </div>
+                            </div>
+                        </q-card>
+                    </div>
+                </div>
             </div>
         </div>
     </q-page>
@@ -19,6 +46,9 @@
             return {
                 categorias: [],
                 user: {},
+                search: {
+                    categoria: '',
+                }
             }
         },
 

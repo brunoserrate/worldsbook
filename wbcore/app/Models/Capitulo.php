@@ -106,7 +106,7 @@ class Capitulo extends Model
         'titulo' => 'required|string|max:200',
         'capitulo' => 'required|string',
         'historia_id' => 'required',
-        'caminho_capa' => 'required|string',
+        // 'caminho_capa' => 'required|string',
         'quantidade_visualizacao' => 'required',
         'votacao' => 'required',
     ];

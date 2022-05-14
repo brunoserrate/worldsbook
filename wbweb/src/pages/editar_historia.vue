@@ -330,7 +330,7 @@ export default {
             that.visible = true
             that.showSimulatedReturnData = false
 
-            that.$axios.patch(that.$pathAPI + '/historia', that.historia)
+            that.$axios.patch(that.$pathAPI + `/historia/${this.livro_id}`, that.historia)
 			.then((res) => {
 				console.log("res: ", res)
                 that.historias = res.data.data
@@ -339,7 +339,7 @@ export default {
                 
                 this.historiaCriadaSucesso()
                 console.log("A: ", that.historias)
-                this.$router.push({path: `criar_historia/` + that.historias.historia_id})
+                this.$router.push({path: `/livro/${this.livro_id}`})
 			})
 			.catch((err) => {
 				console.log(err.response)
