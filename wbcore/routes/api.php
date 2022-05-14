@@ -85,7 +85,7 @@ Route::middleware('auth:sanctum')->group(function() {
 	Route::post('user/preferencia/apelido', [UserController::class, 'preferenciaUsarApelido']);
 
 	// Atualizar configurações de perfil
-	Route::patch('user/perfil', [UserController::class, 'atualizarPerfil']);
+	Route::patch('user/perfil/{id}', [UserController::class, 'atualizarPerfil']);
 });
 
 

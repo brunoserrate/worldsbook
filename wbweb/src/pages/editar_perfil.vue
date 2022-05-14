@@ -13,7 +13,7 @@
                         <span>Nome</span>
                     </div>
                     <div class="col-7">
-                        <q-input square outlined v-model="user.nome" :dense="dense" class="input_form"/>
+                        <q-input square outlined v-model="user.name" :dense="dense" class="input_form"/>
                     </div> 
                     <div class="col-4 alinhar_label_utilizador">
                         <span>Apelido</span>
@@ -37,7 +37,7 @@
                         <span>Descrição do usuário</span>
                     </div>
                     <div class="col-7">
-                        <q-input v-model="user.descricao" outlined type="textarea" style="border-radius: 0"/>
+                        <q-input v-model="user.sobre" outlined type="textarea" style="border-radius: 0"/>
                     </div>
                 </div>
             </div>
@@ -115,10 +115,9 @@ export default {
             uploadPercent:null,
             confirm: false,
             user: {
-                nome: '',
-                descricao: '',
+                name: '',
+                sobre: '',
                 data_nascimento: '',
-                descricao: '',
                 avatar: '',
                 foto_perfil: '',
                 apelido: '',
