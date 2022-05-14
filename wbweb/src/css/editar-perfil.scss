@@ -48,3 +48,19 @@
     border-radius: 0;
     margin: 19px 0px 0 22px;
 }
+
+.align_icon {
+    display: flex;
+    justify-content: center;
+}
+.icone_edit_password {
+    font-size: 20px;
+    color: #7a22a7;
+    cursor: pointer;
+    &:hover {
+        color: #000;
+        background-color: #7a22a72b;
+        padding: 3px;
+        border-radius: 40px;
+    }
+}
