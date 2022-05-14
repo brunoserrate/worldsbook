@@ -206,7 +206,6 @@ class HistoriaRepository extends BaseRepository
      * Encontrar o registro da história selecionada
      *
      * @param int $id ID da história
-     * @param array $columns
      *
      * @return array $result Retorna um array com o resultado da função,
      *                       seja o retorno positivo ou negativo
@@ -293,6 +292,15 @@ class HistoriaRepository extends BaseRepository
 
     }
 
+    /**
+     * Encontrar o registro da história selecionada
+     *
+     * @param array $input
+     * @param int $id ID da história
+     *
+     * @return array $result Retorna um array com o resultado da função,
+     *                       seja o retorno positivo ou negativo
+     */
     public function update($input, $id) {
 
         $usuario_id = Auth::user()->id;
