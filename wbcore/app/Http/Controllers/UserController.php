@@ -250,7 +250,7 @@ class UserController extends AppBaseController
         $histIds = Historia::where('usuario_id', $user['user_id'])->select('id')->get()->toArray();
 
         foreach ($histIds as $hist) {
-            $result = $histRepo->find($hist['id']);
+            $result = $histRepo->buscarHistoria($hist['id']);
 
             if($result['success']) {
                 $historias[] = $result['data'];
