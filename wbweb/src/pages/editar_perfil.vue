@@ -146,15 +146,15 @@ export default {
 
             that.visible = true
             that.showSimulatedReturnData = false
-
+            
             let params = {
-                name: this.user.nome,
-                sobre: this.user.descricao,
-                foto_perfil: this.user.avatar,
-                apelido: this.user.apelido,
-                email: this.user.email
+                name: that.user.name,
+                sobre: that.user.sobre,
+                foto_perfil: that.user.avatar,
+                apelido: that.user.apelido,
+                email: that.user.email,
             }
-
+            
             that.$axios.patch(that.$pathAPI + `/user/perfil/${this.user.user_id}`, params)
             .then((res) => {
                 console.log("res: ", res)

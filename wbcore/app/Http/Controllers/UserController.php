@@ -72,6 +72,7 @@ class UserController extends AppBaseController
                 'usar_apelido' => $user->usar_apelido,
                 'avatar' => $avatar,
                 'user_id' => $user->id,
+                'sobre' => $user->sobre,
             ], 'autenticado com sucesso');
         }
 
@@ -273,7 +274,15 @@ class UserController extends AppBaseController
         $user->fill($input);
         $user->save();
 
-        return $user;
+        return $this->sendResponse([
+                    'email' => $user->email,
+                    'nome' => $user->name,
+                    'apelido' => $user->apelido,
+                    'usar_apelido' => $user->usar_apelido,
+                    'avatar' => $user->foto_perfil,
+                    'user_id' => $user->id,
+                    'sobre' => $user->sobre,
+                ], 'autenticado com sucesso');
     }
 
     /**
