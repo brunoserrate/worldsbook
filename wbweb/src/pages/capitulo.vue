@@ -52,8 +52,11 @@
                         </q-card>
                         <!-- <p class="corpo_capitulo">{{capitulo.capitulo}}</p> -->
                         <div class="row justify-center">
-                            <div class="col-12 row_status">
+                            <div v-if="capitulo.proximo_capitulo != null" class="col-12 row_status">
                                 <q-btn unelevated label="Ir para o próximo capítulo >" class="btn_proximo_capitulo" @click="nextChapter"/>
+                            </div>
+                            <div v-else class="col-12 row_status">
+                                <q-btn unelevated label="Não há mais capítulos" disable class="btn_proximo_capitulo" @click="nextChapter"/>
                             </div>
                         </div>
                     </div>
@@ -70,14 +73,14 @@
                 <div class="row justify-center">
                     <div class="col-1 offset-1">
                         <q-avatar size="60px" class="avatar_comentario">
-                            <img :src="user.avatar" />
+                            <img :src="user.foto_perfil" />
                         </q-avatar>
                     </div>
                     <div class="col-6">
                         <q-input v-model="comment.comentario" outlined type="textarea" class="comment_textarea">
                             <q-inner-loading
                                 :showing="visible"
-                                label="Please wait..."
+                                label="Por favor aguarde..."
                                 label-class="text-teal"
                                 label-style="font-size: 1.1em"
                             />
@@ -102,7 +105,7 @@
                                 <p class="nome_usuario_comentario">{{comentario.nome_usuario}}</p>
                             </div>
                             <div class="col-12">
-                                <p class="data_comentario">{{comentario.data_criacao}}</p>
+                                <p class="data_comentario">{{comentario.data_criacao | formatDateTime}}</p>
                             </div>
                             <div class="col-12">
                                 <p class="comentario_corpo">{{comentario.comentario}}</p>
@@ -111,7 +114,7 @@
                         <q-separator class="separador"></q-separator>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </q-page>
@@ -160,14 +163,41 @@
                 visible: false,
                 showSimulatedReturnData: false,
                 votar: {
-                    icone_name: 'star_border' , 
-                    span: 'votar'
-                }
+                    icone_name: 'star_border' ,
+                    span: 'Votar!',
+                    votado: false
+                },
+                timerVisualizacao: null
             }
         },
         mounted(){
+            let that = this
+
+            this.limparCapitulo()
             this.getCapitulo(this.capitulo_id)
             this.getUser()
+
+	  		this.timerVisualizacao = setTimeout(function() {
+                that.visualizarCapitulo()
+	        }, 10000)
+        },
+        beforeDestroy(){
+            clearTimeout(this.timerVisualizacao);
+        },
+        watch:{
+            '$route' (to,from){
+                this.limparCapitulo()
+                clearTimeout(this.timerVisualizacao);
+
+                this.capitulo_id = this.$route.params.capitulo_id
+                this.getCapitulo(this.capitulo_id)
+
+                this.getUser()
+
+                this.timerVisualizacao = setTimeout(function() {
+                    that.visualizarCapitulo()
+                }, 10000)
+            },
         },
         methods: {
             getCapitulo(capitulo_id){
@@ -175,33 +205,78 @@
                 that.$axios.get(that.$pathAPI + '/capitulo/' + capitulo_id)
                 .then((res) => {
                     that.capitulo = res.data.data
-                    console.log(that.capitulo)
+
+                    if(that.capitulo.votado){
+                        that.votar = {
+                            icone_name: 'star',
+                            span: 'Votado!',
+                            votado: true
+                        }
+                    }
+                    else {
+                        that.votar = {
+                            icone_name: 'star_border',
+                            span: 'Votar!',
+                            votado: false
+                        }
+                    }
+
+
+                    // console.log(that.capitulo)
                 })
                 .catch((err) => {
                     console.log(err.response)
                 })
             },
             nextChapter(){
-                console.log("next")
+                if(this.capitulo.proximo_capitulo != null && this.capitulo.proximo_capitulo != 0){
+                    this.$router.push({path: '/livro/capitulo/' + this.capitulo.proximo_capitulo })
+                }
+                else {
+                    this.$q.notify({
+                        color: 'warning',
+                        position: 'top',
+                        textColor: 'black',
+                        message: 'Não há mais capítulos',
+                        icon: 'warning',
+                        timeout: 5000,
+                        actions: [
+                            { label: 'Fechar', color: 'black', handler: () => {} }
+                        ]
+                    })
+                }
             },
             setComentario(){
+                let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
+
+                if(user === null){
+                    this.falha('Não é possível comentar sem estar conectado!')
+
+                    return false
+                }
+
                 try{
                     this.visible = true
                     this.showSimulatedReturnData = false
 
                     let that = this
-                    that.comment.usuario_id = 2
-                    that.comment.data_atualizacao = Date.now()
-                    that.comment.data_criacao = Date.now()
-                    that.comment.capitulo_id = that.capitulo.id
+                    // that.comment.usuario_id = 2
+                    // that.comment.data_atualizacao = Date.now()
+                    // that.comment.data_criacao = Date.now()
+                    // that.comment.capitulo_id = that.capitulo.id
 
-                    console.log("Comment: ", that.comment)
-    
-                    that.$axios.post(that.$pathAPI + '/comentario', that.comment)
+                    let params = {
+                        capitulo_id: that.capitulo_id,
+                        comentario: that.comment.comentario
+                    }
+
+                    // console.log("Comment: ", that.comment)
+
+                    that.$axios.post(that.$pathAPI + '/comentario', params)
                     .then((res) => {
-                        console.log("RES: ", res)
+                        // console.log("RES: ", res)
                         that.capitulo.comentarios.unshift(res.data.data)
-                        console.log(that.capitulo.comentarios)
+                        // console.log(that.capitulo.comentarios)
                         this.visible = false
                         this.showSimulatedReturnData = true
                         that.comment.comentario = ''
@@ -214,20 +289,86 @@
                     console.log(error)
                 }
             },
-            
-            vote(){
-                if(this.votar.icone_name == 'star') {
-                    this.votar.icone_name = 'star_border'
-                    this.votar.span = 'Votar!'
 
-                } else {
-                    this.votar.icone_name = 'star'
-                    this.votar.span = 'Votado!'
+            vote(){
+                let that = this
+
+                let user = JSON.parse( that.$q.sessionStorage.getItem('auth') )
+
+                let params = {
+                    votado: that.votar.votado
                 }
+
+                // Usuário logado
+                if(user !== null){
+
+                    that.$axios.post(that.$pathAPI + '/capitulo/votado/' + that.capitulo_id, params)
+                    .then((res) => {
+                        // Se votar for verdadeiro, o capítulo já foi votado
+                        // Então a rotina irá remover o voto que foi realizado pelo usuário
+                        if(that.votar.votado){
+                            that.sucesso('Voto removido do capítulo com sucesso')
+
+                            that.votar = {
+                                icone_name: 'star_border',
+                                span: 'Votar!',
+                                votado: false
+                            }
+
+                        }
+                        // Se for falso, o capítulo ainda não foi votado
+                        // Então a rotina irá adicioanr o voto feito pelo usuário
+                        else {
+                            that.sucesso('Capítulo votado com sucesso')
+
+                            that.votar = {
+                                icone_name: 'star',
+                                span: 'Votado!',
+                                votado: true
+                            }
+
+                        }
+                    })
+                    .catch((err) => {
+                    })
+
+                }
+                // Visitante
+                else{
+                    this.falha('Não é possível votar sem estar conectado!')
+                }
+
             },
 
             setVoto(){
 
+            },
+            visualizarCapitulo(){
+                let that = this
+
+                that.$axios.post(that.$pathAPI + '/capitulo/visualizado/' + this.capitulo_id)
+                .then((res) => {
+                })
+                .catch((err) =>{
+                })
+            },
+            limparCapitulo(){
+                this.capitulo = {
+                    apelido_usuario: '',
+                    caminho_capa: '',
+                    capitulo: '',
+                    comentarios: [],
+                    data_atualizacao: '',
+                    data_criacao: '',
+                    foto_perfil: '',
+                    historia_id: '',
+                    id: '',
+                    nome_usuario: '',
+                    quantidade_visualizacao: '',
+                    titulo: '',
+                    usar_apelido: '',
+                    votacao: '',
+                }
             }
         },
     }

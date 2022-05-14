@@ -72,11 +72,17 @@ Route::middleware('auth:sanctum')->group(function() {
 	// Upload de capa do capítulo
 	Route::post('capitulo/upload/capa', 'CapituloAPIController@uploadCapaCapitulo');
 
+	// Vota no capítulo
+	Route::post('capitulo/votado/{id}', 'CapituloAPIController@votarCapitulo');
+
 	// Gravar a capítulo
 	Route::post('capitulo', 'CapituloAPIController@store');
 
 	// Atualizar capítulo
 	Route::patch('capitulo/{id}', 'CapituloAPIController@update');
+
+	// Comentar no capítulo
+	Route::post('comentario', 'ComentarioAPIController@store');
 
 	// Upload da foto perfil para ser utilizada pelo usuário
 	Route::post('user/upload/foto', [UserController::class, 'uploadFoto']);

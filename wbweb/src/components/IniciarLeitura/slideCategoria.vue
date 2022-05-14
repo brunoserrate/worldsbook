@@ -42,7 +42,7 @@
 						<template q-slot="footer">
 							<div class="row">
 								<div class="col-12 col_btn_detail">
-									<p class="col_data_atualizacao"><span>Data de atualização: </span>09/04/2022</p>
+									<p class="col_data_atualizacao"><span>Data de atualização: </span>{{ livro_detail.data_atualizacao | formatDateTime }}</p>
 								</div>
 							</div>
 						</template>

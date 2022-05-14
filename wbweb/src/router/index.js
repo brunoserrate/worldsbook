@@ -60,6 +60,23 @@ Vue.filter('ucwords', (valor) => {
   }
 })
 
+Vue.filter('formatDateTime', (valor) => {
+  if(valor != undefined || valor != null || valor === ''){
+    let result
+    let y,m,d,H,i,s
+    y = valor.slice(0,4)
+    m = valor.slice(5,7)
+    d = valor.slice(8,10)
+    H = valor.slice(11,13)
+    i = valor.slice(14,16)
+    s = valor.slice(17,19)
+
+    result = `${d}/${m}/${y} ${H}:${i}:${s}`;
+
+    return result
+  }
+})
+
 // Filtros
 
 Vue.use(Vuelidate)

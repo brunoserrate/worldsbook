@@ -199,6 +199,12 @@ class UserController extends AppBaseController
         Auth::guard('web')->logout();
     }
 
+    /**
+     * Alterar o campo preferência do usuário (utilizar o apelido ou o nome)
+     *
+     * @return
+     *
+     */
     public function preferenciaUsarApelido(){
         $user = User::where('id', Auth::user()->id)
                     ->where('ativo', 1)
@@ -212,10 +218,15 @@ class UserController extends AppBaseController
     }
 
     /**
-     * Qtd de histórias
-     * Nome
-     * Apelido
-    */
+     * Encontrar o registro da história selecionada
+     *
+     * @param array {
+     *               pesquisa: string
+     *        } $request Parâmetros de pesquisa
+     *
+     * @return array $result Retorna um array com o resultado da função,
+     *                       seja o retorno positivo ou negativo
+     */
     public function pesquisarUsuarios(Request $request){
         $input = $request->all();
 
@@ -227,6 +238,7 @@ class UserController extends AppBaseController
             $pesquisa = trim( $input['pesquisa']  );
         }
 
+        // Busca do usuário
         $user = User::where('users.id', $pesquisa)
                     ->select(
                         'users.id as user_id',
@@ -244,13 +256,17 @@ class UserController extends AppBaseController
             return $this->sendError('Usuário não localizado', 400);
         }
 
+        // Transforma o retorno do usuário para array
         $user = $user->toArray();
 
+        // Instância do repository da historia
         $histRepo = new HistoriaRepository(app());
         $historias = [];
 
+        // Busca os IDs das histórias atreladas aos usuários
         $histIds = Historia::where('usuario_id', $user['user_id'])->select('id')->get()->toArray();
 
+        // Buscar as informações de cada história
         foreach ($histIds as $hist) {
             $result = $histRepo->buscarHistoria($hist['id']);
 
@@ -259,22 +275,64 @@ class UserController extends AppBaseController
             }
         }
 
+        // Atrela o retorno das histórias ao index de historia do usuário
         $user['historias'] = $historias;
 
         return $this->sendResponse($user, 'Usuário localizado com sucesso');
     }
 
+    /**
+     * Função para atualizar as informações de perfil do usuário
+     *
+     * @param array {
+     *              name: string,
+     *              apelido: string,
+     *              email: string,
+     *              data_nascimento: datetime,
+     *              foto_perfil: string,
+     *              sobre: string,
+     *              usar_apelido: boolean,
+     *        } $request
+     *
+     *        @type string $name Nome do usuário
+     *        @type string $apelido Apelido do usuário
+     *        @type string $email E-mail do usuário
+     *        @type datetime $data_nascimento Data de nascimento do usuário
+     *        @type string $foto_perfil Caminho (url) da foto do perfil do usuário
+     *        @type string $sobre Sobre (descrição) o usuário
+     *        @type boolean $usar_apelido Se o usuário irá utilizar ou não o apelido
+     *
+     * @return array $result Retorna um array com as informações do usuário.
+     *
+     **/
     public function atualizarPerfil(Request $request) {
 
+        // Recebe os parâmetros enviados pelo usuário (client-side)
         $input = $request->all();
 
+        // ID do usuário que fez a requisição
         $usuario_id = Auth::user()->id;
 
+        // Busca as informações do usuário
         $user = User::findOrFail($usuario_id);
 
+        // Caso o usuário remova a própria foto do perfil, grava um avatar padrão utilizando o nome
+        if(empty($input['foto_perfil'])) {
+            $name = '';
+            $name =  strtolower( str_replace(' ', '',$this->removeAcento( $user->name ) ) ) ;
+
+            $avatar = 'https://avatars.dicebear.com/api/initials/'. $name .'.svg';
+
+            $input['foto_perfil'] = $avatar;
+        }
+
+        // Preenche o registro com as novas informações
         $user->fill($input);
+
+        // Salva as informações do registro
         $user->save();
 
+        // Retorna as informações do usuário para atualizar a sessionStorage
         return $this->sendResponse([
                     'email' => $user->email,
                     'name' => $user->name,
@@ -329,6 +387,7 @@ class UserController extends AppBaseController
             ];
         }
 
+        // Atualizar a foto de perfil no campo do usuário
         User::where('id', Auth::user()->id)
             ->update([
                 'foto_perfil' => $envPath . 'user/' . $data['file_name']

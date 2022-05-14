@@ -2,14 +2,14 @@
     <q-page class="bgIniciar-leitura">
         <div class="row" >
             <div class="col-12">
-                <p class="text-over-cover">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque et sollicitudin nisi.</p>
+                <p class="text-over-cover">Navegue pelas categorias explorando diversos livros, será uma experiência incrível!</p>
             </div>
             <div class="col-12 align-cover">
                 <img alt="Cover" src="~assets/abstract_cover_7.jpg" class="cover"/>
             </div>
             <div class="row">
 				<div class="col-12">
-					<h3 class="welcomeUser">Bem-vindo(a){{ (user !== null) ? ', ' + (user.usar_apelido ? ucWordsFiltro(user.apelido) : ucWordsFiltro(user.nome)) : '' }}</h3>
+					<h3 class="welcomeUser">Bem-vindo(a){{ (user !== null) ? ', ' + (user.usar_apelido ? ucWordsFiltro(user.apelido) : ucWordsFiltro(user.name)) : '' }}</h3>
 				</div>
 				<div class="col-12">
 					<p class="bestChooses">As melhores escolhas para si</p>
@@ -72,7 +72,7 @@ export default {
 	mounted(){
 		// this.getLivros()
 		this.user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
-		this.buscarLivros()
+		// this.buscarLivros()
 	},
 	components: {
 		VueperSlides,
@@ -89,10 +89,10 @@ export default {
 			that.$axios.get(that.$pathAPI + '/historia?limit=15')
 			.then((res) => {
 				that.livros = res.data.data
-				console.log(that.livros)
+				// console.log(that.livros)
 			})
 			.catch((err) => {
-				console.log(err.response)
+				// console.log(err.response)
 			})
 		},
 		cutSinopse(){
