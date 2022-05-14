@@ -29,14 +29,17 @@
                     <div class="col-4 alinhar_label_utilizador">
                         <span>Senha</span>
                     </div>
-                    <div class="col-7">
+                    <div class="col-6">
                         <q-input square outlined type="password" disable v-model="user.password" :dense="dense" class="input_form"/>
+                    </div>
+                    <div class="col-1 align_icon">
+                        <q-icon name="edit" class="icone_edit_password"></q-icon>
                     </div>
                     <div class="col-4 alinhar_label_utilizador">
                         <span>Descrição do usuário</span>
                     </div>
                     <div class="col-7">
-                        <q-input v-model="user.descricao" outlined type="textarea" style="border-radius: 0"/>
+                        <q-input v-model="user.sobre" outlined type="textarea" style="border-radius: 0"/>
                     </div>
                     <div class="col-7 offset-4">
                         <q-btn label="Salvar" flat @click="setPerfil" class="btn-salvar">
@@ -119,13 +122,11 @@ export default {
             confirm: false,
             user: {
                 nome: '',
-                descricao: '',
-                data_nascimento: '',
+                sobre: '',
                 avatar: '',
                 foto_perfil: '',
                 apelido: '',
                 email: '',
-                password: '',
             },
             visible: false,
             showSimulatedReturnData: false,
@@ -148,25 +149,33 @@ export default {
             that.showSimulatedReturnData = false
             
             let params = {
-                name: that.user.name,
+                name: that.user.nome,
                 sobre: that.user.sobre,
                 foto_perfil: that.user.avatar,
                 apelido: that.user.apelido,
                 email: that.user.email,
             }
-            
+
             that.$axios.patch(that.$pathAPI + `/user/perfil/${this.user.user_id}`, params)
             .then((res) => {
                 console.log("res: ", res)
-                that.users = res.data.data
-                console.log(that.users)
+
+                let storage_user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
+                console.log("Storage: ", storage_user)
+                let token = storage_user.token
+                // Alterar os dados necessários
+                storage_user = res.data.data // Nome, apelido, avatar,
+                storage_user.token = token
+                // Sobrepor a chave auth do session storage
+                this.$q.sessionStorage.set('auth', JSON.stringify( storage_user ))
+
                 that.visible = false
                 that.showSimulatedReturnData = true
                 this.perfilEditado()
 
             })
             .catch((err) => {
-                console.log(err.response)
+                console.log("err: ", err)
                 this.erroEditar()
                 that.visible = false
                 that.showSimulatedReturnData = true

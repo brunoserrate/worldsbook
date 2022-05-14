@@ -1,5 +1,11 @@
 <template>
     <q-page>
+        <q-inner-loading 
+            :showing="visible_page"
+            label-class="text-teal"
+            label-style="font-size: 1.1em"
+            label="Carregando história..."
+        ></q-inner-loading>
         <div class="row">
             <div class="col-12">
                 <q-card class="card_livro">
@@ -54,9 +60,12 @@
                                     <q-btn unelevated icon="add" class="btn_add_lista"/>
                                 </div>
                                 <!-- <div class="row"> -->
-                                    <div class="col-12 col-sm-8">
-                                        <q-btn flat label="Editar história" icon="edit" class="btn-editar-historia" @click="goEditHistoria" v-if="livro.usuario_id == user.user_id"/>
-                                    </div>
+                                <div class="col-2">
+                                    <q-btn flat icon="edit" class="btn-editar-historia" @click="goEditHistoria" v-if="livro.usuario_id == user.user_id"/>
+                                </div>
+                                <div class="col-1">
+                                    <q-btn flat icon="delete" class="btn-deletar-historia" @click="delete_historia = true" v-if="livro.usuario_id == user.user_id"/>
+                                </div>
                                 <!-- </div> -->
                             </div>
                         </div>
@@ -111,7 +120,7 @@
                     <q-list>
                         <q-item v-if="livro.capitulos.length == 0">Essa história ainda não tem capítulos!</q-item>
                         <div class="row">
-                            <div class="col-11">
+                            <div class="col-10">
                                 <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_list" @click="goChapter(capitulo)" >
                                     {{capitulo.titulo}}
                                 </q-item>
@@ -121,11 +130,29 @@
                                     <q-icon name="edit" color="#7A22A7"></q-icon>
                                 </q-item>
                             </div>
+                            <div class="col-1">
+                                <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_edit" @click="goDeleteCapitulo(capitulo)">
+                                    <q-icon name="delete" color="#7A22A7"></q-icon>
+                                </q-item>
+                            </div>
                         </div>
                     </q-list>
                 </q-card>
             </div>
         </div>
+        <q-dialog v-model="delete_historia" persistent>
+            <q-card>
+                <q-card-section class="row items-center">
+                <q-avatar icon="delete" color="primary" text-color="white" />
+                <span class="q-ml-sm">Deseja deletar essa história permanentemente?</span>
+                </q-card-section>
+
+                <q-card-actions align="right">
+                <q-btn flat label="Deletar" color="primary" @click="delHistoria" />
+                <q-btn flat label="Cancelar" color="primary" v-close-popup />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
     </q-page>
 </template>
 <script>
@@ -133,6 +160,7 @@ export default {
 	data (){
 		return {
 			livro_id: this.$route.params.livro_id,
+            delete_historia: false,
             livro: {
                 apelido_usuario: '',
                 caminho_capa: '',
@@ -168,6 +196,7 @@ export default {
             },
             usuario_livro_id: '',
             visible: false,
+            visible_page: false,
             showSimulatedReturnData: false
 		}
 	},
@@ -179,16 +208,32 @@ export default {
     methods: {
         carregarLivro(livro_id){
             let that = this
+
+            that.visible_page = true
+            that.showSimulatedReturnData = false
+
             that.$axios.get(that.$pathAPI + '/historia/' + livro_id)
             .then((res) => {
                 that.livro = res.data.data
                 console.log("livro: ", that.livro)
                 this.getAvatar()
                 this.getHistoriaFinalizada()
+                
+                that.visible_page = false
+                that.showSimulatedReturnData = true
             })
             .catch((err) => {
                 console.log(err.response)
+                that.visible_page = false
+                that.showSimulatedReturnData = true
+                this.erroCarregar()
             })
+        },
+        delHistoria(){
+
+        },
+        delCapitulo(){
+            
         },
         goEditHistoria(){
             this.$router.push({path: `../editar_livro/` + this.livro_id})
