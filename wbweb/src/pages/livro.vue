@@ -131,7 +131,7 @@
                                 </q-item>
                             </div>
                             <div class="col-1">
-                                <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_edit" @click="goDeleteCapitulo(capitulo)">
+                                <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_edit" @click="delete_capitulo = true">
                                     <q-icon name="delete" color="#7A22A7"></q-icon>
                                 </q-item>
                             </div>
@@ -153,6 +153,19 @@
                 </q-card-actions>
             </q-card>
         </q-dialog>
+        <q-dialog v-model="delete_capitulo" persistent>
+            <q-card>
+                <q-card-section class="row items-center">
+                <q-avatar icon="delete" color="primary" text-color="white" />
+                <span class="q-ml-sm">Deseja deletar esse capítulo permanentemente?</span>
+                </q-card-section>
+
+                <q-card-actions align="right">
+                <q-btn flat label="Deletar" color="primary" @click="delCapitulo" />
+                <q-btn flat label="Cancelar" color="primary" v-close-popup />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
     </q-page>
 </template>
 <script>
@@ -161,6 +174,7 @@ export default {
 		return {
 			livro_id: this.$route.params.livro_id,
             delete_historia: false,
+            delete_capitulo: false,
             livro: {
                 apelido_usuario: '',
                 caminho_capa: '',
