@@ -67,10 +67,10 @@ class UserController extends AppBaseController
             return $this->sendResponse([
                 'email' => $user->email,
                 'token' => $token,
-                'nome' => $user->name,
+                'name' => $user->name,
                 'apelido' => $user->apelido,
                 'usar_apelido' => $user->usar_apelido,
-                'avatar' => $avatar,
+                'foto_perfil' => $avatar,
                 'user_id' => $user->id,
                 'sobre' => $user->sobre,
             ], 'autenticado com sucesso');
@@ -234,6 +234,7 @@ class UserController extends AppBaseController
                         'users.name',
                         'users.apelido',
                         'users.foto_perfil',
+                        'users.sobre',
                         DB::RAW('COUNT(historia.id) AS qtd_historias')
                     )
                     ->join('historia', 'historia.usuario_id', '=', 'users.id')
@@ -276,13 +277,13 @@ class UserController extends AppBaseController
 
         return $this->sendResponse([
                     'email' => $user->email,
-                    'nome' => $user->name,
+                    'name' => $user->name,
                     'apelido' => $user->apelido,
                     'usar_apelido' => $user->usar_apelido,
-                    'avatar' => $user->foto_perfil,
+                    'foto_perfil' => $user->foto_perfil,
                     'user_id' => $user->id,
                     'sobre' => $user->sobre,
-                ], 'autenticado com sucesso');
+                ], 'Perfil atualizado com sucesso');
     }
 
     /**
