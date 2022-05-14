@@ -89,6 +89,23 @@ class CapituloRepository extends BaseRepository
         // Transforma o retorno em array para facilitar as próximas etapas
         $capitulo = $capitulo->toArray();
 
+        $usuario_id = NULL;
+
+        // Verifica se o usuário esta logado ou não
+        // Caso esteja logado, insere o seu ID
+        if(!empty(Auth::user())){
+            $usuario_id = Auth::user()->id;
+        }
+
+        // Verifica se existe algum voto do usuário para este capítulo
+        $votado = (bool) DB::table('capitulo_votado')
+                            ->where('usuario_id', $usuario_id)
+                            ->where('capitulo_id', $capitulo['id'])
+                            ->count();
+
+        // Adiciona o resulta no retorno
+        $capitulo['votado'] = $votado;
+
         $proximo_capitulo = Capitulo::where('historia_id', $capitulo['historia_id'])
                                         ->where('id', '>', $capitulo['id'])
                                             ->select('id')
@@ -243,6 +260,54 @@ class CapituloRepository extends BaseRepository
         return [
             'success' => true,
             'message' => 'Contagem atualizada com sucesso.',
+            'code' => 200,
+            'data' => []
+        ];
+
+    }
+
+    public function votarCapitulo($capituloId, $input) {
+        try {
+            // Votar
+            if(!$input['votado']){
+
+                DB::table('capitulo_votado')->insert([
+                    'capitulo_id' => $capituloId,
+                    'usuario_id' => Auth::user()->id,
+                    'data_criacao' => date('Y-m-d H:i:s'),
+                    'data_atualizacao' => date('Y-m-d H:i:s'),
+                ]);
+
+                Capitulo::where('id', $capituloId)
+                    ->update([
+                        'votacao' => DB::raw('votacao + 1')
+                    ]);
+            }
+            // Remover votação
+            else{
+                DB::table('capitulo_votado')
+                    ->where('usuario_id', Auth::user()->id)
+                    ->where('capitulo_id', $capituloId)
+                    ->delete();
+
+                Capitulo::where('id', $capituloId)
+                    ->update([
+                        'votacao' => DB::raw('votacao - 1')
+                    ]);
+            }
+
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Falha ao atualizar a votação. Por favor contatar o suporte.',
+                'code' => 500,
+                'data' => []
+            ];
+        }
+
+        return [
+            'success' => true,
+            'message' => 'Votação atualizada com sucesso.',
             'code' => 200,
             'data' => []
         ];

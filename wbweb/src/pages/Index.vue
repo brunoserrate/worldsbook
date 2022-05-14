@@ -18,10 +18,8 @@
 
 				<div class="row q-ml-xl">
 					<div class="col">
-						<p class="texto">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							 Sed eu sem eu sem semper sollicitudin hendrerit sit amet nunc.
-							 Sed at enim eleifend, efficitur est vitae, placerat magna.
-							 Morbi gravida dolor augue, a pellentesque velit aliquam vel.
+						<p class="texto">World Books sua plataforma para te conectar com milhões de livros e escritores pelo mundo.
+							 Explore sua imaginação, desenvolva histórias e interaja com vários autores pelo mundo.
 						</p>
 					</div>
 				</div>

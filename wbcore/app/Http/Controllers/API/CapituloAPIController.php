@@ -311,4 +311,16 @@ class CapituloAPIController extends AppBaseController
 
         return $this->sendResponse($result['data'], $result['message']);
     }
+
+    public function votarCapitulo($capituloId, Request $request) {
+        $input = $request->all();
+
+        $result = $this->capituloRepository->votarCapitulo($capituloId, $input);
+
+        if(!$result['success']){
+            return $this->sendError($result['message'], $result['code'], $result['data']);
+        }
+
+        return $this->sendSuccess('Capítulo votado');
+    }
 }

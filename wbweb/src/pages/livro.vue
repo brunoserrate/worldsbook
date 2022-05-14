@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
                                 <div class="col-10">
-                                    <q-btn unelevated label="Iniciar leitura" icon="import_contacts" class="btn_iniciar_leitura_livro"/>
+                                    <q-btn unelevated label="Iniciar leitura" icon="import_contacts" class="btn_iniciar_leitura_livro" @click="goChapter(livro.capitulos[0])"/>
                                 </div>
                                 <div class="col-2">
                                     <q-btn unelevated icon="add" class="btn_add_lista"/>
@@ -111,12 +111,12 @@
                     <q-list>
                         <q-item v-if="livro.capitulos.length == 0">Essa história ainda não tem capítulos!</q-item>
                         <div class="row">
-                            <div class="col-11">
+                            <div :class="(livro.usuario_id == user.user_id) ? 'col-11' : 'col-12'">
                                 <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_list" @click="goChapter(capitulo)" >
                                     {{capitulo.titulo}}
                                 </q-item>
                             </div>
-                            <div class="col-1">
+                            <div v-if="livro.usuario_id == user.user_id" class="col-1">
                                 <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_edit" @click="goEditCapitulo(capitulo)">
                                     <q-icon name="edit" color="#7A22A7"></q-icon>
                                 </q-item>
@@ -130,6 +130,7 @@
 </template>
 <script>
 export default {
+    name:'Livro',
 	data (){
 		return {
 			livro_id: this.$route.params.livro_id,
@@ -174,7 +175,7 @@ export default {
     mounted(){
         this.carregarLivro(this.livro_id)
         this.getAvatar()
-        console.log("user: ", this.user.user_id)
+        // console.log("user: ", this.user.user_id)
     },
     methods: {
         carregarLivro(livro_id){
@@ -182,7 +183,7 @@ export default {
             that.$axios.get(that.$pathAPI + '/historia/' + livro_id)
             .then((res) => {
                 that.livro = res.data.data
-                console.log("livro: ", that.livro)
+                // console.log("livro: ", that.livro)
                 this.getAvatar()
                 this.getHistoriaFinalizada()
             })
@@ -194,11 +195,11 @@ export default {
             this.$router.push({path: `../editar_livro/` + this.livro_id})
         },
         goEditCapitulo(capitulo){
-            console.log(capitulo)
+            // console.log(capitulo)
             this.$router.push({path: `../editar_capitulo/` + capitulo.id})
         },
         goAddCapitulo(){
-            console.log(this.livro_id)
+            // console.log(this.livro_id)
             this.$router.push({path: `../criar_historia/` + this.livro_id})
         },
         goChapter(capitulo){

@@ -5,7 +5,7 @@
       <q-card class="cadastrar">
         <q-card class="card_titulo">
           <q-card-section>
-            <div class="titulo_cadastrar">Bem-vindo de volta ao WorldBooks!</div>
+            <div class="titulo_cadastrar">Bem-vindo de volta ao World Books!</div>
             <p class="p_cadastrar">Bem-vindo de volta ao Worldbook! Logue e continue apoiando escritores e mostrando ao mundo os seus universos!</p>
           </q-card-section>
         </q-card>
@@ -51,7 +51,7 @@
       <q-card class="cadastrar">
         <q-card class="card_titulo">
           <q-card-section>
-            <div class="titulo_cadastrar">Junte-se ao WorldBooks!</div>
+            <div class="titulo_cadastrar">Junte-se ao World Books!</div>
             <p class="p_cadastrar">Faça parte da comunidade global de leitores e escritores, todos conectados através do poder das histórias</p>
           </q-card-section>
         </q-card>
@@ -361,7 +361,7 @@ export default {
 
                 this.$router.push({path: '/iniciar_leitura'})
                 this.$emit('usuarioLogado', this.user)
-                that.sucesso()
+                // that.sucesso()
 
             })
             .catch((err) => {

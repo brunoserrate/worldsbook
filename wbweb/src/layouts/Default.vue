@@ -70,7 +70,7 @@
                   </q-item> -->
                 </q-menu>
                 <q-avatar size="52px">
-                  <img :src="user.avatar" />
+                  <img :src="user.foto_perfil" />
                 </q-avatar>
               </q-btn>
             </div>

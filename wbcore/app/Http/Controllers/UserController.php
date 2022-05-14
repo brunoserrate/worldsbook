@@ -316,6 +316,16 @@ class UserController extends AppBaseController
         // Busca as informações do usuário
         $user = User::findOrFail($usuario_id);
 
+        // Caso o usuário remova a própria foto do perfil, grava um avatar padrão utilizando o nome
+        if(empty($input['foto_perfil'])) {
+            $name = '';
+            $name =  strtolower( str_replace(' ', '',$this->removeAcento( $user->name ) ) ) ;
+
+            $avatar = 'https://avatars.dicebear.com/api/initials/'. $name .'.svg';
+
+            $input['foto_perfil'] = $avatar;
+        }
+
         // Preenche o registro com as novas informações
         $user->fill($input);
 

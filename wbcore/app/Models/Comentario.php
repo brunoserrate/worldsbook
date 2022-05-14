@@ -82,7 +82,6 @@ class Comentario extends Model
     public static $rules = [
         'capitulo_id' => 'required',
         'comentario' => 'required|string',
-        'usuario_id' => 'required',
     ];
 
     /**

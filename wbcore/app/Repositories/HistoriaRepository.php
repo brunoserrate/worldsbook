@@ -150,47 +150,8 @@ class HistoriaRepository extends BaseRepository
             ];
         }
 
-        // Variavel para inserir as informações na tabela auxiliar
-        $insertHistoriaTag = [];
-
-        // Verifica se existe as tags enviadas pelo usuário
-        // Caso não exista a tag, faz a gravação da mesma
-        // Caso já exista, utiliza o ID para gravar na tabela auxiliar
-        foreach ($tags as $tag) {
-            // Tag buscada
-            $tagSearch = null;
-            $tagSearch = Tags::where('nome', '=',substr(trim($tag), 0, 100))->first();
-
-            // inicialização da tag ID
-            $tagId = 0;
-
-            // Caso não exista a tag, insere a mesma
-            if(empty($tagSearch)) {
-                // Reseta a tag ID inserida
-                $tagId = 0;
-                $tagId = DB::table('tags')->insertGetId([
-                    'nome' => trim($tag),
-                    'data_criacao' => date('Y-m-d H:i:s'),
-                    'data_atualizacao' => date('Y-m-d H:i:s')
-                ]);
-            }
-            else {
-                // Recebe a ID da tag localizada
-                $tagId = $tagSearch->id;
-            }
-
-            // Popula as informações de tags para tabela auxiliar (historia_tag)
-            $insertHistoriaTag[] = [
-                'tag_id' => $tagId,
-                'historia_id' => $model->id,
-                'data_criacao' => date('Y-m-d H:i:s'),
-                'data_atualizacao' => date('Y-m-d H:i:s')
-            ];
-        // fim das tags
-        }
-
-        // Grava as tags na tabela auxiliar
-        DB::table('historia_tag')->insert($insertHistoriaTag);
+        // Insere as tags na história
+        $this->inserirTags($tags, $model->id);
 
         return [
             'success' => true,
@@ -322,6 +283,20 @@ class HistoriaRepository extends BaseRepository
 
         $model->save();
 
+        // Atribui o array das tags a uma nova variavel
+        // remove o index 'tags' da variavel input
+        // dessa forma o framework consegue inserir as novas informacoes sem erro
+        $tags = $input['tags'];
+        unset($input['tags']);
+
+        // Deleta todas as tags atreladas aquela história p/ recolocar as novas tags
+        DB::table('historia_tag')
+            ->where('historia_id', $model->id)
+            ->delete();
+
+        // Insere as tags na história
+        $this->inserirTags($tags, $model->id);
+
         return [
             'success' => true,
             'message' => 'História atualizada com sucesso',
@@ -451,6 +426,58 @@ class HistoriaRepository extends BaseRepository
             'code' => 200,
             'data' => $result
         ];
+    }
+
+    /**
+     * Função para pesquisar as histórias por título da história e por tag atrelada
+     *
+     * @param array $tags Vetor com as tags a serem adicionadas
+     * @param int $historiaId ID da história
+     *
+     **/
+    private function inserirTags($tags, $historiaId){
+
+        // Variavel para inserir as informações na tabela auxiliar
+        $insertHistoriaTag = [];
+
+        // Verifica se existe as tags enviadas pelo usuário
+        // Caso não exista a tag, faz a gravação da mesma
+        // Caso já exista, utiliza o ID para gravar na tabela auxiliar
+        foreach ($tags as $tag) {
+            // Tag buscada
+            $tagSearch = null;
+            $tagSearch = Tags::where('nome', '=',substr(trim($tag), 0, 100))->first();
+
+            // inicialização da tag ID
+            $tagId = 0;
+
+            // Caso não exista a tag, insere a mesma
+            if(empty($tagSearch)) {
+                // Reseta a tag ID inserida
+                $tagId = 0;
+                $tagId = DB::table('tags')->insertGetId([
+                    'nome' => trim($tag),
+                    'data_criacao' => date('Y-m-d H:i:s'),
+                    'data_atualizacao' => date('Y-m-d H:i:s')
+                ]);
+            }
+            else {
+                // Recebe a ID da tag localizada
+                $tagId = $tagSearch->id;
+            }
+
+            // Popula as informações de tags para tabela auxiliar (historia_tag)
+            $insertHistoriaTag[] = [
+                'tag_id' => $tagId,
+                'historia_id' => $historiaId,
+                'data_criacao' => date('Y-m-d H:i:s'),
+                'data_atualizacao' => date('Y-m-d H:i:s')
+            ];
+        // fim das tags
+        }
+
+        // Grava as tags na tabela auxiliar
+        DB::table('historia_tag')->insert($insertHistoriaTag);
     }
 
 
