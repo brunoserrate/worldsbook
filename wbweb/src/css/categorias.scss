@@ -1,0 +1,17 @@
+.card-categorias {
+    // margin: 40px 40px;
+    height: 7em;
+    margin: 1px 5px 6px 10px;
+    font-family: 'Raleway';
+    font-size: 19px;
+    padding: 13px;
+    cursor: pointer;
+    background: url('~assets/background.svg');
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 30%;
+    &:hover{
+        background-color: #f4f4f4;
+        text-decoration: underline;
+    }
+}

@@ -21,7 +21,14 @@
             <div v-if="!logado && user == null" class="col">
               <q-btn flat style="color: #7A22A7" label="Iniciar Sessão" class="iniciar-sessao" @click="logar = !logar"/>
             </div>
-            <div v-else class="col" style="margin: 25px 0px 0 0px;">
+            <div v-else class="col" style="margin: 25px 277px 7px 0;">
+              <q-btn-dropdown unelevated label="Navegar" class="btn_dropdown_navegar">
+                 <q-item clickable v-close-popup>
+                    <q-item-section>
+                      <q-item-label @click="goCategoria">Categorias</q-item-label>
+                    </q-item-section>
+                  </q-item>
+              </q-btn-dropdown>
               <q-btn-dropdown unelevated label="Escrever" class="btn_dropdown_escrever">
                  <q-item clickable v-close-popup>
                     <q-item-section>
@@ -206,6 +213,9 @@ export default {
     }
   },
   methods: {
+    goCategoria(){
+      this.$router.push({ path: '/categorias' })
+    },
     goPerfil(){
       this.$router.push({ path: '/perfil' })
     },

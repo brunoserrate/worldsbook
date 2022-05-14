@@ -14,7 +14,13 @@ Vue.mixin({
               message: `Capítulo criado!`
             })
         },
-        erroCriacao () {
+        perfilEditado () {
+            this.$q.notify({
+              type: 'positive',
+              message: `Perfil editado com sucesso!`
+            })
+        },
+        erroCriacao (err) {
             this.$q.notify({
                 message: 'Erro na criação da história!',
                 color: 'negative',
@@ -25,7 +31,7 @@ Vue.mixin({
                 ]
             })
         },
-        erroCriacaoCapitulo () {
+        erroCriacaoCapitulo (err) {
             this.$q.notify({
                 message: 'Erro na criação do capítulo!',
                 color: 'negative',
@@ -39,6 +45,17 @@ Vue.mixin({
         erroCarregar(err) {
             this.$q.notify({
                 message: 'Erro ao carregar!', err,
+                color: 'negative',
+                icon: 'error_outline',
+                multiLine: true,
+                actions: [
+                    { label: 'OK', color: 'white', handler: () => { /* ... */ } }
+                ]
+            })
+        },
+        erroEditar(err) {
+            this.$q.notify({
+                message: 'Houve um erro ao editar!', err,
                 color: 'negative',
                 icon: 'error_outline',
                 multiLine: true,
