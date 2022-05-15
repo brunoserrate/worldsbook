@@ -281,12 +281,17 @@ class CapituloAPIController extends AppBaseController
         $capitulo = $this->capituloRepository->find($id);
 
         if (empty($capitulo)) {
-            return $this->sendError('Capitulo not found');
+            return $this->sendError('Capítulo não localizado');
         }
 
-        $capitulo->delete();
+        $result = $this->capituloRepository->deletarCapitulo($id);
 
-        return $this->sendSuccess('Capitulo deleted successfully');
+        if(!$result['success']){
+            return $this->sendError($result['message'], $result['code'], $result['data']);
+        }
+
+        return $this->sendSuccess('Capítulo deletado com sucesso');
+
     }
 
     public function capituloVisualizado($capituloId) {

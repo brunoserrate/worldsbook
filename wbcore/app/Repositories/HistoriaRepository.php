@@ -306,6 +306,21 @@ class HistoriaRepository extends BaseRepository
     }
 
     /**
+     * @param int $id
+     *
+     * @throws \Exception
+     *
+     * @return bool|mixed|null
+     */
+    public function deletarHistoria($id) {
+        $query = $this->model->newQuery();
+
+        $model = $query->findOrFail($id);
+
+        return $model->delete();
+    }
+
+    /**
      * Função para fazer upload de imagem para a capa da história
      *
      * @param @type class Request $request binário da imagem através da classe Request
@@ -429,7 +444,7 @@ class HistoriaRepository extends BaseRepository
     }
 
     /**
-     * Função para pesquisar as histórias por título da história e por tag atrelada
+     * Procedimento para inserir as tags na história
      *
      * @param array $tags Vetor com as tags a serem adicionadas
      * @param int $historiaId ID da história

@@ -1,6 +1,6 @@
 <template>
     <q-page>
-        <q-inner-loading 
+        <q-inner-loading
             :showing="visible"
             label-class="text-teal"
             label-style="font-size: 1.1em"
@@ -82,11 +82,11 @@
                                         <p class="p_descricao"> {{livro.descricao | cutDescricao}} </p>
                                     </div>
                                     <div class="col-12">
-                                        <q-chip class="historia_finalizada">{{getHistoriaFinalizada(livro.historia_finalizada)}}</q-chip>   
-                                    </div> 
+                                        <q-chip class="historia_finalizada">{{getHistoriaFinalizada(livro.historia_finalizada)}}</q-chip>
+                                    </div>
                                     <div class="col-12">
-                                        <p class="p_data">Data de atualização: {{livro.data_atualizacao}} </p>   
-                                    </div>        
+                                        <p class="p_data">Data de atualização: {{ livro.data_atualizacao | formatDateTime }} </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -115,9 +115,9 @@ export default {
             descricao: 'Siga-me nas redes sociais! :D',
             visible: false,
             showSimulatedReturnData: false
-        } 
+        }
     },
-    
+
     mounted(){
         this.getUser()
         this.getUserEndpoint()

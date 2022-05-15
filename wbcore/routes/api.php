@@ -69,6 +69,9 @@ Route::middleware('auth:sanctum')->group(function() {
 	// Atualizar historia
 	Route::patch('historia/{id}', 'HistoriaAPIController@update');
 
+	// Deletar história
+	Route::delete('historia/{id}', 'HistoriaAPIController@destroy');
+
 	// Upload de capa do capítulo
 	Route::post('capitulo/upload/capa', 'CapituloAPIController@uploadCapaCapitulo');
 
@@ -80,6 +83,9 @@ Route::middleware('auth:sanctum')->group(function() {
 
 	// Atualizar capítulo
 	Route::patch('capitulo/{id}', 'CapituloAPIController@update');
+
+	// Deletar capítulo
+	Route::delete('capitulo/{id}', 'CapituloAPIController@destroy');
 
 	// Comentar no capítulo
 	Route::post('comentario', 'ComentarioAPIController@store');

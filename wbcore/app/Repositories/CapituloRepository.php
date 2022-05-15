@@ -241,6 +241,21 @@ class CapituloRepository extends BaseRepository
         ];
     }
 
+    /**
+     * @param int $id
+     *
+     * @throws \Exception
+     *
+     * @return bool|mixed|null
+     */
+    public function deletarCapitulo($id) {
+        $query = $this->model->newQuery();
+
+        $model = $query->findOrFail($id);
+
+        return $model->delete();
+    }
+
     public function adicionarVisualizacao($capituloId) {
 
         try {

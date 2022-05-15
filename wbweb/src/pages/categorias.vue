@@ -14,7 +14,7 @@
                             <p class="p_search_label">Não encontrou o que procurava? Pesquise aqui!</p>
                         </div>
                         <div class="col-12">
-                            <q-input rounded outlined v-model="search.categoria" dense="true" class="input_search_categoria">
+                            <q-input rounded outlined v-model="search.categoria" :dense="true" class="input_search_categoria">
                                 <template v-slot:append>
                                     <q-icon v-if="search.categoria !== ''" name="close" @click="search.categoria = ''" class="cursor-pointer" />
                                     <q-icon name="search" />
