@@ -219,7 +219,7 @@ export default {
             this.confirm = true
         },
         removerFoto(){
-            this.user.avatar = ''
+            this.user.foto_perfil = ''
         },
         buscarString(string, busca) {
             if(string != null || string != undefined){
