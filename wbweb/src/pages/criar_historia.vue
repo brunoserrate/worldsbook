@@ -22,6 +22,23 @@
                         />
                     </div>
                     <div v-else class="col-12 col-md-auto text-right">
+                        <q-btn-dropdown
+                            dropdown-icon="info"
+                            flat
+                            @click="onMainClick"
+                            class="dropdown_remove"
+                            >
+                            <q-list>
+                                <q-item clickable v-close-popup @click="onItemClick">
+                                    <q-item-section>
+                                        <q-item-label>Remover foto</q-item-label>
+                                    </q-item-section>
+                                    <q-item-section side>
+                                        <q-icon name="delete" color="primary" />
+                                    </q-item-section>
+                                </q-item>
+                            </q-list>
+                        </q-btn-dropdown>
                         <img :src="historia.caminho_capa" alt="" class="historia_caminho_capa">
                     </div>
                     <div class="row">
@@ -216,6 +233,19 @@
                 </div>
             </div>
         </div>
+        <q-dialog v-model="confirm" persistent>
+            <q-card>
+                <q-card-section class="row items-center">
+                <q-avatar icon="delete" color="primary" text-color="white" />
+                <span class="q-ml-sm">Deseja remover a foto de perfil?</span>
+                </q-card-section>
+
+                <q-card-actions align="right">
+                <q-btn flat label="Sim" color="primary" @click="removerFoto" v-close-popup />
+                <q-btn flat label="Cancelar" @click="confirm = false" color="primary" v-close-popup />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
     </q-page>
 </template>
 <script>
@@ -229,6 +259,7 @@ export default {
             files:null,
             errors: null,
             data: null,
+            confirm: false,
             // Uploader
             dense: true,
             historia: {
@@ -240,7 +271,7 @@ export default {
                 idioma_id: '',
                 direitos_autorais_id: '',
                 conteudo_adulto: '',
-                caminho_capa: '',
+                caminho_capa: 'https://i.pinimg.com/736x/90/02/ba/9002babc630ae1340692736ebc7d7679.jpg',
                 tags: [],
                 historia_finalizada: '',
                 data_atualizacao: '',
@@ -343,6 +374,15 @@ export default {
 		finishedUpload () {
 			this.$refs.uploader.reset()
 		},
+        onMainClick () {
+            // console.log('Clicked on main button')
+        },
+        onItemClick () {
+            this.confirm = true
+        },
+        removerFoto(){
+            this.historia.caminho_capa = ''
+        },
     }
 }
 </script>
