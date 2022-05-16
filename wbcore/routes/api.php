@@ -37,6 +37,9 @@ Route::get('historia/{id}', 'HistoriaAPIController@show');
 // Buscar histórias
 Route::get('historia/pesquisa', 'HistoriaAPIController@pesquisarHistoria');
 
+// Buscar histórias através da categoria
+Route::get('historia/categoria/pesquisa', 'HistoriaAPIController@pesquisarHistoriaCategoria');
+
 // Buscar capitulos
 Route::get('capitulo', 'CapituloAPIController@index');
 
