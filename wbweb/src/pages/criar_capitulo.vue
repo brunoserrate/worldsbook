@@ -48,8 +48,8 @@
             return {
                 historia_id: this.$route.params.historia_id,
                 capitulo: {
-                    titulo: '',
-                    capitulo: '',
+                    titulo: 'Capítulo sem nome',
+                    capitulo: 'Comece a escrever...',
                     historia_id: this.$route.params.historia_id,
                     caminho_capa: null,
                     votacao: 0,

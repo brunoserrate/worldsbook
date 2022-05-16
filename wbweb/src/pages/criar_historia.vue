@@ -22,7 +22,7 @@
                         />
                     </div>
                     <div v-else class="col-12 col-md-auto text-right">
-                        <img :src="historia.caminho_capa" alt="" height="50%">
+                        <img :src="historia.caminho_capa" alt="" class="historia_caminho_capa">
                     </div>
                     <div class="row">
                         <div class="col-12" style="margin: 0 0px 0 58px;">
@@ -70,33 +70,33 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <p class="label_input">Etiquetas</p>
-                                                <q-select
-                                                    filled
-                                                    v-model="historia.tags"
-                                                    class="inputs_form_historia"
-                                                    color="white"
-                                                    :dense="dense"
-                                                    use-input
-                                                    use-chips
-                                                    multiple
-                                                    hide-dropdown-icon
-                                                    input-debounce="0"
-                                                    new-value-mode="add-unique"
-                                                    emit-value
-                                                    map-options
+                                        <q-select
+                                            filled
+                                            v-model="historia.tags"
+                                            class="inputs_form_historia"
+                                            color="white"
+                                            :dense="dense"
+                                            use-input
+                                            use-chips
+                                            multiple
+                                            hide-dropdown-icon
+                                            input-debounce="0"
+                                            new-value-mode="add-unique"
+                                            emit-value
+                                            map-options
+                                            >
+                                            <template v-slot:selected>
+                                                <q-chip
+                                                    v-for="(chip, i) in historia.tags" :key="i"
+                                                    dense
+                                                    square
+                                                    color="accent"
+                                                    text-color="white"
                                                     >
-                                                    <template v-slot:selected>
-                                                        <q-chip
-                                                            v-for="(chip, i) in historia.tags" :key="i"
-                                                            dense
-                                                            square
-                                                            color="accent"
-                                                            text-color="white"
-                                                            >
-                                                            {{ chip }}
-                                                        </q-chip>
-                                                    </template>
-                                            </q-select>
+                                                    {{ chip }}
+                                                </q-chip>
+                                            </template>
+                                        </q-select>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -310,7 +310,7 @@ export default {
 			})
         },
         cancel(){
-            
+            this.$router.push({path: '/iniciar_leitura' })
         },
 
         // Uploader
@@ -355,4 +355,5 @@ export default {
         height: 1.5em;
         background-color: #7A22A7;
     }
+
 </style>
