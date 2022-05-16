@@ -11,10 +11,10 @@
               </q-avatar>
             </div>
             <div class="col" style="margin: 33px 546px 0 0px;">
-              <q-input outlined rounded bottom-slots v-model="text" label="Procurar" :dense="true" class="input_search">
+              <q-input outlined rounded bottom-slots v-model="search.pesquisa" label="Procurar" :dense="true" class="input_search">
                 <template v-slot:append>
                     <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
-                    <q-icon name="search" />
+                    <q-icon name="search"  @click="pesquisar" class="icone_search" />
                 </template>
               </q-input>
             </div>
@@ -175,6 +175,9 @@ export default {
       formEsqueciSenha: {
         email: '',
         confirma_email: ''
+      },
+      search: {
+        pesquisa: ''
       }
     }
   },
@@ -213,6 +216,10 @@ export default {
     }
   },
   methods: {
+    pesquisar(){
+      console.log(this.search.pesquisa)
+      this.$router.push({ path: `/historia/pesquisa?pesquisa=${this.search.pesquisa}` })
+    },
     goCategoria(){
       this.$router.push({ path: '/categorias' })
     },

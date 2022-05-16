@@ -8,6 +8,7 @@ const routes = [
       { path: 'redefinir-senha/:token', component: () => import('pages/ResetPassword.vue'), meta: { public: true } },
       // tela inicial para usuário cadastrado
       { path: 'iniciar_leitura', component: () => import('pages/iniciar_leitura.vue'), meta: { public: true } },
+      { path: 'historia/:pesquisa', component: () => import('pages/pesquisa_livros.vue'), meta: { public: true } },
       { path: 'perfil', component: () => import('pages/perfil.vue'), meta: { public: true } },
       { path: 'editar_perfil/:usuario_id', component: () => import('pages/editar_perfil.vue'), meta: { public: false } },
       { path: 'criar_historia', component: () => import('pages/criar_historia.vue'), meta: { public: false } },
