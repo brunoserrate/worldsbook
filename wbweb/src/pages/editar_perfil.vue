@@ -13,11 +13,7 @@
                     </div>
                     <div class="col-7">
                         <q-input square outlined v-model="user.name" :dense="dense" class="input_form"/>
-<<<<<<< HEAD
                     </div> 
-=======
-                    </div>
->>>>>>> 77699779ec98d048abba64f0c60d3dac350b9f53
                     <div class="col-4 alinhar_label_utilizador">
                         <span>Apelido</span>
                     </div>
@@ -80,8 +76,8 @@
                         <q-img :src="user.foto_perfil" alt="" class="foto_perfil">
                             <q-btn-dropdown
                                 dropdown-icon="info"
-                                push
-                                split
+                                flat
+                                class="dropdown_remove"
                                 @click="onMainClick"
                                 >
                                 <q-list>
