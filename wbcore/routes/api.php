@@ -28,17 +28,17 @@ Route::post('/reset-password', [UserController::class, 'resetPassword'] );
 // Rota para buscar mais comentários sem necessidade de recarregar tudo
 Route::get('comentario/mais-comentarios', 'ComentarioAPIController@carregarComentarios');
 
-// Buscar historias
-Route::get('historia', 'HistoriaAPIController@index');
-
-// Buscar historia pelo ID
-Route::get('historia/{id}', 'HistoriaAPIController@show');
-
 // Buscar histórias
 Route::get('historia/pesquisa', 'HistoriaAPIController@pesquisarHistoria');
 
 // Buscar histórias através da categoria
 Route::get('historia/categoria/pesquisa', 'HistoriaAPIController@pesquisarHistoriaCategoria');
+
+// Buscar historia pelo ID
+Route::get('historia/{id}', 'HistoriaAPIController@show');
+
+// Buscar historias
+Route::get('historia', 'HistoriaAPIController@index');
 
 // Buscar capitulos
 Route::get('capitulo', 'CapituloAPIController@index');
