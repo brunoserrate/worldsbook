@@ -14,7 +14,7 @@
                             <p class="p_search_label">Não encontrou o que procurava? Pesquise aqui!</p>
                         </div>
                         <div class="col-12">
-                            <q-input rounded outlined v-model="search.categoria" dense="true" class="input_search_categoria">
+                            <q-input rounded outlined v-model="search.categoria" dense class="input_search_categoria">
                                 <template v-slot:append>
                                     <q-icon v-if="search.categoria !== ''" name="close" @click="search.categoria = ''" class="cursor-pointer" />
                                     <q-icon name="search" />
@@ -27,7 +27,7 @@
             <div class="col-7">
                 <div class="row">
                     <div class="col-4" v-for="(categoria, i) in categorias" :key="i">
-                        <q-card class="card-categorias" >
+                        <q-card class="card-categorias" @click="goCategoria(categoria)">
                             <div class="row">
                                 <div class="col-6">
                                     <p>{{categoria.genero}}</p>
@@ -58,6 +58,10 @@
         },
 
         methods: {
+            goCategoria(categoria){
+                // console.log(categoria)
+                this.$router.push({path: `/livro_categorias/` + categoria.id})
+            },
             getCategorias(){
                 let that = this
 

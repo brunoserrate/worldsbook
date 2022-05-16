@@ -120,7 +120,7 @@
                     <q-list>
                         <q-item v-if="livro.capitulos.length == 0">Essa história ainda não tem capítulos!</q-item>
                         <div class="row">
-                            <div :class="(livro.usuario_id == user.user_id) ? 'col-11' : 'col-12'">
+                            <div :class="(livro.usuario_id == user.user_id) ? 'col-10' : 'col-12'">
                                 <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_list" @click="goChapter(capitulo)" >
                                     {{capitulo.titulo}}
                                 </q-item>

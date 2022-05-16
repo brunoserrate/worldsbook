@@ -12,7 +12,7 @@
                         <span>Nome</span>
                     </div>
                     <div class="col-7">
-                        <q-input square outlined v-model="user.nome" :dense="dense" class="input_form"/>
+                        <q-input square outlined v-model="user.name" :dense="dense" class="input_form"/>
                     </div> 
                     <div class="col-4 alinhar_label_utilizador">
                         <span>Apelido</span>
@@ -54,7 +54,7 @@
             </div>
             <div class="col-5">
                 <div class="row">
-                    <div v-if="user.avatar === '' " class="col-6 col-md-auto">
+                    <div v-if="user.foto_perfil === '' " class="col-6 col-md-auto">
                         <q-uploader
                             :factory="uploadFiles"
                             @finish="finishedUpload"
@@ -73,7 +73,7 @@
                         />
                     </div>
                     <div v-else class="col-6">
-                        <q-img :src="user.avatar" alt="" class="foto_perfil">
+                        <q-img :src="user.foto_perfil" alt="" class="foto_perfil">
                             <q-btn-dropdown
                                 dropdown-icon="info"
                                 push

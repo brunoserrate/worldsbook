@@ -1,0 +1,63 @@
+.card-categorias {
+    margin: 40px 0px;
+    box-shadow: none;
+}
+.cover_historia {
+    width: 188px;
+    height: 270px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.row_categorias {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 49px;
+}
+.total_historias {
+    margin: 0;
+    font-family: Raleway;
+    font-size: 20px;
+}
+.card_search{
+    box-shadow: none;
+}
+.p_search{
+    font-size: 25px;
+    text-align: center;
+    font-family: Raleway;
+    padding: 0 23px;
+    margin: 68px 0 0 0;
+}
+.p_text{
+    font-size: 17px;
+    text-align: center;
+    font-family: Raleway;
+    padding: 0 23px;
+    margin: 10px 0 0 0;
+    font-weight: bold;
+}
+
+.livro_titulo {
+    font-size: 17px;
+    font-family: Raleway;
+    font-weight: bold;
+    margin: 0;
+}
+
+.livro_autor {
+    font-family: Raleway;
+    font-weight: bold;
+    color: #707070;
+    margin: 0;
+}
+
+.row_icones {
+    width: 100%;
+    margin: 7px 0px 0px 0px;
+    color: #787081;
+}
+.livro_descricao{
+    margin: 13px 0 0 0;
+    font-size: 14px;
+    font-family: Raleway;
+}
