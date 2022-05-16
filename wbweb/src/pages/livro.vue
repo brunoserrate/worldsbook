@@ -265,7 +265,19 @@ export default {
             this.$router.push({path: `capitulo/` + capitulo.id})
         },
         getAvatar(){
-            this.user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
+            this.user = {
+                user_id: 0,
+                nome: '',
+                apelido: '',
+                foto_perfil: 'https://avatars.dicebear.com/api/initials/v.svg',
+            }
+
+            let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
+
+            if(user !== null) {
+                this.user = user
+            }
+
         },
         getHistoriaFinalizada(historia_finalizada){
             if(historia_finalizada == 0){ return "Em andamento" }

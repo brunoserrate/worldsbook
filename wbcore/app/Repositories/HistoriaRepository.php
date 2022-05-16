@@ -177,8 +177,10 @@ class HistoriaRepository extends BaseRepository
         $historia = Historia::where('historia.id', $id)
                         ->join('users', 'users.id', '=', 'historia.usuario_id')
                         ->join('direitos_autorais', 'direitos_autorais.id', '=', 'historia.direitos_autorais_id')
+                        ->leftJoin('categoria', 'categoria.id', '=', 'historia.categoria_id')
                         ->select(
                             'historia.*',
+                            'categoria.genero AS categoria_nome',
                             'direitos_autorais.tipo_autoral as direito_autoral',
                             'users.name as nome_usuario',
                             'users.apelido as apelido_usuario',
@@ -395,29 +397,13 @@ class HistoriaRepository extends BaseRepository
             $pesquisa = trim( $input['pesquisa']  );
         }
 
+        $historias = [];
+
         // Query para fazer a busca de histórias
-        $result = DB::table('historia')
+        $histIds = DB::table('historia')
                     ->select(
                         'historia.id',
-                        'historia.titulo',
-                        'historia.descricao',
-                        'historia.historia_finalizada',
-                        'historia.caminho_capa',
-                        DB::raw(
-                            '(CASE
-                                WHEN capitulos.quantidade_visualizacao IS NULL THEN 0
-                                ELSE SUM(capitulos.quantidade_visualizacao)
-                            END) AS total_visualizacoes'
-                        ),
-                        DB::raw(
-                            '(CASE
-                                WHEN capitulos.votacao IS NULL THEN 0
-                                ELSE SUM(capitulos.votacao)
-                            END) AS total_votos'
-                        ),
-                        DB::raw('COUNT(capitulos.id) AS total_capitulos')
                     )
-                    ->leftJoin('capitulos', 'capitulos.historia_id', '=', 'historia.id')
                     // Subquery para buscar os ids das histórias que contém a palavra pesquisada
                     // Tanto no título, quanto nos nomes das tags
                     ->whereIn('historia.id', function($query) use ($pesquisa) {
@@ -431,15 +417,24 @@ class HistoriaRepository extends BaseRepository
                                 ->orWhere('tags.nome', 'LIKE', '%'. $pesquisa . '%');
                             });
                     })
-                    ->groupBy('historia.id')
                     ->get()
                     ->toArray();
+
+        // Buscar as informações de cada história
+        foreach ($histIds as $hist) {
+
+            $result = $this->buscarHistoria($hist->id);
+
+            if($result['success']) {
+                $historias[] = $result['data'];
+            }
+        }
 
         return [
             'success' => true,
             'message' => 'Hístórias retornadas com sucesso',
             'code' => 200,
-            'data' => $result
+            'data' => $historias
         ];
     }
 

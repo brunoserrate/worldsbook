@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Models\User;
-
+use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,3 +19,5 @@ Route::post('/login', [UserController::class, 'authenticate'] );
 Route::middleware('auth:sanctum')->group(function() {
 	Route::post('/logout', [UserController::class, 'logoutWeb'] );
 });
+
+Route::get('/sanctum', [CsrfCookieController::class, 'show']);
