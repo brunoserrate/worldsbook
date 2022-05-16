@@ -103,12 +103,7 @@ export default {
 	},
 	methods:{
 		iniciarLeitura(){
-			if(this.user != null){
-				this.$router.push({ path: '/iniciar_leitura' })
-			}
-			else {
-				this.logar = !this.logar
-			}
+			this.$router.push({ path: '/categorias' })
 		},
 		comeceEscrever(){
 			if(this.user != null){

@@ -177,8 +177,10 @@ class HistoriaRepository extends BaseRepository
         $historia = Historia::where('historia.id', $id)
                         ->join('users', 'users.id', '=', 'historia.usuario_id')
                         ->join('direitos_autorais', 'direitos_autorais.id', '=', 'historia.direitos_autorais_id')
+                        ->leftJoin('categoria', 'categoria.id', '=', 'historia.categoria_id')
                         ->select(
                             'historia.*',
+                            'categoria.genero AS categoria_nome',
                             'direitos_autorais.tipo_autoral as direito_autoral',
                             'users.name as nome_usuario',
                             'users.apelido as apelido_usuario',

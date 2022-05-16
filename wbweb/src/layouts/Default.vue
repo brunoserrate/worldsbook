@@ -248,6 +248,7 @@ export default {
         }
         else {
           if(this.$route.path != '/'){
+            this.isIndex = true
             this.$router.push({path: '/', replace: true })
           }
         }
@@ -308,6 +309,7 @@ export default {
         // console.log(res)
         this.user = null
         this.logado = false
+        this.isIndex = true
         this.$q.sessionStorage.remove('auth')
 
         this.$router.push({path: '/'})
