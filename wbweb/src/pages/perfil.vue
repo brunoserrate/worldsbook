@@ -41,7 +41,7 @@
                             <q-separator color="gray" inset />
                         </div>
                         <div class="col-11 offset-1">
-                            <p class="p-descricao">{{ descricao }}</p>
+                            <p class="p-descricao">{{ usuario.sobre }}</p>
                         </div>
                     </div>
                 </q-card>

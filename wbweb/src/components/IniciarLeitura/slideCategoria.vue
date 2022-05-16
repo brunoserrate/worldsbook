@@ -65,7 +65,7 @@ export default {
 			livro_dialog: false,
 			livros:[],
 			livro_detail: {
-				caminho_capa: '',
+				caminho_capa: '', 
 				categoria_id: '',
 				conteudo_adulto: '',
 				data_atualizacao: '',
@@ -127,7 +127,7 @@ export default {
 				// console.log(that.livros)
 			})
 			.catch((err) => {
-				// console.log(err.response)
+				console.log(err.response)
 			})
 		},
 	},

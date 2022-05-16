@@ -19,37 +19,36 @@ Dentro do sistema é possível ler e compartilhar a sua imaginação.
 
 ## Installation
 
-Após baixar o projeto, vá até a pasta do frontend (wbweb) e baixe as dependências via [npm](https://www.npmjs.com/)
+After download the project, go to the wbweb folder and install all the dependencies with [npm](https://www.npmjs.com/)
 
 ```sh
 cd wbweb
 npm install
 ```
-
-Vá até a pasta do backend (wbcore) e baixe as dependências via [composer](https://getcomposer.org/download/)
+Go to the wbcore folder and install the dependencies with [composer](https://getcomposer.org/download/)
 ```sh
 composer install
 ```
 
 ## Start
 
-Para iniciar o projeto rode o comando no frontend:
+To start the project, run the command below in the frontend:
 ```sh
 npx quasar dev
 ```
-Ou
+Or
 ```sh
 quasar dev
 ```
 
-E este comando no backend:
+And this command in the backend:
 ```sh
 php artisan serve
 ```
 
 ## License
 
-Esse projeto está sobre a licença MIT.
+This project is licensed under an MIT License
 
 ## Participants
 

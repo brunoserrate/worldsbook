@@ -13,7 +13,11 @@
                     </div>
                     <div class="col-7">
                         <q-input square outlined v-model="user.name" :dense="dense" class="input_form"/>
+<<<<<<< HEAD
+                    </div> 
+=======
                     </div>
+>>>>>>> 77699779ec98d048abba64f0c60d3dac350b9f53
                     <div class="col-4 alinhar_label_utilizador">
                         <span>Apelido</span>
                     </div>
@@ -54,7 +58,7 @@
             </div>
             <div class="col-5">
                 <div class="row">
-                    <div v-if="user.foto_perfil === '' || (buscarString(user.foto_perfil, 'avatars.dicebear.com') > 0) " class="col-6 col-md-auto">
+                    <div v-if="user.foto_perfil === '' " class="col-6 col-md-auto">
                         <q-uploader
                             :factory="uploadFiles"
                             @finish="finishedUpload"
