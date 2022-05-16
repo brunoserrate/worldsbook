@@ -444,6 +444,49 @@ class HistoriaRepository extends BaseRepository
     }
 
     /**
+     * Função para pesquisar as histórias através da ID da categoria
+     *
+     * @param array {
+     *              categoria_id: int,
+     *        } $input
+     *
+     * @return array $result Retorna um array com o resultado da função,
+     *                       seja o retorno positivo ou negativo
+     *
+     **/
+    public function pesquisarHistoriaCategoria($input){
+
+        // Instanciando variável de pesquisa
+        $categoria_id = 0;
+
+        // Caso o input de pesquisa não esteja vazio, atrela a variável de pesquisa
+        if( !empty($input['categoria_id'] ) ) {
+            $categoria_id = trim( $input['categoria_id']  );
+        }
+
+        $historias = [];
+
+        $histIds = Historia::where('categoria_id', $categoria_id)->select('id')
+                    ->get()->toArray();
+
+        // Buscar as informações de cada história
+        foreach ($histIds as $hist) {
+            $result = $this->buscarHistoria($hist['id']);
+
+            if($result['success']) {
+                $historias[] = $result['data'];
+            }
+        }
+
+        return [
+            'success' => true,
+            'message' => 'Hístórias retornadas com sucesso',
+            'code' => 200,
+            'data' => $historias
+        ];
+    }
+
+    /**
      * Procedimento para inserir as tags na história
      *
      * @param array $tags Vetor com as tags a serem adicionadas

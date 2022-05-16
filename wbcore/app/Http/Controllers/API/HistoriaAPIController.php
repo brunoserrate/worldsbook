@@ -314,4 +314,13 @@ class HistoriaAPIController extends AppBaseController
 
         return $this->sendResponse($result['data'], $result['message']);
     }
+
+    public function pesquisarHistoriaCategoria(Request $request) {
+
+        $input = $request->all();
+
+        $result = $this->historiaRepository->pesquisarHistoriaCategoria($input);
+
+        return $this->sendResponse($result['data'], $result['message']);
+    }
 }
