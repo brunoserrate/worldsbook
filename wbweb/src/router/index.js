@@ -12,20 +12,33 @@ import routes from './routes'
 if(process.env.DEV){
   Vue.prototype.$pathAPI = '/wbcore/api';
   Vue.prototype.$pathWeb = '/wbcore';
-  Vue.prototype.$pathFile = 'http://127.0.0.1:8087/';
 }
 else{
   Vue.prototype.$pathAPI = 'wbcore/public/api'
-  Vue.prototype.$pathWeb = '/wbcore/public';
-  Vue.prototype.$pathFile = '';
+  Vue.prototype.$pathWeb = 'wbcore/public';
 }
 
 Vue.mixin(functions)
 
 // Busca o CSRF Token para autenticação
-axios.get('/wbcore/sanctum').then((res)=> {
-  // console.log(res);
-})
+if(process.env.DEV){
+  axios.get('/wbcore/sanctum').then((res)=> {
+    // console.log(res);
+  })
+  .catch((err) => {
+    console.log('dev')
+    console.log(err)
+  })
+}
+else{
+  axios.get('wbcore/public/sanctum').then((res)=> {
+    // console.log(res);
+  })
+  .catch((err) => {
+      console.log('prod_02')
+      console.log(err)
+  })
+}
 
 // Filtros
 Vue.filter('converterBoolean', (valor) => {
