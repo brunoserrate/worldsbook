@@ -284,9 +284,13 @@ class HistoriaAPIController extends AppBaseController
             return $this->sendError('Historia not found');
         }
 
-        $historia->delete();
+        $result = $this->historiaRepository->deletarHistoria($id);
 
-        return $this->sendSuccess('Historia deleted successfully');
+        if(!$result['success']){
+            return $this->sendError($result['message'], $result['code'], $result['data']);
+        }
+
+        return $this->sendSuccess('História deletada com sucesso');
     }
 
 

@@ -16,6 +16,8 @@ use DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use App\Repositories\HistoriaRepository;
+use Illuminate\Support\Facades\Storage;
+use File;
 
 
 class UserController extends AppBaseController
@@ -353,7 +355,7 @@ class UserController extends AppBaseController
      * @return array $result Retorna um array com o resultado da função,
      *                       seja o retorno positivo ou negativo
      **/
-    public function uploadFoto($request) {
+    public function uploadFoto(Request $request) {
 
         // Classe auxiliar para fazer upload da imagem localmente
         $result = UtilsController::uploads($request);

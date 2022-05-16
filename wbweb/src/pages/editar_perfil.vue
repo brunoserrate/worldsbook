@@ -13,7 +13,11 @@
                     </div>
                     <div class="col-7">
                         <q-input square outlined v-model="user.name" :dense="dense" class="input_form"/>
+<<<<<<< HEAD
                     </div> 
+=======
+                    </div>
+>>>>>>> 77699779ec98d048abba64f0c60d3dac350b9f53
                     <div class="col-4 alinhar_label_utilizador">
                         <span>Apelido</span>
                     </div>
@@ -43,7 +47,7 @@
                     </div>
                     <div class="col-7 offset-4">
                         <q-btn label="Salvar" flat @click="setPerfil" class="btn-salvar">
-                            <q-inner-loading 
+                            <q-inner-loading
                                 :showing="visible"
                                 label-class="text-teal"
                                 label-style="font-size: 1.1em"
@@ -121,7 +125,7 @@ export default {
             uploadPercent:null,
             confirm: false,
             user: {
-                nome: '',
+                name: '',
                 sobre: '',
                 avatar: '',
                 foto_perfil: '',
@@ -138,20 +142,19 @@ export default {
 
     mounted(){
         this.getUser()
-        console.log(this.user)
+        // console.log(this.user)
     },
-
     methods: {
         setPerfil(){
             let that = this
 
             that.visible = true
             that.showSimulatedReturnData = false
-            
+
             let params = {
                 name: that.user.nome,
                 sobre: that.user.sobre,
-                foto_perfil: that.user.avatar,
+                foto_perfil: that.user.foto_perfil,
                 apelido: that.user.apelido,
                 email: that.user.email,
             }
@@ -161,7 +164,6 @@ export default {
                 console.log("res: ", res)
 
                 let storage_user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
-                console.log("Storage: ", storage_user)
                 let token = storage_user.token
                 // Alterar os dados necessários
                 storage_user = res.data.data // Nome, apelido, avatar,
@@ -193,7 +195,7 @@ export default {
 			})
 				.then(res => {
 					resolve(null)
-					this.historia.caminho_capa = res.data.data.full_path
+					this.user.foto_perfil = res.data.data.full_path
 					this.uploadPercentage = false
 					this.sucesso()
 				})
@@ -218,6 +220,12 @@ export default {
         },
         removerFoto(){
             this.user.avatar = ''
+        },
+        buscarString(string, busca) {
+            if(string != null || string != undefined){
+                return string.indexOf(busca)
+            }
+            return 1
         }
     },
 }

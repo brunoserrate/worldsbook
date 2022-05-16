@@ -5,8 +5,8 @@
 </div>
 
 <p align="center">
-  <span>Português Brasileiro</span> |
-  <a href="./lang/english/README.md">English</a>
+    <a href="../../README.md">Português Brasileiro</a> |
+    <span>English</span>
 </p>
 
 <div align="center">
@@ -17,7 +17,7 @@
 O World Books é uma plataforma para compartilhar histórias e e-books entre diversos usuários.
 Dentro do sistema é possível ler e compartilhar a sua imaginação.
 
-## Instalação
+## Installation
 
 Após baixar o projeto, vá até a pasta do frontend (wbweb) e baixe as dependências via [npm](https://www.npmjs.com/)
 
@@ -31,7 +31,7 @@ Vá até a pasta do backend (wbcore) e baixe as dependências via [composer](htt
 composer install
 ```
 
-## Inicializar
+## Start
 
 Para iniciar o projeto rode o comando no frontend:
 ```sh
@@ -47,11 +47,11 @@ E este comando no backend:
 php artisan serve
 ```
 
-## Licença
+## License
 
 Esse projeto está sobre a licença MIT.
 
-## Participantes
+## Participants
 
 - [Bruno Serrate Teixeira Jeronimo,](https://github.com/brunoserrate)
 - Ryan Araujo Palma,
