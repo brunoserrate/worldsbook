@@ -55,10 +55,10 @@ Esse projeto está sobre a licença MIT.
 
 - [Bruno Serrate Teixeira Jeronimo,](https://github.com/brunoserrate)
 - Ryan Araujo Palma,
-- Lucas Gonçalves Prado das Neve,
+- [Lucas Gonçalves Prado das Neve,](https://github.com/Lucas1726)
 - [Laís de Assis Requena,](https://github.com/LAISRCROFT)
 - [Euclides Enrique Padovezi,](https://github.com/Rickkrause13)
-- Michel Antonio Santos Melo,
+- [Michel Antonio Santos Melo,](https://github.com/Mhl9641)
 - Marcel De Lucena Yoshida Junior.
 - Gustavo Patricio,
 - Gustavo Cavalcante Barnabé
