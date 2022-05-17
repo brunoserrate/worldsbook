@@ -87,23 +87,46 @@
           <img alt="logo" src="~assets/logo-footer.png"  />
         </div>
         <div class="col-2">
-          <h3 class="footer_titles">Inicio</h3>
-          <p class="footer_subs">Home</p>
-          <p class="footer_subs">Iniciar Leitura</p>
-          <p class="footer_subs">Começar a Escrever</p>
+          <div class="col-12">
+            <h3 class="footer_titles">Inicio</h3>
+          </div>
+          <div class="col-12">
+            <q-btn class="footer_subs" label="Home" flat square to="/" ></q-btn>
+          </div>
+          <div class="col-12">
+            <q-btn class="footer_subs" label="Iniciar Leitura" flat to="/iniciar_leitura" ></q-btn>
+          </div>
+          <div class="col-12">
+            <q-btn class="footer_subs" label="Começar a Escrever" flat to="/criar_historia" ></q-btn>
+          </div>
+          <div class="col-12">
+            <q-btn class="footer_subs" label="Categorias" flat to="/categorias" ></q-btn>
+          </div>
         </div>
         <div class="col-2">
-          <h3 class="footer_titles">Sobre nós</h3>
-          <p class="footer_subs">Sobre a empresa</p>
-          <p class="footer_subs">Contato</p>
-          <p class="footer_subs">Redes Sociais</p>
-          <p class="footer_subs">Desenvolvedores</p>
+          <div class="col-12">
+            <h3 class="footer_titles">Sobre nós</h3>
+          </div>
+          <div class="col-12">
+            <q-btn class="footer_subs" label="Sobre a empresa" flat to="/sobre_empresa" ></q-btn>
+          </div>
+          <div class="col-12">
+            <q-btn class="footer_subs" label="Contato" flat to="/contato" ></q-btn>
+          </div>
+          <div class="col-12">
+            <q-btn class="footer_subs" label="Redes Sociais" flat to="/contato" ></q-btn>
+          </div>
         </div>
         <div class="col-2">
-          <h3 class="footer_titles">Suporte</h3>
-          <p class="footer_subs">FAQ</p>
-          <p class="footer_subs">GitHub</p>
-          <p class="footer_subs">Chat</p>
+          <div class="col-12">
+            <h3 class="footer_titles">Suporte</h3>
+          </div>
+          <div class="col-12">
+            <q-btn class="footer_subs" label="FAQ" flat to="/faq" ></q-btn>
+          </div>
+          <div class="col-12">
+            <q-btn class="footer_subs" label="GitHub" flat href="https://github.com/brunoserrate/worldsbook" target="_blank"></q-btn>
+          </div>
         </div>
       </div>
     </q-footer>
