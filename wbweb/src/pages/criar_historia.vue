@@ -271,7 +271,7 @@ export default {
                 idioma_id: '',
                 direitos_autorais_id: '',
                 conteudo_adulto: '',
-                caminho_capa: 'https://i.pinimg.com/736x/90/02/ba/9002babc630ae1340692736ebc7d7679.jpg',
+                caminho_capa: '',
                 tags: [],
                 historia_finalizada: '',
                 data_atualizacao: '',
