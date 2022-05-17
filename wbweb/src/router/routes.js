@@ -19,6 +19,10 @@ const routes = [
       { path: 'editar_livro/:livro_id', component: () => import('pages/editar_historia.vue'), meta: { public: false } },
       { path: 'livro/capitulo/:capitulo_id', component: () => import('pages/capitulo.vue'), meta: { public: true } },
       { path: 'editar_capitulo/:capitulo_id', component: () => import('pages/editar_capitulo.vue'), meta: { public: false } },
+      { path: 'sobre_empresa', component: () => import('pages/sobre_empresa.vue'), meta: { public: true } },
+      { path: 'contato', component: () => import('pages/contato.vue'), meta: { public: true } },
+      { path: 'sobre_empresa', component: () => import('pages/sobre_empresa.vue'), meta: { public: true } },
+      { path: 'faq', component: () => import('pages/faq.vue'), meta: { public: true } },
     ]
   },
   {
