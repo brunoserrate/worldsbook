@@ -1,6 +1,13 @@
 .card-categorias {
     margin: 40px 0px;
     box-shadow: none;
+    cursor: pointer;
+    &:hover{
+        background-color: #f3f3f3;
+        .livro_titulo{
+            text-decoration: underline;
+        }
+    }
 }
 .cover_historia {
     width: 188px;

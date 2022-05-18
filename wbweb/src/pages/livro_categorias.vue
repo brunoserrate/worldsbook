@@ -11,7 +11,7 @@
                 <q-card style="height: 100%;" class="card_search">
                     <div class="row">
                         <div class="col-12">
-                            <p class="p_search">Aqui estão os melhores livro na categoria de {{categoria_id}}</p>
+                            <p class="p_search">Aqui estão os melhores livro na categoria de {{categoria | lowercase}}</p>
                         </div>
                         <div class="col-12">
                             <p class="p_text">Diversos livro para todos os gostos!</p>
@@ -108,7 +108,7 @@ export default {
 	data (){
 		return {
 			categoria_id: this.$route.params.categoria_id,
-            categoria: {},
+            categoria: this.$route.params.categoria_nome,
             livro_dialog: false,
             livro_detail: {},
 			livros:[],
@@ -167,8 +167,8 @@ export default {
 			that.$axios.get(that.$pathAPI + `/historia/categoria/pesquisa?categoria_id=${this.categoria_id}`)
 			.then((res) => {
 				that.livros = res.data.data
-				console.log("livros", that.livros)
-                
+				// console.log("livros", that.livros)
+
                 that.visible = false
                 that.showSimulatedReturnData = true
 			})
