@@ -1,6 +1,6 @@
 <template>
     <q-page>
-        <q-inner-loading 
+        <q-inner-loading
             :showing="visible_page"
             label-class="text-teal"
             label-style="font-size: 1.1em"
@@ -78,7 +78,7 @@
                 <q-avatar size="40px" style="background-color: #ddd;">
                     <img :src="livro.foto_perfil" />
                 </q-avatar>
-                <span class="apelido_usuario">{{livro.apelido_usuario}}</span>
+                <span class="apelido_usuario" @click="goToPerfil(livro.usuario_id)">{{livro.apelido_usuario}}</span>
             </div>
             <div class="col-12 offset-2">
                 <q-chip class="historia_finalizada">{{getHistoriaFinalizada(livro.historia_finalizada)}}</q-chip>
@@ -108,7 +108,7 @@
                         </div>
                         <div class="col-6 row_add_capitulo">
                             <q-btn flat label="Adicionar capítulo" class="btn_adicionar" @click="goAddCapitulo" v-if="livro.usuario_id == user.user_id">
-                                <q-inner-loading 
+                                <q-inner-loading
                                     :showing="visible"
                                     label-class="text-teal"
                                     label-style="font-size: 1.1em"
@@ -130,7 +130,7 @@
                                     <q-icon name="edit" color="#7A22A7"></q-icon>
                                 </q-item>
                             </div>
-                            <div class="col-1">
+                            <div v-if="livro.usuario_id == user.user_id" class="col-1">
                                 <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_edit" @click="delete_capitulo = true">
                                     <q-icon name="delete" color="#7A22A7"></q-icon>
                                 </q-item>
@@ -233,7 +233,7 @@ export default {
                 // console.log("livro: ", that.livro)
                 this.getAvatar()
                 this.getHistoriaFinalizada()
-                
+
                 that.visible_page = false
                 that.showSimulatedReturnData = true
             })
@@ -248,7 +248,10 @@ export default {
 
         },
         delCapitulo(){
-            
+
+        },
+        goToPerfil(usuario_id){
+            this.$router.push({path: `/perfil/` + usuario_id})
         },
         goEditHistoria(){
             this.$router.push({path: `../editar_livro/` + this.livro_id})

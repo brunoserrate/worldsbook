@@ -58,6 +58,12 @@ Vue.filter('ucfirst', (valor) => {
   }
 })
 
+Vue.filter('lowercase', (valor) => {
+  if(valor != undefined || valor != null || valor === ''){
+    return valor.toLowerCase()
+  }
+})
+
 Vue.filter('ucwords', (valor) => {
   if(valor != undefined || valor != null || valor === ''){
     let arr = valor.split(' ')

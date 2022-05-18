@@ -26,7 +26,7 @@
             <div cols="12" style="width: 100%;">
                 <q-card class="card_barra">
                     <p class="a-seguir">A Seguir</p>
-                    <q-btn flat style="primary" label="Editar Perfil" icon="settings" class="btn-editar-perfil" @click="goEditPerfil"/>
+                    <q-btn v-if="usuario.user_id == user.user_id" flat style="primary" label="Editar Perfil" icon="settings" class="btn-editar-perfil" @click="goEditPerfil"/>
                 </q-card>
             </div>
         </div>
@@ -119,8 +119,16 @@ export default {
     },
 
     mounted(){
-        this.getUser()
-        this.getUserEndpoint()
+        let param_id = this.$route.params.perfil_id
+
+        if(param_id != undefined){
+            this.getUser()
+            this.getUserEndpoint(param_id)
+        }
+        else {
+            this.getUser()
+            this.getUserEndpoint(0)
+        }
     },
 
 	filters: {
@@ -138,19 +146,25 @@ export default {
 	},
     methods: {
         goLivro(livro){
-            console.log(livro)
+            // console.log(livro)
             this.$router.push({path: `../livro/` + livro.id})
         },
         goEditPerfil(){
             this.$router.push({path: `../editar_perfil/` + this.user.user_id})
         },
-        getUserEndpoint(){
+        getUserEndpoint(user_id){
             let that = this
 
             that.visible = true
             that.showSimulatedReturnData = false
 
-			that.$axios.get(that.$pathAPI + `/user/pesquisa?pesquisa=${this.user.user_id}`)
+            let url = `/user/pesquisa?pesquisa=${this.user.user_id}`
+
+            if(user_id != 0){
+                url = `/user/pesquisa?pesquisa=${user_id}`
+            }
+
+			that.$axios.get(that.$pathAPI + url)
 			.then((res) => {
 				this.usuario = res.data.data
                 console.log(that.usuario)

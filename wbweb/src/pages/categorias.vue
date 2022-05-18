@@ -60,7 +60,7 @@
         methods: {
             goCategoria(categoria){
                 // console.log(categoria)
-                this.$router.push({path: `/livro_categorias/` + categoria.id})
+                this.$router.push({path: `/livro_categorias/` + categoria.id + '/' + categoria.genero})
             },
             getCategorias(){
                 let that = this
