@@ -55,8 +55,8 @@
                                         <div class="col-12">
                                             <p class="livro_descricao">{{livro.descricao | cutDescricao}}</p>
                                         </div>
-                                        <div class="col-12 offset-2  col-sm-8">
-                                            <q-chip v-for="(tag, i) in livro.tags" :key="i" >{{tag}}</q-chip> <!--Dar um slice-->
+                                        <div class="col-12">
+                                            <q-chip v-for="(tag, i) in livro.tags.slice(0,4)" :key="i" >{{tag}}</q-chip> <!--Dar um slice-->
                                         </div>
                                     </div>
                                 </div>

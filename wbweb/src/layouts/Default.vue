@@ -241,7 +241,7 @@ export default {
   methods: {
     pesquisar(){
       console.log(this.search.pesquisa)
-      this.$router.push({ path: `/historia/pesquisa?pesquisa=${this.search.pesquisa}` })
+      this.$router.push({ path: `/historia/${this.search.pesquisa}` })
     },
     goCategoria(){
       this.$router.push({ path: '/categorias' })

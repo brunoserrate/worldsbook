@@ -11,7 +11,7 @@
                 <q-card style="height: 100%;" class="card_search">
                     <div class="row">
                         <div class="col-12">
-                            <p class="p_text">Sua pesquisa retornou {{}} resultados!</p>
+                            <p class="p_text"><q-icon name="search"></q-icon> Sua pesquisa retornou {{ livros.length }} {{ (livros.length == 1) ? "resultado!" : "resultados" }} </p>
                         </div>
                     </div>
                 </q-card>
@@ -52,8 +52,8 @@
                                         <div class="col-12">
                                             <p class="livro_descricao">{{livro.descricao | cutDescricao}}</p>
                                         </div>
-                                        <div class="col-12 offset-2  col-sm-8">
-                                            <q-chip v-for="(tag, i) in livro.tags" :key="i" >{{tag}}</q-chip> <!--Dar um slice-->
+                                        <div class="col-12">
+                                            <q-chip v-for="(tag, i) in livro.tags.slice(0, 4)" :key="i" >{{tag}}</q-chip> <!--Dar um slice-->
                                         </div>
                                     </div>
                                 </div>
@@ -65,13 +65,13 @@
         </div>
 		<q-dialog v-model="livro_dialog" class="navbar_classe">
 			<q-card class="card_detail_historia">
-				<div class="row">
+				<div class="row" style="height: 100%;">
 					<div class="col-6">
 						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
 					</div>
 					<div class="col-6">
 						<h1 class="title_dialog_historia">{{livro_detail.titulo}}</h1>
-						<div class="row">
+						<div class="row row_height" style="">
 							<div class="col-12" style="display: flex; justify-content: center;">
 								<hr style="margin: 0 0 0 0; width: 80%;"/>
 							</div>
@@ -104,7 +104,7 @@ export default {
     name:'livro-categoria',
 	data (){
 		return {
-			categoria_id: this.$route.params.categoria_id,
+			pesquisa: this.$route.params.pesquisa,
             categoria: {},
             livro_dialog: false,
             livro_detail: {},
@@ -140,6 +140,7 @@ export default {
     },
     mounted(){
         this.getLivros()
+        console.log(this.pesquisa)
     },
 	filters: {
 		cutDescricao(value){
@@ -160,8 +161,8 @@ export default {
 
             that.visible = true
             that.showSimulatedReturnData = false
-
-			that.$axios.get(that.$pathAPI + `/historia/categoria/pesquisa?categoria_id=${this.categoria_id}`)
+            // console.log(this.$route.params.pesquisa)
+			that.$axios.get(that.$pathAPI + `/historia/pesquisa?pesquisa=${this.pesquisa}`)
 			.then((res) => {
 				that.livros = res.data.data
 				console.log("livros", that.livros)

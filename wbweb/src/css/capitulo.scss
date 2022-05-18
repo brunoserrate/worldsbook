@@ -57,6 +57,23 @@
         font-size: 72px !important;
     }
 }
+.historia_cover{
+    background-color: #ddd;
+    cursor: pointer;
+    &:hover{
+        background-color: rgb(204, 204, 204);
+        font-size: 72px !important;
+    }
+}
+.historia-titulo {
+    margin: 27px 0 0 0;
+    font-weight: bold;
+    font-family: 'Raleway';
+    cursor: pointer;
+    &:hover {
+        margin: 25px 0 0 0;
+    }
+}
 .nome_usuario{
     padding: 0 0 0 0px;
     margin: 12px 0 0 0;

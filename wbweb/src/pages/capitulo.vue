@@ -33,7 +33,7 @@
                     <div class="col-2 row_avatar">
                         <div class="row">
                             <div class="col-12">
-                                <q-avatar size="70px" class="avatar_corpo_capitulo">
+                                <q-avatar size="70px" class="avatar_corpo_capitulo" @click="goToPerfil(capitulo.usuario_id)">
                                     <img :src="capitulo.foto_perfil" />
                                     <q-tooltip anchor="top right" self="top start" class="bg-transparent text-body2" :offset="[10, 10]">
                                         <p class="nome_usuario">{{capitulo.nome_usuario}}</p>
@@ -41,7 +41,10 @@
                                 </q-avatar>
                             </div>
                             <div class="col-12">
-                                <p  class="p_nome_usuario">de <span class="nome_usuario">{{capitulo.apelido_usuario}}</span></p>
+                                <p  class="p_nome_usuario">de <span class="nome_usuario" @click="goToPerfil(capitulo.usuario_id)">{{capitulo.apelido_usuario}}</span></p>
+                            </div>
+                            <div class="col-12">
+                                <p class="historia-titulo" @click="goToHistoria()">{{historia.titulo}}</p>
                             </div>
                         </div>
                     </div>
@@ -95,7 +98,7 @@
                 <!-- COMENTÁRIOS -->
                 <div class="row justify-center" v-for="(comentario, i) in capitulo.comentarios" :key="i">
                     <div class="col-1 offset-1">
-                        <q-avatar size="50px" class="avatar_comentario">
+                        <q-avatar size="50px" class="avatar_comentario" @click="goToPerfil(comment.usuario_id)">
                             <img :src="comentario.foto_perfil" />
                         </q-avatar>
                     </div>
@@ -139,6 +142,9 @@
                     titulo: '',
                     usar_apelido: '',
                     votacao: '',
+                },
+                historia: {
+
                 },
                 user: {
                     apelido: '',
@@ -200,12 +206,20 @@
             },
         },
         methods: {
+            goToHistoria(){
+                this.$router.push({path: `/livro/` + this.capitulo.historia_id}) 
+            },
+            goToPerfil(usuario_id){
+                this.$router.push({path: `/perfil/` + usuario_id}) 
+            },
+            
             getCapitulo(capitulo_id){
                 let that = this
                 that.$axios.get(that.$pathAPI + '/capitulo/' + capitulo_id)
                 .then((res) => {
                     that.capitulo = res.data.data
-
+                    console.log("capitulo: ", that.capitulo)
+                    this.getHistoria(that.capitulo)
                     if(that.capitulo.votado){
                         that.votar = {
                             icone_name: 'star',
@@ -223,6 +237,18 @@
 
 
                     // console.log(that.capitulo)
+                })
+                .catch((err) => {
+                    console.log(err.response)
+                })
+            },
+            getHistoria(){
+                let that = this
+                console.log(this.capitulo.historia_id)
+                that.$axios.get(that.$pathAPI + '/historia/' + this.capitulo.historia_id)
+                .then((res) => {
+                    that.historia = res.data.data
+                    console.log("historia: ", that.historia)
                 })
                 .catch((err) => {
                     console.log(err.response)
