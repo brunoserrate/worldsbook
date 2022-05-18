@@ -18,7 +18,7 @@
         </vueper-slides>
 		<q-dialog v-model="livro_dialog" class="navbar_classe">
 			<q-card class="card_detail_historia">
-				<div class="row">
+				<div class="row" style="height: 100%;">
 					<div class="col-6">
 						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
 					</div>

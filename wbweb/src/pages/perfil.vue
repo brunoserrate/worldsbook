@@ -9,7 +9,7 @@
         <div class="fit row justify-center items-center content-center user-cover background-cover">
             <div class="col-12">
                 <q-img src="https://img.freepik.com/fotos-gratis/fundo-aquarela-pintado-a-mao-com-forma-de-ceu-e-nuvens_24972-1095.jpg?w=2000" class="cover"></q-img>
-            </div>
+            </div> 
             <div class="col-12 col_perfil_cover">
                 <q-avatar size="80px" class="avatar" style="margin: 61px 0 0 0;">
                     <img :src="usuario.foto_perfil" />
