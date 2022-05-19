@@ -53,7 +53,7 @@ This project is licensed under an MIT License
 ## Participants
 
 - [Bruno Serrate Teixeira Jeronimo,](https://github.com/brunoserrate)
-- Ryan Araujo Palma,
+- [Ryan Araujo Palma,](https://github.com/Ryan-Araujo-Palma)
 - [Lucas Gonçalves Prado das Neve,](https://github.com/Lucas1726)
 - [Laís de Assis Requena,](https://github.com/LAISRCROFT)
 - [Euclides Enrique Padovezi,](https://github.com/Rickkrause13)
