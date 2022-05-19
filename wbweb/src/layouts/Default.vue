@@ -11,7 +11,7 @@
               </q-avatar>
             </div>
             <div class="col" style="margin: 33px 546px 0 0px;">
-              <q-input outlined rounded bottom-slots v-model="search.pesquisa" label="Procurar" :dense="true" class="input_search">
+              <q-input outlined rounded bottom-slots v-model="search.pesquisa" @keyup.enter="pesquisar" label="Procurar" :dense="true" class="input_search">
                 <template v-slot:append>
                     <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
                     <q-icon name="search"  @click="pesquisar" class="icone_search" />
@@ -240,7 +240,7 @@ export default {
   },
   methods: {
     pesquisar(){
-      console.log(this.search.pesquisa)
+      // console.log(this.search.pesquisa)
       this.$router.push({ path: `/historia/${this.search.pesquisa}` })
     },
     goCategoria(){

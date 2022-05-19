@@ -14,10 +14,9 @@
                             <p class="p_search_label">Não encontrou o que procurava? Pesquise aqui!</p>
                         </div>
                         <div class="col-12">
-                            <q-input rounded outlined v-model="search.categoria" dense class="input_search_categoria">
+                            <q-input rounded outlined v-model="search.pesquisa" @keyup.enter="pesquisar" dense class="input_search_categoria">
                                 <template v-slot:append>
-                                    <q-icon v-if="search.categoria !== ''" name="close" @click="search.categoria = ''" class="cursor-pointer" />
-                                    <q-icon name="search" />
+                                    <q-icon name="search" @click="pesquisar" class="cursor-pointer" />
                                 </template>
                             </q-input>
                         </div>
@@ -48,6 +47,7 @@
                 user: {},
                 search: {
                     categoria: '',
+                    pesquisa: ''
                 }
             }
         },
@@ -61,6 +61,10 @@
             goCategoria(categoria){
                 // console.log(categoria)
                 this.$router.push({path: `/livro_categorias/` + categoria.id + '/' + categoria.genero})
+            },
+            pesquisar(){
+                // console.log(this.search.pesquisa)
+                this.$router.push({ path: `/historia/${this.search.pesquisa}` })
             },
             getCategorias(){
                 let that = this

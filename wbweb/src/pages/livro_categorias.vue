@@ -21,7 +21,10 @@
             </div>
             <div class="col-12" style="margin: 75px 0; padding: 0 199px;">
                 <div class="row">
-                    <div class="col-12"><p class="total_historias">{{livros.length}} histórias</p></div>
+                    <div class="col-6"><p class="total_historias">{{livros.length}} histórias</p></div>
+                    <div class="col-6 text-right">
+                        <q-btn flat style="color: #7A22A7" label="Voltar" @click="goBackPageCategorias"/>
+                    </div>
                     <div class="col-6" v-for="(livro, i) in livros" :key="i">
                         <q-card class="card-categorias" @click="getLivro(livro)">
                             <div class="row">
@@ -179,6 +182,9 @@ export default {
                 this.erroCarregar()
 			})
 		},
+        goBackPageCategorias(){
+            this.$router.push({ path: `/categorias` })
+        },
         getLivro(livro){
             // console.log(livro)
             this.livro_detail = livro
@@ -186,7 +192,7 @@ export default {
         },
         goLivro(livro_detail){
             // console.log(livro_detail)
-            this.$router.push({path: `../livro/` + livro_detail.id})
+            this.$router.push({path: `/livro/` + livro_detail.id})
         }
     }
 }
