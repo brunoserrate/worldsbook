@@ -4,6 +4,9 @@
             <div class="col-12">
                 <div class="row justify-center" style="margin: 60px 0 0 0;">
                     <div v-if="historia.caminho_capa === '' " class="col-12 col-md-auto">
+                        <div class="text-right">
+                            <upload-helper />
+                        </div>
                         <q-uploader
                             :factory="uploadFiles"
                             @finish="finishedUpload"
@@ -215,7 +218,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <q-btn flat label="Seguinte" class="btn_seguinte" @click="setLivro">
-                                            <q-inner-loading 
+                                            <q-inner-loading
                                                 :showing="visible"
                                                 label-class="text-teal"
                                                 label-style="font-size: 1.1em"
@@ -249,6 +252,8 @@
     </q-page>
 </template>
 <script>
+import UploadHelper from 'components/utils/UploadHelper.vue'
+
 export default {
     name: 'criar-historia',
     data(){
@@ -305,32 +310,40 @@ export default {
         this.getIdiomas()
         this.getDireitoAutorais()
         this.getUser()
-        console.log(this.user)
+        // console.log(this.user)
     },
     watch: {
 
     },
-    methods: { 
+    components:{
+        UploadHelper
+    },
+    methods: {
         setLivro(){
             let that = this
+
+            // console.log(this.validarHistoria())
+
+            if(!this.validarHistoria()) return false
+
             that.historia.usuario_id = that.user.user_id
-            that.historia.data_atualizacao = Date.now()
-            that.historia.data_criacao = Date.now()
+            // that.historia.data_atualizacao = Date.now()
+            // that.historia.data_criacao = Date.now()
             that.historia.historia_finalizada = 0
-            console.log(that.historia)
+            // console.log(that.historia)
 
             that.visible = true
             that.showSimulatedReturnData = false
 
             that.$axios.post(that.$pathAPI + '/historia', that.historia)
 			.then((res) => {
-				console.log("res: ", res)
+				// console.log("res: ", res)
                 that.historias = res.data.data
                 that.visible = false
                 that.showSimulatedReturnData = true
-                
+
                 this.historiaCriadaSucesso()
-                console.log("A: ", that.historias)
+                // console.log("A: ", that.historias)
                 this.$router.push({path: `criar_historia/` + that.historias.historia_id})
 			})
 			.catch((err) => {
@@ -368,6 +381,45 @@ export default {
 				})
 			})
 		},
+        validarHistoria() {
+            if (this.valEmpty(this.historia.titulo) ) {
+                this.aviso('Por favor preencha o título da história')
+                return false
+            }
+
+            if (this.valEmpty(this.historia.descricao) ) {
+                this.aviso('Por favor preencha a descrição da história')
+                return false
+            }
+
+            if (this.valEmpty(this.historia.categoria_id) ) {
+                this.aviso('Por favor escolha alguma categoria para a história')
+                return false
+            }
+
+            if (this.valEmpty(this.historia.publico_alvo_id) ) {
+                this.aviso('Por favor escolha o público alvo')
+                return false
+            }
+
+            if (this.valEmpty(this.historia.idioma_id) ) {
+                this.aviso('Por favor escolha um idioma')
+                return false
+            }
+
+            if (this.valEmpty(this.historia.direitos_autorais_id) ) {
+                this.aviso('Por favor escolha uma opção de direitos autorais da história')
+                return false
+            }
+
+            if (this.valEmpty(this.historia.caminho_capa) ) {
+                this.aviso('Por favor faça o envio da capa da história')
+                return false
+            }
+
+            return true
+
+        },
 		getUrl(){
 			return this.$pathAPI + '/uploads'
 		},
@@ -383,6 +435,14 @@ export default {
         removerFoto(){
             this.historia.caminho_capa = ''
         },
+        valEmpty(val){
+
+            if(val === null || val === undefined || val === '' || val === 0){
+                return true
+            }
+
+            return false
+        }
     }
 }
 </script>

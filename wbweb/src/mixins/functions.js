@@ -28,5 +28,18 @@ export default {
                 ]
 	        })
 	    },
+		aviso(msg = '', timer = 7000) {
+			this.$q.notify({
+				position: 'top',
+				color: 'warning',
+				textColor: 'black',
+				message: msg == '' || msg == undefined || msg == null ? 'Dados incorretos' : msg,
+				icon: 'report_problem',
+				timeout: timer,
+				actions: [
+					{ label: 'Fechar', color: 'black', handler: () => {} }
+				]
+			})
+		},
 	},
 }
