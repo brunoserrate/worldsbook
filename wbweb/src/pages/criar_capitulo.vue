@@ -61,7 +61,7 @@
             }
         },
         mounted(){
-            console.log(this.$route.params.historia_id)
+            // console.log(this.$route.params.historia_id)
         },
         methods: {
             setCapitulo(){
@@ -72,22 +72,28 @@
 
                 that.$axios.post(that.$pathAPI + '/capitulo', that.capitulo)
                 .then((res) => {
-                    console.log("res: ", res)
+                    // console.log("res: ", res)
                     that.capitulos = res.data.data
-                    console.log(that.capitulos)
+                    // console.log(that.capitulos)
                     that.visible = false
                     that.showSimulatedReturnData = true
-                    this.capituloCriadoSucesso()
+                    that.sucesso()
+                    // this.capituloCriadoSucesso()
 
-                    this.$router.push({path: `../livro/capitulo/` + res.data.data.id})
+                    this.$router.push({path: `/livro/capitulo/` + res.data.data.id})
                 })
                 .catch((err) => {
                     console.log(err.response)
-                    this.erroCriacaoCapitulo()
+                    this.falha()
+                    // this.erroCriacaoCapitulo()
+                })
+                .finally(() => {
+                    that.visible = false
+                    that.showSimulatedReturnData = true
                 })
             },
             cancelar(){
-                this.$router.push({path: `../livro/` + this.$route.params.historia_id})
+                this.$router.push({path: `/livro/` + this.$route.params.historia_id})
             }
         }
     }

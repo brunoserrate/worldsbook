@@ -319,7 +319,23 @@ class HistoriaRepository extends BaseRepository
 
         $model = $query->findOrFail($id);
 
-        return $model->delete();
+        try {
+            $model->delete();
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Falha ao deletar a história.',
+                'code' => 500,
+                'data' => []
+            ];
+        }
+
+        return [
+            'success' => true,
+            'message' => 'História deletada com sucesso',
+            'code' => 200,
+            'data' => []
+        ];
     }
 
     /**

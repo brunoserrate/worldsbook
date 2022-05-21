@@ -4,10 +4,11 @@
             <div class="col-12">
                 <div class="row justify-center" style="margin: 60px 0 0 0;">
                     <div v-if="historia.caminho_capa === '' " class="col-12 col-md-auto">
-                        <div class="text-right">
+                        <!-- <div class="text-right">
                             <upload-helper />
-                        </div>
+                        </div> -->
                         <q-uploader
+                            auto-upload
                             :factory="uploadFiles"
                             @finish="finishedUpload"
                             :loading="uploadPercent"

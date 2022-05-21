@@ -218,18 +218,18 @@
         },
         methods: {
             goToHistoria(){
-                this.$router.push({path: `/livro/` + this.capitulo.historia_id}) 
+                this.$router.push({path: `/livro/` + this.capitulo.historia_id})
             },
             goToPerfil(usuario_id){
-                this.$router.push({path: `/perfil/` + usuario_id}) 
+                this.$router.push({path: `/perfil/` + usuario_id})
             },
-            
+
             getCapitulo(capitulo_id){
                 let that = this
                 that.$axios.get(that.$pathAPI + '/capitulo/' + capitulo_id)
                 .then((res) => {
                     that.capitulo = res.data.data
-                    console.log("capitulo: ", that.capitulo)
+                    // console.log("capitulo: ", that.capitulo)
                     this.getHistoria(that.capitulo)
                     if(that.capitulo.votado){
                         that.votar = {
@@ -255,11 +255,11 @@
             },
             getHistoria(){
                 let that = this
-                console.log(this.capitulo.historia_id)
+                // console.log(this.capitulo.historia_id)
                 that.$axios.get(that.$pathAPI + '/historia/' + this.capitulo.historia_id)
                 .then((res) => {
                     that.historia = res.data.data
-                    console.log("historia: ", that.historia)
+                    // console.log("historia: ", that.historia)
                 })
                 .catch((err) => {
                     console.log(err.response)

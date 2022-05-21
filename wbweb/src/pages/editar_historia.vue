@@ -5,6 +5,7 @@
                 <div class="row justify-center" style="margin: 60px 0 0 0;">
                     <div v-if="historia.caminho_capa === '' " class="col-12 col-md-auto">
                         <q-uploader
+                            auto-upload
                             :factory="uploadFiles"
                             @finish="finishedUpload"
                             :loading="uploadPercent"
@@ -195,6 +196,31 @@
                                             v-model="historia.conteudo_adulto"
                                             :options="classificacoes"
                                             label="Conteúdo Adulto"
+                                            :dense="dense"
+                                            class="inputs_form_historia_descricao"
+                                            option-value="value"
+                                            option-label="label"
+                                            emit-value
+                                            map-options
+                                            />
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <q-separator class="separator_card"/>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p class="label_select">História finalizada?</p>
+                                    </div>
+                                    <div class="col-8">
+                                        <q-select
+                                            filled
+                                            v-model="historia.historia_finalizada"
+                                            :options="[
+                                                { label: 'Sim', value: true },
+                                                { label: 'Não', value: false },
+                                            ]"
+                                            label="História finalizada"
                                             :dense="dense"
                                             class="inputs_form_historia_descricao"
                                             option-value="value"

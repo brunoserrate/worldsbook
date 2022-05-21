@@ -147,10 +147,10 @@ export default {
     methods: {
         goLivro(livro){
             // console.log(livro)
-            this.$router.push({path: `../livro/` + livro.id})
+            this.$router.push({path: `/livro/` + livro.id})
         },
         goEditPerfil(){
-            this.$router.push({path: `../editar_perfil/` + this.user.user_id})
+            this.$router.push({path: `/editar_perfil/` + this.user.user_id})
         },
         getUserEndpoint(user_id){
             let that = this
@@ -167,7 +167,7 @@ export default {
 			that.$axios.get(that.$pathAPI + url)
 			.then((res) => {
 				this.usuario = res.data.data
-                console.log(that.usuario)
+                // console.log(that.usuario)
 
                 that.visible = false
                 that.showSimulatedReturnData = true
