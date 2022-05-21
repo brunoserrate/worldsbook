@@ -253,7 +253,23 @@ class CapituloRepository extends BaseRepository
 
         $model = $query->findOrFail($id);
 
-        return $model->delete();
+        try {
+            $model->delete();
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Falha ao deletar o capítulo.',
+                'code' => 500,
+                'data' => []
+            ];
+        }
+
+        return [
+            'success' => true,
+            'message' => 'Capítulo deletado com sucesso',
+            'code' => 200,
+            'data' => []
+        ];
     }
 
     public function adicionarVisualizacao($capituloId) {

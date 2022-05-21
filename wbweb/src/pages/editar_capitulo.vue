@@ -2,7 +2,7 @@
     <q-page class="criar_capitulo">
         <div class="row justify-end items-center content-center navbar_capitulo">
             <div class="col-2 col_btn">
-                <q-inner-loading 
+                <q-inner-loading
                     :showing="visible_page"
                     label-class="text-teal"
                     label-style="font-size: 1.1em"
@@ -63,7 +63,7 @@
             }
         },
         mounted(){
-            console.log(this.capitulo_id)
+            // console.log(this.capitulo_id)
             this.getCapitulo()
         },
         methods: {
@@ -76,41 +76,43 @@
                 that.$axios.get(that.$pathAPI + '/capitulo/' + this.capitulo_id)
                 .then((res) => {
                     that.capitulo = res.data.data
-                    console.log("cap", that.capitulo)
-                    
+                    // console.log("cap", that.capitulo)
+
                     that.visible_page = false
                     that.showSimulatedReturnData = true
                 })
                 .catch((err) => {
                     console.log(err.response)
-                    this.erroCarregar()
+                    // this.erroCarregar()
+                    that.falha()
                     that.visible_page = false
                     that.showSimulatedReturnData = true
                 })
-                
-                
+
+
             },
             setCapitulo(){
                 let that = this
 
                 that.visible = true
                 that.showSimulatedReturnData = false
-                console.log(that.capitulo)
+                // console.log(that.capitulo)
 
                 that.$axios.patch(that.$pathAPI + `/capitulo/${this.capitulo_id}`, that.capitulo)
                 .then((res) => {
-                    console.log("res: ", res)
+                    // console.log("res: ", res)
                     that.capitulos = res.data.data
-                    console.log(that.capitulos)
+                    // console.log(that.capitulos)
                     that.visible = false
                     that.showSimulatedReturnData = true
-                    this.capituloCriadoSucesso()
+                    // this.capituloCriadoSucesso()
+                    that.sucesso()
 
                     this.$router.push({path: `../livro/capitulo/` + res.data.data.id})
                 })
                 .catch((err) => {
                     console.log(err.response)
-                    this.erroCriacaoCapitulo()
+                    that.falha()
                 })
             },
             cancelar(){

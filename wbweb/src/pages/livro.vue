@@ -107,7 +107,7 @@
                             <h3 class="title_indice_card">Índice</h3>
                         </div>
                         <div class="col-6 row_add_capitulo">
-                            <q-btn flat label="Adicionar capítulo" class="btn_adicionar" @click="goAddCapitulo" v-if="livro.usuario_id == user.user_id">
+                            <q-btn flat :disable="livro.historia_finalizada" label="Adicionar capítulo" class="btn_adicionar" @click="goAddCapitulo" v-if="livro.usuario_id == user.user_id">
                                 <q-inner-loading
                                     :showing="visible"
                                     label-class="text-teal"
@@ -131,7 +131,7 @@
                                 </q-item>
                             </div>
                             <div v-if="livro.usuario_id == user.user_id" class="col-1">
-                                <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_edit" @click="delete_capitulo = true">
+                                <q-item clickable v-for="(capitulo, i) in livro.capitulos" :key="i" class="item_edit" @click="confirmDelCapitulo(capitulo.id, i)">
                                     <q-icon name="delete" color="#7A22A7"></q-icon>
                                 </q-item>
                             </div>
@@ -162,13 +162,18 @@
 
                 <q-card-actions align="right">
                 <q-btn flat label="Deletar" color="primary" @click="delCapitulo" />
-                <q-btn flat label="Cancelar" color="primary" v-close-popup />
+                <q-btn flat label="Cancelar" color="primary" v-close-popup @click="function(){
+                    capitulo_id = 0
+                    delete_capitulo = false
+                }" />
                 </q-card-actions>
             </q-card>
         </q-dialog>
     </q-page>
 </template>
 <script>
+import {  Loading, QSpinnerGears } from 'quasar'
+
 export default {
     name:'Livro',
 	data (){
@@ -212,7 +217,8 @@ export default {
             usuario_livro_id: '',
             visible: false,
             visible_page: false,
-            showSimulatedReturnData: false
+            showSimulatedReturnData: false,
+            capitulo: {}
 		}
 	},
     mounted(){
@@ -241,28 +247,70 @@ export default {
                 console.log(err.response)
                 that.visible_page = false
                 that.showSimulatedReturnData = true
-                this.erroCarregar()
+                that.falha()
+                // this.erroCarregar()
             })
         },
         delHistoria(){
+            let that = this
+
+            Loading.show()
+
+            that.$axios.delete(that.$pathAPI + '/historia/' + that.livro.id)
+            .then((res) => {
+                that.sucesso()
+                this.$router.push({path: `/iniciar_leitura`})
+            })
+            .catch((err) => {
+                that.falha()
+            })
+            .finally(() => {
+                that.delete_historia = false
+                Loading.hide()
+            })
 
         },
-        delCapitulo(){
+        confirmDelCapitulo(capitulo_id, i){
+            this.capitulo = {
+                capitulo_id: capitulo_id,
+                index: i
+            }
 
+            this.delete_capitulo = true
+        },
+        delCapitulo(){
+            let that = this
+
+            Loading.show()
+
+            that.$axios.delete(that.$pathAPI + '/capitulo/' + that.capitulo.capitulo_id)
+            .then((res) => {
+                that.livro.capitulos.splice(that.capitulo.index, 1)
+                that.capitulo = {}
+                that.sucesso()
+            })
+            .catch((err) => {
+                console.log(err)
+                that.falha()
+            })
+            .finally(() => {
+                that.delete_capitulo = false
+                Loading.hide()
+            })
         },
         goToPerfil(usuario_id){
             this.$router.push({path: `/perfil/` + usuario_id})
         },
         goEditHistoria(){
-            this.$router.push({path: `../editar_livro/` + this.livro_id})
+            this.$router.push({path: `/editar_livro/` + this.livro_id})
         },
         goEditCapitulo(capitulo){
             // console.log(capitulo)
-            this.$router.push({path: `../editar_capitulo/` + capitulo.id})
+            this.$router.push({path: `/editar_capitulo/` + capitulo.id})
         },
         goAddCapitulo(){
             // console.log(this.livro_id)
-            this.$router.push({path: `../criar_historia/` + this.livro_id})
+            this.$router.push({path: `/criar_historia/` + this.livro_id})
         },
         goChapter(capitulo){
             this.$router.push({path: `capitulo/` + capitulo.id})

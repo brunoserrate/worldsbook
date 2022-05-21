@@ -56,6 +56,7 @@
                 <div class="row">
                     <div v-if="user.foto_perfil === '' " class="col-6 col-md-auto">
                         <q-uploader
+                            auto-upload
                             :factory="uploadFiles"
                             @finish="finishedUpload"
                             :loading="uploadPercent"

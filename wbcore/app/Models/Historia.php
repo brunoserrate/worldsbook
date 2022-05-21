@@ -98,7 +98,8 @@ class Historia extends Model
         'direitos_autorais_id',
         'conteudo_adulto',
         'caminho_capa',
-        'usuario_id'
+        'usuario_id',
+        'historia_finalizada'
     ];
 
     /**
