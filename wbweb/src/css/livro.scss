@@ -1,6 +1,6 @@
 .card_livro{
     box-shadow: 0px 4px 6px #00000042;
-    height: 27em;
+    height: auto;
     margin: 46px 0 46px 0;
 }
 .capa_card{
@@ -10,9 +10,10 @@
 }
 .title_card{
     font-family: Raleway;
-    font-size: 31px;
+    font-size: 28px;
     text-transform: uppercase;
     font-weight: bold;
+    text-align: center;
 }
 .icons_card{
     font-size: 20px;
@@ -26,14 +27,14 @@
     color: #FFF;
     width: 98%;
     border-radius: 7px 0px 0px 7px;
-    margin: 66px 0 0 0;
+    margin: 32px 0 0 0;
 }
 .btn_add_lista{
     background-color: #8e1cac;
     color: #FFF;
     width: 100%;
     border-radius: 0px 7px 7px 0px;
-    margin: 66px 0 0 0;
+    margin: 32px 0 0 0;
 }
 .align_text_details{
     text-align: center;
@@ -70,7 +71,7 @@
 }
 .title_indice_card{
     font-size: 1.2em;
-    font-weight: bold;
+    font-weight: bold; 
     text-transform: uppercase;
     margin: 0 0;
 }
@@ -103,7 +104,7 @@
 }
 .btn-editar-historia{
     background: #e0e0e0;
-    margin: 26px 0 0 0;
+    margin: 26px 0 29px 0;
     font-size: 13px;
 }
 .btn-deletar-historia{
@@ -115,4 +116,144 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+}
+.labels_icon{
+    display: block;
+}
+@media screen and (min-width: 600px) and (max-width: 700px){
+    .labels_icon{
+        display: none;
+    }
+    .title_card {
+        font-family: Raleway;
+        font-size: 25px;
+        text-transform: uppercase;
+        font-weight: bold;
+        text-align: center;
+        line-height: 1.5;
+    }
+}
+@media screen and (min-width: 980px){
+    .labels_icon{
+        display: block;
+    }
+    .card_livro{
+        box-shadow: 0px 4px 6px #00000042;
+        height: auto;
+        margin: 46px 0 46px 0;
+    }
+    .capa_card{
+        width: 16em;
+        border-radius: 14px;
+        margin: 0px 35px 0 0;
+    }
+    .title_card{
+        font-family: Raleway;
+        font-size: 26px;
+        text-transform: uppercase;
+        font-weight: bold;
+        text-align: left;
+    }
+    .icons_card{
+        font-size: 20px;
+    }
+    .separator_card{
+        margin: 0 27px;
+        background-color: #0000005e;
+    }
+    .btn_iniciar_leitura_livro{
+        background-color: #8e1cac;
+        color: #FFF;
+        width: 98%;
+        border-radius: 7px 0px 0px 7px;
+        margin: 66px 0 0 0;
+    }
+    .btn_add_lista{
+        background-color: #8e1cac;
+        color: #FFF;
+        width: 100%;
+        border-radius: 0px 7px 7px 0px;
+        margin: 66px 0 0 0;
+    }
+    .align_text_details{
+        text-align: center;
+    }
+    .apelido_usuario{
+        font-family: "Raleway", serif;
+        font-weight: bold;
+        margin: 0px 0px 0 14px;
+        cursor: pointer;
+        &:hover{
+            color: #4a4a4a
+        }
+    }
+    .historia_finalizada{
+        background-color: #7A22A7;
+        color: #FFF;
+        border-radius: 10px;
+        height: 24px;
+        font-size: 14px;
+        justify-content: center;
+        margin: 20px 11px 20px 0;
+    }
+    .descricao_p{
+        text-align: justify;
+    }
+    .separator_livro{
+        background-color: #00000024;
+        height: 1px;
+        margin: 0px 0 18px 0px;
+    }
+    .card_indice{
+        padding: 10px 50px 30px 50px;
+        margin: 40px 0 0 0;
+    }
+    .title_indice_card{
+        font-size: 1.2em;
+        font-weight: bold; 
+        text-transform: uppercase;
+        margin: 0 0;
+    }
+    .item_list{
+        background-color: #fcf5ff;
+        margin: 6px 0;
+        align-items: center;
+        &:hover{
+            border-left: solid 3px #ba8ed1;
+            background-color: #f2d9ff;
+        }
+    }
+    .item_edit{
+        background-color: #fcf5ff;
+        margin: 6px 0;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        &:hover{
+            background-color: #f2d9ff;
+        }
+    }
+    .btn_adicionar{
+        background-color: transparent;
+        font-family: "Raleway";
+        font-weight: bold;
+        font-size: 12px;
+        padding: 0px 8px;
+        border: solid 1px #a3a3a3;
+    }
+    .btn-editar-historia{
+        background: #e0e0e0;
+        margin: 26px 0 0 0;
+        font-size: 13px;
+    }
+    .btn-deletar-historia{
+        background: #e0e0e0;
+        margin: 26px 0px 0 0px;
+        font-size: 13px;
+    }
+    .row_add_capitulo {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
 }

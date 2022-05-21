@@ -1,7 +1,7 @@
 .header{
-    background-color: transparent;
+    background-color: #FFF;
     height: 110px;
-    position: absolute;
+    position: fixed;
     border: solid 1px #00000026;
 }
 .icon{
@@ -15,7 +15,23 @@
 .input_search{
     width: 267px;
 }
-
+.col-menu-hamburguer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.lupa {
+    color: #000;
+    font-size: 48px;
+    cursor: pointer;
+    padding: 21px 0px 0 22px;
+}
+.menu-hamburguer{
+    color: #000;
+    font-size: 48px;
+    cursor: pointer;
+    padding: 21px 0 0 0;
+}
 .image-background{
     float: right;
     margin: -55px 0 0px 0px;
@@ -30,6 +46,7 @@
     font-weight: bold;
     background-color: #7a22a71a;
     padding: 7px 8px 0px 8px;
+    display: none;
 }
 .vueperslides__arrow, .vueperslides__arrow svg {
     transition: .3s ease-in-out;
@@ -57,9 +74,120 @@
     border-radius: 0 !important;
     height: 25px;
 }
+.sidebar {
+    display: block;
+}
 .icone_search {
     cursor: pointer;
     &:hover{
         color: #7A22A7;
+    }
+}
+.barra-pesquisa {
+    margin: 33px 546px 0 0px;
+    display: none;
+}
+.itens-sidebar{
+    color: #000;
+    font-weight: bold;
+    font-family: Raleway;
+    text-transform: uppercase;
+    font-size: 11px;
+}
+.icone-sidebar {
+    color: #000;
+}
+.avatar_sidebar {
+    display: flex;
+    justify-content: center;
+    margin: 18px 0 0 0;
+}
+.navegar {
+    display: none;
+}
+@media screen and (min-width: 980px){
+    .header{
+        background-color: transparent !important;
+        height: 110px;
+        position: absolute !important;
+        border: solid 1px #00000026;
+    }
+    .icon{
+        border-radius: none !important;
+        cursor: pointer;
+    }
+    .avatar-inicio{
+        margin: 19px 0 0px 14px;
+        height: 69px;
+    }
+    .input_search{
+        width: 267px;
+    }
+    
+    .col-menu-hamburguer{
+        display: none;
+    }
+    .menu-hamburguer{
+        display: none;
+    }
+    .image-background{
+        float: right;
+        margin: -55px 0 0px 0px;
+        width: 49.93%;
+    }
+    
+    .iniciar-sessao{
+        color: rgb(122, 34, 167);
+        margin: 29px 0px 0 -163px;
+        font-family: Javanese Text;
+        font-size: 16px;
+        font-weight: bold;
+        background-color: #7a22a71a;
+        padding: 7px 8px 0px 8px;
+        display: block;
+    }
+    .vueperslides__arrow, .vueperslides__arrow svg {
+        transition: .3s ease-in-out;
+        width: 40px !important;
+    }
+    .q-footer .q-layout__shadow:after {
+        top: 10px;
+        box-shadow: none;
+    }
+    .btn_dropdown_escrever{
+        background-color: transparent !important;
+        color: #000 !important;
+        margin: 0px 41px 0 -76px;
+    }
+    .btn_dropdown_navegar{
+        background-color: transparent !important;
+        color: #000 !important;
+        margin: 0 100px 0 0px;
+    }
+    .icon_criar_historia{
+        font-size: 24px;
+        margin: 0px 11px 0 0px;
+    }
+    .q-field--square .q-field__control {
+        border-radius: 0 !important;
+        height: 25px;
+    }
+    .icone_search {
+        cursor: pointer;
+        &:hover{
+            color: #7A22A7;
+        }
+    }
+    
+    .barra-pesquisa {
+        margin: 33px 546px 0 0px;
+        display: block;
+    }
+    .sidebar {
+        display: none;
+    }
+    
+    .navegar {
+        display: block;
     }
 }

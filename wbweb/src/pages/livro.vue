@@ -10,63 +10,75 @@
             <div class="col-12">
                 <q-card class="card_livro">
                     <div class="row justify-center">
-                        <div class="col-12 col-md-auto">
+                        <div class="col-6 offset-1 offset-sm-0 col-sm-auto">
                             <img alt="Cover" :src="livro.caminho_capa" class="capa_card"/>
                         </div>
-                        <div class="col-4">
+                        <div class="col-10 col-sm-6 offset-1 offset-sm-0">
                             <div class="row">
                                 <div class="col-12">
                                     <h3 class="title_card">{{livro.titulo}}</h3>
                                 </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <q-icon name="visibility" class="icons_card"/>
-                                    </div>
-                                    <div class="col-6">
-                                        <p>Visualizações</p>
-                                    </div>
-                                    <div class="col-12 align_text_details">
-                                        {{livro.total_visualizacoes}}
+                                <div class="col-12 col-md-10">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <q-icon name="visibility" class="icons_card"/>
+                                                </div>
+                                                <div class="col-6 labels_icon">
+                                                    <p>Visualizações</p>
+                                                </div>
+                                                <div class="col-6 col-md-12 align_text_details">
+                                                    {{livro.total_visualizacoes}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <q-separator vertical class="separator_card"/>
+                                        <div class="col-2">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <q-icon name="star_border" class="icons_card" />
+                                                </div>
+                                                <div class="col-6 labels_icon">
+                                                    <p>Votos</p>
+                                                </div>
+                                                <div class="col-6 col-md-12 align_text_details">
+                                                    {{livro.total_votos}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <q-separator vertical class="separator_card"/>
+                                        <div class="col-2">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <q-icon name="list" class="icons_card"/>
+                                                </div>
+                                                <div class="col-6 labels_icon">
+                                                    <p>Capítulos</p>
+                                                </div>
+                                                <div class="col-6 col-md-12 align_text_details">
+                                                    {{livro.total_capitulos}}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <q-separator vertical class="separator_card"/>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <q-icon name="star_border" class="icons_card" />
-                                    </div>
-                                    <div class="col-6">
-                                        <p>Votos</p>
-                                    </div>
-                                    <div class="col-12 align_text_details">
-                                        {{livro.total_votos}}
-                                    </div>
-                                </div>
-                                <q-separator vertical class="separator_card"/>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <q-icon name="list" class="icons_card"/>
-                                    </div>
-                                    <div class="col-6">
-                                        <p>Capítulos</p>
-                                    </div>
-                                    <div class="col-12 align_text_details">
-                                        {{livro.total_capitulos}}
-                                    </div>
-                                </div>
-                                <div class="col-10">
+                                <div class="col-9 col-sm-10 col-md-7">
                                     <q-btn unelevated label="Iniciar leitura" icon="import_contacts" class="btn_iniciar_leitura_livro" @click="goChapter(livro.capitulos[0])"/>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-2 col-md-1">
                                     <q-btn unelevated icon="add" class="btn_add_lista"/>
                                 </div>
-                                <!-- <div class="row"> -->
-                                <div class="col-2">
-                                    <q-btn flat icon="edit" class="btn-editar-historia" @click="goEditHistoria" v-if="livro.usuario_id == user.user_id"/>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-1 offset-4 offset-sm-0 col-sm-2">
+                                            <q-btn flat icon="edit" class="btn-editar-historia" @click="goEditHistoria" v-if="livro.usuario_id == user.user_id"/>
+                                        </div>
+                                        <div class="col-1">
+                                            <q-btn flat icon="delete" class="btn-deletar-historia" @click="delete_historia = true" v-if="livro.usuario_id == user.user_id"/>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-1">
-                                    <q-btn flat icon="delete" class="btn-deletar-historia" @click="delete_historia = true" v-if="livro.usuario_id == user.user_id"/>
-                                </div>
-                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
@@ -251,7 +263,7 @@ export default {
 
         },
         goToPerfil(usuario_id){
-            this.$router.push({path: `/perfil/` + usuario_id})
+            this.$router.push({path: `/perfil/` + usuario_id}) 
         },
         goEditHistoria(){
             this.$router.push({path: `../editar_livro/` + this.livro_id})
