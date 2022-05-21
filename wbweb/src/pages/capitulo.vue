@@ -10,12 +10,23 @@
 
                 </div>
                 <!-- TÍTULO DO CAPÍTULO -->
-                <div class="col-12">
+                <div class="col-12 col-md-10 offset-md-1">
                     <h3 class="title_capitulo">{{capitulo.titulo}}</h3>
+                </div>
+                <div class="col-12 foto_perfil_usuario">
+                    <q-avatar size="70px" @click="goToPerfil(capitulo.usuario_id)">
+                        <img :src="capitulo.foto_perfil" />
+                        <q-tooltip anchor="top right" self="top start" class="bg-transparent text-body2" :offset="[10, 10]">
+                            <p class="nome_usuario">{{capitulo.nome_usuario}}</p>
+                        </q-tooltip>
+                    </q-avatar>
+                </div>
+                <div class="col-12 foto_perfil_usuario" style="margin: 0px 0 17px 0;">
+                    <p  class="p_nome_usuario">de <span class="nome_usuario" @click="goToPerfil(capitulo.usuario_id)">{{capitulo.apelido_usuario}}</span></p>
                 </div>
                 <!-- STATUS DO CAPÍTULO -->
                 <div class="row justify-center row_status">
-                    <div class="col-1">
+                    <div class="col-1 offset-md-2">
                         <q-icon name="visibility" class="icons_card"/>
                         {{capitulo.quantidade_visualizacao}}
                     </div>
@@ -49,7 +60,7 @@
                         </div>
                     </div>
                     <!-- CORPO DO CAPÍTULO -->
-                    <div class="col-6">
+                    <div class="col-8 sm-6">
                         <q-card flat>
                             <q-card-section class="corpo_capitulo" v-html="capitulo.capitulo" />
                         </q-card>
@@ -67,14 +78,14 @@
                 <!-- BOTÃO -->
                 <q-separator class="separador"></q-separator>
                 <div class="row justify-center">
-                    <div class="col-4">
+                    <div class="col-8 col-md-4">
                         <q-icon :name="votar.icone_name" class="icon_votar" @click="vote"/>
                         <span class="p_votar">{{ votar.span }}</span>
                     </div>
                 </div>
                 <q-separator class="separador"></q-separator>
                 <div class="row justify-center">
-                    <div class="col-1 offset-1">
+                    <div class="col-2 offset-0 col-md-1 offset-md-1">
                         <q-avatar size="60px" class="avatar_comentario">
                             <img :src="user.foto_perfil" />
                         </q-avatar>
@@ -97,7 +108,7 @@
                 <q-separator class="separador"></q-separator>
                 <!-- COMENTÁRIOS -->
                 <div class="row justify-center" v-for="(comentario, i) in capitulo.comentarios" :key="i">
-                    <div class="col-1 offset-1">
+                    <div class="col-2 offset-0 col-md-1 offset-md-1">
                         <q-avatar size="50px" class="avatar_comentario" @click="goToPerfil(comment.usuario_id)">
                             <img :src="comentario.foto_perfil" />
                         </q-avatar>

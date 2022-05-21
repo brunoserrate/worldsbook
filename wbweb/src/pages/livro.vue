@@ -10,10 +10,10 @@
             <div class="col-12">
                 <q-card class="card_livro">
                     <div class="row justify-center">
-                        <div class="col-6 offset-1 offset-sm-0 col-sm-auto">
+                        <div class="col-6 offset-1 offset-sm-0 col-sm-auto offset-md-2">
                             <img alt="Cover" :src="livro.caminho_capa" class="capa_card"/>
                         </div>
-                        <div class="col-10 col-sm-6 offset-1 offset-sm-0">
+                        <div class="col-10 col-sm-6 offset-1 offset-sm-0 ">
                             <div class="row">
                                 <div class="col-12">
                                     <h3 class="title_card">{{livro.titulo}}</h3>
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="row">
-                                        <div class="col-1 offset-4 offset-sm-0 col-sm-2">
+                                        <div class="col-2 offset-4 offset-sm-0 col-sm-2 col-md-1">
                                             <q-btn flat icon="edit" class="btn-editar-historia" @click="goEditHistoria" v-if="livro.usuario_id == user.user_id"/>
                                         </div>
                                         <div class="col-1">
@@ -86,20 +86,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 offset-2">
+            <div class="col-10 offset-2">
                 <q-avatar size="40px" style="background-color: #ddd;">
                     <img :src="livro.foto_perfil" />
                 </q-avatar>
                 <span class="apelido_usuario" @click="goToPerfil(livro.usuario_id)">{{livro.apelido_usuario}}</span>
             </div>
-            <div class="col-12 offset-2">
+            <div class="col-10 offset-2">
                 <q-chip class="historia_finalizada">{{getHistoriaFinalizada(livro.historia_finalizada)}}</q-chip>
                 <q-chip class="historia_finalizada">{{getConteudoAdulto(livro.conteudo_adulto)}}</q-chip>
             </div>
-            <div class="col-12 offset-2 col-sm-8">
+            <div class="col-8 offset-2 col-sm-8">
                 <p class="descricao_p">{{livro.descricao}}</p>
             </div>
-            <div class="col-12 offset-2">
+            <div class="col-10 offset-2">
                 <p style="font-weight: bold;"><q-icon name="copyright"></q-icon> {{livro.direito_autoral}}</p>
             </div>
             <div class="col-12">
@@ -107,12 +107,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 offset-2  col-sm-8">
+            <div class="col-8 offset-2 col-sm-8">
                 <q-chip v-for="(tag, i) in livro.tags" :key="i" >{{tag}}</q-chip>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 offset-2 col-sm-8">
+            <div class="col-10 offset-1 offset-sm-2 col-sm-8">
                 <q-card class="card_indice">
                     <div class="row">
                         <div class="col-6">
