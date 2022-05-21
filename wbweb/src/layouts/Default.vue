@@ -10,18 +10,81 @@
                 <img src="~/assets/logo.png" class="icon" @click="goIndex">
               </q-avatar>
             </div>
-            <div class="col" style="margin: 33px 546px 0 0px;">
-              <q-input outlined rounded bottom-slots v-model="search.pesquisa" @keyup.enter="pesquisar" label="Procurar" :dense="true" class="input_search">
+            <div class="col barra-pesquisa" >
+              <q-input outlined rounded bottom-slots v-model="search.pesquisa" label="Procurar" :dense="true" class="input_search">
                 <template v-slot:append>
                     <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
                     <q-icon name="search"  @click="pesquisar" class="icone_search" />
                 </template>
               </q-input>
             </div>
+            <div class="col-2 offset-5 col-menu-hamburguer">
+              <q-icon name="search" class="lupa" @click="sidebar = !sidebar"></q-icon>
+            </div>
+            <div class="col-2 offset-3 col-menu-hamburguer">
+              <q-icon name="menu" class="menu-hamburguer" @click="sidebar = !sidebar"></q-icon>
+            </div>
+            <q-drawer
+              v-model="sidebar"
+              :width="240"
+              :breakpoint="1000"
+              side="right"
+              overlay
+              bordered
+              class="bg-grey-3 sidebar"
+              >
+              <q-scroll-area class="fit">
+                <q-list>
+                  <div class="col-12">
+                    <q-item clickable v-ripple v-if="logado && user" class="avatar_sidebar">
+                      <q-avatar size="52px" style="padding: 0 79px;">
+                        <img :src="user.foto_perfil" />
+                      </q-avatar>
+                      <q-item-section>{{user.nome}} </q-item-section>
+                    </q-item>
+                    <!-- <q-separator /> -->
+                    <q-item clickable v-ripple v-if="logado && user" @click="goPerfil">
+                      <q-item-section avatar>
+                        <q-icon name="account_circle" class="icone-sidebar"/>
+                      </q-item-section>
+                      <q-item-section class="itens-sidebar" >Perfil</q-item-section>
+                    </q-item>
+                    <q-item clickable v-ripple v-if="!logado && user == null" @click="logar = !logar" class="avatar_sidebar">
+                      <q-item-section avatar>
+                        <q-icon name="login" class="icone-sidebar"/>
+                      </q-item-section>
+                      <q-item-section class="itens-sidebar" >Iniciar Sessão</q-item-section>
+                    </q-item>
+                    <!-- <q-separator /> -->
+                    <q-item clickable v-ripple>
+                      <q-item-section avatar>
+                        <q-icon name="menu_book" class="icone-sidebar"/>
+                      </q-item-section>
+                      <q-item-section class="itens-sidebar" @click="iniciarLeitura">Iniciar Leitura</q-item-section>
+                    </q-item>
+                    <!-- <q-separator /> -->
+                    <q-item clickable v-ripple>
+                      <q-item-section avatar>
+                        <q-icon name="border_color" class="icone-sidebar"/>
+                      </q-item-section>
+                      <q-item-section class="itens-sidebar" @click="comeceEscrever">Começar a escrever</q-item-section>
+                    </q-item>
+                    <!-- <q-separator /> -->
+                    <q-item clickable v-ripple v-if="logado && user">
+                      <q-item-section avatar>
+                        <q-icon name="logout" class="icone-sidebar" style="color: red;" />
+                      </q-item-section>
+                      <q-item-section class="itens-sidebar" style="color: red;" @click="logout()">Logout</q-item-section>
+                    </q-item>
+                    <!-- <q-separator /> -->
+                  </div>
+                </q-list>
+              </q-scroll-area>
+            </q-drawer>
             <div v-if="!logado && user == null" class="col">
               <q-btn flat style="color: #7A22A7" label="Iniciar Sessão" class="iniciar-sessao" @click="logar = !logar"/>
             </div>
-            <div v-else class="col" style="margin: 25px 277px 7px 0;">
+            <div v-else class="col navegar" style="margin: 25px 277px 7px 0;">
               <q-btn-dropdown unelevated label="Navegar" class="btn_dropdown_navegar">
                  <q-item clickable v-close-popup>
                     <q-item-section>
@@ -183,6 +246,7 @@ export default {
       isCriarCapitulo: false,
       logado: false,
       user: null,
+      sidebar: false,
       formLogin: {
           email: '',
           senha: '',
@@ -241,6 +305,17 @@ export default {
     }
   },
   methods: {
+		iniciarLeitura(){
+			this.$router.push({ path: '/categorias' })
+		},
+		comeceEscrever(){
+			if(this.user != null){
+				this.$router.push({ path: '/iniciar_leitura' })
+			}
+			else {
+				this.logar = !this.logar
+			}
+		},
     pesquisar(){
       // console.log(this.search.pesquisa)
       this.$router.push({ path: `/historia/${this.search.pesquisa}` })

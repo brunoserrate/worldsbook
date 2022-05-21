@@ -1,0 +1,13 @@
+@use "sass:math";
+
+@function convPerc($larg_obj, $larg_max){
+    @return (math.div($larg_obj, $larg_max))*100%;
+}
+
+@function convEm($px, $pxBody: 16px){
+    @return (math.div($px, $pxBody)) * 1em;
+}
+
+@function convRem($px, $pxBody: 16px){
+    @return (math.div($px, $pxBody)) * 1rem;
+}
