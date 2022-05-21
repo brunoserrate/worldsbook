@@ -276,10 +276,12 @@ export default {
       if(this.$route.path == '/'){
         this.$set(this,'isIndex', true)
       }
-      if (this.$route.path == '/criar_historia/' + this.$route.params.historia_id){
+      else if (this.$route.path == '/criar_historia/' + this.$route.params.historia_id){
+        this.$set(this,'isIndex', false)
         this.$set(this,'isCriarCapitulo', true)
       }
-      if (!this.$route.path == '/criar_historia/' + this.$route.params.historia_id){
+      else if (!this.$route.path == '/criar_historia/' + this.$route.params.historia_id){
+        this.$set(this,'isIndex', false)
         this.$set(this,'isCriarCapitulo', false)
       }
       else {
@@ -315,7 +317,7 @@ export default {
 			}
 		},
     pesquisar(){
-      console.log(this.search.pesquisa)
+      // console.log(this.search.pesquisa)
       this.$router.push({ path: `/historia/${this.search.pesquisa}` })
     },
     goCategoria(){

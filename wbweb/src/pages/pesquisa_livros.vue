@@ -140,8 +140,16 @@ export default {
     },
     mounted(){
         this.getLivros()
-        console.log(this.pesquisa)
+        // console.log(this.pesquisa)
     },
+	watch:{
+		'$route' (to,from){
+            this.livros = [];
+            this.pesquisa = this.$route.params.pesquisa
+            this.getLivros()
+			// this.$set(this,'token', this.$route.params.token)
+		},
+	},
 	filters: {
 		cutDescricao(value){
 			let tamanho_max = 150;
@@ -165,8 +173,8 @@ export default {
 			that.$axios.get(that.$pathAPI + `/historia/pesquisa?pesquisa=${this.pesquisa}`)
 			.then((res) => {
 				that.livros = res.data.data
-				console.log("livros", that.livros)
-                
+				// console.log("livros", that.livros)
+
                 that.visible = false
                 that.showSimulatedReturnData = true
 			})
@@ -184,7 +192,7 @@ export default {
         },
         goLivro(livro_detail){
             // console.log(livro_detail)
-            this.$router.push({path: `../livro/` + livro_detail.id})
+            this.$router.push({path: `/livro/` + livro_detail.id})
         }
     }
 }

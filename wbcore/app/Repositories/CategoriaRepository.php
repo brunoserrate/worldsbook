@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Categoria;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Class CategoriaRepository
@@ -37,4 +38,18 @@ class CategoriaRepository extends BaseRepository
     {
         return Categoria::class;
     }
+
+    public function all($search = [], $skip = null, $limit = null, $columns = ['*'])
+    {
+        $tempo = 28800; // 8 horas
+
+        $result = Cache::remember('categorias', $tempo, function () {
+            $categorias = Categoria::get();
+
+            return $categorias;
+        });
+
+        return $result;
+    }
+
 }
