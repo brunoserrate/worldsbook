@@ -5,43 +5,43 @@
                 <p class="p-altere-informacoes">Altere as informações da sua conta</p>
             </div>
         </div>
-        <div class="row" style="margin-top: 20px;">
-            <div class="col-7 alinhar_inputs">
-                <div class="row">
-                    <div class="col-4 alinhar_label_utilizador">
+        <div class="row inputs_row">
+            <div class="col-12 col-md-7 alinhar_inputs">
+                <div class="row align-form">
+                    <div class="col-9 col-md-4 offset-md-0 alinhar_label_utilizador">
                         <span>Nome</span>
                     </div>
-                    <div class="col-7">
+                    <div class="col-9 col-md-7">
                         <q-input square outlined v-model="user.name" :dense="dense" class="input_form"/>
                     </div> 
-                    <div class="col-4 alinhar_label_utilizador">
+                    <div class="col-9 col-md-4 offset-md-0 alinhar_label_utilizador">
                         <span>Apelido</span>
                     </div>
-                    <div class="col-7">
+                    <div class="col-9 col-md-7">
                         <q-input square outlined v-model="user.apelido" :dense="dense" class="input_form"/>
                     </div>
-                    <div class="col-4 alinhar_label_utilizador">
+                    <div class="col-9 col-md-4 offset-md-0 alinhar_label_utilizador">
                         <span>E-mail</span>
                     </div>
-                    <div class="col-7">
+                    <div class="col-9 col-md-7">
                         <q-input square outlined type="email" v-model="user.email" :dense="dense" class="input_form"/>
                     </div>
-                    <div class="col-4 alinhar_label_utilizador">
+                    <div class="col-9 col-md-4 offset-md-0 alinhar_label_utilizador">
                         <span>Senha</span>
                     </div>
-                    <div class="col-6">
+                    <div class="col-8 col-md-6">
                         <q-input square outlined type="password" disable v-model="user.password" :dense="dense" class="input_form"/>
                     </div>
                     <div class="col-1 align_icon">
                         <q-icon name="edit" class="icone_edit_password"></q-icon>
                     </div>
-                    <div class="col-4 alinhar_label_utilizador">
+                    <div class="col-9 col-md-4 offset-md-0 alinhar_label_utilizador">
                         <span>Descrição do usuário</span>
                     </div>
-                    <div class="col-7">
+                    <div class="col-9 col-md-7">
                         <q-input v-model="user.sobre" outlined type="textarea" style="border-radius: 0"/>
                     </div>
-                    <div class="col-7 offset-4">
+                    <div class="col-9 col-md-7 offset-4 btn-query">
                         <q-btn label="Salvar" flat @click="setPerfil" class="btn-salvar">
                             <q-inner-loading
                                 :showing="visible"
@@ -52,8 +52,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-5">
-                <div class="row">
+            <div class="col-12 col-md-5">
+                <div class="row row_foto">
                     <div v-if="user.foto_perfil === '' " class="col-6 col-md-auto">
                         <q-uploader
                             auto-upload
@@ -73,7 +73,7 @@
                             flat
                         />
                     </div>
-                    <div v-else class="col-6">
+                    <div v-else class="col-5 col-md-6">
                         <q-img :src="user.foto_perfil" alt="" class="foto_perfil">
                             <q-btn-dropdown
                                 dropdown-icon="info"
@@ -95,6 +95,15 @@
                         </q-img>
                     </div>
                 </div>
+            </div>
+            <div class="col-8 offset-2 btn-query-desk">
+                <q-btn label="Salvar" flat @click="setPerfil" class="btn-salvar">
+                    <q-inner-loading
+                        :showing="visible"
+                        label-class="text-teal"
+                        label-style="font-size: 1.1em"
+                ></q-inner-loading>
+                </q-btn>
             </div>
         </div>
         <q-dialog v-model="confirm" persistent>

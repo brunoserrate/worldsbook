@@ -69,7 +69,7 @@
     margin-top: 30px;
 }
 .card_historias{
-    margin-left: 42px;
+    margin-left: 0px;
     margin-top: 30px;
     padding: 20px 30px;
     
@@ -88,7 +88,7 @@
     font-size: 20px;
     font-weight: bold;
     font-family: Raleway;
-    margin: 0;
+    margin: 20px 0 0 0;
 }
 .qtd_historias{
     color: #787878;
@@ -148,4 +148,180 @@
 .p_data {
     font-family: Raleway;
     font-size: 13px;
+}
+.card-carousel {
+    margin: 21px 0 0 0;
+}
+.mobile-carousel {
+    display: block;
+}
+.desktop-carousel {
+    display: none;
+}
+.carousel-format {
+    height: auto;
+    box-shadow: none;
+}
+.livro_cover-carousel {
+    width: 222px;
+    height: 323px;
+}
+@media screen and (min-width: 980px){
+    .user-cover {
+        // background-color: #000;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-content: flex-start;
+    }
+    .background-cover {
+        // filter: brightness(0.5);
+        // background-image: url("https://img.freepik.com/fotos-gratis/fundo-aquarela-pintado-a-mao-com-forma-de-ceu-e-nuvens_24972-1095.jpg?w=2000");
+    }
+    .row_all_livros{
+    }
+    .cover{
+        background: no-repeat;
+        position: absolute;
+        z-index: -1;
+        height: 300px;
+        filter: brightness(0.8);
+    }
+    .col_perfil_cover {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .avatar {
+        // background-color: #FFF;
+        // border: solid 2px #fff;
+    }
+    .cover_apelido{
+        font-size: 23px;
+        font-weight: bold;
+        font-family: Raleway;
+        color: #fff;
+        text-shadow: 0px 1px 4px #000;
+        margin: 0;
+    }
+    .cover_nome {
+        font-size: 19px;
+        color: #fff;
+        // text-shadow: 0px 1px 4px #000;
+    }
+    .card_barra {
+        width: 100%;
+        height: 67px;
+        border-radius: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .a-seguir {
+        font-size: 19px;
+        margin: 0 0px 0 20px;
+        font-family: 'Raleway';
+        font-weight: bold;
+        border-bottom: solid #8e1cac;
+        padding: 18px 19px;
+        cursor: pointer;
+        &:hover{
+            background-color: #8e1cac24;
+        }
+    }
+    .btn-editar-perfil {
+        margin: 0 21px 0px 0px;
+        box-shadow: 0px 0px 3px #000000ad;
+    }
+    .card_desc_user{
+        margin-top: 30px;
+    }
+    .card_historias{
+        margin-left: 42px;
+        margin-top: 30px;
+        padding: 20px 30px;
+        
+    }
+    .p-descricao-usuario {
+        font-size: 15px;
+        margin: 0;
+        font-family: Raleway;
+        font-weight: bold;
+    }
+    .p-descricao{
+        margin-top: 15px;
+    }
+    .historias-de-usuario {
+        // margin: 0 0px 0 15px;
+        font-size: 20px;
+        font-weight: bold;
+        font-family: Raleway;
+        margin: 0;
+    }
+    .qtd_historias{
+        color: #787878;
+    }
+    .livro_cover{
+        width: 141px;
+        height: 215px;
+    }
+    .livro_titulo{
+        font-size: 18px;
+        font-weight: bold;
+        font-family: Raleway;
+        margin: 0;
+    }
+    .align_icone {
+        text-align: right;
+        // margin: 0px 8px 0px -35px;
+        // font-size: 20px;
+        color: #404040;
+        margin: 0 5px 0 0px;
+    }
+    .align_result {
+        margin: 0 -19px 0px 0;
+        font-size: 15px;
+    }
+    .icons_card {
+        font-size: 15px;
+        color: #464646;
+    }
+    .p_descricao{
+        font-size: 14px;
+        margin: 18px 0 0 0;
+        font-family: Raleway;
+    }
+    .row_livros {
+        width: 100%;
+        margin: 15px 0 0 0;
+        cursor: pointer;
+        &:hover{
+            background-color: #f3f3f3;
+            .livro_titulo{
+                text-decoration: underline;
+            }
+        }
+    }
+    .historia_finalizada{
+        background-color: #7A22A7;
+        color: #FFF;
+        border-radius: 10px;
+        font-size: 11px;
+        padding: 0px 12px;
+        height: 16px;
+        justify-content: center;
+        margin: 20px 11px 7px 0;
+        align-items: flex-start;
+    }
+    .p_data {
+        font-family: Raleway;
+        font-size: 13px;
+    }
+    .mobile-carousel {
+        display: none;
+    }
+    .desktop-carousel {
+        display: block;
+    }
 }

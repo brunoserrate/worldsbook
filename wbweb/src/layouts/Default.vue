@@ -19,7 +19,16 @@
               </q-input>
             </div>
             <div class="col-2 offset-5 col-menu-hamburguer">
-              <q-icon name="search" class="lupa" @click="sidebar = !sidebar"></q-icon>
+              <q-icon name="search" class="lupa">
+                <q-popup-edit v-model="label" auto-save v-slot="scope">
+                  <q-input v-model="search.pesquisa" dense autofocus rounded outlined @keyup.enter="pesquisar" class="popup_search">
+                    <template v-slot:append>
+                        <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
+                        <q-icon name="search"  @click="pesquisar" class="icone_search" />
+                    </template>
+                  </q-input>
+                </q-popup-edit>
+              </q-icon>
             </div>
             <div class="col-2 offset-3 col-menu-hamburguer">
               <q-icon name="menu" class="menu-hamburguer" @click="sidebar = !sidebar"></q-icon>
@@ -67,7 +76,7 @@
                       <q-item-section avatar>
                         <q-icon name="border_color" class="icone-sidebar"/>
                       </q-item-section>
-                      <q-item-section class="itens-sidebar" @click="comeceEscrever">Começar a escrever</q-item-section>
+                      <q-item-section class="itens-sidebar" @click="getNewHistoria">Começar a escrever</q-item-section>
                     </q-item>
                     <!-- <q-separator /> -->
                     <q-item clickable v-ripple v-if="logado && user">
@@ -238,6 +247,7 @@ export default {
       esqueciSenhaModal: false,
       logar: false,
       text: '',
+      label: '',
       // Is password?
       isPwd: true,
       isPwdConf: true,

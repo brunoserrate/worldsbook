@@ -3,10 +3,7 @@
         <div class="row justify-center">
             <div class="col-12">
                 <div class="row justify-center" style="margin: 60px 0 0 0;">
-                    <div v-if="historia.caminho_capa === '' " class="col-12 col-md-auto">
-                        <!-- <div class="text-right">
-                            <upload-helper />
-                        </div> -->
+                    <div v-if="historia.caminho_capa === '' " class="col-12 col-md-auto col_upload_image">
                         <q-uploader
                             auto-upload
                             :factory="uploadFiles"
@@ -25,7 +22,7 @@
                             flat
                         />
                     </div>
-                    <div v-else class="col-12 col-md-auto text-right">
+                    <div v-else class="col-12 col-md-auto image_upload">
                         <q-btn-dropdown
                             dropdown-icon="info"
                             flat
@@ -46,9 +43,9 @@
                         <img :src="historia.caminho_capa" alt="" class="historia_caminho_capa">
                     </div>
                     <div class="row">
-                        <div class="col-12" style="margin: 0 0px 0 58px;">
+                        <div class="col-12 col-card">
                             <q-card class="card_form_historia">
-                                <div class="col-6">
+                                <div class="col-12 col-sm-6">
                                     <h3 class="title_historia">Detalhes das História</h3>
                                 </div>
                                 <div class="col-12">
@@ -59,17 +56,20 @@
                                     <q-input filled v-model="historia.titulo" placeholder="História sem título" :dense="dense" class="inputs_form_historia"/>
                                 </div>
                                 <div class="col-12">
+                                    <q-separator class="separator_card"/>
+                                </div>
+                                <div class="col-12">
                                     <p class="label_input">Descrição</p>
-                                    <q-input filled v-model="historia.descricao" type="textarea" :dense="dense" class="inputs_form_historia_descricao"/>
+                                    <q-input filled v-model="historia.descricao" type="textarea" label="Sinopse da história" :dense="dense" class="inputs_form_historia_descricao"/>
                                 </div>
                                 <div class="col-12">
                                     <q-separator class="separator_card"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-4 col-select">
                                         <p class="label_select">Categoria</p>
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-12 col-md-8">
                                         <q-select
                                             filled
                                             v-model="historia.categoria_id"
@@ -96,6 +96,7 @@
                                             v-model="historia.tags"
                                             class="inputs_form_historia"
                                             color="white"
+                                            label="Tags da história"
                                             :dense="dense"
                                             use-input
                                             use-chips
@@ -124,10 +125,10 @@
                                     <q-separator class="separator_card"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-4 col-select">
                                         <p class="label_select">Público Alvo</p>
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-12 col-md-8">
                                         <q-select
                                             filled
                                             v-model="historia.publico_alvo_id"
@@ -147,10 +148,10 @@
                                     <q-separator class="separator_card"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-4 col-select">
                                         <p class="label_select">Idioma</p>
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-12 col-md-8">
                                         <q-select
                                             filled
                                             v-model="historia.idioma_id"
@@ -170,10 +171,10 @@
                                     <q-separator class="separator_card"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-4 col-select">
                                         <p class="label_select">Direitos do Autor</p>
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-12 col-md-8">
                                         <q-select
                                             filled
                                             v-model="historia.direitos_autorais_id"
@@ -195,10 +196,10 @@
                                     <q-separator class="separator_card"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-4 col-select">
                                         <p class="label_select">Conteúdo Adulto?</p>
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-12 col-md-8">
                                         <q-select
                                             filled
                                             v-model="historia.conteudo_adulto"
