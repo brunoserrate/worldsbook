@@ -13,51 +13,49 @@
 // }
 .row_page {
     margin-top: 0px;
+    padding: 20px;
 }
 .menu-hamburguer{
     
 }
 .welcomeWorldBooks{
     margin: 69px 0 5px 0px;
-    font-size: 4.0em;
+    font-size: 2.6em;
     text-align: center;
     text-transform: uppercase;
-    line-height: 49px;
+    line-height: 40px;
     padding: 0;
     font-family: "javaneze text", serif;
 }
 
 .texto{
     font-family: "javaneze Text", serif;
-    font-size: 23px;
+    font-size: 19px;
     text-align: justify;
-    padding: 0 51px 0px 0;
+    padding: 0 36px 0px 0;
     margin: 0 0 43px 0;
 }
 
 .segundaPlataforma{
-    font-size: 23px;
+    font-size: 19px;
     font-family: "javaneze Text";
     font-weight: bold;
     color: #7a22a7;
     // width: 614px;
     text-align: center;
+    margin: 17px 0 4px 0;
 }
 
 .btn_iniciar-leitura {
     color: rgb(255 255 255);
     background-color: #7a22a7;
-    font-size: 20px;
+    font-size: 13px;
 }
 
 .btn_comece-escrever{
     color: rgb(255 255 255);
     background-color: #7a22a7;
-    font-size: 20px;
-}
-.btn_iniciar-leitura {
-    color: rgb(255 255 255);
-    background-color: #7a22a7;
+    font-size: 13px;
 }
 
 .mascote-image{
@@ -151,6 +149,7 @@
         color: #7a22a7;
         width: 614px;
         text-align: left;
+        margin: 20px 0;
     }
     
     .btn_iniciar-leitura {

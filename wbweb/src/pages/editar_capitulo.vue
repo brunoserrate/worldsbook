@@ -1,7 +1,7 @@
 <template>
     <q-page class="criar_capitulo">
         <div class="row justify-end items-center content-center navbar_capitulo">
-            <div class="col-2 col_btn">
+            <div class="col-4 col-sm-2 col_btn">
                 <q-inner-loading
                     :showing="visible_page"
                     label-class="text-teal"
@@ -12,14 +12,14 @@
                 <q-btn flat label="Publicar" class="btn_seguinte" @click="setCapitulo">
                 </q-btn>
             </div>
-            <div class="col-2">
+            <div class="col-4 col-sm-2">
                 <q-btn flat label="Cancelar" class="btn_cancelar" @click="cancelar"></q-btn>
             </div>
         </div>
         <q-separator></q-separator>
         <div class="fit row justify-center items-center content-center row_icones">
             <div class="col-6" style="text-align: right;">
-                <q-icon name="perm_media" color="black" size="25px" class="row_icone"/>
+                <q-icon name="perm_media" color="black" size="25px" class="row_icone"/> 
             </div>
             <div class="col-6">
                 <q-icon name="videocam" color="black" size="25px" class="row_icone"/>
@@ -27,10 +27,10 @@
             <div class="capa_img_2" v-if="capitulo.caminho_capa"> </div>
         </div>
         <div class="fit row justify-center items-center content-center">
-            <div class="col-6">
+            <div class="col-9 col-sm-6">
                 <q-input v-model="capitulo.titulo" class="title_capitulo"/>
             </div>
-            <div class="col-8 offset-0" style="margin: 53px 0 0 0;">
+            <div class="col-10 col-sm-8 offset-0" style="margin: 53px 0 0 0;">
                 <q-editor
                     class="editor-text"
                     toolbar-toggle-color="primary"

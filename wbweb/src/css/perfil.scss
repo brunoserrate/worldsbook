@@ -154,6 +154,7 @@
 }
 .mobile-carousel {
     display: block;
+    margin-top: 22px;
 }
 .desktop-carousel {
     display: none;
@@ -163,8 +164,20 @@
     box-shadow: none;
 }
 .livro_cover-carousel {
-    width: 222px;
-    height: 323px;
+    width: 174px;
+    height: 265px;
+}
+.livro_titulo_carousel {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Raleway;
+    margin: 0;
+    text-align: center;
+}
+.align_cover_carousel {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 18px;
 }
 @media screen and (min-width: 980px){
     .user-cover {

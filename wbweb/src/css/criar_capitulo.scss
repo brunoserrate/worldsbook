@@ -85,3 +85,92 @@
     width: 267px;
     display: none;
 }
+@media screen and (min-width: 980px){
+    .navbar_capitulo{
+        height: 57px;
+        background-color: #ffffff;
+        // position: fixed;
+        width: 100%;
+        z-index: 1;
+        box-shadow: 0px 4px 4px #0000002b;
+        // margin: -108px 0 0px 0;
+    }
+    .col_btn{
+        display: flex;
+        justify-content: flex-end;
+        margin: 0px 9px 0 0px;
+    }
+    .btn_seguinte{
+        width: 62%;
+        background-color: #7A22A7;
+        color: #fff;
+        font-size: 11px;
+        font-family: Raleway;
+        font-weight: bold;
+        height: 24px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+    .btn_cancelar{
+        width: 62%;
+        background-color: #7a7a7a;
+        color: #fff;
+        font-size: 11px;
+        font-family: Raleway;
+        font-weight: bold;
+        height: 24px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+    .capa_img{
+        background-color: #b1b1b1;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .capa_img_2{
+        background-color: #b47272;
+    }
+    .title_capa{
+        font-family: 'Raleway';
+        color: #ffffff5c;
+    }
+    .row_icones{
+        background-color: #e3e3e3;
+        min-height: 124px;
+    }
+    .row_icone{
+        font-size: 32px;
+        margin: 0 1px;
+        background-color: #FFF;
+        padding: 5px 51px;
+        border-radius: 6px;
+        cursor: pointer;
+        &:hover{
+            background-color: #dfdfdf;
+        }
+        &:active{
+            border: solid 1px rgb(162, 162, 162);
+        }
+    }
+    .title_capitulo{
+        text-align: center;
+        font-size: 20px;
+        margin: 9px 0 0 0;
+    }
+    
+    .editor-text{
+        border: 0;
+        font-size: 20px;
+    }
+    .q-editor > div:first-child, .q-editor__toolbars-container, .q-editor__toolbars-container > div:first-child {
+        border: 0;
+    }
+    .input_search {
+        width: 267px;
+        display: none;
+    }
+}

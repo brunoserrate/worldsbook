@@ -20,9 +20,7 @@
                             >
                             <q-card class="textos">
                                 <q-card-section>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-                                    commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-                                    eveniet doloribus ullam aliquid.
+                                    O WorldBoks é uma plataforma gratuita de livros online. Aonde você pode postar suas próprias obras e ler as de outros usuários!
                                 </q-card-section>
                             </q-card>
                         </q-expansion-item>
@@ -37,9 +35,7 @@
                             >
                             <q-card class="textos">
                                 <q-card-section>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-                                    commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-                                    eveniet doloribus ullam aliquid.
+                                    Sim! Você pode publicar qualquer obra sua desde que não viole as regras.
                                 </q-card-section>
                             </q-card>
                         </q-expansion-item>
@@ -54,26 +50,7 @@
                             >
                             <q-card class="textos">
                                 <q-card-section>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-                                    commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-                                    eveniet doloribus ullam aliquid.
-                                </q-card-section>
-                            </q-card>
-                        </q-expansion-item>
-                    </q-list>
-                </q-card>
-                <q-card class="card_list">
-                    <q-list padding class="rounded-borders lista">
-                        <q-expansion-item
-                            expand-separator
-                            icon="add_circle_outline"
-                            label="Como adicionar uma capa a minha história?"
-                            >
-                            <q-card class="textos">
-                                <q-card-section>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-                                    commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-                                    eveniet doloribus ullam aliquid.
+                                    Sim, você pode ler qualquer obra postada por outro usuário!
                                 </q-card-section>
                             </q-card>
                         </q-expansion-item>

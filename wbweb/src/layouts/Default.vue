@@ -5,8 +5,8 @@
       <q-toolbar>
         <q-toolbar-title>
           <div class="row">
-            <div  class="col">
-              <q-avatar size="100px" square class="avatar-inicio">
+            <div  class="col"> 
+              <q-avatar square class="avatar-inicio">
                 <img src="~/assets/logo.png" class="icon" @click="goIndex">
               </q-avatar>
             </div>
@@ -156,9 +156,9 @@
     <q-footer elevated :class="(isIndex) ? 'text-white footer_pages hidden' : 'text-white footer_pages' ">
       <div class="row">
         <div class="col-5 logo_footer">
-          <img alt="logo" src="~assets/logo-footer.png"  />
+          <img alt="logo" src="~assets/logo-footer.png" class="logo_footer_img" />
         </div>
-        <div class="col-2">
+        <div class="col-6 col-md-2 offset-1 offset-md-0">
           <div class="col-12">
             <h3 class="footer_titles">Inicio</h3>
           </div>
@@ -175,7 +175,7 @@
             <q-btn class="footer_subs" label="Categorias" flat to="/categorias" ></q-btn>
           </div>
         </div>
-        <div class="col-2">
+        <div class="col-4 col-md-2 offset-md-0 offset-1">
           <div class="col-12">
             <h3 class="footer_titles">Sobre nós</h3>
           </div>
@@ -189,7 +189,7 @@
             <q-btn class="footer_subs" label="Redes Sociais" flat to="/contato" ></q-btn>
           </div>
         </div>
-        <div class="col-2">
+        <div class="col-2 col-md-2 offset-md-0 offset-1">
           <div class="col-12">
             <h3 class="footer_titles">Suporte</h3>
           </div>

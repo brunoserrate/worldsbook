@@ -7,7 +7,9 @@
     padding: 23px 0;
     margin: 0 0 -260px 0;
 }
-
+.logo_footer_img {
+    width: 100px;
+}
 .div_footer{
 
 }
@@ -34,4 +36,44 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media screen and (min-width: 980px){
+        
+    .footer_pages{
+        background-color: #E0E0E0 !important;
+        height: auto;
+        position: absolute;
+        box-shadow: none;
+        padding: 23px 0;
+        margin: 0 0 -260px 0;
+    }
+
+    .div_footer{
+
+    }
+    .footer_titles{
+        font-size: 18px;
+        color: #a616b1;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .footer_subs{
+        color: #4c4c4c;
+        text-transform: uppercase;
+        margin: 0 0px -4px -15px;
+        cursor: pointer;
+        padding: 0px 0px;
+        min-inline-size: max-content;
+        &:hover{
+            color: #000;
+            background-color: #0000000f;
+        }
+        
+    }
+    .logo_footer{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }

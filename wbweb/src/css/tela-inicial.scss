@@ -1,6 +1,6 @@
 .header{
     background-color: #FFF;
-    height: 110px;
+    height: 70px;
     position: fixed;
     border: solid 1px #00000026;
 }
@@ -22,8 +22,10 @@
     cursor: pointer;
 }
 .avatar-inicio{
-    margin: 19px 0 0px 14px;
-    height: 69px;
+    margin: 9px 0 0px 12px;
+    height: 1em;
+    font-size: 48px;
+    width: 60px;
 }
 .input_search{
     width: 267px;
@@ -39,15 +41,15 @@
 }
 .lupa {
     color: #000;
-    font-size: 48px;
+    font-size: 2em;
     cursor: pointer;
-    padding: 21px 0px 0 22px;
+    padding: 15px 0px 0 0px;
 }
 .menu-hamburguer{
     color: #000;
-    font-size: 48px;
+    font-size: 44px;
     cursor: pointer;
-    padding: 21px 0 0 0;
+    padding: 12px 0 0 0;
 }
 .image-background{
     float: right;
@@ -136,6 +138,7 @@
     .avatar-inicio{
         margin: 19px 0 0px 14px;
         height: 69px;
+        width: 82px;
     }
     .input_search{
         width: 267px;

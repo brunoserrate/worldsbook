@@ -28,21 +28,21 @@
 }
 .p_search{
     font-size: 25px;
-    text-align: right;
+    text-align: left;
     font-family: Raleway;
     padding: 0 23px;
     margin: 68px 0 0 0;
 }
 .p_text{
     font-size: 17px;
-    text-align: right;
+    text-align: left;
     font-family: Raleway;
     padding: 0 23px;
     margin: 10px 0 0 0;
     font-weight: bold;
 }
 .p_search_label{
-    text-align: right;
+    text-align: left;
     margin: 63px 0px 14px 0;
     padding: 0 23px;
     font-family: Raleway;
@@ -50,4 +50,61 @@
 }
 .input_search_categoria{
     padding: 0 23px;
+    margin: 0px 0 16px 0;
+}
+
+@media screen and (min-width: 980px) {
+    .card-categorias {
+        // margin: 40px 40px;
+        height: 7em;
+        margin: 1px 5px 6px 10px;
+        font-family: 'Raleway';
+        font-size: 19px;
+        padding: 13px;
+        cursor: pointer;
+        background: url('~assets/cat_cover.jpg');
+        background-repeat: no-repeat;
+        background-position: right center;
+        background-size: 53%;
+        box-shadow: none;
+        &:hover{
+            background-color: #ffffff;
+            text-decoration: underline;
+            filter: brightness(0.9);
+            font-weight: bold;
+        }
+    }
+    .row_categorias {
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 49px;
+    }
+    .card_search{
+        box-shadow: none;
+    }
+    .p_search{
+        font-size: 25px;
+        text-align: right;
+        font-family: Raleway;
+        padding: 0 23px;
+        margin: 68px 0 0 0;
+    }
+    .p_text{
+        font-size: 17px;
+        text-align: right;
+        font-family: Raleway;
+        padding: 0 23px;
+        margin: 10px 0 0 0;
+        font-weight: bold;
+    }
+    .p_search_label{
+        text-align: right;
+        margin: 63px 0px 14px 0;
+        padding: 0 23px;
+        font-family: Raleway;
+        font-size: 17px;
+    }
+    .input_search_categoria{
+        padding: 0 23px;
+    }
 }

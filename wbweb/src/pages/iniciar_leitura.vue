@@ -8,7 +8,7 @@
                 <img alt="Cover" src="~assets/abstract_cover_7.jpg" class="cover"/>
             </div>
             <div class="row">
-				<div class="col-11 offset-1">
+				<div class="col-11 offset-sm-1">
 					<h3 class="welcomeUser">Bem-vindo(a){{ (user !== null) ? ', ' + (user.usar_apelido ? ucWordsFiltro(user.apelido) : ucWordsFiltro(user.name)) : '' }}</h3>
 				</div>
 				<div class="col-10 offset-2">
@@ -28,7 +28,7 @@
 			<div class="col-12">
 				<h3 class="welcomeUser">Encontre as melhores entre os gêneros!</h3>
 			</div>
-			<div class="col-10 offset-1">
+			<div class="col-10 offset-2 offset-sm-1">
 				<p class="bestChooses">Categoria de Romance</p>
 			</div>
 			<div class="col-12 colLivros" v-if="window.width > 980">
@@ -39,7 +39,7 @@
 				<categoria-historia-mobile categoriaID="3" class="cat-romance">
 				</categoria-historia-mobile>
 			</div>
-			<div class="col-10 offset-1">
+			<div class="col-10 offset-2 offset-sm-1">
 				<p class="bestChooses">Categoria de Terror</p>
 			</div>
 			<div class="col-12 colLivros" v-if="window.width > 980">
@@ -50,7 +50,7 @@
 				<categoria-historia-mobile categoriaID="4" class="cat-terror">
 				</categoria-historia-mobile>
 			</div>
-			<div class="col-10 offset-1">
+			<div class="col-10 offset-2 offset-sm-1">
 				<p class="bestChooses">Categoria de Aventura</p>
 			</div>
 			<div class="col-12 colLivros" v-if="window.width > 980">

@@ -10,7 +10,7 @@
 }
 .title_card{
     font-family: Raleway;
-    font-size: 28px;
+    font-size: 24px;
     text-transform: uppercase;
     font-weight: bold;
     text-align: center;
@@ -120,6 +120,10 @@
 .labels_icon{
     display: block;
 }
+.align_icons_status {
+    display: flex;
+    justify-content: space-between;
+}
 @media screen and (min-width: 600px) and (max-width: 700px){
     .labels_icon{
         display: none;
@@ -134,6 +138,10 @@
     }
 }
 @media screen and (min-width: 980px){
+    .align_icons_status {
+        display: flex;
+        justify-content: flex-start;
+    }
     .labels_icon{
         display: block;
     }

@@ -22,7 +22,7 @@
 					<div class="col-12 cover_dialog">
 						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
 					</div>
-					<div class="col-12">
+					<div class="col-12"> 
 						<h1 class="title_dialog_historia">{{livro_detail.titulo}}</h1>
 						<div class="row">
 							<div class="col-12" style="display: flex; justify-content: center;">

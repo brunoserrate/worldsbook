@@ -1,7 +1,7 @@
 <template>
     <q-page class="bgindex">
         <div class="row">
-            <div class="col-4 offset-1">
+            <div class="col-12 offset-1 col-md-4">
                 <div class="row">
                     <div class="col-11 offset-1">
                         <h1 class="h1">Contato</h1>
@@ -19,11 +19,11 @@
                         <p class="email-suporte"><q-icon name="call" class="email-icone"></q-icon>(11) 3333-3333</p>
                     </div>
                 </div>
+            </div> 
+            <div class="col-1 separator_moboile">
+                <q-separator vertical class="separator_format" />
             </div>
-            <div class="col-1">
-                <q-separator vertical style="margin: 147px 0 0 0; height: 73%;" />
-            </div>
-            <div class="col-6">
+            <div class="col-12 offset-1 offset-md-0 col-md-6">
                 <div class="row">
                     <div class="col-11 offset-1">
                         <h1 class="h1">Redes Sociais</h1>

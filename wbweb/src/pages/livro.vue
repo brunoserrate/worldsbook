@@ -10,23 +10,23 @@
             <div class="col-12">
                 <q-card class="card_livro">
                     <div class="row justify-center">
-                        <div class="col-6 offset-1 offset-sm-0 col-sm-auto offset-md-2">
+                        <div class="col-6 offset-sm-0 col-sm-auto offset-md-2">
                             <img alt="Cover" :src="livro.caminho_capa" class="capa_card"/>
                         </div>
-                        <div class="col-10 col-sm-6 offset-1 offset-sm-0 ">
+                        <div class="col-10 col-sm-6 offset-sm-0 ">
                             <div class="row">
                                 <div class="col-12">
                                     <h3 class="title_card">{{livro.titulo}}</h3>
                                 </div>
                                 <div class="col-12 col-md-10">
-                                    <div class="row">
+                                    <div class="row align_icons_status">
                                         <div class="col-3">
                                             <div class="row">
                                                 <div class="col-4">
                                                     <q-icon name="visibility" class="icons_card"/>
                                                 </div>
                                                 <div class="col-6 labels_icon">
-                                                    <p>Visualizações</p>
+                                                    <p>Visualizações</p> 
                                                 </div>
                                                 <div class="col-6 col-md-12 align_text_details">
                                                     {{livro.total_visualizacoes}}

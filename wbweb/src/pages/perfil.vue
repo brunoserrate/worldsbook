@@ -69,15 +69,15 @@
                                 >
                                 <q-carousel-slide :name="i" class="column no-wrap" v-for="(livro, i) in usuario.historias" :key="i" @click="goLivro(livro)">
                                     <div class="row">
-                                        <div class="col-12 col-sm-7">
+                                        <div class="col-12 col-sm-7 align_cover_carousel">
                                             <img :src="livro.caminho_capa" class="livro_cover-carousel">
                                         </div>
                                         <div class="col-12 col-sm-5">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <p class="livro_titulo">{{livro.titulo}}</p>
+                                                    <p class="livro_titulo_carousel">{{livro.titulo}}</p>
                                                 </div>
-                                                <div class="row" style="width: 100%; margin: 0 0px 0 -17px;">
+                                                <div class="row" style="width: 100%; margin: 0 0px 0 -17px; justify-content: center;">
                                                     <div class="col-2 align_icone">
                                                         <q-icon name="grade" class="icons_card" />
                                                     </div>

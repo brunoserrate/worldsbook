@@ -1,7 +1,7 @@
 <template>
     <q-page>
         <div class="row row_categorias" >
-            <div class="col-4">
+            <div class="col-12 col-md-4">
                 <q-card style="height: 100%;" class="card_search">
                     <div class="row">
                         <div class="col-12">
@@ -23,9 +23,9 @@
                     </div>
                 </q-card>
             </div>
-            <div class="col-7">
+            <div class="col-12 col-md-7">
                 <div class="row">
-                    <div class="col-4" v-for="(categoria, i) in categorias" :key="i">
+                    <div class="col-10 offset-1 offset-sm-0 col-sm-6 col-sm-4" v-for="(categoria, i) in categorias" :key="i">
                         <q-card class="card-categorias" @click="goCategoria(categoria)">
                             <div class="row">
                                 <div class="col-6">

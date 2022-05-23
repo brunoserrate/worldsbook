@@ -16,13 +16,13 @@
                     </div>
                 </q-card>
             </div>
-            <div class="col-12" style="margin: 75px 0; padding: 0 199px;">
-                <div class="row">
+            <div class="col-12 align_livros">
+                <div class="row row_livros_mobile">
                     <div class="col-12"><p class="total_historias">{{livros.length}} histórias</p></div>
-                    <div class="col-6" v-for="(livro, i) in livros" :key="i">
+                    <div class="col-12 col-md-6" v-for="(livro, i) in livros" :key="i">
                         <q-card class="card-categorias" @click="getLivro(livro)">
                             <div class="row">
-                                <div class="col-5">
+                                <div class="col-6 col-sm-3 col-md-5">
 						            <img alt="Cover" :src="livro.caminho_capa" class="cover_historia"/>
                                 </div>
                                 <div class="col-6">
@@ -66,23 +66,20 @@
 		<q-dialog v-model="livro_dialog" class="navbar_classe">
 			<q-card class="card_detail_historia">
 				<div class="row" style="height: 100%;">
-					<div class="col-6">
+					<div class="col-12 cover_dialog">
 						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
 					</div>
-					<div class="col-6">
+					<div class="col-12"> 
 						<h1 class="title_dialog_historia">{{livro_detail.titulo}}</h1>
-						<div class="row row_height" style="">
+						<div class="row">
 							<div class="col-12" style="display: flex; justify-content: center;">
 								<hr style="margin: 0 0 0 0; width: 80%;"/>
 							</div>
-							<div class="col-10 col_btn_detail">
-								<q-btn unelevated label="Iniciar leitura" class="btn_detail_iniciar_leitura" @click="goLivro(livro_detail)"/>
-							</div>
-							<div class="col-2 col_btn_detail">
-								<q-btn unelevated label="+" class="btn_detail_iniciar_leitura"/>
-							</div>
 							<div class="col-12 col_btn_detail">
 								<p class="col_descricao_detail">{{livro_detail.descricao | cutDescricao}}</p>
+							</div>
+							<div class="col-12 col_btn_detail">
+								<q-btn unelevated label="Iniciar leitura" class="btn_detail_iniciar_leitura" @click="getLivro(livro_detail)"/>
 							</div>
 						</div>
 						<q-separator></q-separator>
