@@ -14,8 +14,9 @@
 	<img src="https://img.shields.io/badge/quasar-v1.18.10-blue">
 </div>
 
-O World Books é uma plataforma para compartilhar histórias e e-books entre diversos usuários.
-Dentro do sistema é possível ler e compartilhar a sua imaginação.
+
+World Books is a platform to share stories and e-books among diverse users.
+Within the system it is possible to read and share your imagination.
 
 ## Installation
 
