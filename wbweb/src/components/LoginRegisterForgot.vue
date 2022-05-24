@@ -140,6 +140,7 @@
                 outlined
                 class="input_cadastro"
                 label="Data de Nascimento"
+                stack-label
                 :error="$v.formRegister.data_nascimento.$error"
                 error-message="Campo obrigatório"
               />

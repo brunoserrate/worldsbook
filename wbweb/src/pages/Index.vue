@@ -15,7 +15,7 @@
 						<h3 class="segundaPlataforma">Segunda plataforma mais amada do mundo</h3>
 					</div>
 				</div>
-
+				
 				<div class="row">
 					<div class="col offset-1">
 						<p class="texto">World Books sua plataforma para te conectar com milhões de livros e escritores pelo mundo.
@@ -29,7 +29,6 @@
 						<q-btn style="color: #fff" label="Comece a escrever" class="btn_comece-escrever q-ml-xl" @click="comeceEscrever" />
 					</div>
 				</div>
-
 			</div>
 			<div class="col-4">
 				<img alt="Bookcquin" src="~assets/mascote.png"  class="mascote-image"/>

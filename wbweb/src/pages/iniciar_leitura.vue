@@ -5,7 +5,7 @@
                 <p class="text-over-cover">Navegue pelas categorias explorando diversos livros, será uma experiência incrível!</p>
             </div>
             <div class="col-12 align-cover">
-                <img alt="Cover" src="~assets/abstract_cover_7.jpg" class="cover"/>
+                <img alt="Cover" src="~assets/abstract_cover_8.png" class="cover"/>
             </div>
             <div class="row">
 				<div class="col-11 offset-sm-1">

@@ -11,7 +11,7 @@
                             :loading="uploadPercent"
                             :url="getUrl()"
                             label="Carregar imagem (max 2MB)"
-                            ref="uploader"
+                            ref="uploader" 
                             bordered
                             batch
                             accept=".png, .jpeg, .jpg"

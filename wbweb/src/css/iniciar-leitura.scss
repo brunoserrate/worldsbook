@@ -4,9 +4,10 @@
 }
 
 .cover{
-    width: 92%;
+    width: 82%;
     height: 100%;
     border-radius: 14px;
+    border: solid 2px #000;
 } 
 .align-cover{
     display: flex;
@@ -104,9 +105,10 @@
     }
     
     .cover{
-        width: 92%;
-        height: 26em;
+        width: 81%;
         border-radius: 14px;
+        margin: 24px 0 0 0;
+        border: solid 2px #000;
     }
     .align-cover{
         display: flex;

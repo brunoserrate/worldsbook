@@ -4,10 +4,10 @@
         <div class="col-5" style="">
           <div class="row">
             <div class="col-12 offset-2">
-              <h1 style="font-size: 80px; font-weight: bold; font-family: Raleway; margin: 144px 0px 0px 0; color: #000;">404 not found</h1>
+              <h1 class="notFound">404 not found</h1>
             </div>
             <div class="col-12 offset-2">
-              <h4 style="margin-top: 0; margin-bottom: 0; color: #000; font-size: 25px;">A página que você deseja não foi encontrada</h4>
+              <h4 class="pagina">A página que você deseja não foi encontrada</h4>
             </div>
             <div class="col-12 offset-2">
               <q-btn
@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="col-7">
-          <img src="~assets/mascote404.png" style="width: 39%; margin: 0 190px 0 0;"/>
+          <img src="~assets/mascote404.png" class="mascote" />
         </div>
       </div>
     </div>
@@ -33,26 +33,72 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .background-cover {
-      background: url('~assets/background.svg');
-      background-size: 27%;
-      // position: absolute;
-      background-repeat: no-repeat;
-      background-position: right center;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      // z-index: 10000;
-  }
-
   .botao {
-    margin: 51px 0 0 0;
+    margin: 26px 0 0 0;
     color: #7a22a7;
     text-transform: uppercase;
-    font-size: 17px;
+    font-size: 15px;
     &:hover {
       background-color: #7b22a734;
+    }
+  }
+  .mascote {
+    width: 70%; 
+    margin: 80px 0px 0px 0px;
+  }
+  .pagina {
+    margin-top: 0; 
+    margin-bottom: 0; 
+    color: #000; 
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  .notFound {
+    font-size: 68px;
+    line-height: 1;
+    font-weight: bold; 
+    font-family: Raleway; 
+    margin: 80px 0px 0px 0; 
+    color: #000;
+  }
+  @media screen and (min-width: 980px){
+    .background-cover {
+        background: url('~assets/background.svg');
+        background-size: 27%;
+        // position: absolute;
+        background-repeat: no-repeat;
+        background-position: right center;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        // z-index: 10000;
+    }
+    .mascote {
+      width: 39%; 
+      margin: 0 190px 0 0;
+    }
+    .pagina {
+      margin-top: 0; 
+      margin-bottom: 0; 
+      color: #000; 
+      font-size: 25px;
+    }
+    .botao {
+      margin: 51px 0 0 0;
+      color: #7a22a7;
+      text-transform: uppercase;
+      font-size: 17px;
+      &:hover {
+        background-color: #7b22a734;
+      }
+    }
+    .notFound {
+      font-size: 80px; 
+      font-weight: bold; 
+      font-family: Raleway; 
+      margin: 144px 0px 0px 0; 
+      color: #000;
     }
   }
 </style>
