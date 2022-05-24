@@ -27,7 +27,7 @@
     color: #FFF;
     width: 98%;
     border-radius: 7px 0px 0px 7px;
-    margin: 32px 0 0 0;
+    margin: 32px 0 43px 0;
 }
 .btn_add_lista{
     background-color: #8e1cac;
@@ -135,6 +135,13 @@
         font-weight: bold;
         text-align: center;
         line-height: 1.5;
+    }
+    .btn_iniciar_leitura_livro{
+        background-color: #8e1cac;
+        color: #FFF;
+        width: 98%;
+        border-radius: 7px 0px 0px 7px;
+        margin: 32px 0 0px 0;
     }
 }
 @media screen and (min-width: 980px){

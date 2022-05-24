@@ -69,10 +69,10 @@
                       <q-item-section avatar>
                         <q-icon name="menu_book" class="icone-sidebar"/>
                       </q-item-section>
-                      <q-item-section class="itens-sidebar" @click="iniciarLeitura">Iniciar Leitura</q-item-section>
+                      <q-item-section class="itens-sidebar" @click="goCategoria">Iniciar Leitura</q-item-section>
                     </q-item>
                     <!-- <q-separator /> -->
-                    <q-item clickable v-ripple>
+                    <q-item clickable v-ripple v-if="logado && user">
                       <q-item-section avatar>
                         <q-icon name="border_color" class="icone-sidebar"/>
                       </q-item-section>

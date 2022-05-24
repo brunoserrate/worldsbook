@@ -208,6 +208,20 @@
         display: block;
     }
     .image_upload {
+        text-align: center;
+    }
+    .edit-cover {
+        height: 100%;
+        border-radius: 14px;
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .image_upload {
         text-align: right;
+    }
+    .edit-cover {
+        height: 30%;
+        border-radius: 14px;
     }
 }

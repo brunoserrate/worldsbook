@@ -26,7 +26,7 @@
                         <q-btn flat style="color: #7A22A7" label="Voltar" @click="goBackPageCategorias"/>
                     </div>
                     <div class="col-12 col-md-6" v-for="(livro, i) in livros" :key="i">
-                        <q-card class="card-categorias" @click="getLivro(livro)">
+                        <q-card class="card-categorias" @click="openDialog(livro)">
                             <div class="row">
                                 <div class="col-6 col-sm-3 col-md-5">
 						            <img alt="Cover" :src="livro.caminho_capa" class="cover_historia"/>
@@ -69,8 +69,8 @@
                 </div>
             </div>
         </div>
-		<q-dialog v-model="livro_dialog" class="navbar_classe">
-			<q-card class="card_detail_historia">
+		<q-dialog v-model="livro_dialog_mobile" class="navbar_classe_mobile">
+			<q-card class="card_detail_historia_mobile">
 				<div class="row" style="height: 100%;">
 					<div class="col-12 cover_dialog">
 						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
@@ -82,10 +82,10 @@
 								<hr style="margin: 0 0 0 0; width: 80%;"/>
 							</div>
 							<div class="col-12 col_btn_detail">
-								<p class="col_descricao_detail">{{livro_detail.descricao | cutDescricao}}</p>
+								<p class="col_descricao_detail_mobile">{{livro_detail.descricao | cutDescricao}}</p>
 							</div>
 							<div class="col-12 col_btn_detail">
-								<q-btn unelevated label="Iniciar leitura" class="btn_detail_iniciar_leitura" @click="getLivro(livro_detail)"/>
+								<q-btn unelevated label="Iniciar leitura" class="btn_detail_iniciar_leitura" @click="goLivro(livro_detail)"/>
 							</div>
 						</div>
 						<q-separator></q-separator>
@@ -99,7 +99,41 @@
 					</div>
 				</div>
 			</q-card>
-        </q-dialog>
+		</q-dialog>
+		<q-dialog v-model="livro_dialog" class="navbar_classe">
+			<q-card class="card_detail_historia_desktop">
+				<div class="row" style="height: 100%;">
+					<div class="col-6">
+						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
+					</div>
+					<div class="col-6">
+						<h1 class="title_dialog_historia_desktop">{{livro_detail.titulo}}</h1>
+						<div class="row">
+							<div class="col-12" style="display: flex; justify-content: center;">
+								<hr style="margin: 0 0 0 0; width: 80%;"/>
+							</div>
+							<div class="col-10 col_btn_detail">
+								<q-btn unelevated label="Iniciar leitura" class="btn_detail_iniciar_leitura" @click="goLivro(livro_detail)"/>
+							</div>
+							<div class="col-2 col_btn_detail">
+								<q-btn unelevated label="+" class="btn_detail_iniciar_leitura"/>
+							</div>
+							<div class="col-12 col_btn_detail_desktop">
+								<p class="col_descricao_detail_desktop">{{livro_detail.descricao | cutDescricao}}</p>
+							</div>
+						</div>
+						<q-separator></q-separator>
+						<template q-slot="footer">
+							<div class="row">
+								<div class="col-12 col_btn_detail">
+									<p class="col_data_atualizacao"><span>Data de atualização: </span>{{ livro_detail.data_atualizacao | formatDateTime }}</p>
+								</div>
+							</div>
+						</template>
+					</div>
+				</div>
+			</q-card>
+		</q-dialog>
     </q-page>
 </template>
 <script>
@@ -110,6 +144,7 @@ export default {
 			categoria_id: this.$route.params.categoria_id,
             categoria: this.$route.params.categoria_nome,
             livro_dialog: false,
+            livro_dialog_mobile: false,
             livro_detail: {},
 			livros:[],
 			livro: {
@@ -137,6 +172,9 @@ export default {
                 usar_apelido: '',
                 usuario_id: '',
 			},
+			window: {
+				width: 0,
+			},
             visible: false,
             showSimulatedReturnData: false
         }
@@ -157,7 +195,17 @@ export default {
 
 		}
 	},
+    created() {
+        window.addEventListener('resize', this.handleResize);
+        this.handleResize();
+    },
+    destroyed() {
+        window.removeEventListener('resize', this.handleResize);
+    },
     methods: {
+		handleResize() {
+            this.window.width = window.innerWidth;
+        },
 		getLivros(){
 			let that = this
 
@@ -182,10 +230,22 @@ export default {
         goBackPageCategorias(){
             this.$router.push({ path: `/categorias` })
         },
+        openDialog(livro){
+            if (this.window.width > 980){
+                this.getLivro(livro)
+            }else { 
+                this.getLivroMobile(livro)
+            }   
+        },
         getLivro(livro){
             // console.log(livro)
             this.livro_detail = livro
             this.livro_dialog = true
+        },
+        getLivroMobile(livro){
+            // console.log(livro)
+            this.livro_detail = livro
+            this.livro_dialog_mobile = true
         },
         goLivro(livro_detail){
             // console.log(livro_detail)

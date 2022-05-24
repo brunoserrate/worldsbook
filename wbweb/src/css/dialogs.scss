@@ -57,12 +57,41 @@
     font-family: Raleway;
     line-height: 1.5;
 }
-
+.title_dialog_historia_desktop{
+    font-size: 17px;
+    text-transform: uppercase;
+    font-weight: 1000;
+    text-align: center;
+    margin: 30px 0 30px 0;
+    font-family: Raleway;
+    line-height: 1.5;
+}
 .card_detail_historia{
     width: 100%;
     border-radius: 0px 20px 20px 0px;
     // max-width: 70.5%;
     max-width: 84.5%;
+    /* min-height: 100% !important; */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+.card_detail_historia_mobile{
+    width: 100%;
+    border-radius: 0px 20px 20px 0px;
+    max-width: 61.5%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+.col_btn_detail_desktop{
+
+}
+.card_detail_historia_desktop{
+    width: 100%;
+    border-radius: 0px 20px 20px 0px;
+    // max-width: 70.5%;
+    max-width: 50.5%;
     /* min-height: 100% !important; */
     overflow: hidden;
     display: flex;
@@ -90,10 +119,24 @@
 }
 .col_descricao_detail{
     text-align: justify;
-    padding: 0 25px;
+    padding: 0 25px; 
     margin: 0px 0px 0px 16px;
     font-size: 20px;
     font-family: 'Raleway';
+}
+.col_descricao_detail_desktop{
+    text-align: justify;
+    padding: 0 25px;
+    margin: 0px 0px 0px 4px;
+    font-size: 16px;
+    font-family: 'Raleway';
+}
+.col_descricao_detail_mobile {
+    text-align: justify;
+    padding: 0 43px;
+    margin: 0px 0px 0px 16px;
+    font-size: 17px;
+    font-family: "Raleway";
 }
 .col_data_atualizacao {
     font-family: Raleway;
@@ -198,5 +241,11 @@
     .col_data_atualizacao {
         font-family: Raleway;
         font-weight: bold;
+    }
+    .card_detail_historia_mobile_index{
+        width: 100%;
+        border-radius: 0px 20px 20px 0px;
+        max-width: 47.5%;
+        overflow: hidden;
     }
 }

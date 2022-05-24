@@ -139,6 +139,7 @@
                 type="date"
                 outlined
                 class="input_cadastro"
+                label="Data de Nascimento"
                 :error="$v.formRegister.data_nascimento.$error"
                 error-message="Campo obrigatório"
               />
