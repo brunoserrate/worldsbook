@@ -69,6 +69,7 @@ class UserController extends AppBaseController
             return $this->sendResponse([
                 'email' => $user->email,
                 'token' => $token,
+                'api_token' => $user->createToken('api_token_' . $user->name)->plainTextToken,
                 'name' => $user->name,
                 'apelido' => $user->apelido,
                 'usar_apelido' => $user->usar_apelido,
