@@ -1,32 +1,32 @@
 <template>
-    <q-page class="bgindex">
-        <div class="row" style="margin-top: 8%;">
-            <div class="col-10 offset-2" style="margin-top: 20px;">
+    <q-page :class="{'dark-editar_perfil': darkmode, 'editar_perfil': !darkmode}">
+        <div class="row row-dark-perfil">
+            <div class="col-10 offset-2">
                 <p class="p-altere-informacoes">Altere as informações da sua conta</p>
             </div>
         </div>
-        <div class="row inputs_row">
+        <div class="row inputs_row pb-5">
             <div class="col-12 col-md-7 alinhar_inputs">
                 <div class="row align-form">
-                    <div class="col-9 col-md-4 offset-md-0 alinhar_label_utilizador">
+                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-0 offset-md-0 alinhar_label_utilizador">
                         <span>Nome</span>
                     </div>
                     <div class="col-9 col-md-7">
                         <q-input square outlined v-model="user.name" :dense="dense" class="input_form"/>
                     </div> 
-                    <div class="col-9 col-md-4 offset-md-0 alinhar_label_utilizador">
+                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-0 offset-md-0 alinhar_label_utilizador">
                         <span>Apelido</span>
                     </div>
                     <div class="col-9 col-md-7">
                         <q-input square outlined v-model="user.apelido" :dense="dense" class="input_form"/>
                     </div>
-                    <div class="col-9 col-md-4 offset-md-0 alinhar_label_utilizador">
+                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-0 offset-md-0 alinhar_label_utilizador">
                         <span>E-mail</span>
                     </div>
                     <div class="col-9 col-md-7">
                         <q-input square outlined type="email" v-model="user.email" :dense="dense" class="input_form"/>
                     </div>
-                    <div class="col-9 col-md-4 offset-md-0 alinhar_label_utilizador">
+                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-0 offset-md-0 alinhar_label_utilizador">
                         <span>Senha</span>
                     </div>
                     <div class="col-8 col-md-6">
@@ -35,7 +35,7 @@
                     <div class="col-1 align_icon">
                         <q-icon name="edit" class="icone_edit_password"></q-icon>
                     </div>
-                    <div class="col-9 col-md-4 offset-md-0 alinhar_label_utilizador">
+                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-0 offset-md-0 alinhar_label_utilizador">
                         <span>Descrição do usuário</span>
                     </div>
                     <div class="col-9 col-md-7">
@@ -107,7 +107,7 @@
             </div>
         </div>
         <q-dialog v-model="confirm" persistent>
-            <q-card>
+            <q-card :class="{'dark-card-remover-foto': darkmode, 'card-remover-foto': !darkmode}">
                 <q-card-section class="row items-center">
                 <q-avatar icon="delete" color="primary" text-color="white" />
                 <span class="q-ml-sm">Deseja remover a foto de perfil?</span>
@@ -122,120 +122,133 @@
     </q-page>
 </template>
 <script>
-export default {
-    name: 'editar-perfil',
-    data(){
-        return {
-            dense: true,
-            uploadPercentage: 0,
-            uploadPercent:null,
-            confirm: false,
-            user: {
-                name: '',
-                sobre: '',
-                avatar: '',
-                foto_perfil: '',
-                apelido: '',
-                email: '',
+    import eventBus from '../boot/eventBus'
+    export default {
+        name: 'editar-perfil',
+        data(){
+            return {
+                dense: true,
+                uploadPercentage: 0,
+                uploadPercent:null,
+                confirm: false,
+                user: {
+                    name: '',
+                    sobre: '',
+                    avatar: '',
+                    foto_perfil: '',
+                    apelido: '',
+                    email: '',
+                },
+                visible: false,
+                showSimulatedReturnData: false,
+                users: [],
+                visible: false,
+                showSimulatedReturnData: false,
+                darkmode: false
+            }
+        },
+        created() {
+            setTimeout(() => {
+                let dark = this.$q.localStorage.getItem('darkmode')
+                this.darkmode = dark == 'true' ? true : false
+            }, 500)
+            eventBus.$on('att-darkmode', async (option) => {
+                setTimeout(async() => {
+                    this.darkmode = option
+                }, 500);
+            });
+        },
+        mounted(){
+            this.getUser()
+            // console.log(this.user)
+        },
+        methods: {
+            setPerfil(){
+                let that = this
+
+                that.visible = true
+                that.showSimulatedReturnData = false
+
+                let params = {
+                    name: that.user.nome,
+                    sobre: that.user.sobre,
+                    foto_perfil: that.user.foto_perfil,
+                    apelido: that.user.apelido,
+                    email: that.user.email,
+                }
+
+                that.$axios.patch(that.$pathAPI + `/user/perfil/${this.user.user_id}`, params)
+                .then((res) => {
+                    console.log("res: ", res)
+
+                    let storage_user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
+                    let token = storage_user.token
+                    // Alterar os dados necessários
+                    storage_user = res.data.data // Nome, apelido, avatar,
+                    storage_user.token = token
+                    // Sobrepor a chave auth do session storage
+                    this.$q.sessionStorage.set('auth', JSON.stringify( storage_user ))
+
+                    that.visible = false
+                    that.showSimulatedReturnData = true
+                    this.perfilEditado()
+
+                })
+                .catch((err) => {
+                    console.log("err: ", err)
+                    this.erroEditar()
+                    that.visible = false
+                    that.showSimulatedReturnData = true
+                })
             },
-            visible: false,
-            showSimulatedReturnData: false,
-            users: [],
-            visible: false,
-            showSimulatedReturnData: false
-        }
-    },
+            uploadFiles(file){
+                this.uploadPercentage = true
+                let data = new FormData()
+                data.append(`file`, file[0])
 
-    mounted(){
-        this.getUser()
-        // console.log(this.user)
-    },
-    methods: {
-        setPerfil(){
-            let that = this
-
-            that.visible = true
-            that.showSimulatedReturnData = false
-
-            let params = {
-                name: that.user.nome,
-                sobre: that.user.sobre,
-                foto_perfil: that.user.foto_perfil,
-                apelido: that.user.apelido,
-                email: that.user.email,
+                return new Promise((resolve, reject) => {
+                this.$axios.post(this.$pathAPI + '/user/upload/foto', data, {
+                    headers: { 'content-type': 'multipart/form-data' },
+                    processData: false,  contentType: false
+                })
+                    .then(res => {
+                        resolve(null)
+                        this.user.foto_perfil = res.data.data.full_path
+                        this.uploadPercentage = false
+                        this.sucesso()
+                    })
+                    .catch(err => {
+                        reject(err)
+                        this.uploadPercentage = false
+                        this.falha()
+                    })
+                })
+            },
+            finishedUpload () {
+                this.$refs.uploader.reset()
+            },
+            getUrl(){
+                return this.$pathAPI + '/uploads'
+            },
+            onMainClick () {
+                // console.log('Clicked on main button')
+            },
+            onItemClick () {
+                this.confirm = true
+            },
+            removerFoto(){
+                this.user.foto_perfil = ''
+            },
+            buscarString(string, busca) {
+                if(string != null || string != undefined){
+                    return string.indexOf(busca)
+                }
+                return 1
             }
-
-            that.$axios.patch(that.$pathAPI + `/user/perfil/${this.user.user_id}`, params)
-            .then((res) => {
-                console.log("res: ", res)
-
-                let storage_user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
-                let token = storage_user.token
-                // Alterar os dados necessários
-                storage_user = res.data.data // Nome, apelido, avatar,
-                storage_user.token = token
-                // Sobrepor a chave auth do session storage
-                this.$q.sessionStorage.set('auth', JSON.stringify( storage_user ))
-
-                that.visible = false
-                that.showSimulatedReturnData = true
-                this.perfilEditado()
-
-            })
-            .catch((err) => {
-                console.log("err: ", err)
-                this.erroEditar()
-                that.visible = false
-                that.showSimulatedReturnData = true
-            })
         },
-		uploadFiles(file){
-			this.uploadPercentage = true
-			let data = new FormData()
-			data.append(`file`, file[0])
-
-			return new Promise((resolve, reject) => {
-			this.$axios.post(this.$pathAPI + '/user/upload/foto', data, {
-				headers: { 'content-type': 'multipart/form-data' },
-				processData: false,  contentType: false
-			})
-				.then(res => {
-					resolve(null)
-					this.user.foto_perfil = res.data.data.full_path
-					this.uploadPercentage = false
-					this.sucesso()
-				})
-				.catch(err => {
-					reject(err)
-					this.uploadPercentage = false
-					this.falha()
-				})
-			})
-		},
-		finishedUpload () {
-			this.$refs.uploader.reset()
-		},
-		getUrl(){
-			return this.$pathAPI + '/uploads'
-		},
-        onMainClick () {
-            // console.log('Clicked on main button')
-        },
-        onItemClick () {
-            this.confirm = true
-        },
-        removerFoto(){
-            this.user.foto_perfil = ''
-        },
-        buscarString(string, busca) {
-            if(string != null || string != undefined){
-                return string.indexOf(busca)
-            }
-            return 1
-        }
-    },
-}
+    }
 </script>
 <style lang="scss" scoped>
     @import '../css/editar-perfil.scss';
+    @import '../css/darkMode/editar-perfil-dark.scss';
 </style>

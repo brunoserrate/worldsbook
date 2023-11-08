@@ -2,7 +2,7 @@
 <div>
     <!-- Login -->
     <q-dialog v-model="logar" class="navbar_classe" @before-hide="hideLogin()">
-      <q-card class="cadastrar">
+      <q-card :class="{'dark-cadastrar': darkmode, 'cadastrar': !darkmode}">
         <q-card class="card_titulo">
           <q-card-section>
             <div class="titulo_cadastrar">Bem-vindo de volta ao World Books!</div>
@@ -26,7 +26,7 @@
                 <template v-slot:append>
                   <q-icon
                     :name="isPwdLogin ? 'visibility_off' : 'visibility'"
-                    class="cursor-pointer"
+                    class="cursor-pointer icone"
                     @click="isPwdLogin = !isPwdLogin"
                   />
                 </template>
@@ -39,8 +39,8 @@
           <q-btn flat label="Logar" @click="login()" class="btn_cadastrar"/>
           <q-btn flat label="Fechar" @click="limparModal()" class="btn_cancelar"/>
         </q-card-actions>
-          <p class="p_criar-conta">Não possui uma conta? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="section()">Cadastre-se</span></a></p>
-          <p class="p_criar-conta">Esqueceu a senha? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="esqueciSenha()">Recuperar senha</span></a></p>
+        <p class="p_criar-conta">Não possui uma conta? <a href="#" style="text-decoration: none;"><span :style="darkmode ? `color: #a472bd;` : `color: #7a22a7;`" @click="section()">Cadastre-se</span></a></p>
+        <p class="p_criar-conta">Esqueceu a senha? <a href="#" style="text-decoration: none;"><span :style="darkmode ? `color: #a472bd;` : `color: #7a22a7;`" @click="esqueciSenha()">Recuperar senha</span></a></p>
       </q-card>
     </q-dialog>
 
@@ -48,7 +48,7 @@
 
     <!-- Cadastro -->
     <q-dialog v-model="sessao" class="navbar_classe" @before-hide="hideCadastro()">
-      <q-card class="cadastrar">
+      <q-card :class="{'dark-cadastrar': darkmode, 'cadastrar': !darkmode}">
         <q-card class="card_titulo">
           <q-card-section>
             <div class="titulo_cadastrar">Junte-se ao World Books!</div>
@@ -105,7 +105,7 @@
                 <template v-slot:append>
                   <q-icon
                     :name="isPwd ? 'visibility_off' : 'visibility'"
-                    class="cursor-pointer"
+                    class="cursor-pointer icone"
                     @click="isPwd = !isPwd"
                   />
                 </template>
@@ -126,7 +126,7 @@
                 <template v-slot:append>
                   <q-icon
                     :name="isPwdConf ? 'visibility_off' : 'visibility'"
-                    class="cursor-pointer"
+                    class="cursor-pointer icone"
                     @click="isPwdConf = !isPwdConf"
                   />
                 </template>
@@ -153,14 +153,14 @@
           <q-btn flat label="Cadastrar" @click="cadastrarUsuario()" class="btn_cadastrar"/>
           <q-btn flat label="Cancelar" @click="limparModal()" class="btn_cancelar"/>
         </q-card-actions>
-          <p class="p_criar-conta">Já possui uma conta? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="logar_conta()">Faça login!</span></a></p>
+          <p class="p_criar-conta">Já possui uma conta? <a href="#" style="text-decoration: none;"><span :style="darkmode ? `color: #a472bd;` : `color: #7a22a7;`" @click="logar_conta()">Faça login!</span></a></p>
       </q-card>
     </q-dialog>
     <!-- Cadastro -->
 
     <!-- esqueci Senha -->
     <q-dialog v-model="esqueciSenhaModal" class="navbar_classe" @before-hide="hideForgot()">
-      <q-card class="cadastrar">
+      <q-card :class="{'dark-cadastrar': darkmode, 'cadastrar': !darkmode}">
         <q-card class="card_titulo">
           <q-card-section>
             <div class="titulo_cadastrar">Esqueceu a senha?</div>
@@ -205,7 +205,7 @@
           <q-btn flat label="Enviar" @click="enviarRedefinirSenha()" class="btn_cadastrar"/>
           <q-btn flat label="Cancelar" @click="limparModal()" class="btn_cancelar"/>
         </q-card-actions>
-          <p class="p_criar-conta">Já possui uma conta? <a href="#" style="text-decoration: none;"><span style="color: #7a22a7;" @click="logar_conta()">Faça login!</span></a></p>
+          <p class="p_criar-conta">Já possui uma conta? <a href="#" style="text-decoration: none;"><span :style="darkmode ? `color: #a472bd;` : `color: #7a22a7;`" @click="logar_conta()">Faça login!</span></a></p>
       </q-card>
     </q-dialog>
     <!-- esqueci Senha -->
@@ -214,336 +214,349 @@
 </template>
 
 <script>
-import { required, sameAs, email } from 'vuelidate/lib/validators'
+  import { required, sameAs, email } from 'vuelidate/lib/validators'
+  import eventBus from '../boot/eventBus'
 
-export default {
-    name: 'LoginRegisterForgot',
-    props: [ 'loginModal','cadastrarModal','forgotModal' ],
-    data () {
+  export default {
+      name: 'LoginRegisterForgot',
+      props: [ 'loginModal','cadastrarModal','forgotModal' ],
+      data () {
         return {
-            dense: true,
-            sessao: this.cadastrarModal,
-            esqueciSenhaModal: this.forgotModal,
-            logar: this.loginModal,
-            text: '',
-            // Is password?
-            isPwd: true,
-            isPwdConf: true,
-            isPwdLogin: true,
-            isIndex: true,
-            logado:false,
-            user: null,
-            formLogin: {
-                email: '',
-                senha: '',
-            },
-            formRegister: {
-                nome: '',
-                apelido: '',
-                email: '',
-                senha: '',
-                repita_senha: '',
-                data_nascimento: '',
-            },
-            formEsqueciSenha: {
-                email: '',
-                confirma_email: ''
-            }
+          dense: true,
+          sessao: this.cadastrarModal,
+          esqueciSenhaModal: this.forgotModal,
+          logar: this.loginModal,
+          text: '',
+          // Is password?
+          isPwd: true,
+          isPwdConf: true,
+          isPwdLogin: true,
+          isIndex: true,
+          logado: false,
+          darkmode: false,
+          user: null,
+          formLogin: {
+              email: '',
+              senha: '',
+          },
+          formRegister: {
+              nome: '',
+              apelido: '',
+              email: '',
+              senha: '',
+              repita_senha: '',
+              data_nascimento: '',
+          },
+          formEsqueciSenha: {
+              email: '',
+              confirma_email: ''
+          }
         }
-    },
-    validations: {
-        formRegister: {
-            nome: { required },
-            apelido: { required },
-            email: { required, email },
-            senha: { required },
-            repita_senha: { required, sameAsPassword: sameAs('senha') },
-            data_nascimento: { required },
-        },
-        formLogin: {
-            email: { required },
-            senha: { required }
-        },
-        formEsqueciSenha: {
-            email: { required },
-            confirma_email: { required, sameAsEmail: sameAs('email') }
-        }
-    },
-    watch:{
-        'loginModal' (to,from){
-            this.logar = to
-        },
-        'cadastrarModal' (to,from){
-            this.sessao = to
-        },
-        'forgotModal' (to,from){
-            this.esqueciSenhaModal = to
-        },
-    },
-    mounted(){
-        this.$v.$reset()
-    },
-    methods: {
-        hideLogin(){
-            this.$emit('hideLogin', this.logar)
-        },
-        hideCadastro(){
-            this.$emit('hideCadastro', this.sessao)
-        },
-        hideForgot(){
-            this.$emit('hideForgot', this.esqueciSenhaModal)
-        },
-        section(){
-            this.logar=false
-            this.sessao=true
-            this.esqueciSenhaModal = false
+      },
+      validations: {
+          formRegister: {
+              nome: { required },
+              apelido: { required },
+              email: { required, email },
+              senha: { required },
+              repita_senha: { required, sameAsPassword: sameAs('senha') },
+              data_nascimento: { required },
+          },
+          formLogin: {
+              email: { required },
+              senha: { required }
+          },
+          formEsqueciSenha: {
+              email: { required },
+              confirma_email: { required, sameAsEmail: sameAs('email') }
+          }
+      },
+      watch:{
+          'loginModal' (to,from){
+              this.logar = to
+          },
+          'cadastrarModal' (to,from){
+              this.sessao = to
+          },
+          'forgotModal' (to,from){
+              this.esqueciSenhaModal = to
+          },
+      },
+      mounted(){
+          this.$v.$reset()
+      },
+      created() {
+        setTimeout(() => {
+            let dark = this.$q.localStorage.getItem('darkmode')
+            this.darkmode = dark == 'true' ? true : false
+        }, 500)
+        eventBus.$on('att-darkmode', async (option) => {
+            setTimeout(async() => {
+                this.darkmode = option
+            }, 500);
+        });
+      },
+      methods: {
+          hideLogin(){
+              this.$emit('hideLogin', this.logar)
+          },
+          hideCadastro(){
+              this.$emit('hideCadastro', this.sessao)
+          },
+          hideForgot(){
+              this.$emit('hideForgot', this.esqueciSenhaModal)
+          },
+          section(){
+              this.logar=false
+              this.sessao=true
+              this.esqueciSenhaModal = false
 
-            this.$set(this,'formRegister', {
-                nome: '',
-                apelido: '',
-                email: '',
-                senha: '',
-                repita_senha: '',
-                data_nascimento: '',
-            })
+              this.$set(this,'formRegister', {
+                  nome: '',
+                  apelido: '',
+                  email: '',
+                  senha: '',
+                  repita_senha: '',
+                  data_nascimento: '',
+              })
 
-        },
-        goIndex(){
+          },
+          goIndex(){
 
-            if(this.user !== null) {
-                this.$router.push({ path: `/iniciar_leitura` })
-            }
-            else {
-                let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
-                if(user !== null) {
-                    this.$router.push({ path: `/iniciar_leitura` })
-                }
-                else {
-                    this.$router.push({path: `/`})
-                }
-            }
-        },
-        logar_conta(){
-            this.sessao=false
-            this.logar=true
-            this.esqueciSenhaModal = false
+              if(this.user !== null) {
+                  this.$router.push({ path: `/iniciar_leitura` })
+              }
+              else {
+                  let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
+                  if(user !== null) {
+                      this.$router.push({ path: `/iniciar_leitura` })
+                  }
+                  else {
+                      this.$router.push({path: `/`})
+                  }
+              }
+          },
+          logar_conta(){
+              this.sessao=false
+              this.logar=true
+              this.esqueciSenhaModal = false
 
-            this.$set(this,'formRegister', {
-                nome: '',
-                apelido: '',
-                email: '',
-                senha: '',
-                repita_senha: '',
-                data_nascimento: '',
-            })
+              this.$set(this,'formRegister', {
+                  nome: '',
+                  apelido: '',
+                  email: '',
+                  senha: '',
+                  repita_senha: '',
+                  data_nascimento: '',
+              })
 
-            this.$set(this,'formLogin', {
-                email: '',
-                senha: '',
-            })
-        },
-        login(){
-            let that = this
+              this.$set(this,'formLogin', {
+                  email: '',
+                  senha: '',
+              })
+          },
+          login(){
+              let that = this
 
-            let params = {
-                email: that.formLogin.email,
-                password: that.formLogin.senha
-            }
+              let params = {
+                  email: that.formLogin.email,
+                  password: that.formLogin.senha
+              }
 
-            that.$axios.post(that.$pathWeb + '/login', params)
-            .then((res) => {
-                // console.log(res)
-                this.$q.sessionStorage.set('auth', JSON.stringify( res.data.data ))
-                this.user = res.data.data
-                this.logado = true
+              that.$axios.post(that.$pathWeb + '/login', params)
+              .then((res) => {
+                  // console.log(res)
+                  this.$q.sessionStorage.set('auth', JSON.stringify( res.data.data ))
+                  this.user = res.data.data
+                  this.logado = true
 
-                this.sessao=false
-                this.logar=false
-                this.esqueciSenhaModal = false
+                  this.sessao=false
+                  this.logar=false
+                  this.esqueciSenhaModal = false
 
-                this.$router.push({path: '/iniciar_leitura'})
-                this.$emit('usuarioLogado', this.user)
-                // that.sucesso()
+                  this.$router.push({path: '/iniciar_leitura'})
+                  this.$emit('usuarioLogado', this.user)
+                  // that.sucesso()
 
-            })
-            .catch((err) => {
-                // console.log(err.response)
-                that.falha('Falha na operação. Por favor verifique o formulário e tente novamente')
-            })
-        },
-        logout(){
-            let that = this
+              })
+              .catch((err) => {
+                  // console.log(err.response)
+                  that.falha('Falha na operação. Por favor verifique o formulário e tente novamente')
+              })
+          },
+          logout(){
+              let that = this
 
-            that.$axios.post(that.$pathWeb + '/logout', this.user)
-            .then((res) => {
-                // console.log(res)
-                this.user = null
-                this.logado = false
-                this.$q.sessionStorage.remove('auth')
+              that.$axios.post(that.$pathWeb + '/logout', this.user)
+              .then((res) => {
+                  // console.log(res)
+                  this.user = null
+                  this.logado = false
+                  this.$q.sessionStorage.remove('auth')
 
-                this.$router.push({path: '/'})
-            })
-            .catch((err) => {
-                // console.log(err.response)
-            })
-        },
-        cadastrarUsuario(){
-            let that = this
+                  this.$router.push({path: '/'})
+              })
+              .catch((err) => {
+                  // console.log(err.response)
+              })
+          },
+          cadastrarUsuario(){
+              let that = this
 
-            if(!this.validarCadastro()) return false
+              if(!this.validarCadastro()) return false
 
-            let params = {
-                name: that.formRegister.nome,
-                apelido: that.formRegister.apelido,
-                email: that.formRegister.email,
-                password: that.formRegister.senha,
-                password_confirmation: that.formRegister.repita_senha,
-                data_nascimento: that.formRegister.data_nascimento
-            }
+              let params = {
+                  name: that.formRegister.nome,
+                  apelido: that.formRegister.apelido,
+                  email: that.formRegister.email,
+                  password: that.formRegister.senha,
+                  password_confirmation: that.formRegister.repita_senha,
+                  data_nascimento: that.formRegister.data_nascimento
+              }
 
-            that.$axios.post(that.$pathAPI + '/register', params)
-            .then((res) => {
-                this.sessao = false
-                this.logar=true
+              that.$axios.post(that.$pathAPI + '/register', params)
+              .then((res) => {
+                  this.sessao = false
+                  this.logar=true
 
-                this.$set(this,'formRegister', {
-                    nome: '',
-                    apelido: '',
-                    email: '',
-                    senha: '',
-                    repita_senha: '',
-                    data_nascimento: '',
-                })
+                  this.$set(this,'formRegister', {
+                      nome: '',
+                      apelido: '',
+                      email: '',
+                      senha: '',
+                      repita_senha: '',
+                      data_nascimento: '',
+                  })
 
-                that.sucesso('Cadastrado com sucesso! Conecte-se na plataforma.')
+                  that.sucesso('Cadastrado com sucesso! Conecte-se na plataforma.')
 
-                this.$v.$reset()
-            })
-            .catch((err) => {
-                that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
-                // console.log(err)
-            })
-        },
-        enviarRedefinirSenha(){
-            let that = this
+                  this.$v.$reset()
+              })
+              .catch((err) => {
+                  that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
+                  // console.log(err)
+              })
+          },
+          enviarRedefinirSenha(){
+              let that = this
 
-            if(!this.validarRedefinirSenha()) return false
+              if(!this.validarRedefinirSenha()) return false
 
-            let params = {
-                email: that.formEsqueciSenha.email,
-                email_confirmation: that.formEsqueciSenha.confirma_email
-            }
+              let params = {
+                  email: that.formEsqueciSenha.email,
+                  email_confirmation: that.formEsqueciSenha.confirma_email
+              }
 
-            that.$axios.post(that.$pathAPI + '/forgot-password', params)
-            .then((res) => {
-                this.$set(this,'formEsqueciSenha', {
-                    email: '',
-                    confirma_email: '',
-                })
+              that.$axios.post(that.$pathAPI + '/forgot-password', params)
+              .then((res) => {
+                  this.$set(this,'formEsqueciSenha', {
+                      email: '',
+                      confirma_email: '',
+                  })
 
-                this.sessao=false
-                this.logar=false
-                this.esqueciSenhaModal = false
+                  this.sessao=false
+                  this.logar=false
+                  this.esqueciSenhaModal = false
 
-                that.sucesso('Cadastrado com sucesso! Conecte-se na plataforma.')
+                  that.sucesso('Cadastrado com sucesso! Conecte-se na plataforma.')
 
-                this.$v.$reset()
-            })
-            .catch((err) => {
-                // console.log(err.response)
-                that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
+                  this.$v.$reset()
+              })
+              .catch((err) => {
+                  // console.log(err.response)
+                  that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
 
-            })
-        },
-        validarCadastro() {
-            this.$v.formRegister.$touch()
+              })
+          },
+          validarCadastro() {
+              this.$v.formRegister.$touch()
 
-            if (this.$v.formRegister.$anyError) {
+              if (this.$v.formRegister.$anyError) {
 
-                this.$q.notify({
-                    position: 'top',
-                    color: 'warning',
-                    textColor: 'black',
-                    message: 'Preencha os campos obrigatórios',
-                    icon: 'report_problem',
-                    timeout: 10000,
-                    actions: [
-                        { label: 'Fechar', color: 'black', handler: () => {} }
-                    ]
-                })
+                  this.$q.notify({
+                      position: 'top',
+                      color: 'warning',
+                      textColor: 'black',
+                      message: 'Preencha os campos obrigatórios',
+                      icon: 'report_problem',
+                      timeout: 10000,
+                      actions: [
+                          { label: 'Fechar', color: 'black', handler: () => {} }
+                      ]
+                  })
 
-                return false
+                  return false
 
-            }
+              }
 
-            return true
+              return true
 
-        },
-        validarRedefinirSenha() {
-            this.$v.formEsqueciSenha.$touch()
+          },
+          validarRedefinirSenha() {
+              this.$v.formEsqueciSenha.$touch()
 
-            if (this.$v.formEsqueciSenha.$anyError) {
+              if (this.$v.formEsqueciSenha.$anyError) {
 
-                this.$q.notify({
-                    position: 'top',
-                    color: 'warning',
-                    textColor: 'black',
-                    message: 'Preencha os campos obrigatórios',
-                    icon: 'report_problem',
-                    timeout: 10000,
-                    actions: [
-                        { label: 'Fechar', color: 'black', handler: () => {} }
-                    ]
-                })
+                  this.$q.notify({
+                      position: 'top',
+                      color: 'warning',
+                      textColor: 'black',
+                      message: 'Preencha os campos obrigatórios',
+                      icon: 'report_problem',
+                      timeout: 10000,
+                      actions: [
+                          { label: 'Fechar', color: 'black', handler: () => {} }
+                      ]
+                  })
 
-                return false
+                  return false
 
-            }
+              }
 
-            return true
+              return true
 
-        },
-        esqueciSenha(){
-            this.sessao = false
-            this.logar = false
-            this.esqueciSenhaModal = true
+          },
+          esqueciSenha(){
+              this.sessao = false
+              this.logar = false
+              this.esqueciSenhaModal = true
 
 
-            this.$set(this,'formEsqueciSenha', {
-                email: '',
-                confirma_email: ''
-            })
-        },
-        limparModal(){
-            this.sessao = false
-            this.logar = false
-            this.esqueciSenhaModal = false
+              this.$set(this,'formEsqueciSenha', {
+                  email: '',
+                  confirma_email: ''
+              })
+          },
+          limparModal(){
+              this.sessao = false
+              this.logar = false
+              this.esqueciSenhaModal = false
 
-            this.$set(this,'formEsqueciSenha', {
-                email: '',
-                confirma_email: ''
-            })
+              this.$set(this,'formEsqueciSenha', {
+                  email: '',
+                  confirma_email: ''
+              })
 
-            this.$set(this,'formRegister', {
-                nome: '',
-                apelido: '',
-                email: '',
-                senha: '',
-                repita_senha: '',
-                data_nascimento: '',
-            })
+              this.$set(this,'formRegister', {
+                  nome: '',
+                  apelido: '',
+                  email: '',
+                  senha: '',
+                  repita_senha: '',
+                  data_nascimento: '',
+              })
 
-            this.$set(this,'formLogin', {
-                email: '',
-                senha: '',
-            })
+              this.$set(this,'formLogin', {
+                  email: '',
+                  senha: '',
+              })
 
-            this.hideLogin()
-        },
+              this.hideLogin()
+          },
 
-    }
+      }
 
-}
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -551,4 +564,8 @@ export default {
   @import '../css/tela-inicial.scss';
   @import '../css/footer.scss';
   @import '../css/dialogs.scss';
+
+  @import '../css/darkMode/tela-inicial-dark.scss';
+  @import '../css/darkMode/footer-dark.scss';
+  @import '../css/darkMode/dialogs-dark.scss';
 </style>

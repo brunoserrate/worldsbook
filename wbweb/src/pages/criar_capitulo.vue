@@ -1,5 +1,5 @@
 <template>
-    <q-page class="criar_capitulo">
+    <q-page :class="{'dark-criar_capitulo': darkmode, 'criar_capitulo': !darkmode}">
         <div class="row justify-end items-center content-center navbar_capitulo">
             <div class="col-4 col-sm-2 col_btn">
                 <q-btn flat label="Publicar" class="btn_seguinte" @click="setCapitulo">
@@ -33,6 +33,7 @@
                 <q-editor
                     class="editor-text"
                     toolbar-toggle-color="primary"
+                    :toolbar-text-color="darkmode ? 'grey-6' : ''"
                     v-model="capitulo.capitulo"
                     :definitions="{
                         bold: {label: 'Bold', icon: null, tip: 'My bold tooltip'}
@@ -43,6 +44,7 @@
     </q-page>
 </template>
 <script>
+    import eventBus from '../boot/eventBus'
     export default {
         data (){
             return {
@@ -56,12 +58,21 @@
                     quantidade_visualizacao: 0
                 },
                 capitulos: [],
+                darkmode: false,
                 visible: false,
                 showSimulatedReturnData: false
             }
         },
-        mounted(){
-            // console.log(this.$route.params.historia_id)
+        created() {
+			setTimeout(() => {
+				let dark = this.$q.localStorage.getItem('darkmode')
+				this.darkmode = dark == 'true' ? true : false
+			}, 500)
+			eventBus.$on('att-darkmode', async (option) => {
+				setTimeout(async() => {
+					this.darkmode = option
+				}, 500);
+			});
         },
         methods: {
             setCapitulo(){
@@ -100,4 +111,5 @@
 </script>
 <style lang="scss" scoped>
     @import '../css/criar_capitulo.scss';
+    @import '../css/darkMode/criar_capitulo-dark.scss';
 </style>

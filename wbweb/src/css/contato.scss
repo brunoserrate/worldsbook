@@ -1,69 +1,11 @@
 
-// .bgindex{
-//     background: url('~assets/background.svg');
-//     background-size: 30%;
-//     position: absolute;
-//     background-repeat: no-repeat;
-//     background-position: right center;
-//     left: 0;
-//     top: 0;
-//     width: 100%;
-//     height: 100%;
-//     // z-index: 10000;
-// }
-.h1 {
-    font-size: 22px;
-    font-family: 'Raleway';
-    font-weight: bold;
-    text-transform: uppercase;
-    margin: 18px 0px 0 0px;
-}
-.p{
-    font-family: 'Raleway';
-    font-size: 16px;
-}
-.email-icone {
-    font-size: 29px;
-    color: #787878;
-    margin: 0px 24px 0 0;
-}
-
-.icone_svg {
-    width: 29px;
-    margin: 0px 24px 0 0;
-}
-
-.email-suporte{
-    font-family: raleway;
-    font-weight: bold;
-    font-size: 15px;
-    background-color: #bf70cb21;
-    width: 251px;
-    cursor: pointer;
-}
-.separator_mobile {
-    display: none;
-}
-@media screen and (min-width: 980px) {
-    
-    .bgindex{
-        background: url('~assets/background.svg');
-        background-size: 30%;
-        position: absolute;
-        background-repeat: no-repeat;
-        background-position: right center;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        // z-index: 10000;
-    }
+.contato {
     .h1 {
         font-size: 22px;
         font-family: 'Raleway';
         font-weight: bold;
         text-transform: uppercase;
-        margin: 162px 0px 0 0px;
+        margin: 18px 0px 0 0px;
     }
     .p{
         font-family: 'Raleway';
@@ -74,12 +16,12 @@
         color: #787878;
         margin: 0px 24px 0 0;
     }
-
+    
     .icone_svg {
         width: 29px;
         margin: 0px 24px 0 0;
     }
-
+    
     .email-suporte{
         font-family: raleway;
         font-weight: bold;
@@ -89,10 +31,56 @@
         cursor: pointer;
     }
     .separator_mobile {
-        display: block;
+        display: none;
     }
-    .separator_format {
-        margin: 147px 0 0 0; 
-        height: 73%;
+}
+@media screen and (min-width: 980px) {
+    .contato{
+        background-image: url('~assets/background.svg');
+        background-size: 58vh;
+        position: absolute;
+        background-repeat: no-repeat;
+        background-position: right center;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        transition: background-color 0.3s ease, background-image 0.3s ease;
+        // z-index: 10000;
+        .h1 {
+            font-size: 22px;
+            font-family: 'Raleway';
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 162px 0px 0 0px;
+        }
+        .p{
+            font-family: 'Raleway';
+            font-size: 16px;
+        }
+        .email-icone {
+            font-size: 29px;
+            color: #787878;
+            margin: 0px 24px 0 0;
+        }
+        .icone_svg {
+            width: 29px;
+            margin: 0px 24px 0 0;
+        }
+        .email-suporte{
+            font-family: raleway;
+            font-weight: bold;
+            font-size: 15px;
+            background-color: #bf70cb21;
+            width: 251px;
+            cursor: pointer;
+        }
+        .separator_mobile {
+            display: block;
+        }
+        .separator_format {
+            margin: 147px 0 0 0; 
+            height: 73%;
+        }
     }
 }

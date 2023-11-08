@@ -1,5 +1,5 @@
 <template>
-    <q-page>
+    <q-page :class="{'dark-perfil': darkmode, 'perfil': !darkmode}">
         <q-inner-loading
             :showing="visible"
             label-class="text-teal"
@@ -30,7 +30,7 @@
                 </q-card>
             </div>
         </div>
-        <div class="row">
+        <div class="row historias">
             <div class="col-10 col-md-4 offset-1">
                 <q-card class="card_desc_user">
                     <div class="row">
@@ -62,10 +62,10 @@
                                 transition-next="slide-left"
                                 swipeable
                                 animated
-                                control-color="primary"
+                                control-color="white"
                                 padding
                                 arrows
-                                class="bg-grey-1 shadow-2 rounded-borders carousel-format"
+                                class="shadow-2 rounded-borders carousel-format"
                                 >
                                 <q-carousel-slide :name="i" class="column no-wrap" v-for="(livro, i) in usuario.historias" :key="i" @click="goLivro(livro)">
                                     <div class="row">
@@ -127,7 +127,7 @@
                                     <div class="col-12">
                                         <p class="livro_titulo">{{livro.titulo}}</p>
                                     </div>
-                                    <div class="row" style="width: 100%; margin: 0 0px 0 -17px;">
+                                    <div class="row align-icons-historias">
                                         <div class="col-1 align_icone">
                                             <q-icon name="grade" class="icons_card" />
                                         </div>
@@ -160,96 +160,109 @@
     </q-page>
 </template>
 <script>
-export default {
-    name: 'criar-historia',
-    data(){
-        return {
-            user: {},
-            usuario: {
-                apelido: '',
-                avatar: '',
-                email: '',
-                nome: '',
-                token: '',
-                usar_apelido: '',
-                capa: '',
-                historias: []
-            },
-            slide: 1,
-            descricao: 'Siga-me nas redes sociais! :D',
-            visible: false,
-            showSimulatedReturnData: false
-        }
-    },
-
-    mounted(){
-        let param_id = this.$route.params.perfil_id
-
-        if(param_id != undefined){
-            this.getUser()
-            this.getUserEndpoint(param_id)
-        }
-        else {
-            this.getUser()
-            this.getUserEndpoint(0)
-        }
-    },
-
-	filters: {
-		cutDescricao(value){
-			let tamanho_max = 150;
-
-			if(value != undefined && value != null) {
-				if(value.length > tamanho_max) {
-					return value.substring(0, tamanho_max) + '...'
-				}
-				return value
-			}
-
-		}
-	},
-    methods: {
-        goLivro(livro){
-            // console.log(livro)
-            this.$router.push({path: `/livro/` + livro.id})
-        },
-        goEditPerfil(){
-            this.$router.push({path: `/editar_perfil/` + this.user.user_id})
-        },
-        getUserEndpoint(user_id){
-            let that = this
-
-            that.visible = true
-            that.showSimulatedReturnData = false
-
-            let url = `/user/pesquisa?pesquisa=${this.user.user_id}`
-
-            if(user_id != 0){
-                url = `/user/pesquisa?pesquisa=${user_id}`
+    import eventBus from '../boot/eventBus'
+    export default {
+        name: 'criar-historia',
+        data(){
+            return {
+                user: {},
+                usuario: {
+                    apelido: '',
+                    avatar: '',
+                    email: '',
+                    nome: '',
+                    token: '',
+                    usar_apelido: '',
+                    capa: '',
+                    historias: []
+                },
+                slide: 1,
+                descricao: 'Siga-me nas redes sociais! :D',
+                visible: false,
+                showSimulatedReturnData: false,
+				darkmode: false,
             }
-
-			that.$axios.get(that.$pathAPI + url)
-			.then((res) => {
-				this.usuario = res.data.data
-                // console.log(that.usuario)
-
-                that.visible = false
-                that.showSimulatedReturnData = true
-			})
-			.catch((err) => {
-				console.log(err.response)
-                that.visible = false
-                that.showSimulatedReturnData = true
-                this.erroCarregar()
-			})
         },
-        getHistoriaFinalizada(historia_finalizada){
-            if(historia_finalizada == 0){ return "Em andamento" }
-            return "Concluída"
+
+        mounted(){
+            let param_id = this.$route.params.perfil_id
+
+            if(param_id != undefined){
+                this.getUser()
+                this.getUserEndpoint(param_id)
+            }
+            else {
+                this.getUser()
+                this.getUserEndpoint(0)
+            }
         },
+        created() {
+			setTimeout(() => {
+				let dark = this.$q.localStorage.getItem('darkmode')
+				this.darkmode = dark == 'true' ? true : false
+			}, 500)
+			eventBus.$on('att-darkmode', async (option) => {
+				setTimeout(async() => {
+					this.darkmode = option
+				}, 500);
+			});
+        },
+        filters: {
+            cutDescricao(value){
+                let tamanho_max = 150;
+
+                if(value != undefined && value != null) {
+                    if(value.length > tamanho_max) {
+                        return value.substring(0, tamanho_max) + '...'
+                    }
+                    return value
+                }
+
+            }
+        },
+        methods: {
+            goLivro(livro){
+                // console.log(livro)
+                this.$router.push({path: `/livro/` + livro.id})
+            },
+            goEditPerfil(){
+                this.$router.push({path: `/editar_perfil/` + this.user.user_id})
+            },
+            getUserEndpoint(user_id){
+                let that = this
+
+                that.visible = true
+                that.showSimulatedReturnData = false
+
+                let url = `/user/pesquisa?pesquisa=${this.user.user_id}`
+
+                if(user_id != 0){
+                    url = `/user/pesquisa?pesquisa=${user_id}`
+                }
+
+                that.$axios.get(that.$pathAPI + url)
+                .then((res) => {
+                    this.usuario = res.data.data
+                    // console.log(that.usuario)
+
+                    that.visible = false
+                    that.showSimulatedReturnData = true
+                })
+                .catch((err) => {
+                    console.log(err.response)
+                    that.visible = false
+                    that.showSimulatedReturnData = true
+                    this.erroCarregar()
+                })
+            },
+            getHistoriaFinalizada(historia_finalizada){
+                if(historia_finalizada == 0){ return "Em andamento" }
+                return "Concluída"
+            },
+        }
     }
-}
 </script>
 <style lang="scss" scoped>
     @import '../css/perfil.scss';
+    @import '../css/darkMode/perfil-dark.scss';
 </style>

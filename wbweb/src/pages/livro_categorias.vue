@@ -1,5 +1,5 @@
 <template>
-    <q-page>
+    <q-page :class="{ 'dark-livro_categorias': darkmode, 'livro_categorias': !darkmode }">
         <q-inner-loading
             :showing="visible"
             label-class="text-teal"
@@ -69,8 +69,8 @@
                 </div>
             </div>
         </div>
-		<q-dialog v-model="livro_dialog_mobile" class="navbar_classe_mobile">
-			<q-card class="card_detail_historia_mobile">
+		<q-dialog v-model="livro_dialog_mobile">
+			<q-card :class="{'dark-card_detail_historia_mobile': darkmode, 'card_detail_historia_mobile': !darkmode}">
 				<div class="row" style="height: 100%;">
 					<div class="col-12 cover_dialog">
 						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
@@ -100,8 +100,8 @@
 				</div>
 			</q-card>
 		</q-dialog>
-		<q-dialog v-model="livro_dialog" class="navbar_classe">
-			<q-card class="card_detail_historia_desktop">
+		<q-dialog v-model="livro_dialog">
+			<q-card :class="{'dark-card_detail_historia_desktop': darkmode, 'card_detail_historia_desktop': !darkmode}">
 				<div class="row" style="height: 100%;">
 					<div class="col-6">
 						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
@@ -137,124 +137,137 @@
     </q-page>
 </template>
 <script>
-export default {
-    name:'livro-categoria',
-	data (){
-		return {
-			categoria_id: this.$route.params.categoria_id,
-            categoria: this.$route.params.categoria_nome,
-            livro_dialog: false,
-            livro_dialog_mobile: false,
-            livro_detail: {},
-			livros:[],
-			livro: {
-				apelido_usuario: '',
-                caminho_capa: '',
-                capitulos: '',
-                categoria_id: '',
-                conteudo_adulto: '',
-                data_atualizacao: '',
-                data_criacao: '',
-                descricao: '',
-                direito_autoral: '',
-                direitos_autorais_id: '',
-                foto_perfil: '',
-                historia_finalizada: '',
-                id: '',
-                idioma_id: '',
-                nome_usuario: '',
-                publico_alvo_id: '',
-                tags: '',
-                titulo: '',
-                total_capitulos: '',
-                total_visualizacoes: '',
-                total_votos: '',
-                usar_apelido: '',
-                usuario_id: '',
-			},
-			window: {
-				width: 0,
-			},
-            visible: false,
-            showSimulatedReturnData: false
-        }
-    },
-    mounted(){
-        this.getLivros()
-    },
-	filters: {
-		cutDescricao(value){
-			let tamanho_max = 150;
-
-			if(value != undefined && value != null) {
-				if(value.length > tamanho_max) {
-					return value.substring(0, tamanho_max) + '...'
-				}
-				return value
-			}
-
-		}
-	},
-    created() {
-        window.addEventListener('resize', this.handleResize);
-        this.handleResize();
-    },
-    destroyed() {
-        window.removeEventListener('resize', this.handleResize);
-    },
-    methods: {
-		handleResize() {
-            this.window.width = window.innerWidth;
+    import eventBus from '../boot/eventBus'
+    export default {
+        name:'livro-categoria',
+        data (){
+            return {
+                categoria_id: this.$route.params.categoria_id,
+                categoria: this.$route.params.categoria_nome,
+                livro_dialog: false,
+                livro_dialog_mobile: false,
+                livro_detail: {},
+                livros:[],
+                livro: {
+                    apelido_usuario: '',
+                    caminho_capa: '',
+                    capitulos: '',
+                    categoria_id: '',
+                    conteudo_adulto: '',
+                    data_atualizacao: '',
+                    data_criacao: '',
+                    descricao: '',
+                    direito_autoral: '',
+                    direitos_autorais_id: '',
+                    foto_perfil: '',
+                    historia_finalizada: '',
+                    id: '',
+                    idioma_id: '',
+                    nome_usuario: '',
+                    publico_alvo_id: '',
+                    tags: '',
+                    titulo: '',
+                    total_capitulos: '',
+                    total_visualizacoes: '',
+                    total_votos: '',
+                    usar_apelido: '',
+                    usuario_id: '',
+                },
+                window: {
+                    width: 0,
+                },
+                visible: false,
+                showSimulatedReturnData: false,
+                darkmode: false
+            }
         },
-		getLivros(){
-			let that = this
+        mounted(){
+            this.getLivros()
+        },
+        filters: {
+            cutDescricao(value){
+                let tamanho_max = 150;
 
-            that.visible = true
-            that.showSimulatedReturnData = false
+                if(value != undefined && value != null) {
+                    if(value.length > tamanho_max) {
+                        return value.substring(0, tamanho_max) + '...'
+                    }
+                    return value
+                }
 
-			that.$axios.get(that.$pathAPI + `/historia/categoria/pesquisa?categoria_id=${this.categoria_id}`)
-			.then((res) => {
-				that.livros = res.data.data
-				// console.log("livros", that.livros)
+            }
+        },
+        created() {
+            window.addEventListener('resize', this.handleResize);
+            this.handleResize();
+            setTimeout(() => {
+				let dark = this.$q.localStorage.getItem('darkmode')
+				this.darkmode = dark == 'true' ? true : false
+			}, 500)
+			eventBus.$on('att-darkmode', async (option) => {
+				setTimeout(async() => {
+					this.darkmode = option
+				}, 500);
+			});
+        },
+        destroyed() {
+            window.removeEventListener('resize', this.handleResize);
+        },
+        methods: {
+            handleResize() {
+                this.window.width = window.innerWidth;
+            },
+            getLivros(){
+                let that = this
 
-                that.visible = false
-                that.showSimulatedReturnData = true
-			})
-			.catch((err) => {
-				console.log(err.response)
-                that.visible = false
-                that.showSimulatedReturnData = true
-                this.erroCarregar()
-			})
-		},
-        goBackPageCategorias(){
-            this.$router.push({ path: `/categorias` })
-        },
-        openDialog(livro){
-            if (this.window.width > 980){
-                this.getLivro(livro)
-            }else { 
-                this.getLivroMobile(livro)
-            }   
-        },
-        getLivro(livro){
-            // console.log(livro)
-            this.livro_detail = livro
-            this.livro_dialog = true
-        },
-        getLivroMobile(livro){
-            // console.log(livro)
-            this.livro_detail = livro
-            this.livro_dialog_mobile = true
-        },
-        goLivro(livro_detail){
-            // console.log(livro_detail)
-            this.$router.push({path: `/livro/` + livro_detail.id})
+                that.visible = true
+                that.showSimulatedReturnData = false
+
+                that.$axios.get(that.$pathAPI + `/historia/categoria/pesquisa?categoria_id=${this.categoria_id}`)
+                .then((res) => {
+                    that.livros = res.data.data
+                    // console.log("livros", that.livros)
+
+                    that.visible = false
+                    that.showSimulatedReturnData = true
+                })
+                .catch((err) => {
+                    console.log(err.response)
+                    that.visible = false
+                    that.showSimulatedReturnData = true
+                    this.erroCarregar()
+                })
+            },
+            goBackPageCategorias(){
+                this.$router.push({ path: `/categorias` })
+            },
+            openDialog(livro){
+                if (this.window.width > 980){
+                    this.getLivro(livro)
+                }else { 
+                    this.getLivroMobile(livro)
+                }   
+            },
+            getLivro(livro){
+                // console.log(livro)
+                this.livro_detail = livro
+                this.livro_dialog = true
+            },
+            getLivroMobile(livro){
+                // console.log(livro)
+                this.livro_detail = livro
+                this.livro_dialog_mobile = true
+            },
+            goLivro(livro_detail){
+                // console.log(livro_detail)
+                this.$router.push({path: `/livro/` + livro_detail.id})
+            }
         }
     }
-}
 </script>
 <style lang="scss" scoped>
     @import '../css/livro_categorias.scss';
     @import '../css/dialogs.scss';
+    @import '../css/darkMode/livro_categorias-dark.scss';
+    @import '../css/darkMode/dialogs-dark.scss';
 </style>

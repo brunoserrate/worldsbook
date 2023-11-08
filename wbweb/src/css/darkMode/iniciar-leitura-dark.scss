@@ -1,0 +1,201 @@
+.dark-bgIniciar-leitura{
+    background: linear-gradient(88deg, #38293f 0%, #211a2d 100%);
+    transition: background-color 0.3s ease;
+    .row-cover {
+        .text-over-cover {
+            font-family: "Raleway", "Century Gothic", serif;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 3vh;
+            color: #c9c9c9;
+            // margin: 80px 0 46px 0;
+        }
+        .align-cover {
+            display: flex;
+            justify-content: center;
+            .cover{
+                width: 100%;
+                height: 100%;
+                border-radius: 14px;
+                border: solid 3px #FFF;
+                cursor: pointer;
+                transition: filter .3s ease;
+                &:hover {
+                    filter: brightness(1.1);
+                }
+            } 
+        }
+        .row-saudacoes {
+            .welcomeUser{
+                font-size: 6vh;
+                font-weight: bold;
+                font-family: "Raleway", "Century Gothic", serif;
+                // margin: 73px 0px 0px 51px;
+                text-align: center;
+                margin-top: 0;
+                padding: 0 10px;
+                color: #c9c9c9;
+                // line-height: 0;
+            }
+            .bestChooses{
+                font-family: "Raleway", "Century Gothic", serif;
+                font-size: 2.5vh;
+                text-align: center;
+                text-transform: uppercase;
+                text-align: center;
+                color: #c9c9c9;
+            }
+        }
+    }
+    .row_livros {
+        h3 {
+            font-size: 4vh;
+            font-weight: bold;
+            font-family: "Raleway", "Century Gothic", serif;
+            text-align: center;
+            line-height: 1;
+            padding: 0 24px;
+            color: #c9c9c9;
+        }
+        .col-categorias, .col-livros {
+            .categorias {
+                padding: 25px 0px 25px 0px;
+                .slides_style{
+                    padding: 0 70px;
+                    border-radius: 8px;
+                    .slides_historias{
+                        border-radius: 0px;
+                        cursor: pointer;
+                        transition: filter 0.3s ease, border-radius 0.3s ease;
+                        border: solid 12px #b5b5b5;
+                        &:hover{
+                            // border: solid 4px #fff;
+                            border-radius: 12px;
+                            filter: brightness(0.7);
+                            // border-radius: 0px;
+                        }
+                    }
+                }
+            }
+        }
+        
+        .chooses_titulos {
+            .title-categorias {
+                margin: 63px 0 6px 0px;
+                font-family: "Raleway", "Century Gothic", serif;
+                font-size: 26px;
+                text-align: center;
+                text-transform: uppercase;
+            }
+        }
+        .chooses-1, .col-categorias-1 {
+            background: #dedede;
+            background: linear-gradient(90deg, #f1eafd, #8b789a);
+        }
+        .chooses-2, .col-categorias-2 {
+
+        }
+    }
+} 
+
+@media screen and (min-width: 600px){
+    .dark-bgIniciar-leitura {
+        .row-cover {
+            .row-saudacoes {
+                .welcomeUser{
+                    font-size: 6vh;
+                    font-weight: bold;
+                    font-family: "Raleway", "Century Gothic", serif;
+                    text-align: center;
+                    line-height: 0;
+
+                }
+            }
+        }
+        .row_livros {
+            .col-categorias, .col-livros {
+                .categorias {
+                    padding: 43px 90px;
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width: 980px){
+    .dark-bgIniciar-leitura{
+        .row-cover {
+            .text-over-cover {
+                font-family: "Raleway", "Century Gothic", serif;
+                text-align: center;
+                font-weight: bold;
+                text-transform: uppercase;
+                font-size: 3vh;
+                // margin: 80px 0 46px 0;
+            }
+            .align-cover {
+                display: flex;
+                justify-content: center;
+                .cover{
+                    width: 95%;
+                    height: 100%;
+                    border-radius: 14px;
+                    border: solid 3px #FFF;
+                    cursor: pointer;
+                    transition: filter .3s ease;
+                    &:hover {
+                        filter: brightness(1.1);
+                    }
+                } 
+            }
+            .row-saudacoes {
+                .welcomeUser{
+                    font-size: 6vh;
+                    font-weight: bold;
+                    font-family: "Raleway", "Century Gothic", serif;
+                    // margin: 73px 0px 0px 51px;
+                    text-align: center;
+                    line-height: 0;
+                }
+                .bestChooses{
+                    font-family: "Raleway", "Century Gothic", serif;
+                    font-size: 2.5vh;
+                    text-align: center;
+                    text-transform: uppercase;
+                    text-align: center;
+                }
+            }
+        }
+        .row_livros {
+            h3 {
+                font-size: 4vh;
+                font-weight: bold;
+                font-family: "Raleway", "Century Gothic", serif;
+                text-align: center;
+                line-height: 0;
+            }
+            .col-categorias, .col-livros {
+                .categorias {
+                    padding: 43px 90px;
+                }
+            }
+            
+            .chooses_titulos {
+                .title-categorias {
+                    margin: 63px 0 6px 0px;
+                    font-family: "Raleway", "Century Gothic", serif;
+                    font-size: 26px;
+                    text-align: center;
+                    text-transform: uppercase;
+                }
+            }
+            .chooses-1, .col-categorias-1 {
+                background: #dedede;
+                background: linear-gradient(90deg, #f1eafd, #8b789a);
+            }
+            .chooses-2, .col-categorias-2 {
+
+            }
+        }
+    }   
+}

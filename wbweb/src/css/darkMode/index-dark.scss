@@ -1,0 +1,223 @@
+.dark-bgindex {
+    background-color: #332c3f;
+    transition: background-color 0.3s ease;
+    .row_page {
+        margin-top: 0px;
+        padding: 20px;
+        .menu-hamburguer{
+            
+        }
+        .welcomeWorldBooks{
+            // margin: 69px 0 5px 0px;
+            font-size: 2.6em;
+            text-align: center;
+            text-transform: uppercase;
+            line-height: 40px;
+            padding: 0;
+            font-family: 'Poppins';
+            font-weight: 700;
+            -webkit-background-clip: text;
+            background-clip: text;
+            background-image: linear-gradient(268deg, #853197, #e5cbe4);
+            color: transparent;
+        }
+        .texto{
+            font-size: 19px;
+            text-align: justify;
+            padding: 0 36px 0px 0;
+            margin: 0 0 43px 0;
+            font-family: 'Raleway';
+            color: #e5cfe3;
+        }
+        .segundaPlataforma{
+            font-size: 19px;
+            font-family: 'Raleway';
+            font-weight: bold;
+            color: #7a22a7;
+            text-align: center;
+            margin: 17px 0 4px 0;
+            -webkit-background-clip: text;
+            background-clip: text;
+            background-image: linear-gradient(270deg, #a652d1, #e99df9);
+            color: transparent;
+            line-height: 3vh;
+        }
+        .align_btn {
+            .btn_iniciar-leitura {
+                color: rgb(255 255 255);
+                font-size: 13px;
+                background: linear-gradient(270deg, #b187e6, #9a46c4);
+                font-family: Raleway;
+                font-weight: bold;
+            }
+            
+            .btn_comece-escrever{
+                color: rgb(255 255 255);
+                background-color: #7a22a7;
+                font-size: 13px;
+                background: linear-gradient(270deg, #b187e6, #9a46c4);
+                font-family: Raleway;
+                font-weight: bold;
+            }
+        }
+        .mascote-image{
+            display: none;
+            // float: right;
+        }
+        .footer_pages{
+            display: none !important;
+        }
+        .align_btn {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+@media screen and (min-width: 600px){
+    .dark-bgindex {
+        background-color: #332c3f;
+        .row_page {
+            .mascote-image{
+                display: block;
+                width: 25em;
+                margin: 68px 0 0 0;
+            } 
+            .welcomeWorldBooks{
+                margin: 20px 0 5px 0px;
+                font-size: 8vh;
+                text-align: left;
+                text-transform: uppercase;
+                line-height: 8vh;
+                padding: 0;
+                font-family: "Poppins";
+                font-weight: 700;
+                -webkit-background-clip: text;
+                background-clip: text;
+                background-image: linear-gradient(268deg, #853197, #e5cbe4);
+                color: transparent;
+            }
+            .segundaPlataforma {
+                font-size: 21px;
+                font-family: 'Raleway';
+                font-weight: bold;
+                color: #7a22a7;
+                text-align: left;
+                line-height: 1;
+                -webkit-background-clip: text;
+                background-clip: text;
+                background-image: linear-gradient(270deg, #a652d1, #e99df9);
+                color: transparent;
+            }
+            .texto{
+                padding: 0 6px 0px 0;
+            }
+        }
+    }
+}
+@media screen and (min-width: 800px){
+    .dark-bgindex {
+        background-color: #332c3f;
+        transition: background-color 0.3s ease;
+        .row_page {
+            .mascote-image{
+                display: block;
+                width: 35em;
+                // float: right;
+            } 
+            .align_btn {
+                display: flex;
+                justify-content: flex-start;
+            }
+        }
+    }
+}
+@media screen and (min-width: 980px){
+    .dark-bgindex{
+        background: url('~assets/background.svg');
+        background-size: 58vh;
+        position: absolute;
+        background-repeat: no-repeat;
+        background-position: right center;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #332c3f;
+        transition: background-color 0.3s ease;
+        // z-index: 10000;
+        .row_page{
+            margin-top: 120px;
+            .welcomeWorldBooks{
+                margin: 15px 0 5px 0px;
+                font-size: 7vh;
+                text-align: left;
+                text-transform: uppercase;
+                line-height: 6vh;
+                padding: 0 87px 0 0px;
+                font-family: 'Poppins';
+                font-weight: 700;
+                -webkit-background-clip: text;
+                background-clip: text;
+                background-image: linear-gradient(268deg, #853197, #e5cbe4);
+                color: transparent;
+            }
+            .texto{
+                font-family: Raleway;
+                font-size: 1.8vh;
+                text-align: justify;
+                padding: 0 94px 0 0px;
+                margin: 0 0 43px 0;
+            }
+            .segundaPlataforma{
+                font-size: 2.6vh;
+                font-family: 'Raleway';
+                font-weight: bold;
+                color: #7a22a7;
+                width: 614px;
+                text-align: left;
+                margin: 20px 0;
+                height: 100%;
+                -webkit-background-clip: text;
+                background-clip: text;
+                background-image: linear-gradient(270deg, #a652d1, #e99df9);
+                color: transparent;
+            }
+            .align_btn {
+                .btn_comece-escrever{
+                    color: rgb(255 255 255);
+                    background: linear-gradient(270deg, #b187e6, #9a46c4);
+                    font-size: 14px;
+                    font-family: Raleway;
+                    font-weight: bold;
+                }
+                .btn_iniciar-leitura {
+                    color: rgb(255 255 255);
+                    background: linear-gradient(270deg, #b187e6, #9a46c4);
+                    font-family: Raleway;
+                    font-weight: bold;
+                    font-size: 14px;
+                }
+            }
+            .mascote-image{
+                margin: 0% 0% 0 0%;
+                width: 130%;
+                display: block;
+            }
+            .footer_pages{
+                display: none !important;
+            }
+        }
+    }
+}
+@media screen and (min-width: 1300px){
+    .dark-bgindex {
+        .row_page{
+            margin-top: 120px;
+            .mascote-image{
+                width: 80%;
+                margin: 0;
+                // float: right;
+            }
+        }
+    }
+}

@@ -11,107 +11,144 @@
 //     height: 100%;
 //     // z-index: 10000;
 // }
-.row_page {
-    margin-top: 0px;
-    padding: 20px;
-}
-.menu-hamburguer{
-    
-}
-.welcomeWorldBooks{
-    margin: 69px 0 5px 0px;
-    font-size: 2.6em;
-    text-align: center;
-    text-transform: uppercase;
-    line-height: 40px;
-    padding: 0;
-    font-family: "javaneze text", serif;
-}
+.bgindex {
+    transition: background-color 0.3s ease;
+    .row_page {
+        margin-top: 0px;
+        padding: 20px;
+        .menu-hamburguer{
+            
+        }
+        .welcomeWorldBooks{
+            // margin: 69px 0 5px 0px;
+            font-size: 2.6em;
+            text-align: center;
+            text-transform: uppercase;
+            line-height: 40px;
+            padding: 0;
+            font-family: 'Poppins';
+            font-weight: 700;
+            -webkit-background-clip: text;
+            background-clip: text;
+            background-image:linear-gradient(88deg, #7a22a7, #ecd9f0);
+            transition: background-image 0.3s ease;
+            color: transparent;
+        }
+        
+        .texto{
+            font-size: 19px;
+            text-align: justify;
+            padding: 0 36px 0px 0;
+            margin: 0 0 43px 0;
+            font-family: 'Raleway';
+        }
+        
+        .segundaPlataforma{
+            font-size: 19px;
+            font-family: 'Raleway';
+            font-weight: bold;
+            color: #7a22a7;
+            text-align: center;
+            margin: 17px 0 4px 0;
+            -webkit-background-clip: text;
+            background-clip: text;
+            background-image: linear-gradient(88deg,#7a22a7,#cbe3ee);
+            color: transparent;
+            line-height: 3vh;
+        }
+        .align_btn {
+            .btn_iniciar-leitura {
+                color: rgb(255 255 255);
+                font-size: 13px;
+                background: linear-gradient(270deg,rgb(196 86 221),hsl(279.7deg 66.17% 39.41%));
+                font-family: Raleway;
+                font-weight: bold;
+            }
+            
+            .btn_comece-escrever{
+                color: rgb(255 255 255);
+                background-color: #7a22a7;
+                font-size: 13px;
+                background: linear-gradient(270deg,rgb(196 86 221),hsl(279.7deg 66.17% 39.41%));
+                font-family: Raleway;
+                font-weight: bold;
+            }
+        }
+        
+        .mascote-image{
+            display: none;
+            // float: right;
+        }
+        
+        .footer_pages{
+            display: none !important;
+        }
 
-.texto{
-    font-family: "javaneze Text", serif;
-    font-size: 19px;
-    text-align: justify;
-    padding: 0 36px 0px 0;
-    margin: 0 0 43px 0;
-}
-
-.segundaPlataforma{
-    font-size: 19px;
-    font-family: "javaneze Text";
-    font-weight: bold;
-    color: #7a22a7;
-    // width: 614px;
-    text-align: center;
-    margin: 17px 0 4px 0;
-}
-
-.btn_iniciar-leitura {
-    color: rgb(255 255 255);
-    background-color: #7a22a7;
-    font-size: 13px;
-}
-
-.btn_comece-escrever{
-    color: rgb(255 255 255);
-    background-color: #7a22a7;
-    font-size: 13px;
-}
-
-.mascote-image{
-    display: none;
-    // float: right;
-}
-
-.footer_pages{
-    display: none !important;
-}
-.align_btn {
-    display: flex;
-    justify-content: center;
+        .align_btn {
+            display: flex;
+            justify-content: center;
+        }
+    }
 }
 @media screen and (min-width: 600px){
-    .mascote-image{
-        display: block;
-        width: 25em;
-        margin: 68px 0 0 0;
-    } 
-    .welcomeWorldBooks{
-        margin: 69px 0 5px 0px;
-        font-size: 3.0em;
-        text-align: left;
-        text-transform: uppercase;
-        line-height: 49px;
-        padding: 0;
-        font-family: "javaneze text", serif;
-    }
-    .segundaPlataforma {
-        font-size: 21px;
-        font-family: "javaneze Text";
-        font-weight: bold;
-        color: #7a22a7;
-        text-align: center;
-        line-height: 1;
-    }
-    .texto{
-        padding: 0 6px 0px 0;
+    .bgindex {
+        .row_page {
+            .mascote-image{
+                display: block;
+                width: 25em;
+                margin: 68px 0 0 0;
+            } 
+            .welcomeWorldBooks{
+                margin: 20px 0 5px 0px;
+                font-size: 9vh;
+                text-align: left;
+                text-transform: uppercase;
+                line-height: 8vh;
+                padding: 0;
+                font-family: "Poppins";
+                font-weight: 700;
+                -webkit-background-clip: text;
+                background-clip: text;
+                background-image: linear-gradient(88deg, #7a22a7, #ecd9f0);
+                color: transparent;
+            }
+            .segundaPlataforma {
+                font-size: 21px;
+                font-family: 'Raleway';
+                font-weight: bold;
+                color: #7a22a7;
+                text-align: left;
+                line-height: 1;
+                -webkit-background-clip: text;
+                background-clip: text;
+                background-image: linear-gradient(88deg,#7a22a7,#cbe3ee);
+                color: transparent;
+            }
+            .texto{
+                padding: 0 6px 0px 0;
+            }
+        }
     }
 }
 @media screen and (min-width: 800px){
-    .mascote-image{
-        display: block;
-        width: 35em;
-        // float: right;
-    } 
-    .align_btn {
-        display: flex;
-        justify-content: flex-start;
+    .bgindex {
+        .row_page {
+            .mascote-image{
+                display: block;
+                width: 35em;
+                // float: right;
+            } 
+            .align_btn {
+                display: flex;
+                justify-content: flex-start;
+            }
+        }
     }
 }
 @media screen and (min-width: 980px){
     .bgindex{
         background: url('~assets/background.svg');
-        background-size: 32em;
+        background-size: 58vh;
         position: absolute;
         background-repeat: no-repeat;
         background-position: right center;
@@ -119,73 +156,87 @@
         top: 0;
         width: 100%;
         height: 100%;
+        transition: background-color 0.3s ease;
         // z-index: 10000;
-    }
-    .row_page{
-        margin-top: 120px;
-    }
-    .welcomeWorldBooks{
-        margin: 69px 0 5px 0px;
-        font-size: 3.5em;
-        text-align: left;
-        text-transform: uppercase;
-        line-height: 49px;
-        padding: 0 87px 0 0px;
-        font-family: "javaneze text", serif;
-    }
-    
-    .texto{
-        font-family: "javaneze Text", serif;
-        font-size: 18px;
-        text-align: justify;
-        padding: 0 94px 0 0px;
-        margin: 0 0 43px 0;
-    }
-    
-    .segundaPlataforma{
-        font-size: 20px;
-        font-family: "javaneze Text";
-        font-weight: bold;
-        color: #7a22a7;
-        width: 614px;
-        text-align: left;
-        margin: 20px 0;
-    }
-    
-    .btn_iniciar-leitura {
-        color: rgb(255 255 255);
-        background-color: #7a22a7;
-        font-size: 14px;
-    }
-    
-    .btn_comece-escrever{
-        color: rgb(255 255 255);
-        background-color: #7a22a7;
-        font-size: 14px;
-    }
-    .btn_iniciar-leitura {
-        color: rgb(255 255 255);
-        background-color: #7a22a7;
-    }
-    
-    .mascote-image{
-        margin: 7% 0% 0 -11%;
-        width: 100%;
-        display: block;
-    }
-    
-    .footer_pages{
-        display: none !important;
+        .row_page{
+            margin-top: 120px;
+            .welcomeWorldBooks{
+                margin: 15px 0 5px 0px;
+                font-size: 7vh;
+                text-align: left;
+                text-transform: uppercase;
+                line-height: 6vh;
+                padding: 0 87px 0 0px;
+                font-family: 'Poppins';
+                font-weight: 700;
+                -webkit-background-clip: text;
+                background-clip: text;
+                background-image:linear-gradient(88deg, #7a22a7, #ecd9f0);
+                color: transparent;
+            }
+            
+            .texto{
+                font-family: Raleway;
+                font-size: 1.8vh;
+                text-align: justify;
+                padding: 0 94px 0 0px;
+                margin: 0 0 43px 0;
+            }
+            
+            .segundaPlataforma{
+                font-size: 2.6vh;
+                font-family: 'Raleway';
+                font-weight: bold;
+                color: #7a22a7;
+                width: 614px;
+                text-align: left;
+                margin: 20px 0;
+                height: 100%;
+                -webkit-background-clip: text;
+                background-clip: text;
+                background-image: linear-gradient(88deg,#7a22a7,#cbe3ee);
+                color: transparent;
+            }
+            .align_btn {
+                .btn_comece-escrever{
+                    color: rgb(255 255 255);
+                    background: linear-gradient(270deg,rgb(196 86 221),hsl(279.7deg 66.17% 39.41%));
+                    font-size: 14px;
+                    font-family: Raleway;
+                    font-weight: bold;
+                }
+                
+                .btn_iniciar-leitura {
+                    color: rgb(255 255 255);
+                    background: linear-gradient(270deg,rgb(196 86 221),hsl(279.7deg 66.17% 39.41%));
+                    font-family: Raleway;
+                    font-weight: bold;
+                    font-size: 14px;
+                }
+            }
+            
+            .mascote-image{
+                margin: 0% 0% 0 0%;
+                width: 130%;
+                display: block;
+            }
+            
+            .footer_pages{
+                display: none !important;
+            }
+        }
     }
 }
 
 @media screen and (min-width: 1300px){
-    .row_page{
-        margin-top: 120px;
-    }
-    .mascote-image{
-        width: 80%;
-        margin: 0;
-        // float: right;
+    .bgindex {
+        .row_page{
+            margin-top: 120px;
+            .mascote-image{
+                width: 80%;
+                margin: 0;
+                // float: right;
+            }
+        }
     }
 }

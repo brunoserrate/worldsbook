@@ -1,139 +1,54 @@
 .bgIniciar-leitura{
     // background: url('~assets/background-leitura.png');
     // background-repeat: no-repeat;
-}
-
-.cover{
-    width: 82%;
-    height: 100%;
-    border-radius: 14px;
-    border: solid 1px #000;
-} 
-.align-cover{
-    display: flex;
-    justify-content: center;
-}
-.text-over-cover{
-    font-family: "Raleway", "Century Gothic", serif;
-    text-align: center;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 19px;
-    margin: 80px 0 46px 0;
-}
-.welcomeUser{
-    font-size: 18px;
-    font-weight: bold;
-    font-family: "Raleway", "Century Gothic", serif;
-    margin: 15px 0px 0px 51px;
-}
-
-.bestChooses{
-    margin: 50px 0 -20px 0px;
-    font-family: "Raleway", "Century Gothic", serif;
-    font-size: 18px;
-}
-.colLivros{
-    margin: 30px 0;
-}
-.titulo_livro{
-    font-size: 16px;
-    font-family: "Raleway", "Century Gothic", serif;
-    font-weight: bold;
-    text-align: center;
-    text-transform: uppercase;
-    line-height: 1;
-}
-.img_cover{
-    height: 110px;
-    background-color: #8e1cac;
-    border-radius: 5px !important;
-}
-.card_imagem{
-    padding: 12px 12px;
-    width: 203px;
-}
-.coverImage{
-    font-family: "Raleway", "Century Gothic", serif;
-    color: #fff;
-    text-transform: uppercase;
-}
-.cover_style{
-    border-radius: 5px;
-    width: 100%;
-    height: 250px;
-}
-
-.slides_style{
-    padding: 0 70px;
-    border-radius: 8px;
-}
-.slides_historias{
-    border-radius: 8px;
-    cursor: pointer;
-    &:hover{
-        border: solid 4px #fff;
-        border-radius: 12px;
+    transition: background-color 0.3s ease;
+    .row-cover {
+        .align-cover{
+            display: flex;
+            justify-content: center;
+            .cover{
+                width: 82%;
+                height: 100%;
+                border-radius: 14px;
+                border: solid 1px #000;
+            } 
+        }
+        .text-over-cover{
+            font-family: "Raleway", "Century Gothic", serif;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 19px;
+            margin: 80px 0 46px 0;
+        }
+        .welcomeUser{
+            font-size: 18px;
+            font-weight: bold;
+            font-family: "Raleway", "Century Gothic", serif;
+            margin: 15px 0px 0px 51px;
+        }
+        .bestChooses{
+            margin: 50px 0 -20px 0px;
+            font-family: "Raleway", "Century Gothic", serif;
+            font-size: 18px;
+        }
     }
-}
-.vueperslides__arrow {
-    width: 37px !important;
-    color: #7a22a7  !important;
-}
-
-.cat-all{
-
-}
-.cat-romance {
-
-}
-.cat-terror {
-
-}
-
-.cat-aventura {
-
-}
-
-
-@media screen and (min-width: 980px){
-    .bgIniciar-leitura{
-        // background: url('~assets/background-leitura.png');
-        // background-repeat: no-repeat;
-    }
-    
-    .cover{
-        width: 81%;
-        border-radius: 14px;
-        margin: 24px 0 0 0;
-        border: solid 2px #000;
-    }
-    .align-cover{
-        display: flex;
-        justify-content: center;
-    }
-    .text-over-cover{
-        font-family: "Raleway", "Century Gothic", serif;
-        text-align: center;
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 23px;
-        margin: 46px 0 6px 0;
-    }
-    .welcomeUser{
-        font-size: 29px;
-        font-weight: bold;
-        font-family: "Raleway", "Century Gothic", serif;
-        margin: 73px 0px 0px 51px;
-    }
-    
-    .bestChooses{
-        margin: 50px 0 -20px 0px;
-        font-family: "Raleway", "Century Gothic", serif;
-        font-size: 26px;
-    }
-    .colLivros{
-        margin: 30px 0;
+    .row_livros {
+        .colLivros{
+            margin: 30px 0;
+            .cat-all{
+            
+            }
+            .cat-romance {
+            
+            }
+            .cat-terror {
+            
+            }
+            .cat-aventura {
+            
+            }
+        }
     }
     .titulo_livro{
         font-size: 16px;
@@ -162,7 +77,6 @@
         width: 100%;
         height: 250px;
     }
-    
     .slides_style{
         padding: 0 70px;
         border-radius: 8px;
@@ -179,18 +93,104 @@
         width: 37px !important;
         color: #7a22a7  !important;
     }
-    .cat-all{
+    
+}
 
+@media screen and (min-width: 980px){
+    .bgIniciar-leitura{
+        // background: url('~assets/background-leitura.png');
+        // background-repeat: no-repeat;
+        .row-cover {
+            .align-cover{
+                display: flex;
+                justify-content: center;
+                .cover{
+                    width: 81%;
+                    border-radius: 14px;
+                    margin: 24px 0 0 0;
+                    border: solid 2px #000;
+                }
+            }
+            .text-over-cover{
+                font-family: "Raleway", "Century Gothic", serif;
+                text-align: center;
+                font-weight: bold;
+                text-transform: uppercase;
+                font-size: 23px;
+                margin: 46px 0 6px 0;
+            }
+            .welcomeUser{
+                font-size: 29px;
+                font-weight: bold;
+                font-family: "Raleway", "Century Gothic", serif;
+                margin: 73px 0px 0px 51px;
+            }
+            .bestChooses{
+                margin: 50px 0 -20px 0px;
+                font-family: "Raleway", "Century Gothic", serif;
+                font-size: 26px;
+            }
+        }
+        .row_livros {
+            .colLivros{
+                margin: 30px 0;
+                .cat-all{
+    
+                }
+                .cat-romance {
+                
+                }
+                .cat-terror {
+                
+                }
+                
+                .cat-aventura {
+                
+                }
+            }
+        }
+        .titulo_livro{
+            font-size: 16px;
+            font-family: "Raleway", "Century Gothic", serif;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+        .img_cover{
+            height: 110px;
+            background-color: #8e1cac;
+            border-radius: 5px !important;
+        }
+        .card_imagem{
+            padding: 12px 12px;
+            width: 203px;
+        }
+        .coverImage{
+            font-family: "Raleway", "Century Gothic", serif;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        .cover_style{
+            border-radius: 5px;
+            width: 100%;
+            height: 250px;
+        }
+        .slides_style{
+            padding: 0 70px;
+            border-radius: 8px;
+        }
+        .slides_historias{
+            border-radius: 8px;
+            cursor: pointer;
+            &:hover{
+                border: solid 4px #fff;
+                border-radius: 12px;
+            }
+        }
+        .vueperslides__arrow {
+            width: 37px !important;
+            color: #7a22a7  !important;
+        }
     }
-    .cat-romance {
-    
-    }
-    .cat-terror {
-    
-    }
-    
-    .cat-aventura {
-    
-    }
-    
 }

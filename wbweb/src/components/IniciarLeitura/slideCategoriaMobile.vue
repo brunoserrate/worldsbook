@@ -1,5 +1,6 @@
 <template>
     <div>
+		<!-- :bullets="false" -->
         <vueper-slides
             class="no-shadow slides_style"
             :visible-slides="3"
@@ -7,7 +8,6 @@
             :slide-ratio="1 / 2"
             slide-multiple
             :gap="3"
-            :bullets="false"
             :dragging-distance="70"
             >
             <vueper-slide
@@ -131,8 +131,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-    @import '../../css/iniciar-leitura.scss';
+    @import '../../css/iniciar-leitura-2.scss';
     @import '../../css/dialogs.scss';
+
+    @import '../../css/darkMode/iniciar-leitura-dark.scss';
+    @import '../../css/darkMode/dialogs-dark.scss';
 
 
 </style>

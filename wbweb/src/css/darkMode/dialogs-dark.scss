@@ -1,0 +1,345 @@
+.dark-card_detail_historia_mobile_index, .dark-card_detail_historia, .dark-card_detail_historia_mobile, .dark-card_detail_historia_desktop {
+    p, span, h1, h2, h3, h4, h5, h6, ol, ul, button, a, label {
+        font-family: 'Raleway';
+        color: #c1bfc2;
+    }
+    .input_cadastro{
+        margin: 0px 0 30px 0;
+        padding: 0 44px;
+    }
+    .titulo_cadastrar{
+        text-align: center;
+        font-weight: 100;
+        font-size: 20px;
+        text-transform: uppercase;
+        color: #7a22a7;
+        font-family: "Century Gothic";
+        margin: 0 0 14px 0;
+    }
+    .p_cadastrar{
+        text-align: center;
+        font-family: "Century Gothic";
+        font-size: 15px;
+    }
+    .card_titulo{
+        background-color: #afafaf38;
+        color: #000;
+        margin: 0 0 32px 0;
+        box-shadow: 0px 0px 10px 0px #00000061;
+    }
+    .btn_cadastrar{
+        background-color: #7a22a7;
+        border-radius: 20px;
+        color: #fff;
+        padding: 0 11px;
+    }
+    .btn_cancelar{
+        background-color: #838383;
+        border-radius: 20px;
+        color: #fff;
+        padding: 0 11px;
+    }
+    .p_criar-conta{
+        text-align: center;
+        font-family: century gothic;
+        font-size: 14px;
+    }
+    /* slides Categoria */
+    .title_dialog_historia{
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight: 1000;
+        text-align: center;
+        margin: 30px 0 30px 0;
+        font-family: Raleway;
+        line-height: 1.5;
+    }
+    .separador {
+        background: #6b696b;
+    }
+    .title_dialog_historia_desktop{
+        font-size: 17px;
+        text-transform: uppercase;
+        font-weight: 1000;
+        text-align: center;
+        margin: 30px 0 30px 0;
+        font-family: Raleway;
+        line-height: 1.5;
+    }
+    .card_detail_historia{
+        width: 100%;
+        border-radius: 0px 20px 20px 0px;
+        // max-width: 70.5%;
+        max-width: 84.5%;
+        /* min-height: 100% !important; */
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+    .card_detail_historia_mobile{
+        width: 100%;
+        border-radius: 0px 20px 20px 0px;
+        max-width: 61.5%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+    .col_btn_detail_desktop{
+    
+    }
+    .card_detail_historia_desktop{
+        width: 100%;
+        border-radius: 0px 20px 20px 0px;
+        // max-width: 70.5%;
+        max-width: 50.5%;
+        /* min-height: 100% !important; */
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+    .cover_detail_historia{
+        height: 100%;
+        width: 100%;
+    }
+    .col_btn_detail, .col_btn_detail_desktop{
+        text-align: center;
+        padding: 12px 0px;
+        margin: 0px -8px;
+        .btn_detail_iniciar_leitura{
+            color: rgb(255 255 255);
+            // background-color: #7A22A7;
+            box-shadow: none; 
+            width: 70%;
+            font-family: Raleway;
+            font-size: 13px;
+            // background: linear-gradient(88deg, #7A22A7,#c270cb);
+            background: linear-gradient(88deg, #9c7093, #554c74);
+        }
+        .col_descricao_detail{
+            text-align: justify;
+            padding: 0 25px; 
+            margin: 0px 0px 0px 16px;
+            font-size: 20px;
+            font-family: 'Raleway';
+        }
+        .col_descricao_detail_desktop{
+            text-align: justify;
+            padding: 0 25px;
+            margin: 0px 0px 0px 4px;
+            font-size: 16px;
+            font-family: 'Raleway';
+        }
+        .col_descricao_detail_mobile {
+            text-align: justify;
+            padding: 0 43px;
+            margin: 0px 0px 0px 16px;
+            font-size: 17px;
+            font-family: "Raleway";
+        }
+        .col_data_atualizacao {
+            font-family: Raleway;
+            font-weight: bold;
+        }
+    }
+    .cover_dialog {
+        position: absolute;
+        opacity: 0.1;
+    }
+}
+.dark-cadastrar{
+    height: auto;
+    width: 100%;
+    background: #332c3f;
+    .card_titulo{
+        background-color: #974fa538;
+        color: #000;
+        margin: 0 0 32px 0;
+        box-shadow: 0px 0px 10px 0px #00000061;
+        .titulo_cadastrar{
+            text-align: center;
+            font-weight: 100;
+            font-size: 20px;
+            text-transform: uppercase;
+            color: #dd86ff;
+            font-family: "Century Gothic";
+            margin: 0 0 14px 0;
+        }
+        .p_cadastrar{
+            text-align: center;
+            font-family: "Century Gothic";
+            font-size: 15px;
+            color: #c6c1c5;
+        }
+    }
+    .input_cadastro{
+        margin: 0px 0 30px 0;
+        padding: 0 12px;
+        color: #928993;
+    }
+    .btn_cadastrar{
+        background-color: #7a22a7;
+        border-radius: 20px;
+        color: #fff;
+        padding: 0 11px;
+    }
+    .btn_cancelar{
+        background-color: #838383;
+        border-radius: 20px;
+        color: #fff;
+        padding: 0 11px;
+    }
+    .p_criar-conta{
+        text-align: center;
+        font-family: century gothic;
+        font-size: 14px;
+        color: #bfb7c4;
+    }
+    .icone {
+        color: #928993;
+    }
+}
+@media screen and (min-width: 980px){
+    .dark-card_detail_historia_mobile_index, .dark-card_detail_historia, .dark-card_detail_historia_desktop {
+        width: 100%;
+        border-radius: 0px 20px 20px 0px;
+        max-width: 47.5%;
+        overflow: hidden;
+        background: #3d333b;
+        outline: solid 2px #6b696b;
+        .cover_detail_historia{
+            height: 100%;
+            width: 100%;
+        }
+        .input_cadastro{
+            margin: 0px 0 30px 0;
+            padding: 0 80px;
+        }
+        .titulo_cadastrar{
+            text-align: center;
+            font-weight: 100;
+            font-size: 20px;
+            text-transform: uppercase;
+            color: #7a22a7;
+            font-family: "Century Gothic";
+            margin: 0 0 14px 0;
+        }
+        .p_cadastrar{
+            text-align: center;
+            font-family: "Century Gothic";
+            font-size: 15px;
+        }
+        .card_titulo{
+            background-color: #afafaf38;
+            color: #000;
+            margin: 0 0 32px 0;
+            box-shadow: 0px 0px 10px 0px #00000061;
+        }
+        .btn_cadastrar{
+            background-color: #7a22a7;
+            border-radius: 20px;
+            color: #fff;
+            padding: 0 11px;
+        }
+        .btn_cancelar{
+            background-color: #838383;
+            border-radius: 20px;
+            color: #fff;
+            padding: 0 11px;
+        }
+        .p_criar-conta{
+            text-align: center;
+            font-family: century gothic;
+            font-size: 14px;
+        }
+        /* slides Categoria */
+        .title_dialog_historia{
+            font-size: 20px;
+            text-transform: uppercase;
+            font-weight: 1000;
+            text-align: center;
+            margin: 30px 0 30px 0;
+            font-family: Raleway;
+            line-height: 1.5;
+        }
+        .card_detail_historia{
+            width: 100%;
+            // height: 84%;
+            border-radius: 0px 20px 20px 0px;
+            max-width: 66.5%;
+            overflow: hidden;
+        }
+        .col_btn_detail, .col_btn_detail_desktop{
+            text-align: center;
+            padding: 12px 0px;
+            margin: 0px -8px;
+            .btn_detail_iniciar_leitura{
+                color: rgb(255 255 255);
+                // background-color: #7A22A7;
+                box-shadow: none; 
+                width: 70%;
+                font-family: Raleway;
+                font-size: 13px;
+                // background: linear-gradient(88deg, #7A22A7,#c270cb);
+                background: linear-gradient(88deg, #9c7093, #554c74);
+            }
+            .col_descricao_detail{
+                text-align: justify;
+                padding: 0 25px;
+                margin: 0px 0px 0px 16px;
+            }
+            .col_data_atualizacao {
+                font-family: Raleway;
+                font-weight: bold;
+            }
+        }
+    }
+    .dark-cadastrar{
+        height: auto;
+        width: 100%;
+        background: #332c3f;
+        p, span, h1, h2, h3, h4, h5, h6, ol, ul, button, a, label, div {
+            font-family: 'Raleway';
+        }
+        .card_titulo{
+            background-color: #974fa538;
+            color: #000;
+            margin: 0 0 32px 0;
+            box-shadow: 0px 0px 10px 0px #00000061;
+            .titulo_cadastrar{
+                text-align: center;
+                font-weight: 100;
+                font-size: 20px;
+                text-transform: uppercase;
+                color: #dd86ff;
+                font-family: "Century Gothic";
+                margin: 0 0 14px 0;
+            }
+            .p_cadastrar{
+                text-align: center;
+                font-family: "Century Gothic";
+                font-size: 15px;
+            }
+        }
+        .input_cadastro{
+            margin: 0px 0 30px 0;
+            padding: 0 80px;
+        }
+        .btn_cadastrar{
+            background-color: #7a22a7;
+            border-radius: 20px;
+            color: #fff;
+            padding: 0 11px;
+        }
+        .btn_cancelar{
+            background-color: #838383;
+            border-radius: 20px;
+            color: #fff;
+            padding: 0 11px;
+        }
+        .p_criar-conta{
+            text-align: center;
+            font-family: century gothic;
+            font-size: 14px;
+        }
+    }
+}

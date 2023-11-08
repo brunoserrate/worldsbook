@@ -1,5 +1,5 @@
 <template>
-    <q-page>
+    <q-page :class="{'dark-pesquisa_livros': darkmode, 'pesquisa_livros': !darkmode}">
         <q-inner-loading
             :showing="visible"
             label-class="text-teal"
@@ -64,7 +64,7 @@
             </div>
         </div>
 		<q-dialog v-model="livro_dialog_mobile" class="navbar_classe_mobile">
-			<q-card class="card_detail_historia_mobile">
+			<q-card :class="{ 'dark-card_detail_historia_mobile': darkmode, 'card_detail_historia_mobile': !darkmode }">
 				<div class="row" style="height: 100%;">
 					<div class="col-12 cover_dialog">
 						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
@@ -95,7 +95,7 @@
 			</q-card>
 		</q-dialog>
 		<q-dialog v-model="livro_dialog" class="navbar_classe">
-			<q-card class="card_detail_historia_desktop">
+			<q-card :class="{'dark-card_detail_historia_desktop': darkmode, 'card_detail_historia_desktop': !darkmode}">
 				<div class="row" style="height: 100%;">
 					<div class="col-6">
 						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
@@ -139,6 +139,7 @@ export default {
             categoria: {},
             livro_dialog: false,
             livro_dialog_mobile: false,
+            darkmode: false,
             livro_detail: {},
 			livros:[],
 			livro: {
@@ -180,6 +181,15 @@ export default {
     created() {
         window.addEventListener('resize', this.handleResize);
         this.handleResize();
+        setTimeout(() => {
+            let dark = this.$q.localStorage.getItem('darkmode')
+            this.darkmode = dark == 'true' ? true : false
+        }, 500)
+        eventBus.$on('att-darkmode', async (option) => {
+            setTimeout(async() => {
+                this.darkmode = option
+            }, 500);
+        });
     },
     destroyed() {
         window.removeEventListener('resize', this.handleResize);
@@ -258,4 +268,8 @@ export default {
     @import '../css/livro_categorias.scss';
     @import '../css/pesquisa_livros.scss';
     @import '../css/dialogs.scss';
+    /* DARK MODE */
+    @import '../css/darkMode/livro_categorias-dark.scss';
+    @import '../css/darkMode/pesquisa_livros-dark.scss';
+    @import '../css/darkMode/dialogs-dark.scss';
 </style>

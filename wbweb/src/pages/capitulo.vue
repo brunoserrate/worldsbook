@@ -1,14 +1,12 @@
 <template>
-    <q-page>
+    <q-page :class="{'dark-capitulo': darkmode, 'capitulo': !darkmode}">
         <div class="row">
             <div class="col-12">
                 <div class="capa_img" v-if="!capitulo.caminho_capa">
                     <h3 class="title_capa">capa</h3>
                 </div>
                 <!-- CAPA  -->
-                <div class="capa_img_2" v-if="capitulo.caminho_capa">
-
-                </div>
+                <div class="capa_img_2" v-if="capitulo.caminho_capa"></div>
                 <!-- TÍTULO DO CAPÍTULO -->
                 <div class="col-12 col-md-10 offset-md-1">
                     <h3 class="title_capitulo">{{capitulo.titulo}}</h3>
@@ -61,7 +59,7 @@
                     </div>
                     <!-- CORPO DO CAPÍTULO -->
                     <div class="col-8 sm-6">
-                        <q-card flat>
+                        <q-card flat class="card-capitulo">
                             <q-card-section class="corpo_capitulo" v-html="capitulo.capitulo" />
                         </q-card>
                         <!-- <p class="corpo_capitulo">{{capitulo.capitulo}}</p> -->
@@ -134,6 +132,7 @@
     </q-page>
 </template>
 <script>
+    import eventBus from '../boot/eventBus'
     export default {
         data (){
             return {
@@ -179,6 +178,7 @@
                 comentarios: [],
                 visible: false,
                 showSimulatedReturnData: false,
+                darkmode: false, 
                 votar: {
                     icone_name: 'star_border' ,
                     span: 'Votar!',
@@ -212,9 +212,20 @@
                 this.getUser()
 
                 this.timerVisualizacao = setTimeout(function() {
-                    that.visualizarCapitulo()
+                    this.visualizarCapitulo()
                 }, 10000)
             },
+        },
+        created() {
+            setTimeout(() => {
+                let dark = this.$q.localStorage.getItem('darkmode')
+                this.darkmode = dark == 'true' ? true : false
+            }, 500)
+            eventBus.$on('att-darkmode', async (option) => {
+                setTimeout(async() => {
+                    this.darkmode = option
+                }, 500);
+            });
         },
         methods: {
             goToHistoria(){
@@ -412,4 +423,5 @@
 </script>
 <style lang="scss" scoped>
     @import '../css/capitulo.scss';
+    @import '../css/darkMode/capitulo-dark.scss';
 </style>

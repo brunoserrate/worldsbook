@@ -1,0 +1,310 @@
+.dark-capitulo {    
+    background-color: #332c3f;
+    transition: background-color 0.3s ease;
+    p, span, h1, h2, h3, h4, h5, h6, ol, ul, button, a, label, i, div {
+        color: #b1b1b1;
+    }
+    .capa_img{
+        background-color: #b1b1b1;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .title_capa{
+            font-family: 'Raleway';
+            color: #ffffff5c;
+        }
+    }
+    .capa_img_2{
+        background-color: #b47272;
+        height: 300px;
+    }
+    .title_capitulo{
+        font-size: 22px;
+        font-family: 'Raleway';
+        text-align: center;
+        font-weight: bold;
+        color: #fff;
+    }
+    .foto_perfil_usuario, .row_avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .nome_usuario{
+            padding: 0 0 0 0px;
+            margin: 12px 0 0 0;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #fff;
+        }
+        .p_nome_usuario{
+            margin: 12px 0 0 0;
+        }
+    }
+    .row_status{
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .btn_proximo_capitulo{
+            background-color: #7A22A7;
+            width: 100%;
+            color: #fff;
+            font-family: "ubuntu";
+            font-weight: bold;
+            padding: 2px 6px;
+            margin: 50px 0 0px 0;
+        }
+    }
+    .row_avatar{
+        text-align: center;
+        justify-content: center;
+        display: none;
+        .avatar_corpo_capitulo{
+            margin: 100px 0 0 0px;
+            background-color: #ddd;
+            cursor: pointer;
+            &:hover{
+                background-color: rgb(204, 204, 204);
+                font-size: 72px !important;
+            }
+        }
+    }
+    .corpo_capitulo{
+        p {
+            font-size: 23px;
+        }
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        line-height: 35px;
+        padding: 0px 0%;
+        margin: 76px 0 0 0;
+    }
+    .separador{
+        margin: 4px 0 20px 0;
+        background-color: transparent;
+    }
+    .icon_votar{
+        font-size: 26px;
+        cursor: pointer;
+        margin: 0 13px 0 0;
+    }
+    .p_votar{
+        font-size: 15px;
+        font-family: Raleway;
+        font-weight: bold;
+    }
+    .avatar_comentario{
+        background-color: #ddd;
+        cursor: pointer;
+    }
+    .comment_textarea{
+        
+    }
+    .row_btn{
+        display: flex;
+        justify-content: flex-end;
+        .btn_enviar_comentario{
+            background-color: #7A22A7;
+            color: #fff;
+            font-family: "ubuntu";
+            font-weight: bold;
+            margin: 17px 0 0px 0;
+        }
+    }
+    .historia_cover{
+        background-color: #ddd;
+        cursor: pointer;
+        &:hover{
+            background-color: rgb(204, 204, 204);
+            font-size: 72px !important;
+        }
+    }
+    .historia-titulo {
+        margin: 27px 0 0 0;
+        font-weight: bold;
+        font-family: 'Raleway';
+        cursor: pointer;
+        &:hover {
+            margin: 25px 0 0 0;
+        }
+    }
+    .card_tooltip{
+        width: 100px;
+        height: 100px;
+    }
+    .q-textarea .q-field__control {
+        min-height: 29px;
+        height: 58px;
+    }
+    .nome_usuario_comentario{
+        margin: 0;  
+        font-weight: bold;
+        font-size: 15px;
+        font-family: Raleway;
+        color: #fff;
+    }
+    .data_comentario {
+        margin: 0;
+        color: #9f9f9f;
+        font-size: 12px;
+    }
+    .comentario_corpo{
+        margin: 7px 0 0px 0;
+        font-family: Raleway;
+        color: #fff;
+    }
+    .card-capitulo {
+        background: transparent;
+        color: #d4cbd6;
+    }
+}
+@media screen and (min-width: 980px){
+    .dark-capitulo {
+        .capa_img{
+            background-color: #b1b1b1;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .title_capa{
+                font-family: 'Raleway';
+                color: #ffffff5c;
+            }
+        }
+        .capa_img_2{
+            background-color: #b47272;
+            height: 300px;
+        }
+        .title_capitulo{
+            font-size: 22px;
+            font-family: 'Raleway';
+            text-align: center;
+            font-weight: bold;
+            margin-left: 192px;
+        }
+        .foto_perfil_usuario, .row_avatar {
+            display: none;
+            .p_nome_usuario{
+                margin: 12px 0 0 0;
+                .nome_usuario{
+                    padding: 0 0 0 0px;
+                    margin: 12px 0 0 0;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
+            }
+        }
+        .row_status{
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .btn_proximo_capitulo{
+                background-color: #7A22A7;
+                width: 100%;
+                color: #fff;
+                font-family: "ubuntu";
+                font-weight: bold;
+                padding: 2px 6px;
+                margin: 50px 0 0px 0;
+            }
+        }
+        .row_avatar{
+            text-align: center;
+            justify-content: center;
+            display: block;
+            .avatar_corpo_capitulo{
+                margin: 100px 0 0 0px;
+                background-color: #ddd;
+                cursor: pointer;
+                &:hover{
+                    background-color: rgb(204, 204, 204);
+                    font-size: 72px !important;
+                }
+            }
+        }
+        .corpo_capitulo{
+            font-size: 19px;
+            // display: flex;
+            // justify-content: center;
+            // align-items: center;
+            line-height: 35px;
+            padding: 0px 0%;
+            margin: 76px 0 0 0;
+        }
+        .separador{
+            margin: 4px 0 20px 0;
+            background-color: transparent;
+        }
+        .icon_votar{
+            font-size: 26px;
+            cursor: pointer;
+            margin: 0 13px 0 0;
+        }
+        .p_votar{
+            font-size: 15px;
+            font-family: Raleway;
+            font-weight: bold;
+        }
+        .avatar_comentario{
+            background-color: #ddd;
+            cursor: pointer;
+        }
+        .comment_textarea{
+            
+        }
+        .row_btn{
+            display: flex;
+            justify-content: flex-end;
+            .btn_enviar_comentario{
+                background-color: #7A22A7;
+                color: #fff;
+                font-family: "ubuntu";
+                font-weight: bold;
+                margin: 17px 0 0px 0;
+            }
+        }
+        .historia_cover{
+            background-color: #ddd;
+            cursor: pointer;
+            &:hover{
+                background-color: rgb(204, 204, 204);
+                font-size: 72px !important;
+            }
+        }
+        .historia-titulo {
+            margin: 27px 0 0 0;
+            font-weight: bold;
+            font-family: 'Raleway';
+            cursor: pointer;
+            &:hover {
+                margin: 25px 0 0 0;
+            }
+        }
+        .card_tooltip{
+            width: 100px;
+            height: 100px;
+        }
+        .q-textarea .q-field__control {
+            min-height: 29px;
+            height: 58px;
+        }
+        .nome_usuario_comentario{
+            margin: 0;  
+            font-weight: bold;
+            font-size: 15px;
+            font-family: Raleway;
+        }
+        .data_comentario {
+            margin: 0;
+            color: #9f9f9f;
+            font-size: 12px;
+        }
+        .comentario_corpo{
+            margin: 7px 0 0px 0;
+            font-family: Raleway;
+        }
+    }
+}

@@ -1,12 +1,12 @@
 <template>
-    <q-page>
+    <q-page :class="{'dark-livro': darkmode, 'livro': !darkmode}">
         <q-inner-loading
             :showing="visible_page"
             label-class="text-teal"
             label-style="font-size: 1.1em"
             label="Carregando história..."
         ></q-inner-loading>
-        <div class="row">
+        <div class="row geral">
             <div class="col-12">
                 <q-card class="card_livro">
                     <div class="row justify-center">
@@ -85,7 +85,7 @@
                 </q-card>
             </div>
         </div>
-        <div class="row">
+        <div class="row descricao">
             <div class="col-10 offset-2">
                 <q-avatar size="40px" style="background-color: #ddd;">
                     <img :src="livro.foto_perfil" />
@@ -106,12 +106,12 @@
                 <q-separator class="separator_livro" />
             </div>
         </div>
-        <div class="row">
+        <div class="row tags-generos">
             <div class="col-8 offset-2 col-sm-8">
-                <q-chip v-for="(tag, i) in livro.tags" :key="i" >{{tag}}</q-chip>
+                <q-chip v-for="(tag, i) in livro.tags" :key="i" class="tag-genero" >{{tag}}</q-chip>
             </div>
         </div>
-        <div class="row">
+        <div class="row capitulos">
             <div class="col-10 offset-1 offset-sm-2 col-sm-8">
                 <q-card class="card_indice">
                     <div class="row">
@@ -129,7 +129,7 @@
                             </q-btn>
                         </div>
                     </div>
-                    <q-list>
+                    <q-list class="lista">
                         <q-item v-if="livro.capitulos.length == 0">Essa história ainda não tem capítulos!</q-item>
                         <div class="row">
                             <div :class="(livro.usuario_id == user.user_id) ? 'col-10' : 'col-12'">
@@ -152,208 +152,222 @@
                 </q-card>
             </div>
         </div>
-        <q-dialog v-model="delete_historia" persistent>
-            <q-card>
+
+        <q-dialog v-model="delete_historia" persistent class="delete">
+            <q-card :class="{'dark-card-delete': darkmode, 'card-delete': !darkmode}">
                 <q-card-section class="row items-center">
-                <q-avatar icon="delete" color="primary" text-color="white" />
-                <span class="q-ml-sm">Deseja deletar essa história permanentemente?</span>
+                    <q-avatar icon="delete" color="primary" text-color="white" />
+                    <span class="q-ml-sm">Deseja deletar essa história permanentemente?</span>
                 </q-card-section>
 
                 <q-card-actions align="right">
-                <q-btn flat label="Deletar" color="primary" @click="delHistoria" />
-                <q-btn flat label="Cancelar" color="primary" v-close-popup />
+                    <q-btn flat label="Deletar" color="primary" @click="delHistoria"/>
+                    <q-btn flat label="Cancelar" color="primary" v-close-popup class="btn-cancelar"/>
                 </q-card-actions>
             </q-card>
         </q-dialog>
-        <q-dialog v-model="delete_capitulo" persistent>
-            <q-card>
+        <q-dialog v-model="delete_capitulo" persistent class="delete">
+            <q-card :class="{'dark-card-delete': darkmode, 'card-delete': !darkmode}">
                 <q-card-section class="row items-center">
-                <q-avatar icon="delete" color="primary" text-color="white" />
-                <span class="q-ml-sm">Deseja deletar esse capítulo permanentemente?</span>
+                    <q-avatar icon="delete" color="primary" text-color="white" />
+                    <span class="q-ml-sm">Deseja deletar esse capítulo permanentemente?</span>
                 </q-card-section>
 
                 <q-card-actions align="right">
-                <q-btn flat label="Deletar" color="primary" @click="delCapitulo" />
-                <q-btn flat label="Cancelar" color="primary" v-close-popup @click="function(){
-                    capitulo_id = 0
-                    delete_capitulo = false
-                }" />
+                    <q-btn flat label="Deletar" color="primary" @click="delCapitulo" />
+                    <q-btn flat label="Cancelar" color="primary" v-close-popup class="btn-cancelar" @click="function(){
+                        capitulo_id = 0
+                        delete_capitulo = false
+                    }" />
                 </q-card-actions>
             </q-card>
         </q-dialog>
     </q-page>
 </template>
 <script>
-import {  Loading, QSpinnerGears } from 'quasar'
+    import {  Loading, QSpinnerGears } from 'quasar'
+  	import eventBus from '../boot/eventBus'
 
-export default {
-    name:'Livro',
-	data (){
-		return {
-			livro_id: this.$route.params.livro_id,
-            delete_historia: false,
-            delete_capitulo: false,
-            livro: {
-                apelido_usuario: '',
-                caminho_capa: '',
-                capitulos: [],
-                categoria_id: '',
-                conteudo_adulto: '',
-                data_atualizacao: '',
-                data_criacao: '',
-                descricao: '',
-                direito_autoral: '',
-                direitos_autorais_id: '',
-                foto_perfil: '',
-                historia_finalizada: '',
-                id: '',
-                idioma_id: '',
-                nome_usuario: '',
-                publico_alvo_id: '',
-                tags: [],
-                titulo: '',
-                total_capitulos: '',
-                total_visualizacoes: '',
-                total_votos: '',
-                usar_apelido: '',
-                usuario_id: '',
+    export default {
+        name:'Livro',
+        data (){
+            return {
+                livro_id: this.$route.params.livro_id,
+                delete_historia: false,
+                delete_capitulo: false,
+                livro: {
+                    apelido_usuario: '',
+                    caminho_capa: '',
+                    capitulos: [],
+                    categoria_id: '',
+                    conteudo_adulto: '',
+                    data_atualizacao: '',
+                    data_criacao: '',
+                    descricao: '',
+                    direito_autoral: '',
+                    direitos_autorais_id: '',
+                    foto_perfil: '',
+                    historia_finalizada: '',
+                    id: '',
+                    idioma_id: '',
+                    nome_usuario: '',
+                    publico_alvo_id: '',
+                    tags: [],
+                    titulo: '',
+                    total_capitulos: '',
+                    total_visualizacoes: '',
+                    total_votos: '',
+                    usar_apelido: '',
+                    usuario_id: '',
+                },
+                user: {
+                    apelido: '',
+                    avatar: '',
+                    email: '',
+                    nome: '',
+                    token: '',
+                    user_id: ''
+                },
+                usuario_livro_id: '',
+                darkmode: false,
+                visible: false,
+                visible_page: false,
+                showSimulatedReturnData: false,
+                capitulo: {}
+            }
+        },
+        mounted(){
+            this.carregarLivro(this.livro_id)
+            this.getAvatar()
+            // console.log("user: ", this.user.user_id)
+        },
+        created() {
+            setTimeout(() => {
+                let dark = this.$q.localStorage.getItem('darkmode')
+                this.darkmode = dark == 'true' ? true : false
+            }, 500)
+            eventBus.$on('att-darkmode', async (option) => {
+                setTimeout(async() => {
+                    this.darkmode = option
+                }, 500);
+            });
+        },
+        methods: {
+            carregarLivro(livro_id){
+                let that = this
+
+                that.visible_page = true
+                that.showSimulatedReturnData = false
+
+                that.$axios.get(that.$pathAPI + '/historia/' + livro_id)
+                .then((res) => {
+                    that.livro = res.data.data
+                    // console.log("livro: ", that.livro)
+                    this.getAvatar()
+                    this.getHistoriaFinalizada()
+
+                    that.visible_page = false
+                    that.showSimulatedReturnData = true
+                })
+                .catch((err) => {
+                    console.log(err.response)
+                    that.visible_page = false
+                    that.showSimulatedReturnData = true
+                    that.falha()
+                    // this.erroCarregar()
+                })
             },
-            user: {
-                apelido: '',
-                avatar: '',
-                email: '',
-                nome: '',
-                token: '',
-                user_id: ''
+            delHistoria(){
+                let that = this
+
+                Loading.show()
+
+                that.$axios.delete(that.$pathAPI + '/historia/' + that.livro.id)
+                .then((res) => {
+                    that.sucesso()
+                    this.$router.push({path: `/iniciar_leitura`})
+                })
+                .catch((err) => {
+                    that.falha()
+                })
+                .finally(() => {
+                    that.delete_historia = false
+                    Loading.hide()
+                })
+
             },
-            usuario_livro_id: '',
-            visible: false,
-            visible_page: false,
-            showSimulatedReturnData: false,
-            capitulo: {}
-		}
-	},
-    mounted(){
-        this.carregarLivro(this.livro_id)
-        this.getAvatar()
-        // console.log("user: ", this.user.user_id)
-    },
-    methods: {
-        carregarLivro(livro_id){
-            let that = this
+            confirmDelCapitulo(capitulo_id, i){
+                this.capitulo = {
+                    capitulo_id: capitulo_id,
+                    index: i
+                }
 
-            that.visible_page = true
-            that.showSimulatedReturnData = false
+                this.delete_capitulo = true
+            },
+            delCapitulo(){
+                let that = this
 
-            that.$axios.get(that.$pathAPI + '/historia/' + livro_id)
-            .then((res) => {
-                that.livro = res.data.data
-                // console.log("livro: ", that.livro)
-                this.getAvatar()
-                this.getHistoriaFinalizada()
+                Loading.show()
 
-                that.visible_page = false
-                that.showSimulatedReturnData = true
-            })
-            .catch((err) => {
-                console.log(err.response)
-                that.visible_page = false
-                that.showSimulatedReturnData = true
-                that.falha()
-                // this.erroCarregar()
-            })
-        },
-        delHistoria(){
-            let that = this
+                that.$axios.delete(that.$pathAPI + '/capitulo/' + that.capitulo.capitulo_id)
+                .then((res) => {
+                    that.livro.capitulos.splice(that.capitulo.index, 1)
+                    that.capitulo = {}
+                    that.sucesso()
+                })
+                .catch((err) => {
+                    console.log(err)
+                    that.falha()
+                })
+                .finally(() => {
+                    that.delete_capitulo = false
+                    Loading.hide()
+                })
+            },
+            goToPerfil(usuario_id){
+                this.$router.push({path: `/perfil/` + usuario_id}) 
+            },
+            goEditHistoria(){
+                this.$router.push({path: `/editar_livro/` + this.livro_id})
+            },
+            goEditCapitulo(capitulo){
+                // console.log(capitulo)
+                this.$router.push({path: `/editar_capitulo/` + capitulo.id})
+            },
+            goAddCapitulo(){
+                // console.log(this.livro_id)
+                this.$router.push({path: `/criar_historia/` + this.livro_id})
+            },
+            goChapter(capitulo){
+                this.$router.push({path: `capitulo/` + capitulo.id})
+            },
+            getAvatar(){
+                this.user = {
+                    user_id: 0,
+                    nome: '',
+                    apelido: '',
+                    foto_perfil: 'https://avatars.dicebear.com/api/initials/v.svg',
+                }
 
-            Loading.show()
+                let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
 
-            that.$axios.delete(that.$pathAPI + '/historia/' + that.livro.id)
-            .then((res) => {
-                that.sucesso()
-                this.$router.push({path: `/iniciar_leitura`})
-            })
-            .catch((err) => {
-                that.falha()
-            })
-            .finally(() => {
-                that.delete_historia = false
-                Loading.hide()
-            })
+                if(user !== null) {
+                    this.user = user
+                }
 
-        },
-        confirmDelCapitulo(capitulo_id, i){
-            this.capitulo = {
-                capitulo_id: capitulo_id,
-                index: i
+            },
+            getHistoriaFinalizada(historia_finalizada){
+                if(historia_finalizada == 0){ return "Em andamento" }
+                return "Concluída"
+            },
+            getConteudoAdulto(conteudo_adulto){
+                if (conteudo_adulto){return "Conteúdo Adulto"}
+                return "Conteúdo Livre"
             }
-
-            this.delete_capitulo = true
-        },
-        delCapitulo(){
-            let that = this
-
-            Loading.show()
-
-            that.$axios.delete(that.$pathAPI + '/capitulo/' + that.capitulo.capitulo_id)
-            .then((res) => {
-                that.livro.capitulos.splice(that.capitulo.index, 1)
-                that.capitulo = {}
-                that.sucesso()
-            })
-            .catch((err) => {
-                console.log(err)
-                that.falha()
-            })
-            .finally(() => {
-                that.delete_capitulo = false
-                Loading.hide()
-            })
-        },
-        goToPerfil(usuario_id){
-            this.$router.push({path: `/perfil/` + usuario_id}) 
-        },
-        goEditHistoria(){
-            this.$router.push({path: `/editar_livro/` + this.livro_id})
-        },
-        goEditCapitulo(capitulo){
-            // console.log(capitulo)
-            this.$router.push({path: `/editar_capitulo/` + capitulo.id})
-        },
-        goAddCapitulo(){
-            // console.log(this.livro_id)
-            this.$router.push({path: `/criar_historia/` + this.livro_id})
-        },
-        goChapter(capitulo){
-            this.$router.push({path: `capitulo/` + capitulo.id})
-        },
-        getAvatar(){
-            this.user = {
-                user_id: 0,
-                nome: '',
-                apelido: '',
-                foto_perfil: 'https://avatars.dicebear.com/api/initials/v.svg',
-            }
-
-            let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
-
-            if(user !== null) {
-                this.user = user
-            }
-
-        },
-        getHistoriaFinalizada(historia_finalizada){
-            if(historia_finalizada == 0){ return "Em andamento" }
-            return "Concluída"
-        },
-        getConteudoAdulto(conteudo_adulto){
-            if (conteudo_adulto){return "Conteúdo Adulto"}
-            return "Conteúdo Livre"
         }
-    }
-
-};
+    };
 </script>
 <style lang="scss" scoped>
     @import '../css/livro.scss';
+    @import '../css/darkMode/livro-dark.scss';
 </style>
