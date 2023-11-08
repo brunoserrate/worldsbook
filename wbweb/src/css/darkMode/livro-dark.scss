@@ -1,0 +1,360 @@
+.dark-livro {
+    background-color: #332c3f;
+    padding-bottom: 40px;
+    transition: background-color 0.3s ease;
+    p, span, h1, h2, h3, h4, h5, h6, ol, ul, button, div {
+        font-family: 'Raleway';
+        color: #cbcbcb;
+    }
+    .geral {
+        .card_livro{
+            box-shadow: 0px 4px 6px #00000042;
+            height: auto;
+            margin: 0px 0 46px 0;
+            padding-top: 46px;
+            padding-bottom: 15px;
+            background: #524d5717;
+            .capa_card{
+                width: 16em;
+                border-radius: 14px;
+                margin: 0px 35px 0 0;
+                border: solid 12px #d2d2d2;
+                transition: filter .3s ease, border-radius .3s ease;
+                &:hover{
+                    border-radius: 12px;
+                    filter: brightness(0.7);
+                    border-radius: 0px;
+                }
+            }
+            .title_card{
+                font-family: Raleway;
+                font-size: 24px;
+                text-transform: uppercase;
+                font-weight: bold;
+                text-align: center;
+            }
+            .align_icons_status {
+                display: flex;
+                justify-content: space-between;
+                .icons_card{
+                    font-size: 20px;
+                }
+                .labels_icon{
+                    display: block;
+                }
+                .align_text_details{
+                    text-align: center;
+                }
+            }
+            .separator_card{
+                margin: 0 27px;
+                background-color: #ffffff21;
+            }
+            .btn_iniciar_leitura_livro{
+                // background-color: #8e1cac;
+                color: #FFF;
+                width: 98%;
+                border-radius: 7px 0px 0px 7px;
+                // margin: 32px 0 43px 0;
+                margin: 32px 0 0px 0;
+                background: linear-gradient(88deg, #7A22A7,#c270cb);
+            }
+            .btn_add_lista{
+                background-color: #8e1cac;
+                color: #FFF;
+                width: 100%;
+                border-radius: 0px 7px 7px 0px;
+                margin: 32px 0 0 0;
+            }
+            .btn-editar-historia{
+                // background: #e0e0e0;
+                margin: 26px 0 29px 0;
+                font-size: 13px;
+                background: linear-gradient(88deg, #7a6d81,#7e717f);
+                color: white;
+            }
+            .btn-deletar-historia{
+                // background: #e0e0e0;
+                margin: 26px 0px 0 0px;
+                font-size: 13px;
+                background: linear-gradient(88deg, #7a6d81,#7e717f);
+                color: white;
+            }
+        }
+    }
+    .descricao {
+        .apelido_usuario{
+            font-family: "Raleway", serif;
+            font-weight: bold;
+            margin: 0px 0px 0 14px;
+            cursor: pointer;
+            &:hover{
+                color: #4a4a4a
+            }
+        }
+        .historia_finalizada{
+            background-color: #7A22A7;
+            color: #FFF;
+            border-radius: 10px;
+            height: 24px;
+            font-size: 14px;
+            justify-content: center;
+            margin: 20px 11px 20px 0;
+            font-family: 'Raleway';
+        }
+        .descricao_p{
+            text-align: justify;
+        }
+        .separator_livro{
+            background-color: #ffffff21;
+            height: 1px;
+            margin: 0px 0 18px 0px;
+        }
+    }
+    .tags-generos {
+        .tag-genero {
+            font-family: 'Raleway';
+            color: #000;
+            font-weight: bold;
+        }
+    }
+    .capitulos {
+        .card_indice{
+            padding: 10px 50px 30px 50px;
+            margin: 40px 0 0 0;
+            background: #ffffff1c;
+            box-shadow: none;
+            .title_indice_card{
+                font-size: 1.2em;
+                font-weight: bold; 
+                text-transform: uppercase;
+                margin: 0 0;
+            }
+            .row_add_capitulo {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                .btn_adicionar{
+                    background-color: transparent;
+                    font-family: "Raleway";
+                    font-weight: bold;
+                    font-size: 12px;
+                    padding: 0px 8px;
+                    border: solid 1px #a3a3a3;
+                }
+            }
+            .lista {
+                .item_list{
+                    // background-color: #fcf5ff;
+                    margin: 6px 0;
+                    align-items: center;
+                    font-family: 'Raleway';
+                    background-color: #00000040;
+                    &:hover{
+                        border-left: solid 3px #ba8ed1;
+                        background-color: #f2d9ff;
+                    }
+                }
+                .item_edit{
+                    // background-color: #fcf5ff;
+                    margin: 6px 0;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 20px;
+                    background-color: #00000040;
+                    &:hover{
+                        background-color: #f2d9ff;
+                    }
+                }
+            }
+        }
+    }
+}
+.dark-card-delete {
+    background-color: #706780;
+    color: #FFF;
+    p, span, h1, h2, h3, h4, h5, h6, ol, ul, button {
+        font-family: 'Raleway';
+        color: #c0c0c0 !important;
+    }
+    .btn-cancelar {
+        background: #7a22a73b;
+        color: #FFF;
+    }
+}
+@media screen and (min-width: 600px) and (max-width: 700px){
+    .dark-livro {
+        .card_livro {
+            .title_card {
+                font-family: Raleway;
+                font-size: 25px;
+                text-transform: uppercase;
+                font-weight: bold;
+                text-align: center;
+                line-height: 1.5;
+            }
+            .align_icons_status {
+                .labels_icon{
+                    display: none;
+                }
+            }
+            .btn_iniciar_leitura_livro{
+                // background-color: #8e1cac;
+                color: #FFF;
+                width: 98%;
+                border-radius: 7px 0px 0px 7px;
+                margin: 32px 0 0px 0;
+                background: linear-gradient(88deg, #7A22A7,#c270cb);
+            }
+        }
+    }
+}
+@media screen and (min-width: 980px){
+    .dark-livro {
+        .geral {
+            .card_livro{
+                box-shadow: 0px 4px 6px #00000042;
+                height: auto;
+                margin: 0px 0 46px 0;
+                padding-top: 46px;
+                background: #524d5717;
+                .capa_card{
+                    width: 16em;
+                    border-radius: 14px;
+                    margin: 0px 35px 0 0;
+                }
+                .title_card{
+                    font-family: Raleway;
+                    font-size: 26px;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    text-align: left;
+                }
+                .align_icons_status {
+                    display: flex;
+                    justify-content: flex-start;
+                    .icons_card{
+                        font-size: 20px;
+                    }
+                    .labels_icon{
+                        display: block;
+                    }
+                    .align_text_details{
+                        text-align: center;
+                    }
+                }
+                .separator_card{
+                    margin: 0 27px;
+                    background-color: #ffffff21;
+                }
+                .btn_iniciar_leitura_livro{
+                    // background-color: #8e1cac;
+                    color: #FFF;
+                    width: 98%;
+                    border-radius: 7px 0px 0px 7px;
+                    margin: 66px 0 0px 0;
+                    background: linear-gradient(88deg, #7A22A7,#c270cb);
+                }
+                .btn_add_lista{
+                    background-color: #8e1cac;
+                    color: #FFF;
+                    width: 100%;
+                    border-radius: 0px 7px 7px 0px;
+                    margin: 66px 0 0 0;
+                }
+                .btn-editar-historia{
+                    // background: #e0e0e0;
+                    // margin: 26px 0 0 0;
+                    font-size: 13px;
+                    background: linear-gradient(88deg, #7a6d81,#7e717f);
+                    color: white;
+                }
+                .btn-deletar-historia{
+                    // background: #e0e0e0;
+                    // margin: 26px 0px 0 0px;
+                    font-size: 13px;
+                    background: linear-gradient(88deg, #7a6d81,#7e717f);
+                    color: white;
+                }
+            }
+        }
+        .descricao {
+            .apelido_usuario{
+                font-family: "Raleway", serif;
+                font-weight: bold;
+                margin: 0px 0px 0 14px;
+                cursor: pointer;
+                &:hover{
+                    color: #4a4a4a
+                }
+            }
+            .historia_finalizada{
+                background-color: #7A22A7;
+                color: #FFF;
+                border-radius: 10px;
+                height: 24px;
+                font-size: 14px;
+                justify-content: center;
+                margin: 20px 11px 20px 0;
+            }
+            .descricao_p{
+                text-align: justify;
+            }
+            .separator_livro{
+                background-color: #ffffff21;
+                height: 1px;
+                margin: 0px 0 18px 0px;
+            }
+        }
+        .tags-generos {
+
+        } 
+        .capitulos {
+            .card_indice{
+                padding: 10px 50px 30px 50px;
+                margin: 40px 0 0 0;
+                .title_indice_card{
+                    font-size: 1.2em;
+                    font-weight: bold; 
+                    text-transform: uppercase;
+                    margin: 0 0;
+                }
+                .row_add_capitulo {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                    .btn_adicionar{
+                        background-color: transparent;
+                        font-family: "Raleway";
+                        font-weight: bold;
+                        font-size: 12px;
+                        padding: 0px 8px;
+                        border: solid 1px #a3a3a3;
+                    }
+                }
+                .lista {
+                    .item_list{
+                        background-color: #00000040;
+                        margin: 6px 0;
+                        align-items: center;
+                        transition: border-left 0.1s ease, background-color 0.3s ease;
+                        &:hover{
+                            border-left: solid 3px #ba8ed1;
+                            background-color: #f2d9ff2b;
+                        }
+                    }
+                    .item_edit{
+                        background-color: #00000040;
+                        margin: 6px 0;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 20px;
+                        &:hover{
+                            background-color: #f2d9ff2b;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

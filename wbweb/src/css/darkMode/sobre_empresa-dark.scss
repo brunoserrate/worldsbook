@@ -1,0 +1,35 @@
+.dark-sobre_empresa {
+    background-color: #332c3f;
+    padding-bottom: 50px;
+    transition: background-color 0.3s ease;
+    p, span, h1, h2, h3, h4, h5, h6, ol, ul, button, a, label {
+        font-family: 'Raleway';
+        color: #d1d1d1;
+    }
+    .align_logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .somos_netdev{
+        font-size: 26px;
+        text-align: center;
+        font-family: 'Raleway';
+        text-transform: uppercase;
+        margin-bottom: 0;
+    }
+    .p_about1 {
+        font-size: 16px;
+        font-family: 'Raleway';
+        text-align: justify;
+        margin: 0 0 54px 0;
+    }
+    
+    .valores_netdev {
+        font-size: 26px;
+        text-align: center;
+        font-family: "Raleway";
+        text-transform: uppercase;
+        margin: 0px 0 0 0;
+    }
+}

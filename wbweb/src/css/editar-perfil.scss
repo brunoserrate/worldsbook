@@ -1,115 +1,7 @@
-// .bgindex{
-//     background: url('~assets/background.svg');
-//     background-size: 30%;
-//     position: absolute;
-//     background-repeat: no-repeat;
-//     background-position: right center;
-//     left: 0;
-//     top: 0;
-//     width: 100%;
-//     height: 100%;
-//     // z-index: 10000;
-// }
-.inputs_row {
-    margin-top: 20px;
-}
-.p-altere-informacoes{
-    font-family: Raleway;
-    font-size: 20px;
-    color: #4c4c4c;
-    font-weight: bold;
-}
-.alinhar_inputs {
-    display: flex;
-    justify-content: center;
-}
-.alinhar_label_utilizador {
-    display: flex;
-    justify-content: flex-start;
-    // margin: 0px 22px 18px 0px;
-    margin-top: 17px;
-    align-items: center;
-    font-family: Raleway;
-}
-.align-form {
-    display: flex;
-    justify-content: center;
-}
-.input_form {
-    // width: 280px;
-}
-.foto_perfil {
-    width: 90%;
-    height: 100%;
-    border: solid 8px #fff;
-    box-shadow: 0px 2px 4px #0000003d;
-    cursor: pointer;
-    border-radius: 10px;
-    &:hover{
-        filter: brightness(0.9);
-    }
-}
-.btn-salvar {
-    background: #7A22A7;
-    width: 100%;
-    color: #FFF;
-    border-radius: 0;
-    margin: 0;
-}
-.btn-query {
-    display: none;
-}
-.btn-query-desk {
-    display: block;
-}
-.align_icon {
-    display: flex;
-    justify-content: center;
-}
-.icone_edit_password {
-    font-size: 20px;
-    color: #7a22a7;
-    cursor: pointer;
-    &:hover {
-        color: #000;
-        background-color: #7a22a72b;
-        padding: 3px;
-        border-radius: 40px;
-    }
-}
-.row_foto {
-    display: flex;
-    justify-content: center;
-    margin: 25px 0 18px 0;
-}
-.dropdown_remove {
-    background: #00000069;
-    position: absolute;
-    width: 6%;
-    color: white;
-    border-radius: 13px;
-}
- 
-@media screen and (min-width: 1024px){
-    .bgindex{
-        background: url('~assets/background.svg');
-        background-size: 30%;
-        position: absolute;
-        background-repeat: no-repeat;
-        background-position: right center;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        // z-index: 10000;
-    }
+.editar_perfil {
+    transition: background-color 0.3s ease;
     .inputs_row {
         margin-top: 20px;
-    }
-    .row_foto {
-        display: flex;
-        justify-content: flex-start;
-        margin: 25px 0 18px 0;
     }
     .p-altere-informacoes{
         font-family: Raleway;
@@ -123,10 +15,15 @@
     }
     .alinhar_label_utilizador {
         display: flex;
-        justify-content: flex-end;
-        margin: 0px 22px 18px 0px;
+        justify-content: flex-start;
+        // margin: 0px 22px 18px 0px;
+        margin-top: 17px;
         align-items: center;
         font-family: Raleway;
+    }
+    .align-form {
+        display: flex;
+        justify-content: center;
     }
     .input_form {
         // width: 280px;
@@ -147,14 +44,13 @@
         width: 100%;
         color: #FFF;
         border-radius: 0;
-        margin: 19px 0px 0 11px
+        margin: 0;
     }
-    
     .btn-query {
-        display: block;
+        display: none;
     }
     .btn-query-desk {
-        display: none;
+        display: block;
     }
     .align_icon {
         display: flex;
@@ -171,12 +67,109 @@
             border-radius: 40px;
         }
     }
-    
+    .row_foto {
+        display: flex;
+        justify-content: center;
+        margin: 25px 0 18px 0;
+    }
     .dropdown_remove {
         background: #00000069;
         position: absolute;
         width: 6%;
         color: white;
         border-radius: 13px;
+    }
+}
+@media screen and (min-width: 1024px){
+    .editar_perfil{
+        background: url('~assets/background.svg');
+        background-size: 58vh;
+        // position: absolute;
+        background-repeat: no-repeat;
+        background-position: right center;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        // z-index: 10000;
+        .row-dark-perfil {
+            padding-top: 3rem;
+        }
+        .inputs_row {
+            margin-top: 20px;
+        }
+        .row_foto {
+            display: flex;
+            justify-content: flex-start;
+            margin: 25px 0 18px 0;
+        }
+        .p-altere-informacoes{
+            font-family: Raleway;
+            font-size: 20px;
+            color: #4c4c4c;
+            font-weight: bold;
+        }
+        .alinhar_inputs {
+            display: flex;
+            justify-content: center;
+        }
+        .alinhar_label_utilizador {
+            display: flex;
+            justify-content: flex-end;
+            margin: 0px 22px 18px 0px;
+            align-items: center;
+            font-family: Raleway;
+        }
+        .input_form {
+            // width: 280px;
+        }
+        .foto_perfil {
+            width: 90%;
+            height: 100%;
+            border: solid 8px #fff;
+            box-shadow: 0px 2px 4px #0000003d;
+            cursor: pointer;
+            border-radius: 10px;
+            &:hover{
+                filter: brightness(0.9);
+            }
+        }
+        .btn-salvar {
+            background: #7A22A7;
+            width: 100%;
+            color: #FFF;
+            border-radius: 0;
+            margin: 19px 0px 0 11px
+        }
+        
+        .btn-query {
+            display: block;
+        }
+        .btn-query-desk {
+            display: none;
+        }
+        .align_icon {
+            display: flex;
+            justify-content: center;
+        }
+        .icone_edit_password {
+            font-size: 20px;
+            color: #7a22a7;
+            cursor: pointer;
+            &:hover {
+                color: #000;
+                background-color: #7a22a72b;
+                padding: 3px;
+                border-radius: 40px;
+            }
+        }
+        
+        .dropdown_remove {
+            background: #00000069;
+            position: absolute;
+            width: 6%;
+            color: white;
+            border-radius: 13px;
+        }
     }
 }

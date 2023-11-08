@@ -1,50 +1,50 @@
-.help_p {
-    font-size: 60px;
-    font-family: Raleway;
-    color: #FFF;
-    text-align: center;
-    letter-spacing: 20px;
-    padding: 107px 0;
-}
-
-.row_icones{
-    background-color: #e3e3e3;
-    min-height: 124px;
-}
-
-.help-cover {
-    // background-color: #000;
-    min-height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-content: flex-start;
-}
-
-.col_help_cover {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.cover{
-    background: no-repeat;
-    position: absolute;
-    z-index: -1;
-    height: 300px;
-    filter: brightness(0.8);
-}
-
-.lista {
-    font-size: 20px;
-    text-transform: uppercase;
-    font-family: Raleway;
-}
-.textos {
-    font-size: 15px;
-    font-family: Raleway;
-}
-.card_list {
-    margin: 20px 0 0 0;
-    box-shadow: 0px 2px 6px #0000006b;
+.faq {
+    .help_p {
+        font-size: 60px;
+        font-family: Raleway;
+        color: #FFF;
+        text-align: center;
+        letter-spacing: 20px;
+        padding: 102px 0px 0 0px;
+    }
+    .row-perguntas {
+        transition: background-color 0.3s ease;
+    }
+    .row_icones{
+        background-color: #e3e3e3;
+        min-height: 124px;
+    }
+    .help-cover {
+        // background-color: #000;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-content: flex-start;
+    }
+    .col_help_cover {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .cover{
+        background: no-repeat;
+        position: absolute;
+        z-index: -1;
+        height: 300px;
+        filter: hue-rotate(45deg) brightness(0.5);
+    }
+    .lista {
+        font-size: 20px;
+        text-transform: uppercase;
+        font-family: Raleway;
+    }
+    .textos {
+        font-size: 15px;
+        font-family: Raleway;
+    }
+    .card_list {
+        margin: 20px 0 0 0;
+        box-shadow: 0px 2px 6px #0000006b;
+    }
 }

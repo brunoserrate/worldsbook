@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpR fFf">
     <!-- Header -->
-    <q-header class="header">
+    <q-header :class="isIndex ? (darkmode ? 'dark-index-header' : 'header') : (darkmode ? 'dark-header' : 'header')">
       <q-toolbar>
         <q-toolbar-title>
           <div class="row">
@@ -11,16 +11,27 @@
               </q-avatar>
             </div>
             <div class="col barra-pesquisa" >
-              <q-input outlined rounded bottom-slots v-model="search.pesquisa" label="Procurar" :dense="true" class="input_search">
+              <q-input 
+                outlined 
+                rounded 
+                bottom-slots 
+                v-model="search.pesquisa" 
+                placeholder="Procurar" 
+                :dense="true" 
+                class="input_search" 
+                :label-color="darkmode ? 'grey-5' : ''"
+                @keyup.enter="pesquisar"
+                >
                 <template v-slot:append>
                     <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
                     <q-icon name="search"  @click="pesquisar" class="icone_search" />
                 </template>
               </q-input>
             </div>
+            <!-- MOBILE -->
             <div class="col-2 offset-5 col-menu-hamburguer">
               <q-icon name="search" class="lupa">
-                <q-popup-edit v-model="label" auto-save v-slot="scope">
+                <q-popup-edit v-model="label" auto-save v-slot="scope" :content-class="darkmode ? 'dark-popup_pesquisa' : 'popup_pesquisa'">
                   <q-input v-model="search.pesquisa" dense autofocus rounded outlined @keyup.enter="pesquisar" class="popup_search">
                     <template v-slot:append>
                         <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
@@ -33,6 +44,7 @@
             <div class="col-2 offset-3 col-menu-hamburguer">
               <q-icon name="menu" class="menu-hamburguer" @click="sidebar = !sidebar"></q-icon>
             </div>
+            <!-- MOBILE -->
             <q-drawer
               v-model="sidebar"
               :width="240"
@@ -41,6 +53,7 @@
               overlay
               bordered
               class="bg-grey-3 sidebar"
+              :content-class="{'dark-sidebar-drawer': darkmode, 'sidebar-drawer': !darkmode}"
               >
               <q-scroll-area class="fit">
                 <q-list>
@@ -78,7 +91,14 @@
                       </q-item-section>
                       <q-item-section class="itens-sidebar" @click="getNewHistoria">Começar a escrever</q-item-section>
                     </q-item>
-                    <!-- <q-separator /> -->
+                    <q-separator />
+                    <q-item clickable v-ripple>
+                      <q-item-section avatar>
+                        <q-icon name="dark_mode" class="icone-sidebar"/>
+                      </q-item-section>
+                      <q-item-section class="itens-sidebar" @click="mobileDarkMode">Modo Dark</q-item-section>
+                    </q-item>
+                    <q-separator />
                     <q-item clickable v-ripple v-if="logado && user">
                       <q-item-section avatar>
                         <q-icon name="logout" class="icone-sidebar" style="color: red;" />
@@ -90,56 +110,73 @@
                 </q-list>
               </q-scroll-area>
             </q-drawer>
+            <!-- INICIAR SESSÃO -->
             <div v-if="!logado && user == null" class="col">
-              <q-btn flat style="color: #7A22A7" label="Iniciar Sessão" class="iniciar-sessao" @click="logar = !logar"/>
+              <div class="row pt-4">
+                <div class="col-md-8 col-xl-5">
+                  <q-btn flat label="Iniciar Sessão" class="iniciar-sessao" @click="logar = !logar"/>
+                </div>
+                <div class="col-md-4 col-xl-5">
+                  <q-btn unelevated round :icon="darkmode ? 'dark_mode' : 'light_mode'" class="iniciar-sessao" style="padding: 0px 0px;" @click="mobileDarkMode"/>
+                </div>
+              </div>
             </div>
-            <div v-else class="col navegar" style="margin: 25px 277px 7px 0;">
+            <!-- DESKTOP -->
+            <div v-else class="col navegar" style="margin: 25px 277px 7px 0;" >
               <q-btn-dropdown unelevated label="Navegar" class="btn_dropdown_navegar">
-                 <q-item clickable v-close-popup>
+                <div :class="{ 'dropdown_navegar_dark': darkmode, 'dropdown_navegar': darkmode }">
+                  <q-item clickable v-close-popup>
                     <q-item-section>
                       <q-item-label @click="goCategoria">Categorias</q-item-label>
                     </q-item-section>
                   </q-item>
+                </div>
               </q-btn-dropdown>
               <q-btn-dropdown unelevated label="Escrever" class="btn_dropdown_escrever">
-                 <q-item clickable v-close-popup>
+                <div  :class="{ 'dropdown_navegar_dark': darkmode, 'dropdown_navegar': darkmode }">
+                  <q-item clickable v-close-popup>
                     <q-item-section>
-                      <q-item-label @click="getNewHistoria"><q-icon name="post_add" class="icon_criar_historia"></q-icon>Criar História</q-item-label>
+                      <q-item-label @click="getNewHistoria"><q-icon name="post_add" class="icon_criar_historia me-2"></q-icon>Criar História</q-item-label>
                     </q-item-section>
                   </q-item>
+                </div>
               </q-btn-dropdown>
-
-              <q-btn round size="lg">
+              <q-btn round size="lg" class="button-profile">
                 <q-menu>
-                  <q-item clickable v-close-popup>
-                    <q-item-section @click="goPerfil">
-                         Perfil
-                    </q-item-section>
-                    <q-item-section avatar>
-                        <q-icon name="account_circle" color="primary" size="32px" />
-                    </q-item-section>
-                  </q-item>
-                  <q-item>
-                    <q-item-section>
-                      <q-toggle
-                        v-model="user.usar_apelido"
-                        label="Usar apelido?"
-                        left-label
-                        @input="alterarParametro"
-                      >
-                        {{ user.usar_apelido | converterBoolean }}
-                      </q-toggle>
-                        <q-tooltip content-class="bg-primary" content-style="font-size:14px">
-                          Utilize o seu apelido ao invés do nome cadastrado na plataforma!
-                        </q-tooltip>
-                    </q-item-section>
-                  </q-item>
-                  <q-item clickable v-close-popup>
-                    <q-item-section @click="logout()" >Logout</q-item-section>
-                  </q-item>
-                  <!-- <q-item clickable v-close-popup>
-                    <q-item-section @click="testeAuth()" >teste</q-item-section>
-                  </q-item> -->
+                  <div class="menu-opcoes">
+                    <q-item clickable v-close-popup class="profile">
+                      <q-item-section @click="goPerfil">
+                           Perfil
+                      </q-item-section>
+                      <q-item-section avatar>
+                          <q-icon name="account_circle" color="primary" size="32px" />
+                      </q-item-section>
+                    </q-item>
+                    <q-separator />
+                    <q-item tag="label" v-ripple class="apelido">
+                      <q-item-section>
+                        <q-item-label>Usar apelido?</q-item-label>
+                        <q-item-label caption>Utilize o seu apelido</q-item-label>
+                      </q-item-section>
+                      <q-item-section avatar>
+                        <q-toggle color="primary" keep-color v-model="user.usar_apelido" @input="alterarParametro" />
+                      </q-item-section>
+                    </q-item>
+                    <q-separator />
+                    <q-item tag="label" v-ripple class="dark-mode">
+                      <q-item-section>
+                        <q-item-label>Modo Dark</q-item-label>
+                        <q-item-label caption>Ative o modo escuro</q-item-label>
+                      </q-item-section>
+                      <q-item-section avatar>
+                        <q-toggle icon="dark_mode" color="dark" keep-color v-model="darkmode" @input="emitSelectDarkMode" />
+                      </q-item-section>
+                    </q-item>
+                    <q-separator />
+                    <q-item clickable v-close-popup class="logout">
+                      <q-item-section @click="logout()" >Logout</q-item-section>
+                    </q-item>
+                  </div>
                 </q-menu>
                 <q-avatar size="52px">
                   <img :src="user.foto_perfil" />
@@ -152,8 +189,9 @@
     </q-header>
     <!-- Header -->
     <!-- Footer -->
+    <!-- (isIndex) ? 'text-white hidden' : 'text-white' -->
     <!-- Caso seja index inclui as classes personalizadas mais o "hidden", caso o contrário, apenas as classes personalizadas -->
-    <q-footer elevated :class="(isIndex) ? 'text-white footer_pages hidden' : 'text-white footer_pages' ">
+    <q-footer elevated :class="{ 'text-white hidden': isIndex, 'text-white': !isIndex, 'dark-footer': darkmode, 'footer': !darkmode }" >
       <div class="row">
         <div class="col-5 logo_footer">
           <img alt="logo" src="~assets/logo-footer.png" class="logo_footer_img" />
@@ -235,224 +273,131 @@
 </template>
 
 <script>
-import { required, sameAs, email } from 'vuelidate/lib/validators'
-import LoginRegisterForgot from '../components/LoginRegisterForgot.vue'
+  import { required, sameAs, email } from 'vuelidate/lib/validators'
+  import LoginRegisterForgot from '../components/LoginRegisterForgot.vue'
+  import eventBus from '../boot/eventBus'
 
-export default {
-  name: 'MainLayout',
-  data () {
-    return {
-      dense: true,
-      sessao: false,
-      esqueciSenhaModal: false,
-      logar: false,
-      text: '',
-      label: '',
-      // Is password?
-      isPwd: true,
-      isPwdConf: true,
-      isPwdLogin: true,
-      isIndex: true,
-      isCriarCapitulo: false,
-      logado: false,
-      user: null,
-      sidebar: false,
-      formLogin: {
+  export default {
+    name: 'MainLayout',
+    data () {
+      return {
+        dense: true,
+        sessao: false,
+        esqueciSenhaModal: false,
+        logar: false,
+        text: '',
+        label: '',
+        // Is password?
+        isPwd: true,
+        isPwdConf: true,
+        isPwdLogin: true,
+        isIndex: true,
+        isCriarCapitulo: false,
+        logado: false,
+        user: null,
+        sidebar: false,
+        darkmode: null,
+        formLogin: {
+            email: '',
+            senha: '',
+        },
+        formRegister: {
+            nome: '',
+            apelido: '',
+            email: '',
+            senha: '',
+            repita_senha: '',
+            data_nascimento: '',
+        },
+        formEsqueciSenha: {
           email: '',
-          senha: '',
-      },
-      formRegister: {
-          nome: '',
-          apelido: '',
-          email: '',
-          senha: '',
-          repita_senha: '',
-          data_nascimento: '',
-      },
-      formEsqueciSenha: {
-        email: '',
-        confirma_email: ''
-      },
-      search: {
-        pesquisa: ''
+          confirma_email: ''
+        },
+        search: {
+          pesquisa: ''
+        }
       }
-    }
-  },
-  components: {
-    LoginRegisterForgot: LoginRegisterForgot
-  },
-  watch:{
-    '$route' (to,from){
+    },
+    components: {
+      LoginRegisterForgot: LoginRegisterForgot
+    },
+    watch:{
+      '$route' (to,from){
+        if(this.$route.path == '/'){
+          this.$set(this,'isIndex', true)
+        }
+        else if (this.$route.path == '/criar_historia/' + this.$route.params.historia_id){
+          this.$set(this,'isIndex', false)
+          this.$set(this,'isCriarCapitulo', true)
+        }
+        else if (!this.$route.path == '/criar_historia/' + this.$route.params.historia_id){
+          this.$set(this,'isIndex', false)
+          this.$set(this,'isCriarCapitulo', false)
+        }
+        else {
+          this.$set(this,'isIndex', false)
+        }
+      },
+      
+    },
+    mounted(){
+      let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
+
+      if(user !== null) {
+        this.user = user
+        this.logado = true
+      }
+
       if(this.$route.path == '/'){
         this.$set(this,'isIndex', true)
       }
-      else if (this.$route.path == '/criar_historia/' + this.$route.params.historia_id){
-        this.$set(this,'isIndex', false)
-        this.$set(this,'isCriarCapitulo', true)
-      }
-      else if (!this.$route.path == '/criar_historia/' + this.$route.params.historia_id){
-        this.$set(this,'isIndex', false)
-        this.$set(this,'isCriarCapitulo', false)
-      }
       else {
         this.$set(this,'isIndex', false)
       }
     },
-  },
-  mounted(){
-    let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
-
-    if(user !== null) {
-      this.user = user
-      this.logado = true
-    }
-
-    if(this.$route.path == '/'){
-      this.$set(this,'isIndex', true)
-    }
-    else {
-      this.$set(this,'isIndex', false)
-    }
-  },
-  methods: {
-		iniciarLeitura(){
-			this.$router.push({ path: '/categorias' })
-		},
-		comeceEscrever(){
-			if(this.user != null){
-				this.$router.push({ path: '/iniciar_leitura' })
-			}
-			else {
-				this.logar = !this.logar
-			}
-		},
-    pesquisar(){
-      // console.log(this.search.pesquisa)
-      this.$router.push({ path: `/historia/${this.search.pesquisa}` })
+    created() {
+      setTimeout(() => {
+        let dark = this.$q.localStorage.getItem('darkmode')
+        this.darkmode = dark == 'true' ? true : false
+      }, 500)
     },
-    goCategoria(){
-      this.$router.push({ path: '/categorias' })
-    },
-    goPerfil(){
-      this.$router.push({ path: '/perfil' })
-    },
-    getNewHistoria(){
-      this.$router.push({ path: '/criar_historia' })
-    },
-    section(){
-      this.logar=false
-      this.sessao=true
-      this.esqueciSenhaModal = false
-
-      this.$set(this,'formRegister', {
-        nome: '',
-        apelido: '',
-        email: '',
-        senha: '',
-        repita_senha: '',
-        data_nascimento: '',
-      })
-
-		},
-    goIndex(){
-      if(this.user !== null) {
-        this.$router.push({ path: `/iniciar_leitura` })
-      }
-      else {
-        let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
-        if(user !== null) {
-          this.$router.push({ path: `/iniciar_leitura` })
+    methods: {
+      emitSelectDarkMode() {
+        localStorage.setItem("darkmode", this.darkmode)
+        eventBus.$emit('att-darkmode', this.darkmode);
+      },
+      mobileDarkMode() {
+        this.darkmode = !this.darkmode
+        this.emitSelectDarkMode()
+      },
+      iniciarLeitura(){
+        this.$router.push({ path: '/categorias' })
+      },
+      comeceEscrever(){
+        if(this.user != null){
+          this.$router.push({ path: '/iniciar_leitura' })
         }
         else {
-          if(this.$route.path != '/'){
-            this.isIndex = true
-            this.$router.push({path: '/', replace: true })
-          }
+          this.logar = !this.logar
         }
-      }
-    },
-    logar_conta(){
-      this.sessao=false
-      this.logar=true
-      this.esqueciSenhaModal = false
-
-      this.$set(this,'formRegister', {
-        nome: '',
-        apelido: '',
-        email: '',
-        senha: '',
-        repita_senha: '',
-        data_nascimento: '',
-      })
-
-      this.$set(this,'formLogin', {
-        email: '',
-        senha: '',
-      })
-		},
-    login(){
-      let that = this
-
-      let params = {
-        email: that.formLogin.email,
-        password: that.formLogin.senha
-      }
-
-      that.$axios.post(that.$pathWeb + '/login', params)
-      .then((res) => {
-        // console.log(res)
-        this.$q.sessionStorage.set('auth', JSON.stringify( res.data.data ))
-        this.user = res.data.data
-        this.logado = true
-
-        this.sessao = false
-        this.logar = false
+      },
+      pesquisar(){
+        // console.log(this.search.pesquisa)
+        this.$router.push({ path: `/historia/${this.search.pesquisa}` })
+      },
+      goCategoria(){
+        this.$router.push({ path: '/categorias' })
+      },
+      goPerfil(){
+        this.$router.push({ path: '/perfil' })
+      },
+      getNewHistoria(){
+        this.$router.push({ path: '/criar_historia' })
+      },
+      section(){
+        this.logar=false
+        this.sessao=true
         this.esqueciSenhaModal = false
-
-        // that.sucesso()
-        this.$router.push({path: '/iniciar_leitura'})
-
-      })
-      .catch((err) => {
-        // console.log(err.response)
-        that.falha('Falha na operação. Por favor verifique o formulário e tente novamente')
-      })
-    },
-    logout(){
-      let that = this
-
-      that.$axios.post(that.$pathWeb + '/logout', this.user)
-      .then((res) => {
-        // console.log(res)
-        this.user = null
-        this.logado = false
-        this.isIndex = true
-        this.$q.sessionStorage.remove('auth')
-
-        this.$router.push({path: '/'})
-      })
-      .catch((err) => {
-        // console.log(err.response)
-      })
-    },
-    cadastrarUsuario(){
-      let that = this
-
-      if(!this.validarCadastro()) return false
-
-      let params = {
-        name: that.formRegister.nome,
-        apelido: that.formRegister.apelido,
-        email: that.formRegister.email,
-        password: that.formRegister.senha,
-        password_confirmation: that.formRegister.repita_senha,
-        data_nascimento: that.formRegister.data_nascimento
-      }
-
-      that.$axios.post(that.$pathAPI + '/register', params)
-      .then((res) => {
-        this.sessao = false
-        this.logar=true
 
         this.$set(this,'formRegister', {
           nome: '',
@@ -463,124 +408,236 @@ export default {
           data_nascimento: '',
         })
 
-        that.sucesso('Cadastrado com sucesso! Conecte-se na plataforma.')
-
-        this.$v.$reset()
-      })
-      .catch((err) => {
-        that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
-        // console.log(err)
-      })
-    },
-    enviarRedefinirSenha(){
-      let that = this
-
-      if(!this.validarRedefinirSenha()) return false
-
-      let params = {
-        email: that.formEsqueciSenha.email,
-        email_confirmation: that.formEsqueciSenha.confirma_email
-      }
-
-      that.$axios.post(that.$pathAPI + '/forgot_password', params)
-      .then((res) => {
-        this.$set(this,'formEsqueciSenha', {
-          email: '',
-          confirma_email: '',
-        })
-
+      },
+      goIndex(){
+        if(this.user !== null) {
+          this.$router.push({ path: `/iniciar_leitura` })
+        }
+        else {
+          let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
+          if(user !== null) {
+            this.$router.push({ path: `/iniciar_leitura` })
+          }
+          else {
+            if(this.$route.path != '/'){
+              this.isIndex = true
+              this.$router.push({path: '/', replace: true })
+            }
+          }
+        }
+      },
+      logar_conta(){
         this.sessao=false
-        this.logar=false
+        this.logar=true
         this.esqueciSenhaModal = false
 
-        that.sucesso('Redefinição de senha enviada com sucesso! Instrunções foram enviadas por e-mail')
-
-        this.$v.$reset()
-      })
-      .catch((err) => {
-        // console.log(err.response)
-        that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
-
-      })
-    },
-    alterarParametro(){
-      let that = this
-
-      that.$axios.post(that.$pathAPI + '/user/preferencia/apelido')
-      .then((res) => {
-        this.$q.sessionStorage.set('auth', JSON.stringify( this.user ))
-      })
-      .catch((err) => {
-
-      })
-    },
-    validarCadastro() {
-      this.$v.formRegister.$touch()
-
-      if (this.$v.formRegister.$anyError) {
-
-        this.$q.notify({
-          position: 'top',
-          color: 'warning',
-          textColor: 'black',
-          message: 'Preencha os campos obrigatórios',
-          icon: 'report_problem',
-          timeout: 10000,
-          actions: [
-            { label: 'Fechar', color: 'black', handler: () => {} }
-          ]
+        this.$set(this,'formRegister', {
+          nome: '',
+          apelido: '',
+          email: '',
+          senha: '',
+          repita_senha: '',
+          data_nascimento: '',
         })
 
-        return false
+        this.$set(this,'formLogin', {
+          email: '',
+          senha: '',
+        })
+      },
+      login(){
+        let that = this
 
-      }
+        let params = {
+          email: that.formLogin.email,
+          password: that.formLogin.senha
+        }
 
-      return true
+        that.$axios.post(that.$pathWeb + '/login', params)
+        .then((res) => {
+          // console.log(res)
+          this.$q.sessionStorage.set('auth', JSON.stringify( res.data.data ))
+          this.user = res.data.data
+          this.logado = true
 
-    },
-    validarRedefinirSenha() {
-      this.$v.formEsqueciSenha.$touch()
+          this.sessao = false
+          this.logar = false
+          this.esqueciSenhaModal = false
 
-      if (this.$v.formEsqueciSenha.$anyError) {
+          // that.sucesso()
+          this.$router.push({path: '/iniciar_leitura'})
 
-        this.$q.notify({
-          position: 'top',
-          color: 'warning',
-          textColor: 'black',
-          message: 'Preencha os campos obrigatórios',
-          icon: 'report_problem',
-          timeout: 10000,
-          actions: [
-            { label: 'Fechar', color: 'black', handler: () => {} }
-          ]
+        })
+        .catch((err) => {
+          // console.log(err.response)
+          that.falha('Falha na operação. Por favor verifique o formulário e tente novamente')
+        })
+      },
+      logout(){
+        let that = this
+
+        that.$axios.post(that.$pathWeb + '/logout', this.user)
+        .then((res) => {
+          // console.log(res)
+          this.user = null
+          this.logado = false
+          this.isIndex = true
+          this.$q.sessionStorage.remove('auth')
+
+          this.$router.push({path: '/'})
+        })
+        .catch((err) => {
+          // console.log(err.response)
+        })
+      },
+      cadastrarUsuario(){
+        let that = this
+
+        if(!this.validarCadastro()) return false
+
+        let params = {
+          name: that.formRegister.nome,
+          apelido: that.formRegister.apelido,
+          email: that.formRegister.email,
+          password: that.formRegister.senha,
+          password_confirmation: that.formRegister.repita_senha,
+          data_nascimento: that.formRegister.data_nascimento
+        }
+
+        that.$axios.post(that.$pathAPI + '/register', params)
+        .then((res) => {
+          this.sessao = false
+          this.logar=true
+
+          this.$set(this,'formRegister', {
+            nome: '',
+            apelido: '',
+            email: '',
+            senha: '',
+            repita_senha: '',
+            data_nascimento: '',
+          })
+
+          that.sucesso('Cadastrado com sucesso! Conecte-se na plataforma.')
+
+          this.$v.$reset()
+        })
+        .catch((err) => {
+          that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
+          // console.log(err)
+        })
+      },
+      enviarRedefinirSenha(){
+        let that = this
+
+        if(!this.validarRedefinirSenha()) return false
+
+        let params = {
+          email: that.formEsqueciSenha.email,
+          email_confirmation: that.formEsqueciSenha.confirma_email
+        }
+
+        that.$axios.post(that.$pathAPI + '/forgot_password', params)
+        .then((res) => {
+          this.$set(this,'formEsqueciSenha', {
+            email: '',
+            confirma_email: '',
+          })
+
+          this.sessao=false
+          this.logar=false
+          this.esqueciSenhaModal = false
+
+          that.sucesso('Redefinição de senha enviada com sucesso! Instrunções foram enviadas por e-mail')
+
+          this.$v.$reset()
+        })
+        .catch((err) => {
+          // console.log(err.response)
+          that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
+
+        })
+      },
+      alterarParametro(){
+        let that = this
+
+        that.$axios.post(that.$pathAPI + '/user/preferencia/apelido')
+        .then((res) => {
+          this.$q.sessionStorage.set('auth', JSON.stringify( this.user ))
+        })
+        .catch((err) => {
+
+        })
+      },
+      validarCadastro() {
+        this.$v.formRegister.$touch()
+
+        if (this.$v.formRegister.$anyError) {
+
+          this.$q.notify({
+            position: 'top',
+            color: 'warning',
+            textColor: 'black',
+            message: 'Preencha os campos obrigatórios',
+            icon: 'report_problem',
+            timeout: 10000,
+            actions: [
+              { label: 'Fechar', color: 'black', handler: () => {} }
+            ]
+          })
+
+          return false
+
+        }
+
+        return true
+
+      },
+      validarRedefinirSenha() {
+        this.$v.formEsqueciSenha.$touch()
+
+        if (this.$v.formEsqueciSenha.$anyError) {
+
+          this.$q.notify({
+            position: 'top',
+            color: 'warning',
+            textColor: 'black',
+            message: 'Preencha os campos obrigatórios',
+            icon: 'report_problem',
+            timeout: 10000,
+            actions: [
+              { label: 'Fechar', color: 'black', handler: () => {} }
+            ]
+          })
+
+          return false
+
+        }
+
+        return true
+
+      },
+      limparEsqueciSenha(modal){
+        this.sessao = false
+        this.logar = false
+        this.esqueciSenhaModal = modal
+
+        this.$set(this,'formEsqueciSenha', {
+          email: '',
+          confirma_email: ''
         })
 
-        return false
-
-      }
-
-      return true
-
-    },
-    limparEsqueciSenha(modal){
-      this.sessao = false
-      this.logar = false
-      this.esqueciSenhaModal = modal
-
-      this.$set(this,'formEsqueciSenha', {
-        email: '',
-        confirma_email: ''
-      })
-
-    },
-
+      },
+    }
   }
-}
 </script>
 
 <style lang="scss" scoped>
   // $
   @import '../css/tela-inicial.scss';
+  @import '../css/darkMode/tela-inicial-dark.scss';
+  @import '../css/darkMode/tela-inicial-index-dark.scss';
+  @import '../css/darkMode/footer-dark.scss';
   @import '../css/footer.scss';
   @import '../css/dialogs.scss';
 

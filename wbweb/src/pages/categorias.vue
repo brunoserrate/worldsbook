@@ -1,5 +1,5 @@
 <template>
-    <q-page>
+    <q-page :class="{ 'dark-categorias': darkmode, 'categorias': !darkmode }">
         <div class="row row_categorias" >
             <div class="col-12 col-md-4">
                 <q-card style="height: 100%;" class="card_search">
@@ -40,10 +40,12 @@
     </q-page>
 </template>
 <script>
+    import eventBus from '../boot/eventBus'
     export default {
         data (){
             return {
                 categorias: [],
+                darkmode: false,
                 user: {},
                 search: {
                     categoria: '',
@@ -56,7 +58,17 @@
             this.getCategorias()
             this.getUser()
         },
-
+        created() {
+            setTimeout(() => {
+				let dark = this.$q.localStorage.getItem('darkmode')
+				this.darkmode = dark == 'true' ? true : false
+			}, 500)
+			eventBus.$on('att-darkmode', async (option) => {
+				setTimeout(async() => {
+					this.darkmode = option
+				}, 500);
+			});
+        },
         methods: {
             goCategoria(categoria){
                 // console.log(categoria)
@@ -82,4 +94,5 @@
 </script>
 <style lang="scss" scoped>
     @import '../css/categorias.scss';
+    @import '../css/darkMode/categorias-dark.scss';
 </style>

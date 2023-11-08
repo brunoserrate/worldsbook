@@ -10,4 +10,166 @@
     .input_search {
         display: none;
     }
+    .title_capitulo .q-field__native, .title_capitulo .q-field__input {
+        font-family: Raleway;
+    }
+    .q-editor__content {
+        font-family: Raleway;
+    }
+}
+.dark-criar_capitulo {
+    .title_capitulo .q-field__native, .title_capitulo .q-field__input {
+        text-align: center;
+        color: #d1d1d1;
+        font-family: Raleway;
+    }
+    .q-field--standard .q-field__control:before {
+        border-bottom: 1px solid rgb(255 255 255 / 59%);
+        transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .q-editor__content {
+        color: #c9c5ce;
+        font-family: Raleway;
+    }
+}
+.header {
+    .q-field__native, .q-field__input {
+        font-family: Raleway;
+    }
+    .q-menu.q-position-engine.scroll.q-popup-edit.popup_pesquisa {
+        // background: #785498;
+        border-radius: 30px;
+        box-shadow: none;
+    }
+}
+.footer {
+    .q-layout__shadow:after {
+        top: 10px;
+        box-shadow: none;
+    }
+    .q-field__native, .q-field__input {
+        color: #bcb5bd;
+    }
+}
+.dark-footer {
+    .q-layout__shadow:after {
+        top: 10px;
+        box-shadow: none;
+    }
+    .q-field__native, .q-field__input {
+        color: #bcb5bd;
+    }
+}
+.dark-header {
+    .q-field--outlined .q-field__control:before {
+        border: 1px solid rgb(255 255 255 / 33%);
+        transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .q-field__native, .q-field__input {
+        color: #bcb6bb;
+        font-family: Raleway;
+    }
+    .q-menu.q-position-engine.scroll.q-popup-edit.popup_pesquisa {
+        background: #785498;
+        border-radius: 30px;
+        box-shadow: none;
+    }
+}
+.dark-index-header {
+    .q-field--outlined .q-field__control:before {
+        border: 1px solid rgb(255 255 255 / 47%);
+    }
+    .q-field__native, .q-field__input {
+        font-family: Raleway;
+        color: #cbc3d2;
+    }
+}
+.dark-categorias {
+    .q-field--outlined .q-field__control:before {
+        border: 1px solid #ffffffb2;
+        transition: border-color 0.36s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .q-field__native, .q-field__input {
+        color: #dfdbe1;
+    }
+    i {
+        color: #dfdbe1;
+    }
+}
+.dark-criar_historia {
+    .q-field__native, .q-field__input {
+        color: #b3b3b3 !important;
+        font-family: 'Raleway' !important;
+    }
+    .q-uploader {
+        p, span, h1, h2, h3, h4, h5, h6, ol, ul, button, a, label, div {
+            font-family: 'Raleway';
+            color: #c1bfc2;
+        }
+    }
+    .q-field--dense .q-field__label {
+        color: #b3b3b3;
+        font-family: 'Raleway';
+    }
+}
+.dark-bgIniciar-leitura {
+    .vueperslides__arrow {
+        color: #bcb6bb !important;
+    }
+    .vueperslides__bullet .default {
+        background-color: rgb(163 92 177 / 30%) !important;
+        border: none;
+        box-shadow: none;
+        transition: 0.3s;
+        width: 16px;
+        height: 16px;
+    }
+    .vueperslides__bullet--active .default {
+        background-color: #c9c9c9 !important;
+    }
+}
+.dark-editar_perfil {
+    .q-field--outlined .q-field__control:before {
+        border: 1px solid rgb(255 255 255 / 24%);
+    }
+    .q-field__native, .q-field__input {
+        color: #d7d1d8;
+        font-family: Raleway;
+    }
+}
+.dark-cadastrar {
+    .q-field--outlined .q-field__control:before {
+        border: 1px solid rgb(255 255 255 / 49%);
+    }
+    .q-field__label {
+        color: #b7b5b9;
+    }
+}
+.dark-sidebar-drawer {
+    background: linear-gradient(358deg, #2e2035 0%, #4f375b 100%);
+    p, span, h1, h2, h3, h4, h5, h6, ol, ul, button, a, div, label {
+        font-family: 'Raleway';
+        color: #FFF;
+    }
+    // background: #332c3f;
+}
+.dark-capitulo {
+    .q-field--outlined .q-field__control:before {
+        border: 1px solid rgb(255 255 255 / 53%);
+    }
+    .q-textarea .q-field__native {
+        color: #b3adb5;
+    }
+}
+.dark-popup_pesquisa {
+    background: #a991bd;
+    border-radius: 30px;
+    box-shadow: none;
+    margin-top: 7px !important;
+}
+.popup_pesquisa {
+    // background: #785498;
+    border-radius: 30px;
+    box-shadow: none;
+    margin-top: 7px !important;
 }

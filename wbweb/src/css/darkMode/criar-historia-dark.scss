@@ -1,0 +1,248 @@
+.dark-criar_historia {
+    background-color: #332c3f;
+    padding-bottom: 50px;
+    transition: background-color 0.3s ease;
+    .upload_image{
+        max-width: 330px;
+        height: 26em;
+        background: #3d3749;
+        border: solid 1px #ffffff1c;
+        color: #FFF;
+    }
+    .col_upload_image {
+        display: flex;
+        justify-content: center;
+    }
+    .upload_image[data-v-78281d95] {
+        max-width: 360px;
+        height: 26em;
+    }
+    .card_form_historia{
+        width: 450px;
+        height: auto;
+        box-shadow: none;
+        /* border: solid 1px #e0e0e0; */
+        padding: 24px;
+        background: #ffffff0d;
+        color: #c0c0c0;
+    }
+    .title_historia{
+        font-size: 21px;
+        width: 100%;
+        padding: 0;
+        margin: 50px 0 0px 0;
+        line-height: 1;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-family: Raleway;
+        text-align: center;
+    }
+    .inputs_form_historia{
+        padding: 0 10px;
+    }
+    .inputs_form_historia_descricao {
+        padding: 0 10px;
+    }
+    .q-field__control {
+        height: 40px !important;
+    }
+    .q-field__label {
+        top: 12px;
+        font-size: 14px;
+    }
+    .label_input{
+        margin: 25px 0 0 0;
+        font-weight: bold;
+        font-family: Raleway;
+        display: none;
+    }
+    .label_select{
+        font-weight: bold;
+        font-family: Raleway;
+        margin: 10px 0 0 0;
+    }
+    .btn_add_personagem{
+        background-color: #f2f2f2;
+        margin: 0px 0px 0 10px;
+        border-radius: 0;
+        height: 100%;
+    }
+    .separator_card{
+        margin: 22px 0 22px 0;
+    }
+    .p_direitos{
+        margin: 24px 0 0 0;
+        font-size: 13px;
+        font-family: Raleway;
+    }
+    .btn_seguinte{
+        width: 80%;
+        background-color: #7A22A7;
+        color: #fff;
+        font-family: Raleway;
+        font-weight: bold;
+    }
+    .btn_cancelar{
+        width: 80%;
+        background-color: #7a7a7a;
+        color: #fff;
+        font-family: Raleway;
+        font-weight: bold;
+    }
+    .edit-cover{
+        height: 40%;
+        border-radius: 14px;
+    }
+    .historia_caminho_capa {
+        height: 340px;
+        border-radius: 14px;
+        border: solid 1px #919191;
+    }
+    .dropdown_remove {
+        background: #00000069;
+        position: absolute;
+        width: 6%;
+        color: white;
+        border-radius: 13px;
+    }
+    .col-card {
+        margin: 0 0px 0 0px;
+    }
+    .col-select{
+        display: none;
+    }
+    .image_upload {
+        text-align: center;
+    }
+}
+.dark-card-remover-foto {
+    background: #706780;
+    color: #FFF;
+    p, span, h1, h2, h3, h4, h5, h6, ol, ul, button {
+        font-family: 'Raleway';
+        color: #c0c0c0 !important;
+    }
+}
+@media screen and (min-width: 860px){
+    .dark-criar_historia {
+        .upload_image{
+            max-width: 245px;
+            height: 26em;
+        }
+        .col_upload_image {
+            display: flex;
+            justify-content: center;
+        }
+        .upload_image[data-v-78281d95] {
+            max-width: 360px;
+            height: 26em;
+        }
+        .card_form_historia{
+            width: 450px;
+            height: auto;
+            box-shadow: 0px 0px 0px #00000024;
+            /* border: solid 1px #e0e0e0; */
+            padding: 24px;
+        }
+        .title_historia{
+            font-size: 17px;
+            width: 100%;
+            padding: 0;
+            margin: 0px 0 0px 0;
+            line-height: 1;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-family: Raleway;
+            text-align: left;
+        }
+        .inputs_form_historia{
+            padding: 0;
+        }
+        .inputs_form_historia_descricao {
+            padding: 0;
+        }
+        .q-field__control {
+            height: 40px !important;
+        }
+        .q-field__label {
+            top: 12px;
+            font-size: 14px;
+        }
+        .label_input{
+            margin: 25px 0 0 0;
+            font-weight: bold;
+            font-family: Raleway;
+            display: block;
+        }
+        .label_select{
+            font-weight: bold;
+            font-family: Raleway;
+            margin: 10px 0 0 0;
+        }
+        .btn_add_personagem{
+            background-color: #f2f2f2;
+            margin: 0px 0px 0 10px;
+            border-radius: 0;
+            height: 100%;
+        }
+        .separator_card{
+            margin: 22px 0 22px 0;
+        }
+        .p_direitos{
+            margin: 24px 0 0 0;
+            font-size: 13px;
+            font-family: Raleway;
+        }
+        .btn_seguinte{
+            width: 80%;
+            background-color: #7A22A7;
+            color: #fff;
+        }
+        .btn_cancelar{
+            width: 80%;
+            background-color: #7a7a7a;
+            color: #fff; 
+        }
+        .edit-cover{
+            height: 30%;
+            border-radius: 14px;
+        }
+        .historia_caminho_capa {
+            height: 340px;
+            border-radius: 14px;
+            border: 0;
+        }
+        .dropdown_remove {
+            background: #00000069;
+            position: absolute;
+            width: 6%;
+            color: white;
+            border-radius: 13px;
+        }
+        .col-card{
+            margin: 0 0px 0 58px;
+        }
+        .col-select{
+            display: block;
+        }
+        .image_upload {
+            text-align: center;
+        }
+        .edit-cover {
+            height: 100%;
+            border-radius: 14px;
+        }
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .dark-criar_historia {
+        .image_upload {
+            text-align: right;
+        }
+        .edit-cover {
+            height: 30%;
+            border-radius: 14px;
+        }
+    }
+}

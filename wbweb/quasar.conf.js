@@ -22,7 +22,8 @@ module.exports = function (/* ctx */) {
       'vuevalidate',
       'user',
       'notify',
-      'gets'
+      'gets',
+      'eventBus',
     ],
 
     // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

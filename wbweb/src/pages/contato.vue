@@ -1,5 +1,5 @@
 <template>
-    <q-page class="bgindex">
+    <q-page :class="{'dark-contato': darkmode, 'contato': !darkmode}">
         <div class="row">
             <div class="col-12 offset-1 col-md-4">
                 <div class="row">
@@ -23,7 +23,7 @@
             <div class="col-1 separator_moboile">
                 <q-separator vertical class="separator_format" />
             </div>
-            <div class="col-12 offset-1 offset-md-0 col-md-6">
+            <div class="col-12 offset-1 offset-md-0 col-md-6 mb-5">
                 <div class="row">
                     <div class="col-11 offset-1">
                         <h1 class="h1">Redes Sociais</h1>
@@ -61,17 +61,28 @@
     </q-page>
 </template>
 <script>
-export default {
-    name: 'sobre-empresa',
-    data(){
-        return {
-
+    import eventBus from '../boot/eventBus'
+    export default {
+        name: 'sobre-empresa',
+        data(){
+            return {
+				darkmode: false,
+            }
+        },
+        created() {
+			setTimeout(() => {
+				let dark = this.$q.localStorage.getItem('darkmode')
+				this.darkmode = dark == 'true' ? true : false
+			}, 500)
+			eventBus.$on('att-darkmode', async (option) => {
+				setTimeout(async() => {
+					this.darkmode = option
+				}, 500);
+			});
         }
-
     }
-
-}
 </script>
 <style lang="scss" scoped>
 	@import '../css/contato.scss';
+	@import '../css/darkMode/contato-dark.scss';
 </style>
