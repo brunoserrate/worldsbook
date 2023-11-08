@@ -5,12 +5,12 @@
       <q-toolbar>
         <q-toolbar-title>
           <div class="row">
-            <div  class="col"> 
+            <div  class="col-2"> 
               <q-avatar square class="avatar-inicio">
                 <img src="~/assets/logo.png" class="icon" @click="goIndex">
               </q-avatar>
             </div>
-            <div class="col barra-pesquisa" >
+            <div class="col-4 col-md-5 col-lg-6 barra-pesquisa" >
               <q-input 
                 outlined 
                 rounded 
@@ -29,7 +29,7 @@
               </q-input>
             </div>
             <!-- MOBILE -->
-            <div class="col-2 offset-5 col-menu-hamburguer">
+            <div class="col-2 offset-3 col-menu-hamburguer">
               <q-icon name="search" class="lupa">
                 <q-popup-edit v-model="label" auto-save v-slot="scope" :content-class="darkmode ? 'dark-popup_pesquisa' : 'popup_pesquisa'">
                   <q-input v-model="search.pesquisa" dense autofocus rounded outlined @keyup.enter="pesquisar" class="popup_search">
@@ -113,10 +113,10 @@
             <!-- INICIAR SESSÃO -->
             <div v-if="!logado && user == null" class="col">
               <div class="row pt-4">
-                <div class="col-md-8 col-xl-5">
+                <div class="col-md-5 col-lg-3 col-xl-2 pe-4 pe-md-0 me-lg-5 me-xl-5">
                   <q-btn flat label="Iniciar Sessão" class="iniciar-sessao" @click="logar = !logar"/>
                 </div>
-                <div class="col-md-4 col-xl-5">
+                <div class="col-md-4 col-xl-5 ms-lg-1 ms-xl-4">
                   <q-btn unelevated round :icon="darkmode ? 'dark_mode' : 'light_mode'" class="iniciar-sessao" style="padding: 0px 0px;" @click="mobileDarkMode"/>
                 </div>
               </div>
