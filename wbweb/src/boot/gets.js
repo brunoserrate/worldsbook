@@ -1,4 +1,7 @@
 import Vue from 'vue'
+import eventBus from './eventBus'
+
+let i18n = ''
 
 Vue.mixin({
     methods: {
@@ -63,5 +66,14 @@ Vue.mixin({
 				console.log(err.response)
 			})
         },
-    }
+    },
+	// created() {
+	// 	eventBus.$on('att-idioma', async(option) => {
+	// 		this.selectedOption = option;
+	// 		setTimeout(() => {
+	// 			i18n = option
+	// 			console.log("option ", i18n)
+	// 		}, 500)
+	// 	});
+	// }
 })

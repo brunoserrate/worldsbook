@@ -1,0 +1,384 @@
+{
+    "index": {
+        "bem_vindo": "Bem-vindo ao World Books",
+        "subtitulo": "Segunda plataforma mais amada do mundo",
+        "descricao": "World Books sua plataforma para te conectar com milhões de livros e escritores pelo mundo. Explore sua imaginação, desenvolva histórias e interaja com vários autores pelo mundo.",
+        "botoes": {
+            "iniciar_leitura": "Iniciar Leitura",
+            "comece_escrever": "Comece a Escrever"
+        },
+        "dialogs": {
+            "login": {
+                "titulo": "Bem-vindo de volta ao World Books",
+                "texto": "Bem-vindo de volta ao Worldbook! Logue e continue apoiando escritores e mostrando ao mundo os seus universos!",
+                "inputs": {
+                    "email": "E-mail",
+                    "senha": "Senha"
+                },
+                "botoes": {
+                    "logar": "Logar",
+                    "fechar": "Fechar"
+                },
+                "nao_possui_conta": "Não possui uma conta?",
+                "cadastrese": "Cadastre-se",
+                "esqueceu_senha": "Esqueceu a senha?",
+                "recuperar_senha": "Recuperar senha" 
+            },
+            "cadastro": {
+                "titulo": "Junte-se ao World Books",
+                "texto": "Faça parte da comunidade global de leitores e escritores, todos conectados através do poder das histórias",
+                "inputs": {
+                    "nome": "Nome",
+                    "apelido": "Apelido",
+                    "email": "E-mail",
+                    "senha": "Senha",
+                    "confirma_senha": "Confirma senha",
+                    "data_nascimento": "Data de Nascimento"
+                },
+                "botoes": {
+                    "cadastrar": "Cadastrar",
+                    "cancelar": "Cancelar"
+                },
+                "ja_possui_conta": "Já possui uma conta?",
+                "faca_login": "Faça login!" 
+            },
+            "esqueci_senha": {
+                "titulo": "Esqueceu a senha?",
+                "texto": "Digite e confirme o e-mail da sua conta",
+                "inputs": {
+                    "email": "E-mail",
+                    "confirma_email": "Confirma e-mail"
+                },
+                "botoes": {
+                    "enviar": "Enviar",
+                    "cancelar": "Cancelar"
+                },
+                "ja_possui_conta": "Já possui uma conta?",
+                "faca_login": "Faça login!" 
+            },
+            "sucesso": {
+                "cadastro_sucesso": "Cadastrado com sucesso! Conecte-se na plataforma."
+            },
+            "falhas": {
+                "falha_operacao": "Falha na operação. Por favor verifique o formulário e tente novamente",
+                "falha_cadastro": "Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.",
+                "preecha_forms": "Preencha os campos obrigatórios"
+            },
+            "botoes": {
+                "fechar": "Fechar"
+            },
+            "campo_obrigatorio": "Campo obrigatório",
+            "digite_email_valido": "Digite um e-mail válido",
+            "senhas_nao_coincidem": "Senhas não coincidem"
+        }
+    },
+    "login": {
+        "form": {
+            "usuario": "Usuário",
+            "senha": "Senha"
+        },
+        "acessar": "Acessar",
+        "avisos": {
+            "preechan_campos": "Preencha todos os campos",
+            "login_senha_incorreto": "Login e senha incorretas!"
+        }
+    },
+    "iniciar_leitura": {
+       "label_inicio": "Navegue pelas categorias explorando diversos livros, será uma experiência incrível!",
+       "bem_vindo": "Bem-vindo(a)",
+       "bem_vindo_subtitulo": "As melhores escolhas para si",
+       "melhores_generos": "Encontre as melhores entre os gêneros!",
+       "categoria_romance": "Categoria de romance",
+       "categoria_terror": "Categoria de terror",
+       "categoria_aventura": "Categoria de aventura"
+    },
+    "header": {
+        "procurar": "Procurar",
+        "navegar": {
+            "label": "Navegar",
+            "items": {
+                "categorias": "Categorias"
+            }
+        },
+        "escrever": {
+            "label": "Escrever",
+            "items": {
+                "criar_historia": "Criar História"
+            }
+        },
+        "avatar": {
+            "perfil": "Perfil",
+            "apelido": {
+                "label": "Usar apelido?",
+                "caption": "Utilize o seu apelido"
+            },
+            "modo_dark": {
+                "label": "Modo Dark",
+                "caption": "Ative o modo escuro"
+            },
+            "linguagem": {
+                "label": "Linguagem",
+                "linguagens": [
+                    { "name": "Inglês", "country": "us", "img": "us.png" },
+                    { "name": "Português", "country": "br", "img": "br.png" },
+                    { "name": "Espanhol", "country": "es", "img": "es.png" }
+                ]
+            }
+        },
+        "iniciar_sessao": "Iniciar Sessão",
+        "iniciar_leitura": "Iniciar Leitura",
+        "comecar_escrever": "Começar a escrever"
+    },
+    "footer": {
+        "inicio": {
+            "label": "Inicio",
+            "home": "Home",
+            "iniciar_leitura": "Iniciar Leitura",
+            "comecar_escrever": "Começar a escrever",
+            "categorias": "Categorias"
+        },
+        "sobre_nos": {
+            "label": "Sobre nós",
+            "sobre_empresa": "Sobre a empresa",
+            "contato": "Contato",
+            "redes_sociais": "Redes Sociais"
+        },
+        "suporte": {
+            "label": "Suporte",
+            "faq": "Faq",
+            "github": "Github"
+        }
+    },
+    "criar_historia": {
+        "titulo": "Detalhes da história",
+        "imagem": "Carregar imagem",
+        "detalhes_historia": {
+            "titulo": {
+                "label": "Título",
+                "placeholder": "História sem título"
+            },
+            "descricao": {
+                "label": "Descrição",
+                "placeholder": "Sinopse da história"
+            },
+            "categoria": {
+                "label": "Categoria",
+                "placeholder": "Categoria"
+            },
+            "etiquetas": {
+                "label": "Etiquetas",
+                "placeholder": "Tags da história"
+            },
+            "publico_alvo": {
+                "label": "Público alvo",
+                "placeholder": "Qual o seu público alvo principal?"
+            },
+            "idioma": {
+                "label": "Idioma",
+                "placeholder": "Qual o idioma?"
+            },
+            "direitos_autorais": {
+                "label": "Direitos do Autor",
+                "placeholder": "Direitos Autorais",
+                "aviso": "Isto permite que qualquer pessoa utilize a tua história para qualquer propósito — podem imprimi-la, vendê-la ou transformá-la num filme."
+            },
+            "conteudo_adulto": {
+                "label": "Conteúdo Adulto",
+                "placeholder": "Conteúdo Adulto"
+            },
+            "historia_finalizada": {
+                "label": "História finalizada?",
+                "placeholder": "História finalizada",
+                "sim": "Sim",
+                "nao": "Não"
+            }
+        },
+        "remover_foto": "Remover foto",
+        "botoes": {
+            "seguinte": "Seguinte",
+            "postar": "Postar",
+            "cancelar": "Cancelar"
+        },
+        "dialogs": {
+            "confirmacao": "Deseja remover a foto de perfil?",
+            "sim": "Sim",
+            "cancelar": "Cancelar"
+        },
+        "carregando_historia": "Carregando história",
+        "avisos": {
+            "preecha_titulo": "Por favor, preencha o título da história",
+            "preecha_descricao": "Por favor, preencha a descrição da história",
+            "preecha_categoria": "Por favor, escolha alguma categoria para a história",
+            "preecha_publico_alvo": "Por favor, escolha o público alvo",
+            "preecha_idioma": "Por favor, escolha um idioma",
+            "preecha_direitos": "Por favor, escolha uma opção de direitos autorais da história",
+            "preecha_capa": "Por favor, faça o envio da capa da história"
+        },
+        "sim": "Sim",
+        "nao": "Não"
+    },
+    "livro": {
+       "reacoes": {
+            "visualizacoes": "Visualizações",
+            "votos": "Votos",
+            "capitulos": "Capítulos"
+       },
+       "iniciar_leitura": "Iniciar Leitura",
+       "indice": "Índice",
+       "adicionar_capitulo": "Adicionar Capítulo",
+       "sem_capitulos": "Essa história ainda não tem capítulos!",
+       "carregando_historia": "Carregando história",
+       "dialogs": {
+            "deletar_historia": "Deseja deletar essa história permanentemente?",
+            "deletar_capitulo": "Deseja deletar esse capítulo permanentemente?",
+            "deletar": "Deletar",
+            "cancelar": "Cancelar"
+       },
+       "concluida": "Concluída",
+       "em_andamento": "Em andamento",
+       "conteudo_adulto": "Conteúdo Adulto",
+       "conteudo_livre": "Conteúdo Livre"
+    },
+    "capitulo": {
+        "capa": "Capa",
+        "proximo_capitulo": "Ir para o próximo capítulo",
+        "sem_capitulos": "Não há mais capítulos",
+        "enviar": "Enviar",
+        "de": "de",
+        "voto": {
+            "votar": "Votar",
+            "votado": "Votado!",
+            "falha_conexao": "Não é possível votar sem estar conectado!",
+            "capitulo_votado": "Capítulo votado com sucesso",
+            "voto_removido": "Voto removido do capítulo com sucesso"
+        },
+        "falha_comentar": "Não é possível comentar sem estar conectado!",
+        "aguarde": "Por favor, aguarde...",
+        "fechar": "Fechar"
+    },
+    "criar_capitulo": {
+        "botoes": {
+            "publicar": "Publicar",
+            "cancelar": "Cancelar"
+        },
+        "capitulo_sem_nome": "Capítulo sem nome",
+        "comece_escrever": "Comece a escrever...",
+        "carregando_capitulo": "Carregando capítulo..."
+    },
+    "livro_dialogs": {
+        "iniciar_leitura": "Iniciar Leitura",
+        "data_atualizacao": "Data de atualização"
+    },
+    "perfil": {
+        "a_seguir": "A seguir",
+        "editar_perfil": "Editar Perfil",
+        "descricao_usuario": "Descrição do usuário",
+        "carregando_perfil": "Carregando perfil",
+        "historias": {
+            "historias_de": "Histórias de",
+            "historias_publicadas": "histórias publicadas",
+            "data_atualizacao": "Data de atualização"
+        },
+        "concluida": "Concluída",
+        "em_andamento": "Em andamento",
+        "conteudo_adulto": "Conteúdo Adulto",
+        "conteudo_livre": "Conteúdo Livre"
+    },
+    "editar_perfil": {
+        "titulo": "Altere as informações da sua conta",
+        "nome": "Nome",
+        "apelido": "Apelido",
+        "email": "E-mail",
+        "senha": "Senha",
+        "descricao_usuario": "Descrição do usuário",
+        "imagem": "Carregar imagem",
+        "salvar": "Salvar",
+        "remover_foto": "Remover foto",
+        "dialog": {
+            "confirmacao": "Deseja remover a foto de perfil?",
+            "sim": "Sim",
+            "cancelar": "Cancelar"
+        }
+    },
+    "categorias": {
+        "titulo": "Busque pelas melhores obras de acordo com a sua categoria favorita!",
+        "subtitulo": "Diversas categorias para todos os gostos!",
+        "nao_encontrou": "Não encontrou o que procurava? Pesquise aqui!"
+    },
+    "livro_categorias": {
+        "titulo": "Aqui estão os melhores livro na categoria de",
+        "sua_pesquisa_retornou": "Sua pesquisa retornou",
+        "diversos_livros": "Diversos livros para todos os gostos!",
+        "carregando": "Carregando livros",
+        "voltar": "Voltar",
+        "qtd_historias": {
+            "singular": "história",
+            "plural": "histórias"
+        },
+        "qtd_resultados": {
+            "singular": "resultado",
+            "plural": "resultados"
+        },
+        "de": "de",
+        "dialogs": {
+            "iniciar_leitura": "Iniciar Leitura",
+            "data_atualizacao": "Data de atualização"
+        }
+    },
+    "sobre_empresa": {
+        "somos": {
+            "label": "Somos a NetDev",
+            "descricao": "<p>Somos uma empresa especializada em assistência técnica, reparo, manutenção preventiva e corretiva, configuração e instalação de equipamentos de informática, redes e periféricos. Estamos em atividade desde 2006, colaborando com os nossos clientes e parceiros na obtenção de melhores resultados, tornando-os mais competitivos.</p><p>Serviços de informática ao seu alcance, para pessoa física, pequenas e médias empresas. Oferecemos serviços a domicílio de assistência técnica, com técnico de notebook para prestar suporte em sua casa ambiente WINDOWS e MAC APPLE. Manutenção e implantação de rede sem fio Wi-Fi, doméstico e empresarial para grandes ambientes.</p><p>Fazemos a diferença, pois fazemos diferente. Buscamos soluções de qualidade com baixo custo, para satisfazer as necessidades mais especificas de nossos clientes. Nosso serviço de atendimento é personalizado e entende o que você precisa, para atender suas expectativas. Assim você e sua empresa podem focar no que realmente importa para o negócio.</p><p>Nosso objetivo é oferecer soluções criativas e eficientes com qualidade, flexibilidade e rapidez para nossos clientes. Para isto contamos com uma equipe técnica, qualificada em diferentes plataformas tecnológicas, em constante atualização e aprimoramento. Trabalhamos para garantir a estabilidade de sistemas e tecnologias.<p>"
+        },
+        "missao": {
+            "label": "A nossa missão",
+            "descricao": "Superar as expectativas de cada cliente através da excelência na prestação de serviços inovadores, a fim de torná-los ainda mais competitivos em seus negócios, fornecendo, assim, soluções tecnológicas de alta qualidade."
+        },
+        "visao": {
+            "label": "A nossa visão",
+            "descricao": "Ser vista como principal ponto de contato na área de tecnologia de ponta, oferecendo serviços de qualidade, com respeito, responsabilidade e transparência, visando à satisfação plena de nossos clientes e colaboradores."
+        },
+        "valores": {
+            "label": "Os nossos valores",
+            "descricao": "<p class=text-center>Qualidade;</p><p class=text-center>Pontualidade;</p><p class=text-center>Ética;</p><p class=text-center>Inovação.</p>"
+        }
+    },
+    "contato": {
+        "contatos": {
+            "label": "Contato",
+            "descricao": "Você pode entrar em contato conosco <br>pelos nossos canais de atendimento!"
+        },
+        "redes_sociais": {
+            "label": "Redes sociais",
+            "descricao": "Siga-nos nas redes sociais! E fique <br>por dentro de todas as novidades"
+        }
+    },
+    "faq": {
+        "ajuda": "Ajuda",
+        "perguntas": [
+            { "pergunta": "Como o World Books funciona?", "resposta": "O WorldBoks é uma plataforma gratuita de livros online. Aonde você pode postar suas próprias obras e ler as de outros usuários!" },
+            { "pergunta": "Eu posso publicar qualquer obra minha?", "resposta": "Sim! Você pode publicar qualquer obra sua desde que não viole as regras." },
+            { "pergunta": "Eu posso ler qualquer obra publicada por outros usuários?", "resposta": "Sim, você pode ler qualquer obra postada por outro usuário!" }
+        ]
+    },
+    "avisos": {
+        "historia_criada": "História criada!",
+        "capitulo_criado": "Capítulo criado!",
+        "perfil_editado": "Perfil editado com sucesso!",
+        "erro_criacao_historia": "Erro na criação da história!",
+        "erro_criacao_capitulo": "Erro na criação do capítulo!",
+        "erro_editar": "Houve um erro ao editar!",
+        "erro_carregar": "Erro ao carregar!",
+        "labels": {
+            "ok": "OK",
+            "fechar": "Fechar"
+        },
+        "sucesso": "Operação realizada com sucesso",
+        "falha": "Falha na operação",
+        "aviso": "Dados incorretos"
+    },
+    "error404": {
+        "subtitulo": "A página que você deseja não foi encontrada",
+        "voltar": "Clique para voltar ao início"
+    }
+}

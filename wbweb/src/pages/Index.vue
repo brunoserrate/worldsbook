@@ -4,25 +4,23 @@
 			<div class="col-12 col-sm-6">
 				<div class="row">
 					<div class="col-12 offset-sm-1">
-						<h1 class="welcomeWorldBooks">Bem-vindo ao World Books</h1>
+						<h1 class="welcomeWorldBooks">{{ i18n.bem_vindo }}</h1>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col offset-sm-1">
-						<h3 class="segundaPlataforma">Segunda plataforma mais amada do mundo</h3>
+						<h3 class="segundaPlataforma">{{ i18n.subtitulo }}</h3>
 					</div>
 				</div>			
 				<div class="row mt-2">
 					<div class="col offset-1">
-						<p class="texto">World Books sua plataforma para te conectar com milhões de livros e escritores pelo mundo.
-							 Explore sua imaginação, desenvolva histórias e interaja com vários autores pelo mundo.
-						</p>
+						<p class="texto">{{ i18n.descricao }}</p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 offset-sm-1 align_btn">
-						<q-btn style="color: #fff" label="Iniciar leitura" class="btn_iniciar-leitura" @click="iniciarLeitura" unelevated/>
-						<q-btn style="color: #fff" label="Comece a escrever" class="btn_comece-escrever q-ml-xl" @click="comeceEscrever" unelevated/>
+						<q-btn style="color: #fff" :label="i18n.botoes.iniciar_leitura" class="btn_iniciar-leitura" @click="iniciarLeitura" unelevated/>
+						<q-btn style="color: #fff" :label="i18n.botoes.comece_escrever" class="btn_comece-escrever q-ml-xl" @click="comeceEscrever" unelevated/>
 					</div>
 				</div>
 			</div>
@@ -67,7 +65,7 @@
     import eventBus from '../boot/eventBus'
 
 	export default {
-		name:'IndexNoAuth',
+		name: 'IndexNoAuth',
 		data (){
 			return {
 				logar: false,
@@ -79,7 +77,8 @@
 				publico_alvo_id: '',
 				logado: false,
                 darkmode: false,
-				user: null
+				user: null,
+				i18n: {}
 			}
 		},
 		components: {
@@ -98,6 +97,7 @@
 			}
 		},
 		created() {
+            this.i18n = this.$i18n.index
             setTimeout(() => {
                 let dark = this.$q.localStorage.getItem('darkmode')
                 this.darkmode = dark == 'true' ? true : false
@@ -106,6 +106,12 @@
                 setTimeout(async() => {
                     this.darkmode = option
                 }, 500);
+            });
+			eventBus.$on('att-idioma', async(option) => {
+                this.selectedOption = option;
+                setTimeout(() => {
+                    this.i18n = this.$i18n.index
+                }, 500)
             });
 		},
 		methods:{

@@ -74,6 +74,10 @@
         border-radius: 30px;
         box-shadow: none;
     }
+    .menu-linguagens {
+        background-color: #66526f;
+        color: #d9cdda;
+    }
 }
 .dark-index-header {
     .q-field--outlined .q-field__control:before {
@@ -83,6 +87,10 @@
         font-family: Raleway;
         color: #cbc3d2;
     }
+}
+.dark-menu-linguagens {
+    background-color: #66526f;
+    color: #d9cdda;
 }
 .dark-categorias {
     .q-field--outlined .q-field__control:before {

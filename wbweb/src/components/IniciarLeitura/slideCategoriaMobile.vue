@@ -17,7 +17,7 @@
             />
         </vueper-slides>
 		<q-dialog v-model="livro_dialog" class="navbar_classe">
-			<q-card class="card_detail_historia">
+			<q-card :class="{'dark-card_detail_historia': darkmode, 'card_detail_historia': !darkmode}">
 				<div class="row" style="height: 100%;">
 					<div class="col-12 cover_dialog">
 						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
@@ -32,14 +32,14 @@
 								<p class="col_descricao_detail">{{livro_detail.descricao | cutDescricao}}</p>
 							</div>
 							<div class="col-12 col_btn_detail">
-								<q-btn unelevated label="Iniciar leitura" class="btn_detail_iniciar_leitura" @click="getLivro(livro_detail)"/>
+								<q-btn unelevated :label="i18n.iniciar_leitura" class="btn_detail_iniciar_leitura" @click="getLivro(livro_detail)"/>
 							</div>
 						</div>
 						<q-separator></q-separator>
 						<template q-slot="footer">
 							<div class="row">
 								<div class="col-12 col_btn_detail">
-									<p class="col_data_atualizacao"><span>Data de atualização: </span>{{ livro_detail.data_atualizacao | formatDateTime }}</p>
+									<p class="col_data_atualizacao"><span>{{i18n.data_atualizacao}}: </span>{{ livro_detail.data_atualizacao | formatDateTime }}</p>
 								</div>
 							</div>
 						</template>
@@ -52,6 +52,7 @@
 <script>
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
+import eventBus from '../../boot/eventBus'
 export default {
 	// props:['breadcrumbs'],
     name: 'slideCategoriaVueMobile',
@@ -59,8 +60,10 @@ export default {
 	data (){
 		return {
 			sessao: false,
+			darkmode: false,
 			livro_dialog: false,
 			livros:[],
+			i18n: {},
 			livro_detail: {
 				caminho_capa: '', 
 				categoria_id: '',
@@ -100,6 +103,24 @@ export default {
 			}
 
 		}
+	},
+	created() {
+		this.i18n = this.$i18n.livro_dialogs
+		setTimeout(() => {
+			let dark = this.$q.localStorage.getItem('darkmode')
+			this.darkmode = dark == 'true' ? true : false
+		}, 500)
+		eventBus.$on('att-darkmode', async (option) => {
+			setTimeout(async() => {
+				this.darkmode = option
+			}, 500);
+		});
+		eventBus.$on('att-idioma', async(option) => {
+			this.selectedOption = option;
+			setTimeout(() => {
+				this.i18n = this.$i18n.livro_dialogs
+			}, 500)
+		});
 	},
 	methods:{
         getLivro(livro_detail){

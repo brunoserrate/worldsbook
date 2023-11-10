@@ -2,7 +2,7 @@
     <q-page :class="{'dark-criar_capitulo': darkmode, 'criar_capitulo': !darkmode}">
         <div class="row justify-end items-center content-center navbar_capitulo">
             <div class="col-4 col-sm-2 col_btn">
-                <q-btn flat label="Publicar" class="btn_seguinte" @click="setCapitulo">
+                <q-btn flat :label="i18n.botoes.publicar" class="btn_seguinte" @click="setCapitulo">
                     <q-inner-loading 
                         :showing="visible"
                         label-class="text-teal"
@@ -12,7 +12,7 @@
                 </q-btn>
             </div>
             <div class="col-4 col-sm-2">
-                <q-btn flat label="Cancelar" class="btn_cancelar" @click="cancelar"></q-btn>
+                <q-btn flat :label="i18n.botoes.cancelar" class="btn_cancelar" @click="cancelar"></q-btn>
             </div>
         </div>
         <q-separator></q-separator>
@@ -27,11 +27,12 @@
         </div>
         <div class="fit row justify-center items-center content-center">
             <div class="col-9 col-sm-6">
-                <q-input v-model="capitulo.titulo" class="title_capitulo"/>
+                <q-input v-model="capitulo.titulo" :placeholder="i18n.capitulo_sem_nome" class="title_capitulo"/>
             </div>
             <div class="col-10 col-sm-8 offset-0" style="margin: 53px 0 0 0;">
                 <q-editor
                     class="editor-text"
+                    :placeholder="i18n.comece_escrever"
                     toolbar-toggle-color="primary"
                     :toolbar-text-color="darkmode ? 'grey-6' : ''"
                     v-model="capitulo.capitulo"
@@ -50,8 +51,8 @@
             return {
                 historia_id: this.$route.params.historia_id,
                 capitulo: {
-                    titulo: 'Capítulo sem nome',
-                    capitulo: 'Comece a escrever...',
+                    titulo: '',
+                    capitulo: '',
                     historia_id: this.$route.params.historia_id,
                     caminho_capa: null,
                     votacao: 0,
@@ -60,10 +61,13 @@
                 capitulos: [],
                 darkmode: false,
                 visible: false,
+                i18n: {},
                 showSimulatedReturnData: false
             }
         },
         created() {
+            this.i18n = this.$i18n.criar_capitulo
+            this.avisos = this.$i18n.avisos
 			setTimeout(() => {
 				let dark = this.$q.localStorage.getItem('darkmode')
 				this.darkmode = dark == 'true' ? true : false
@@ -73,6 +77,13 @@
 					this.darkmode = option
 				}, 500);
 			});
+            eventBus.$on('att-idioma', async(option) => {
+                this.selectedOption = option;
+                setTimeout(() => {
+                    this.i18n = this.$i18n.criar_capitulo
+                    this.avisos = this.$i18n.avisos
+                }, 500)
+            });
         },
         methods: {
             setCapitulo(){
@@ -89,14 +100,14 @@
                     that.visible = false
                     that.showSimulatedReturnData = true
                     that.sucesso()
-                    // this.capituloCriadoSucesso()
+                    this.capituloCriadoSucesso(this.avisos.capitulo_criado)
 
                     this.$router.push({path: `/livro/capitulo/` + res.data.data.id})
                 })
                 .catch((err) => {
                     console.log(err.response)
                     this.falha()
-                    // this.erroCriacaoCapitulo()
+                    this.erroCriacaoCapitulo(this.avisos.erro_criacao_capitulo)
                 })
                 .finally(() => {
                     that.visible = false

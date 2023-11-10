@@ -1,5 +1,5 @@
 <template>
-    <div class="fullscreen background-cover text-white text-center q-pa-md flex flex-center">
+    <div class="fullscreen text-white text-center q-pa-md flex flex-center" :class="{'dark-error404': darkmode, 'error404': !darkmode}">
       <div class="row">
         <div class="col-5" style="">
           <div class="row">
@@ -7,14 +7,14 @@
               <h1 class="notFound">404 not found</h1>
             </div>
             <div class="col-12 offset-2">
-              <h4 class="pagina">A página que você deseja não foi encontrada</h4>
+              <h4 class="pagina">{{ i18n.subtitulo }}</h4>
             </div>
             <div class="col-12 offset-2">
               <q-btn
                 class="q-mt-xl botao"
                 unelevated
                 to="/"
-                label="Clique para voltar ao início"
+                :label="i18n.voltar"
                 no-caps
               />
             </div>
@@ -28,77 +28,36 @@
 </template>
 
 <script>
-export default {
-  name: 'Error404'
-}
+  import eventBus from '../boot/eventBus'
+  export default {
+    name: 'Error404',
+    data() {
+      return {
+        i18n: {},
+        darkmode: false
+      }
+    },
+    created() {
+      this.i18n = this.$i18n.error404
+      setTimeout(() => {
+          let dark = this.$q.localStorage.getItem('darkmode')
+          this.darkmode = dark == 'true' ? true : false
+      }, 500)
+      eventBus.$on('att-darkmode', async (option) => {
+          setTimeout(async() => {
+              this.darkmode = option
+          }, 500);
+      });
+      eventBus.$on('att-idioma', async(option) => {
+          this.selectedOption = option;
+          setTimeout(() => {
+              this.i18n = this.$i18n.error404
+          }, 500)
+      });
+    },
+  }
 </script>
 <style lang="scss" scoped>
-  .botao {
-    margin: 26px 0 0 0;
-    color: #7a22a7;
-    text-transform: uppercase;
-    font-size: 15px;
-    &:hover {
-      background-color: #7b22a734;
-    }
-  }
-  .mascote {
-    width: 70%; 
-    margin: 80px 0px 0px 0px;
-  }
-  .pagina {
-    margin-top: 0; 
-    margin-bottom: 0; 
-    color: #000; 
-    font-size: 18px;
-    line-height: 1.5;
-  }
-  .notFound {
-    font-size: 68px;
-    line-height: 1;
-    font-weight: bold; 
-    font-family: Raleway; 
-    margin: 80px 0px 0px 0; 
-    color: #000;
-  }
-  @media screen and (min-width: 980px){
-    .background-cover {
-        background: url('~assets/background.svg');
-        background-size: 27%;
-        // position: absolute;
-        background-repeat: no-repeat;
-        background-position: right center;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        // z-index: 10000;
-    }
-    .mascote {
-      width: 39%; 
-      margin: 0 190px 0 0;
-    }
-    .pagina {
-      margin-top: 0; 
-      margin-bottom: 0; 
-      color: #000; 
-      font-size: 25px;
-    }
-    .botao {
-      margin: 51px 0 0 0;
-      color: #7a22a7;
-      text-transform: uppercase;
-      font-size: 17px;
-      &:hover {
-        background-color: #7b22a734;
-      }
-    }
-    .notFound {
-      font-size: 80px; 
-      font-weight: bold; 
-      font-family: Raleway; 
-      margin: 144px 0px 0px 0; 
-      color: #000;
-    }
-  }
+  @import '../css/error404.scss';
+  @import '../css/darkMode/error404-dark.scss';
 </style>

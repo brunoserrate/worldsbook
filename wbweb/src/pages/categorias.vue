@@ -5,13 +5,13 @@
                 <q-card style="height: 100%;" class="card_search">
                     <div class="row">
                         <div class="col-12">
-                            <p class="p_search">Busque pelas melhores obras de acordo com a sua categoria favorita!</p>
+                            <p class="p_search">{{ i18n.titulo }}</p>
                         </div>
                         <div class="col-12">
-                            <p class="p_text">Diversas categorias para todos os gostos!</p>
+                            <p class="p_text">{{ i18n.subtitulo }}</p>
                         </div>
                         <div class="col-12">
-                            <p class="p_search_label">Não encontrou o que procurava? Pesquise aqui!</p>
+                            <p class="p_search_label">{{ i18n.nao_encontrou }}</p>
                         </div>
                         <div class="col-12">
                             <q-input rounded outlined v-model="search.pesquisa" @keyup.enter="pesquisar" dense class="input_search_categoria">
@@ -46,7 +46,9 @@
             return {
                 categorias: [],
                 darkmode: false,
+                selectedOption: '',
                 user: {},
+                i18n: {},
                 search: {
                     categoria: '',
                     pesquisa: ''
@@ -55,10 +57,11 @@
         },
 
         mounted(){
-            this.getCategorias()
             this.getUser()
+            this.getCategorias()
         },
         created() {
+            this.i18n = this.$i18n.categorias
             setTimeout(() => {
 				let dark = this.$q.localStorage.getItem('darkmode')
 				this.darkmode = dark == 'true' ? true : false
@@ -68,6 +71,12 @@
 					this.darkmode = option
 				}, 500);
 			});
+            eventBus.$on('att-idioma', async(option) => {
+                setTimeout(() => {
+                    this.selectedOption = option;
+                    this.i18n = this.$i18n.categorias
+                }, 500)
+            });
         },
         methods: {
             goCategoria(categoria){
@@ -81,9 +90,10 @@
             getCategorias(){
                 let that = this
 
-                that.$axios.get(that.$pathAPI + '/categoria')
+                that.$axios.get(that.$pathAPI + `/categoria?lang=${this.selectedOption}`)
                 .then((res) => {
                     that.categorias = res.data.data
+                    console.log("that ", that.categorias)
                 })
                 .catch((err) => {
                     console.log(err.response)

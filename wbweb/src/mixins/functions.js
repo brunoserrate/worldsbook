@@ -1,4 +1,7 @@
 import { Notify } from 'quasar'
+import eventBus from '../boot/eventBus'
+
+let avisos = {}
 
 export default {
 	methods: {
@@ -7,11 +10,11 @@ export default {
 	        position: 'top',
 	        color: 'positive',
             textColor: 'white',
-	        message:  msg == '' || msg == undefined || msg == null ? 'Operação realizada com sucesso' : msg,
+	        message:  msg == '' || msg == undefined || msg == null ? avisos.sucesso : msg,
 	        icon: 'fas fa-check',
 	        timeout: timer,
             actions: [
-                { label: 'Fechar', color: 'white', handler: () => {} }
+                { label: avisos.labels.fechar, color: 'white', handler: () => {} }
             ]
 	      })
 	    },
@@ -20,11 +23,11 @@ export default {
                 color: 'negative',
                 position: 'top',
                 textColor: 'white',
-                message: msg == '' || msg == undefined || msg == null ? 'Falha na operação' : msg,
+                message: msg == '' || msg == undefined || msg == null ? avisos.falha : msg,
                 icon: 'report_problem',
                 timeout: timer,
                 actions: [
-                    { label: 'Fechar', color: 'white', handler: () => {} }
+                    { label: avisos.labels.fechar, color: 'white', handler: () => {} }
                 ]
 	        })
 	    },
@@ -33,13 +36,22 @@ export default {
 				position: 'top',
 				color: 'warning',
 				textColor: 'black',
-				message: msg == '' || msg == undefined || msg == null ? 'Dados incorretos' : msg,
+				message: msg == '' || msg == undefined || msg == null ? avisos.aviso : msg,
 				icon: 'report_problem',
 				timeout: timer,
 				actions: [
-					{ label: 'Fechar', color: 'black', handler: () => {} }
+					{ label: avisos.labels.fechar, color: 'black', handler: () => {} }
 				]
 			})
 		},
 	},
+	created() {
+        avisos = this.$i18n.avisos
+		eventBus.$on('att-idioma', async(option) => {
+            this.selectedOption = option;
+            setTimeout(() => {
+                avisos = this.$i18n.avisos
+            }, 500)
+        });
+	}
 }
