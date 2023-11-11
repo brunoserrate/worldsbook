@@ -94,9 +94,9 @@
                     <q-separator />
                     <q-item clickable v-ripple>
                       <q-item-section avatar>
-                        <q-icon name="dark_mode" class="icone-sidebar"/>
+                        <q-icon :name="darkmode ? 'dark_mode' : 'light_mode'" class="icone-sidebar"/>
                       </q-item-section>
-                      <q-item-section class="itens-sidebar" @click="mobileDarkMode">{{ i18n.header.avatar.modo_dark.label }}</q-item-section>
+                      <q-item-section class="itens-sidebar" @click="mobileDarkMode">{{ darkmode ? i18n.header.avatar.modo_dark.label : i18n.header.avatar.modo_dark.label_claro }}</q-item-section>
                     </q-item>
                     <q-separator />
                     <q-item clickable v-ripple>
@@ -363,7 +363,15 @@
         darkmode: null,
         selectedCountry: null,
         i18n: {},
-        linguagens: [],
+        linguagens: [
+            { "name": "English", "country": "us", "img": "us.png" },
+            { "name": "Português", "country": "br", "img": "br.png" },
+            { "name": "Espanõl", "country": "es", "img": "es.png" },
+            { "name": "日本語", "country": "jp", "img": "jp.png" },
+            { "name": "Français", "country": "fr", "img": "fr.png" },
+            { "name": "Italiano", "country": "it", "img": "it.png" },
+            { "name": "한국인", "country": "ko", "img": "ko.png" }
+        ],
         formLogin: {
             email: '',
             senha: '',
@@ -432,7 +440,7 @@
         this.darkmode = dark == 'true' ? true : false
       }, 500)
       this.i18n = this.$i18n
-      this.linguagens = this.i18n.header.avatar.linguagem.linguagens
+      // this.linguagens = this.i18n.header.avatar.linguagem.linguagens
       eventBus.$on('att-idioma', async(option) => {
           this.selectedOption = option;
           setTimeout(() => {
@@ -466,6 +474,7 @@
         }
       },
       pesquisar(){
+        if (!this.search.pesquisa) return false
         // console.log(this.search.pesquisa)
         this.$router.push({ path: `/historia/${this.search.pesquisa}` })
       },

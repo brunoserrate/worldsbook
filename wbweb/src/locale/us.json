@@ -114,6 +114,7 @@
             },
             "modo_dark": {
                 "label": "Dark Mode",
+                "label_claro": "Light Mode",
                 "caption": "Enable dark mode"
             },
             "linguagem": {

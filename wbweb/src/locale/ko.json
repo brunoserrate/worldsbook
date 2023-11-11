@@ -1,0 +1,406 @@
+{
+    "index": {
+        "bem_vindo": "월드 북스에 오신 것을 환영합니다",
+        "subtitulo": "세계에서 두 번째로 사랑받는 플랫폼",
+        "descricao": "World Books는 전 세계 수백만 권의 책과 작가를 연결해주는 플랫폼입니다. 상상력을 탐구하고 이야기를 전개하며 전 세계의 다양한 작가들과 교류해보세요.",
+        "botoes": {
+            "iniciar_leitura": "읽기 시작",
+            "comece_escrever": "글쓰기 시작"
+        },
+        "dialogs": {
+            "login": {
+                "titulo": "World Books에 다시 오신 것을 환영합니다.",
+                "texto": "월드북에 다시 오신 것을 환영합니다! 로그인하여 계속해서 작가를 지원하고 그들의 세계를 세상에 보여주세요!",
+                "inputs": {
+                    "email": "이메일",
+                    "senha": "비밀번호"
+                },
+                "botoes": {
+                    "logar": "로그인하다",
+                    "fechar": "닫으려면"
+                },
+                "nao_possui_conta": "계정이 없나요?",
+                "cadastrese": "등록하다",
+                "esqueceu_senha": "비밀번호를 잊으 셨나요?",
+                "recuperar_senha": "비밀번호 복구"
+            },
+            "cadastro": {
+                "titulo": "월드 북에 가입하세요",
+                "texto": "이야기의 힘으로 연결된 독자와 작가의 글로벌 커뮤니티의 일원이 되어보세요",
+                "inputs": {
+                    "nome": "이름",
+                    "apelido": "성",
+                    "email": "이메일",
+                    "senha": "비밀번호",
+                    "confirma_senha": "비밀번호 확인",
+                    "data_nascimento": "생일"
+                },
+                "botoes": {
+                    "cadastrar": "등록하다",
+                    "cancelar": "취소"
+                },
+                "ja_possui_conta": "이미 계정이 있나요?",
+                "faca_login": "로그인!"
+            },
+            "esqueci_senha": {
+                "titulo": "비밀번호를 잊으 셨나요?",
+                "texto": "계정 이메일을 입력하고 확인하세요.",
+                "inputs": {
+                    "email": "이메일",
+                    "confirma_email": "이메일 확인"
+                },
+                "botoes": {
+                    "enviar": "보내다",
+                    "cancelar": "취소"
+                },
+                "ja_possui_conta": "이미 계정이 있나요?",
+                "faca_login": "로그인!"
+            },
+            "sucesso": {
+                "cadastro_sucesso": "가입 성공! 플랫폼에 연결하세요."
+            },
+            "falhas": {
+                "falha_operacao": "작업이 실패했습니다. 양식을 확인하신 후 다시 시도해 주세요.",
+                "falha_cadastro": "등록 실패! 양식 정보를 확인하거나 지원팀에 문의하세요.",
+                "preecha_forms": "필수 입력란을 작성하세요."
+            },
+            "botoes": {
+                "fechar": "닫으려면"
+            },
+            "campo_obrigatorio": "필수항목",
+            "digite_email_valido": "유효한 이메일 주소를 입력하세요.",
+            "senhas_nao_coincidem": "비밀번호가 일치하지 않습니다"
+        }
+    },
+    "login": {
+        "form": {
+            "usuario": "사용자",
+            "senha": "비밀번호"
+        },
+        "acessar": "입장",
+        "avisos": {
+            "preechan_campos": "모든 필드를 작성하세요.",
+            "login_senha_incorreto": "로그인 및 비밀번호가 정확하지 않습니다!"
+        }
+    },
+    "iniciar_leitura": {
+        "label_inicio": "다양한 책을 탐색하는 카테고리를 찾아보세요. 놀라운 경험이 될 것입니다!",
+        "bem_vindo": "에 오신 것을 환영합니다)",
+        "bem_vindo_subtitulo": "당신을 위한 최선의 선택",
+        "melhores_generos": "장르 간의 최고를 찾아라!",
+        "categoria_romance": "로맨스 카테고리",
+        "categoria_terror": "공포 카테고리",
+        "categoria_aventura": "모험 카테고리"
+    },
+    "header": {
+        "procurar": "검색하려면",
+        "navegar": {
+            "label": "탐색하려면",
+            "items": {
+                "categorias": "카테고리"
+            }
+        },
+        "escrever": {
+            "label": "쓰기",
+            "items": {
+                "criar_historia": "스토리 만들기"
+            }
+        },
+        "avatar": {
+            "perfil": "프로필",
+            "apelido": {
+                "label": "닉네임을 사용하시겠습니까?",
+                "caption": "성을 사용하세요"
+            },
+            "modo_dark": {
+                "label": "다크 모드",
+                "label_claro": "라이트 모드",
+                "caption": "어두운 모드 활성화"
+            },
+            "linguagem": {
+                "label": "언어",
+                "linguagens": [
+                    {
+                        "name": "영어",
+                        "country": "우리를",
+                        "img": "우리.png"
+                    },
+                    {
+                        "name": "포르투갈 인",
+                        "country": "br",
+                        "img": "br.png"
+                    },
+                    {
+                        "name": "스페인의",
+                        "country": "~이다",
+                        "img": "es.png"
+                    }
+                ]
+            }
+        },
+        "iniciar_sessao": "세션 시작",
+        "iniciar_leitura": "읽기 시작",
+        "comecar_escrever": "글쓰기 시작"
+    },
+    "footer": {
+        "inicio": {
+            "label": "시작",
+            "home": "집",
+            "iniciar_leitura": "읽기 시작",
+            "comecar_escrever": "글쓰기 시작",
+            "categorias": "카테고리"
+        },
+        "sobre_nos": {
+            "label": "회사 소개",
+            "sobre_empresa": "회사 소개",
+            "contato": "연락하다",
+            "redes_sociais": "소셜 미디어"
+        },
+        "suporte": {
+            "label": "지원하다",
+            "faq": "자주하는 질문",
+            "github": "Github"
+        }
+    },
+    "criar_historia": {
+        "titulo": "스토리 세부정보",
+        "imagem": "이미지 업로드",
+        "detalhes_historia": {
+            "titulo": {
+                "label": "제목",
+                "placeholder": "제목없는 이야기"
+            },
+            "descricao": {
+                "label": "설명",
+                "placeholder": "스토리 개요"
+            },
+            "categoria": {
+                "label": "범주",
+                "placeholder": "범주"
+            },
+            "etiquetas": {
+                "label": "태그 걸기",
+                "placeholder": "스토리 태그"
+            },
+            "publico_alvo": {
+                "label": "대상 고객",
+                "placeholder": "주요 타겟 고객은 누구입니까?"
+            },
+            "idioma": {
+                "label": "언어",
+                "placeholder": "언어는 무엇입니까?"
+            },
+            "direitos_autorais": {
+                "label": "저작권",
+                "placeholder": "저작권",
+                "aviso": "이를 통해 누구나 귀하의 스토리를 어떤 목적으로든 사용할 수 있습니다. 즉, 인쇄하거나, 판매하거나, 영화로 만들 수 있습니다."
+            },
+            "conteudo_adulto": {
+                "label": "성인용 콘텐츠",
+                "placeholder": "성인용 콘텐츠"
+            },
+            "historia_finalizada": {
+                "label": "이야기가 끝났나요?",
+                "placeholder": "완성된 이야기",
+                "sim": "예",
+                "nao": "아니요"
+            }
+        },
+        "remover_foto": "사진 삭제",
+        "botoes": {
+            "seguinte": "수행원",
+            "postar": "우편",
+            "cancelar": "취소"
+        },
+        "dialogs": {
+            "confirmacao": "프로필 사진을 삭제하시겠습니까?",
+            "sim": "예",
+            "cancelar": "취소"
+        },
+        "carregando_historia": "스토리 로드 중",
+        "avisos": {
+            "preecha_titulo": "스토리 제목을 입력해주세요.",
+            "preecha_descricao": "스토리 설명을 작성해주세요.",
+            "preecha_categoria": "스토리의 카테고리를 선택하세요.",
+            "preecha_publico_alvo": "타겟층을 선택해주세요",
+            "preecha_idioma": "언어를 선택하세요",
+            "preecha_direitos": "스토리 저작권 옵션을 선택하세요.",
+            "preecha_capa": "스토리 표지를 보내주세요"
+        },
+        "sim": "예",
+        "nao": "아니요"
+    },
+    "livro": {
+        "reacoes": {
+            "visualizacoes": "견해",
+            "votos": "소원",
+            "capitulos": "장"
+        },
+        "iniciar_leitura": "읽기 시작",
+        "indice": "색인",
+        "adicionar_capitulo": "장 추가",
+        "sem_capitulos": "이 스토리에는 아직 장이 없습니다!",
+        "carregando_historia": "스토리 로드 중",
+        "dialogs": {
+            "deletar_historia": "이 스토리를 영구적으로 삭제하시겠습니까?",
+            "deletar_capitulo": "이 장을 영구적으로 삭제하시겠습니까?",
+            "deletar": "삭제",
+            "cancelar": "취소"
+        },
+        "concluida": "완전한",
+        "em_andamento": "진행 중",
+        "conteudo_adulto": "성인용 콘텐츠",
+        "conteudo_livre": "무료 콘텐츠"
+    },
+    "capitulo": {
+        "capa": "씌우다",
+        "proximo_capitulo": "다음 장으로 이동",
+        "sem_capitulos": "더 이상 챕터가 없습니다.",
+        "enviar": "보내다",
+        "de": "~에",
+        "voto": {
+            "votar": "투표",
+            "votado": "투표했습니다!",
+            "falha_conexao": "연결되지 않은 상태에서는 투표가 불가능합니다!",
+            "capitulo_votado": "챕터가 성공적으로 투표되었습니다",
+            "voto_removido": "챕터에서 투표가 성공적으로 제거되었습니다."
+        },
+        "falha_comentar": "로그인하지 않으면 댓글을 달 수 없습니다!",
+        "aguarde": "기다리세요...",
+        "fechar": "닫으려면"
+    },
+    "criar_capitulo": {
+        "botoes": {
+            "publicar": "게시",
+            "cancelar": "취소"
+        },
+        "capitulo_sem_nome": "이름 없는 장",
+        "comece_escrever": "글쓰기를 시작하세요...",
+        "carregando_capitulo": "챕터 로드 중..."
+    },
+    "livro_dialogs": {
+        "iniciar_leitura": "읽기 시작",
+        "data_atualizacao": "업데이트 날짜"
+    },
+    "perfil": {
+        "a_seguir": "다음",
+        "editar_perfil": "프로필 수정",
+        "descricao_usuario": "사용자 설명",
+        "carregando_perfil": "프로필 로드 중",
+        "historias": {
+            "historias_de": "이야기",
+            "historias_publicadas": "출판된 이야기",
+            "data_atualizacao": "업데이트 날짜"
+        },
+        "concluida": "완전한",
+        "em_andamento": "진행 중",
+        "conteudo_adulto": "성인용 콘텐츠",
+        "conteudo_livre": "무료 콘텐츠"
+    },
+    "editar_perfil": {
+        "titulo": "계정 정보 변경",
+        "nome": "이름",
+        "apelido": "성",
+        "email": "이메일",
+        "senha": "비밀번호",
+        "descricao_usuario": "사용자 설명",
+        "imagem": "이미지 업로드",
+        "salvar": "저장하려면",
+        "remover_foto": "사진 삭제",
+        "dialog": {
+            "confirmacao": "프로필 사진을 삭제하시겠습니까?",
+            "sim": "예",
+            "cancelar": "취소"
+        }
+    },
+    "categorias": {
+        "titulo": "좋아하는 카테고리에 따라 최고의 작품을 검색해보세요!",
+        "subtitulo": "모든 취향에 맞는 다양한 카테고리!",
+        "nao_encontrou": "원하는 것을 찾지 못하셨나요? 여기에서 검색해보세요!"
+    },
+    "livro_categorias": {
+        "titulo": "해당 카테고리의 최고의 책은 다음과 같습니다.",
+        "sua_pesquisa_retornou": "검색어가 반환되었습니다.",
+        "diversos_livros": "모든 취향에 맞는 다양한 책!",
+        "carregando": "책 로드 중",
+        "voltar": "돌아가려면",
+        "qtd_historias": {
+            "singular": "역사",
+            "plural": "이야기"
+        },
+        "qtd_resultados": {
+            "singular": "결과",
+            "plural": "결과"
+        },
+        "de": "~에",
+        "dialogs": {
+            "iniciar_leitura": "읽기 시작",
+            "data_atualizacao": "업데이트 날짜"
+        }
+    },
+    "sobre_empresa": {
+        "somos": {
+            "label": "우리는 NetDev입니다",
+            "descricao": "<p>우리는 컴퓨터 장비, 네트워크 및 주변 장치의 기술 지원, 수리, 예방 및 시정 유지 관리, 구성 및 설치를 전문으로 하는 회사입니다. 우리는 2006년부터 운영해 왔으며 고객 및 파트너와 협력하여 더 나은 결과를 얻고 경쟁력을 강화했습니다.</p><p>개인, 중소기업을 위한 IT 서비스를 손쉽게 이용할 수 있습니다. 우리는 가정의 WINDOWS 및 MAC APPLE 환경에서 지원을 제공하는 노트북 기술자와 함께 가정 내 기술 지원 서비스를 제공합니다. Wi-Fi 무선 네트워크의 유지 관리 및 구현, 국내 및 대규모 환경을 위한 비즈니스.</p><p>우리는 일을 다르게 하기 때문에 변화를 만듭니다. 우리는 고객의 가장 구체적인 요구 사항을 충족시키기 위해 고품질의 저비용 솔루션을 추구합니다. 우리의 고객 서비스는 개인화되어 있으며 귀하의 기대를 충족시키기 위해 필요한 것이 무엇인지 이해합니다. 이렇게 하면 귀하와 귀하의 회사는 비즈니스에 정말로 중요한 일에 집중할 수 있습니다.</p><p>우리의 목표는 고객에게 품질, 유연성 및 속도를 갖춘 창의적이고 효율적인 솔루션을 제공하는 것입니다. 이를 위해 우리는 다양한 기술 플랫폼에 대한 자격을 갖추고 지속적으로 업데이트하고 개선하는 기술 팀을 보유하고 있습니다. 우리는 시스템과 기술의 안정성을 보장하기 위해 노력합니다.<p>"
+        },
+        "missao": {
+            "label": "우리의 미션",
+            "descricao": "혁신적인 서비스 제공의 우수성을 통해 각 고객의 기대를 뛰어넘어 비즈니스 경쟁력을 더욱 높이고 고품질 기술 솔루션을 제공합니다."
+        },
+        "visao": {
+            "label": "우리의 비젼",
+            "descricao": "최첨단 기술 분야의 주요 접점으로 간주되어 고객과 직원의 완전한 만족을 목표로 존중, 책임 및 투명성을 바탕으로 고품질 서비스를 제공합니다."
+        },
+        "valores": {
+            "label": "우리의 가치",
+            "descricao": "<p class=text-center>품질;</p><p class=text-center>시간 엄수;</p><p class=text-center>윤리;</p><p class=text-center> 혁신.</p>"
+        }
+    },
+    "contato": {
+        "contatos": {
+            "label": "연락하다",
+            "descricao": "서비스 채널을 통해 문의하실 수 있습니다!"
+        },
+        "redes_sociais": {
+            "label": "소셜 미디어",
+            "descricao": "소셜 미디어에서 우리를 팔로우하세요! 그리고 모든 뉴스를 최신 상태로 유지하세요"
+        }
+    },
+    "faq": {
+        "ajuda": "돕다",
+        "perguntas": [
+            {
+                "pergunta": "월드 북은 어떻게 작동하나요?",
+                "resposta": "WorldBoks는 무료 온라인 도서 플랫폼입니다. 자신의 작품을 게시하고 다른 사용자의 작품을 읽을 수 있는 곳!"
+            },
+            {
+                "pergunta": "내 작품을 출판할 수 있나요?",
+                "resposta": "예! 규칙을 위반하지 않는 한 귀하의 작품을 게시할 수 있습니다."
+            },
+            {
+                "pergunta": "다른 사용자가 출판한 작품을 읽을 수 있나요?",
+                "resposta": "예, 다른 사용자가 게시한 모든 작업을 읽을 수 있습니다!"
+            }
+        ]
+    },
+    "avisos": {
+        "historia_criada": "역사가 만들어졌습니다!",
+        "capitulo_criado": "챕터가 생성되었습니다!",
+        "perfil_editado": "프로필이 수정되었습니다!",
+        "erro_criacao_historia": "스토리 작성 중 오류가 발생했습니다!",
+        "erro_criacao_capitulo": "챕터를 생성하는 중 오류가 발생했습니다.",
+        "erro_editar": "편집 중 오류가 발생했습니다!",
+        "erro_carregar": "로드 중 오류가 발생했습니다.",
+        "labels": {
+            "ok": "좋아요",
+            "fechar": "닫으려면"
+        },
+        "sucesso": "작업이 성공적으로 수행되었습니다.",
+        "falha": "작업 실패",
+        "aviso": "잘못된 데이터"
+    },
+    "error404": {
+        "subtitulo": "원하는 페이지를 찾을 수 없습니다",
+        "voltar": "처음으로 돌아가려면 클릭하세요."
+    }
+}

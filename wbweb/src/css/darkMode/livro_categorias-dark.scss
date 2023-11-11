@@ -95,7 +95,7 @@
     }
 }
 @media screen and (min-width: 980px) {
-    .dark-livro_categorias {
+    .dark-livro_categorias, .dark-pesquisa_livros {
         .card-categorias {
             margin: 28px 0px;
             box-shadow: none;
@@ -186,6 +186,20 @@
             margin: 13px 0 0 0;
             font-size: 14px;
             font-family: Raleway;
+        }
+    }
+}
+@media screen and (min-width: 1260px) {
+    .dark-livro_categorias, .dark-pesquisa_livros {
+        .col-detalhes-historia {
+            margin: 0 0 0 -41px;
+        }
+    }
+}
+@media screen and (min-width: 1440px) {
+    .dark-livro_categorias, .dark-pesquisa_livros {
+        .col-detalhes-historia {
+            margin: 0px;
         }
     }
 }

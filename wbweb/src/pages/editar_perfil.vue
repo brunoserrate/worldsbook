@@ -8,25 +8,25 @@
         <div class="row inputs_row pb-5">
             <div class="col-12 col-md-7 alinhar_inputs">
                 <div class="row align-form">
-                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-0 offset-md-0 alinhar_label_utilizador">
+                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-2 offset-md-0 alinhar_label_utilizador">
                         <span>{{ i18n.nome }}</span>
                     </div>
                     <div class="col-9 col-md-7">
                         <q-input square outlined v-model="user.name" :dense="dense" class="input_form"/>
                     </div> 
-                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-0 offset-md-0 alinhar_label_utilizador">
+                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-2 offset-md-0 alinhar_label_utilizador">
                         <span>{{ i18n.apelido }}</span>
                     </div>
                     <div class="col-9 col-md-7">
                         <q-input square outlined v-model="user.apelido" :dense="dense" class="input_form"/>
                     </div>
-                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-0 offset-md-0 alinhar_label_utilizador">
+                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-2 offset-md-0 alinhar_label_utilizador">
                         <span>{{ i18n.email }}</span>
                     </div>
                     <div class="col-9 col-md-7">
                         <q-input square outlined type="email" v-model="user.email" :dense="dense" class="input_form"/>
                     </div>
-                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-0 offset-md-0 alinhar_label_utilizador">
+                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-2 offset-md-0 alinhar_label_utilizador">
                         <span>{{ i18n.senha }}</span>
                     </div>
                     <div class="col-8 col-md-6">
@@ -35,7 +35,7 @@
                     <div class="col-1 align_icon">
                         <q-icon name="edit" class="icone_edit_password"></q-icon>
                     </div>
-                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-0 offset-md-0 alinhar_label_utilizador">
+                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-2 offset-md-0 alinhar_label_utilizador">
                         <span>{{ i18n.descricao_usuario }}</span>
                     </div>
                     <div class="col-9 col-md-7">
@@ -54,7 +54,7 @@
             </div>
             <div class="col-12 col-md-5">
                 <div class="row row_foto">
-                    <div v-if="user.foto_perfil === '' " class="col-6 col-md-auto">
+                    <div v-if="user.foto_perfil === '' " class="col-6 col-md-auto foto_perfil_uploader">
                         <q-uploader
                             auto-upload
                             :factory="uploadFiles"
