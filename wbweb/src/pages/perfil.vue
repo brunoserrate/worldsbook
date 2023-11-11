@@ -4,7 +4,7 @@
             :showing="visible"
             label-class="text-teal"
             label-style="font-size: 1.1em"
-            label="Carregando perfil..."
+            :label="i18n.carregando_perfil+'...'"
         ></q-inner-loading>
         <div class="fit row justify-center items-center content-center user-cover background-cover">
             <div class="col-12">
@@ -25,8 +25,8 @@
         <div class="row">
             <div cols="12" style="width: 100%;">
                 <q-card class="card_barra">
-                    <p class="a-seguir">A Seguir</p>
-                    <q-btn v-if="usuario.user_id == user.user_id" flat style="primary" label="Editar Perfil" icon="settings" class="btn-editar-perfil" @click="goEditPerfil"/>
+                    <p class="a-seguir">{{ i18n.a_seguir }}</p>
+                    <q-btn v-if="usuario.user_id == user.user_id" flat style="primary" :label="i18n.editar_perfil" icon="settings" class="btn-editar-perfil" @click="goEditPerfil"/>
                 </q-card>
             </div>
         </div>
@@ -35,7 +35,7 @@
                 <q-card class="card_desc_user">
                     <div class="row">
                         <div class="col-11 offset-1">
-                            <h3 class="p-descricao-usuario">Descrição do usuário</h3>
+                            <h3 class="p-descricao-usuario">{{ i18n.descricao_usuario }}</h3>
                         </div>
                         <div class="col-12">
                             <q-separator color="gray" inset />
@@ -50,10 +50,10 @@
                 <q-card class="carousel-card">
                     <div class="row">
                         <div class="col-10 offset-1 col-md-12 offset-md-0">
-                            <h4 class="historias-de-usuario">Historias de {{ usuario.apelido }}</h4>
+                            <h4 class="historias-de-usuario">{{ i18n.historias.historias_de }} {{ usuario.apelido }}</h4>
                         </div>
                         <div class="col-10 offset-1 col-md-12 offset-md-0">
-                            <p class="qtd_historias">{{usuario.qtd_historias}} histórias publicadas</p>
+                            <p class="qtd_historias">{{usuario.qtd_historias}} {{ i18n.historias.historias_publicadas }}</p>
                         </div>
                         <div class="col-12">
                             <q-carousel
@@ -98,7 +98,7 @@
                                                     <q-chip class="historia_finalizada">{{getHistoriaFinalizada(livro.historia_finalizada)}}</q-chip>
                                                 </div>
                                                 <div class="col-12">
-                                                    <p class="p_data">Data de atualização: {{ livro.data_atualizacao | formatDateTime }} </p>
+                                                    <p class="p_data">{{ i18n.historias.data_atualizacao }}: {{ livro.data_atualizacao | formatDateTime }} </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -113,10 +113,10 @@
                 <q-card class="card_historias">
                     <div class="row">
                         <div class="col-12">
-                            <h4 class="historias-de-usuario">Historias de {{ usuario.apelido }}</h4>
+                            <h4 class="historias-de-usuario">{{ i18n.historias.historias_de }} {{ usuario.apelido }}</h4>
                         </div>
                         <div class="col-12">
-                            <p class="qtd_historias">{{usuario.qtd_historias}} histórias publicadas</p>
+                            <p class="qtd_historias">{{usuario.qtd_historias}} {{ i18n.historias.historias_publicadas }}</p>
                         </div>
                         <div class="row row_livros" v-for="(livro, i) in usuario.historias" :key="i" @click="goLivro(livro)">
                             <div class="col-4 col-lg-3">
@@ -148,7 +148,7 @@
                                         <q-chip class="historia_finalizada">{{getHistoriaFinalizada(livro.historia_finalizada)}}</q-chip>
                                     </div>
                                     <div class="col-12">
-                                        <p class="p_data">Data de atualização: {{ livro.data_atualizacao | formatDateTime }} </p>
+                                        <p class="p_data">{{ i18n.historias.data_atualizacao }}: {{ livro.data_atualizacao | formatDateTime }} </p>
                                     </div>
                                 </div>
                             </div>
@@ -166,6 +166,8 @@
         data(){
             return {
                 user: {},
+                i18n: {},
+                avisos: {},
                 usuario: {
                     apelido: '',
                     avatar: '',
@@ -197,6 +199,8 @@
             }
         },
         created() {
+            this.i18n = this.$i18n.perfil
+            this.avisos = this.$i18n.avisos
 			setTimeout(() => {
 				let dark = this.$q.localStorage.getItem('darkmode')
 				this.darkmode = dark == 'true' ? true : false
@@ -206,6 +210,13 @@
 					this.darkmode = option
 				}, 500);
 			});
+            eventBus.$on('att-idioma', async(option) => {
+                this.selectedOption = option;
+                setTimeout(() => {
+                    this.i18n = this.$i18n.perfil
+                    this.avisos = this.$i18n.avisos
+                }, 500)
+            });
         },
         filters: {
             cutDescricao(value){
@@ -252,12 +263,12 @@
                     console.log(err.response)
                     that.visible = false
                     that.showSimulatedReturnData = true
-                    this.erroCarregar()
+                    this.erroCarregar(err, this.avisos.erro_carregar)
                 })
             },
             getHistoriaFinalizada(historia_finalizada){
-                if(historia_finalizada == 0){ return "Em andamento" }
-                return "Concluída"
+                if(historia_finalizada == 0){ return this.i18n.em_andamento }
+                return this.i18n.concluida
             },
         }
     }

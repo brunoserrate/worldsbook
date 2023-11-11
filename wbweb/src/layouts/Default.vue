@@ -16,7 +16,7 @@
                 rounded 
                 bottom-slots 
                 v-model="search.pesquisa" 
-                placeholder="Procurar" 
+                :placeholder="i18n.header.procurar" 
                 :dense="true" 
                 class="input_search" 
                 :label-color="darkmode ? 'grey-5' : ''"
@@ -69,34 +69,57 @@
                       <q-item-section avatar>
                         <q-icon name="account_circle" class="icone-sidebar"/>
                       </q-item-section>
-                      <q-item-section class="itens-sidebar" >Perfil</q-item-section>
+                      <q-item-section class="itens-sidebar" >{{ i18n.header.avatar.perfil }}</q-item-section>
                     </q-item>
                     <q-item clickable v-ripple v-if="!logado && user == null" @click="logar = !logar" class="avatar_sidebar">
                       <q-item-section avatar>
                         <q-icon name="login" class="icone-sidebar"/>
                       </q-item-section>
-                      <q-item-section class="itens-sidebar" >Iniciar Sessão</q-item-section>
+                      <q-item-section class="itens-sidebar" >{{ i18n.header.iniciar_sessao }}</q-item-section>
                     </q-item>
                     <!-- <q-separator /> -->
                     <q-item clickable v-ripple>
                       <q-item-section avatar>
                         <q-icon name="menu_book" class="icone-sidebar"/>
                       </q-item-section>
-                      <q-item-section class="itens-sidebar" @click="goCategoria">Iniciar Leitura</q-item-section>
+                      <q-item-section class="itens-sidebar" @click="goCategoria">{{ i18n.header.iniciar_leitura }}</q-item-section>
                     </q-item>
                     <!-- <q-separator /> -->
                     <q-item clickable v-ripple v-if="logado && user">
                       <q-item-section avatar>
                         <q-icon name="border_color" class="icone-sidebar"/>
                       </q-item-section>
-                      <q-item-section class="itens-sidebar" @click="getNewHistoria">Começar a escrever</q-item-section>
+                      <q-item-section class="itens-sidebar" @click="getNewHistoria">{{ i18n.header.comecar_escrever }}</q-item-section>
                     </q-item>
                     <q-separator />
                     <q-item clickable v-ripple>
                       <q-item-section avatar>
                         <q-icon name="dark_mode" class="icone-sidebar"/>
                       </q-item-section>
-                      <q-item-section class="itens-sidebar" @click="mobileDarkMode">Modo Dark</q-item-section>
+                      <q-item-section class="itens-sidebar" @click="mobileDarkMode">{{ i18n.header.avatar.modo_dark.label }}</q-item-section>
+                    </q-item>
+                    <q-separator />
+                    <q-item clickable v-ripple>
+                      <q-item-section avatar>
+                        <q-icon name="translate" class="icone-sidebar"/>
+                      </q-item-section>
+                      <q-item-section class="itens-sidebar" >{{ i18n.header.avatar.linguagem.label }}</q-item-section>
+                      <q-item-section side>
+                        <q-icon name="keyboard_arrow_right" class="icone-sidebar"/>
+                      </q-item-section>
+                      <q-menu  :content-class="darkmode ? 'dark-menu-linguagens' : 'menu-linguagens'" transition-show="scale" transition-hide="scale" :offset="[-35, 0]">
+                        <q-list>
+                          <q-item tag="label" v-ripple class="dark-mode" v-for="(linguagem, i) in linguagens" :key="i" @click="emitSelectI18n(linguagem.country)">
+                            <q-item-section>
+                              <q-item-label style="font-family: Raleway;">{{ linguagem.name }}</q-item-label>
+                            </q-item-section>
+                            <q-item-section avatar>
+                              <q-img :src="require('../assets/flags/'+linguagem.img)" spinner-color="white" />
+                            </q-item-section>
+                          </q-item>
+                          <q-separator />
+                        </q-list>
+                      </q-menu>
                     </q-item>
                     <q-separator />
                     <q-item clickable v-ripple v-if="logado && user">
@@ -114,29 +137,45 @@
             <div v-if="!logado && user == null" class="col">
               <div class="row pt-4">
                 <div class="col-md-5 col-lg-3 col-xl-2 pe-4 pe-md-0 me-lg-5 me-xl-5">
-                  <q-btn flat label="Iniciar Sessão" class="iniciar-sessao" @click="logar = !logar"/>
+                  <q-btn flat :label="i18n.header.iniciar_sessao" class="iniciar-sessao" @click="logar = !logar"/>
                 </div>
-                <div class="col-md-4 col-xl-5 ms-lg-1 ms-xl-4">
+                <div class="col-md-1 col-xl-1 me-4 me-lg-2 me-xl-1 ms-lg-1 ms-xl-4">
                   <q-btn unelevated round :icon="darkmode ? 'dark_mode' : 'light_mode'" class="iniciar-sessao" style="padding: 0px 0px;" @click="mobileDarkMode"/>
+                </div>
+                <div class="col-md-1 col-xl-1 ms-lg-1 ms-xl-0 ">
+                  <q-btn unelevated round icon="translate" class="iniciar-sessao" style="padding: 0px 0px;"/>
+                  <q-menu  :content-class="darkmode ? 'dark-menu-linguagens' : 'menu-linguagens'" transition-show="scale" transition-hide="scale" :offset="[25, 0]">
+                    <q-list>
+                      <q-item tag="label" v-ripple class="dark-mode" v-for="(linguagem, i) in linguagens" :key="i" @click="emitSelectI18n(linguagem.country)">
+                        <q-item-section>
+                          <q-item-label style="font-family: Raleway;">{{ linguagem.name }}</q-item-label>
+                        </q-item-section>
+                        <q-item-section avatar>
+                          <q-img :src="require('../assets/flags/'+linguagem.img)" spinner-color="white" />
+                        </q-item-section>
+                      </q-item>
+                      <q-separator />
+                    </q-list>
+                  </q-menu>
                 </div>
               </div>
             </div>
             <!-- DESKTOP -->
             <div v-else class="col navegar" style="margin: 25px 277px 7px 0;" >
-              <q-btn-dropdown unelevated label="Navegar" class="btn_dropdown_navegar">
+              <q-btn-dropdown unelevated :label="i18n.header.navegar.label" class="btn_dropdown_navegar">
                 <div :class="{ 'dropdown_navegar_dark': darkmode, 'dropdown_navegar': darkmode }">
                   <q-item clickable v-close-popup>
                     <q-item-section>
-                      <q-item-label @click="goCategoria">Categorias</q-item-label>
+                      <q-item-label @click="goCategoria">{{ i18n.header.navegar.items.categorias }}</q-item-label>
                     </q-item-section>
                   </q-item>
                 </div>
               </q-btn-dropdown>
-              <q-btn-dropdown unelevated label="Escrever" class="btn_dropdown_escrever">
+              <q-btn-dropdown unelevated :label="i18n.header.escrever.label" class="btn_dropdown_escrever">
                 <div  :class="{ 'dropdown_navegar_dark': darkmode, 'dropdown_navegar': darkmode }">
                   <q-item clickable v-close-popup>
                     <q-item-section>
-                      <q-item-label @click="getNewHistoria"><q-icon name="post_add" class="icon_criar_historia me-2"></q-icon>Criar História</q-item-label>
+                      <q-item-label @click="getNewHistoria"><q-icon name="post_add" class="icon_criar_historia me-2"></q-icon>{{ i18n.header.escrever.items.criar_historia }}</q-item-label>
                     </q-item-section>
                   </q-item>
                 </div>
@@ -146,7 +185,7 @@
                   <div class="menu-opcoes">
                     <q-item clickable v-close-popup class="profile">
                       <q-item-section @click="goPerfil">
-                           Perfil
+                        {{ i18n.header.avatar.perfil }}
                       </q-item-section>
                       <q-item-section avatar>
                           <q-icon name="account_circle" color="primary" size="32px" />
@@ -155,8 +194,8 @@
                     <q-separator />
                     <q-item tag="label" v-ripple class="apelido">
                       <q-item-section>
-                        <q-item-label>Usar apelido?</q-item-label>
-                        <q-item-label caption>Utilize o seu apelido</q-item-label>
+                        <q-item-label>{{ i18n.header.avatar.apelido.label }}</q-item-label>
+                        <q-item-label caption>{{ i18n.header.avatar.apelido.caption }}</q-item-label>
                       </q-item-section>
                       <q-item-section avatar>
                         <q-toggle color="primary" keep-color v-model="user.usar_apelido" @input="alterarParametro" />
@@ -165,12 +204,35 @@
                     <q-separator />
                     <q-item tag="label" v-ripple class="dark-mode">
                       <q-item-section>
-                        <q-item-label>Modo Dark</q-item-label>
-                        <q-item-label caption>Ative o modo escuro</q-item-label>
+                        <q-item-label>{{ i18n.header.avatar.modo_dark.label }}</q-item-label>
+                        <q-item-label caption>{{ i18n.header.avatar.modo_dark.caption }}</q-item-label>
                       </q-item-section>
                       <q-item-section avatar>
                         <q-toggle icon="dark_mode" color="dark" keep-color v-model="darkmode" @input="emitSelectDarkMode" />
                       </q-item-section>
+                    </q-item>
+                    <q-separator />
+                    <q-item tag="label" v-ripple class="dark-mode">
+                      <q-item-section>
+                        <span><q-icon name="translate" style="font-size: 17px;" class="me-2"/>{{ i18n.header.avatar.linguagem.label }}</span></q-item-section>
+                      <q-item-section side>
+                        <q-icon name="keyboard_arrow_right" />
+                      </q-item-section>
+                      <q-menu :content-class="darkmode ? 'dark-menu-linguagens' : 'menu-linguagens'" transition-show="scale" transition-hide="scale" :offset="[-35, 0]">
+                        <q-list>
+                          <q-item tag="label" v-ripple class="dark-mode" v-for="(linguagem, i) in linguagens" :key="i" @click="emitSelectI18n(linguagem.country)">
+                            <q-item-section>
+                              <q-item-label style="font-family: Raleway;">{{ linguagem.name }}</q-item-label>
+                            </q-item-section>
+                            <q-item-section avatar>
+                              <!-- <img :src="require(`${linguagem.img}`)" /> -->
+                              <!-- <q-img :src="require(`${linguagem.img}`)" spinner-color="white" /> -->
+                              <q-img :src="require('../assets/flags/'+linguagem.img)" spinner-color="white" />
+                            </q-item-section>
+                          </q-item>
+                          <q-separator />
+                        </q-list>
+                      </q-menu>
                     </q-item>
                     <q-separator />
                     <q-item clickable v-close-popup class="logout">
@@ -185,6 +247,8 @@
             </div>
           </div>
         </q-toolbar-title>
+        <!-- <q-img :src="require(`~/assets/flags/us.png`)" spinner-color="white" /> -->
+        <!-- <q-img src="~/assets/flags/us.png" spinner-color="white" /> -->
       </q-toolbar>
     </q-header>
     <!-- Header -->
@@ -198,44 +262,44 @@
         </div>
         <div class="col-6 col-md-2 offset-1 offset-md-0">
           <div class="col-12">
-            <h3 class="footer_titles">Inicio</h3>
+            <h3 class="footer_titles">{{ i18n.footer.inicio.label }}</h3>
           </div>
           <div class="col-12">
-            <q-btn class="footer_subs" label="Home" flat square to="/" ></q-btn>
+            <q-btn class="footer_subs" :label="i18n.footer.inicio.home" flat square to="/" ></q-btn>
           </div>
           <div class="col-12">
-            <q-btn class="footer_subs" label="Iniciar Leitura" flat to="/iniciar_leitura" ></q-btn>
+            <q-btn class="footer_subs" :label="i18n.footer.inicio.iniciar_leitura" flat to="/iniciar_leitura" ></q-btn>
           </div>
           <div class="col-12">
-            <q-btn class="footer_subs" label="Começar a Escrever" flat to="/criar_historia" ></q-btn>
+            <q-btn class="footer_subs" :label="i18n.footer.inicio.comecar_escrever" flat to="/criar_historia" ></q-btn>
           </div>
           <div class="col-12">
-            <q-btn class="footer_subs" label="Categorias" flat to="/categorias" ></q-btn>
+            <q-btn class="footer_subs" :label="i18n.footer.inicio.categorias" flat to="/categorias" ></q-btn>
           </div>
         </div>
         <div class="col-4 col-md-2 offset-md-0 offset-1">
           <div class="col-12">
-            <h3 class="footer_titles">Sobre nós</h3>
+            <h3 class="footer_titles">{{ i18n.footer.sobre_nos.label }}</h3>
           </div>
           <div class="col-12">
-            <q-btn class="footer_subs" label="Sobre a empresa" flat to="/sobre_empresa" ></q-btn>
+            <q-btn class="footer_subs" :label="i18n.footer.sobre_nos.sobre_empresa" flat to="/sobre_empresa" ></q-btn>
           </div>
           <div class="col-12">
-            <q-btn class="footer_subs" label="Contato" flat to="/contato" ></q-btn>
+            <q-btn class="footer_subs" :label="i18n.footer.sobre_nos.contato" flat to="/contato" ></q-btn>
           </div>
           <div class="col-12">
-            <q-btn class="footer_subs" label="Redes Sociais" flat to="/contato" ></q-btn>
+            <q-btn class="footer_subs" :label="i18n.footer.sobre_nos.redes_sociais" flat to="/contato" ></q-btn>
           </div>
         </div>
         <div class="col-2 col-md-2 offset-md-0 offset-1">
           <div class="col-12">
-            <h3 class="footer_titles">Suporte</h3>
+            <h3 class="footer_titles">{{ i18n.footer.suporte.label }}</h3>
           </div>
           <div class="col-12">
-            <q-btn class="footer_subs" label="FAQ" flat to="/faq" ></q-btn>
+            <q-btn class="footer_subs" :label="i18n.footer.suporte.faq" flat to="/faq" ></q-btn>
           </div>
           <div class="col-12">
-            <q-btn class="footer_subs" label="GitHub" flat href="https://github.com/brunoserrate/worldsbook" target="_blank"></q-btn>
+            <q-btn class="footer_subs" :label="i18n.footer.suporte.github" flat href="https://github.com/brunoserrate/worldsbook" target="_blank"></q-btn>
           </div>
         </div>
       </div>
@@ -297,6 +361,9 @@
         user: null,
         sidebar: false,
         darkmode: null,
+        selectedCountry: null,
+        i18n: {},
+        linguagens: [],
         formLogin: {
             email: '',
             senha: '',
@@ -338,7 +405,9 @@
           this.$set(this,'isIndex', false)
         }
       },
-      
+      selectedCountry() {
+        let lang = this.changeLanguage(this.selectedCountry)
+      }
     },
     mounted(){
       let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
@@ -357,14 +426,29 @@
     },
     created() {
       setTimeout(() => {
+        this.selectedCountry = this.$q.localStorage.getItem('i18n')
+        if (this.selectedCountry) this.emitSelectI18n(this.selectedCountry)
         let dark = this.$q.localStorage.getItem('darkmode')
         this.darkmode = dark == 'true' ? true : false
       }, 500)
+      this.i18n = this.$i18n
+      this.linguagens = this.i18n.header.avatar.linguagem.linguagens
+      eventBus.$on('att-idioma', async(option) => {
+          this.selectedOption = option;
+          setTimeout(() => {
+              this.i18n = this.$i18n
+          }, 500)
+      });
     },
     methods: {
       emitSelectDarkMode() {
         localStorage.setItem("darkmode", this.darkmode)
         eventBus.$emit('att-darkmode', this.darkmode);
+      },
+      emitSelectI18n(lang) {
+          this.selectedCountry = lang
+          localStorage.setItem("i18n", lang)
+          eventBus.$emit('att-idioma', lang);
       },
       mobileDarkMode() {
         this.darkmode = !this.darkmode

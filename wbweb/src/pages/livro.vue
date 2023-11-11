@@ -4,7 +4,7 @@
             :showing="visible_page"
             label-class="text-teal"
             label-style="font-size: 1.1em"
-            label="Carregando história..."
+            :label="i18n.carregando_historia + '...'"
         ></q-inner-loading>
         <div class="row geral">
             <div class="col-12">
@@ -26,7 +26,7 @@
                                                     <q-icon name="visibility" class="icons_card"/>
                                                 </div>
                                                 <div class="col-6 labels_icon">
-                                                    <p>Visualizações</p> 
+                                                    <p>{{ i18n.reacoes.visualizacoes }}</p> 
                                                 </div>
                                                 <div class="col-6 col-md-12 align_text_details">
                                                     {{livro.total_visualizacoes}}
@@ -40,7 +40,7 @@
                                                     <q-icon name="star_border" class="icons_card" />
                                                 </div>
                                                 <div class="col-6 labels_icon">
-                                                    <p>Votos</p>
+                                                    <p>{{ i18n.reacoes.votos }}</p>
                                                 </div>
                                                 <div class="col-6 col-md-12 align_text_details">
                                                     {{livro.total_votos}}
@@ -54,7 +54,7 @@
                                                     <q-icon name="list" class="icons_card"/>
                                                 </div>
                                                 <div class="col-6 labels_icon">
-                                                    <p>Capítulos</p>
+                                                    <p>{{ i18n.reacoes.capitulos }}</p>
                                                 </div>
                                                 <div class="col-6 col-md-12 align_text_details">
                                                     {{livro.total_capitulos}}
@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                                 <div class="col-10 col-sm-10 col-md-7">
-                                    <q-btn unelevated label="Iniciar leitura" icon="import_contacts" class="btn_iniciar_leitura_livro" @click="goChapter(livro.capitulos[0])"/>
+                                    <q-btn unelevated :label="i18n.iniciar_leitura" icon="import_contacts" class="btn_iniciar_leitura_livro" @click="goChapter(livro.capitulos[0])"/>
                                 </div>
                                 <div class="col-2 col-md-1">
                                     <q-btn unelevated icon="add" class="btn_add_lista"/>
@@ -116,10 +116,10 @@
                 <q-card class="card_indice">
                     <div class="row">
                         <div class="col-6">
-                            <h3 class="title_indice_card">Índice</h3>
+                            <h3 class="title_indice_card">{{i18n.indice}}</h3>
                         </div>
                         <div class="col-6 row_add_capitulo">
-                            <q-btn flat :disable="livro.historia_finalizada" label="Adicionar capítulo" class="btn_adicionar" @click="goAddCapitulo" v-if="livro.usuario_id == user.user_id">
+                            <q-btn flat :disable="livro.historia_finalizada" :label="i18n.adicionar_capitulo" class="btn_adicionar" @click="goAddCapitulo" v-if="livro.usuario_id == user.user_id">
                                 <q-inner-loading
                                     :showing="visible"
                                     label-class="text-teal"
@@ -157,12 +157,12 @@
             <q-card :class="{'dark-card-delete': darkmode, 'card-delete': !darkmode}">
                 <q-card-section class="row items-center">
                     <q-avatar icon="delete" color="primary" text-color="white" />
-                    <span class="q-ml-sm">Deseja deletar essa história permanentemente?</span>
+                    <span class="q-ml-sm">{{i18n.dialogs.deletar_historia}}</span>
                 </q-card-section>
 
                 <q-card-actions align="right">
-                    <q-btn flat label="Deletar" color="primary" @click="delHistoria"/>
-                    <q-btn flat label="Cancelar" color="primary" v-close-popup class="btn-cancelar"/>
+                    <q-btn flat :label="i18n.dialogs.deletar" color="primary" @click="delHistoria"/>
+                    <q-btn flat :label="i18n.dialogs.cancelar" color="primary" v-close-popup class="btn-cancelar"/>
                 </q-card-actions>
             </q-card>
         </q-dialog>
@@ -170,12 +170,12 @@
             <q-card :class="{'dark-card-delete': darkmode, 'card-delete': !darkmode}">
                 <q-card-section class="row items-center">
                     <q-avatar icon="delete" color="primary" text-color="white" />
-                    <span class="q-ml-sm">Deseja deletar esse capítulo permanentemente?</span>
+                    <span class="q-ml-sm">{{i18n.dialogs.deletar_capitulo}}</span>
                 </q-card-section>
 
                 <q-card-actions align="right">
-                    <q-btn flat label="Deletar" color="primary" @click="delCapitulo" />
-                    <q-btn flat label="Cancelar" color="primary" v-close-popup class="btn-cancelar" @click="function(){
+                    <q-btn flat :label="i18n.dialogs.deletar" color="primary" @click="delCapitulo" />
+                    <q-btn flat :label="i18n.dialogs.cancelar" color="primary" v-close-popup class="btn-cancelar" @click="function(){
                         capitulo_id = 0
                         delete_capitulo = false
                     }" />
@@ -233,7 +233,9 @@
                 visible: false,
                 visible_page: false,
                 showSimulatedReturnData: false,
-                capitulo: {}
+                capitulo: {},
+                i18n: {},
+                avisos: {},
             }
         },
         mounted(){
@@ -242,6 +244,8 @@
             // console.log("user: ", this.user.user_id)
         },
         created() {
+            this.i18n = this.$i18n.livro
+            this.avisos = this.$i18n.avisos
             setTimeout(() => {
                 let dark = this.$q.localStorage.getItem('darkmode')
                 this.darkmode = dark == 'true' ? true : false
@@ -250,6 +254,13 @@
                 setTimeout(async() => {
                     this.darkmode = option
                 }, 500);
+            });
+            eventBus.$on('att-idioma', async(option) => {
+                this.selectedOption = option;
+                setTimeout(() => {
+                    this.i18n = this.$i18n.livro
+                    this.avisos = this.$i18n.avisos
+                }, 500)
             });
         },
         methods: {
@@ -274,7 +285,7 @@
                     that.visible_page = false
                     that.showSimulatedReturnData = true
                     that.falha()
-                    // this.erroCarregar()
+                    this.erroCarregar(err, this.avisos.erro_carregar)
                 })
             },
             delHistoria(){
@@ -357,12 +368,12 @@
 
             },
             getHistoriaFinalizada(historia_finalizada){
-                if(historia_finalizada == 0){ return "Em andamento" }
-                return "Concluída"
+                if(historia_finalizada == 0){ return this.i18n.em_andamento }
+                return this.i18n.concluida
             },
             getConteudoAdulto(conteudo_adulto){
-                if (conteudo_adulto){return "Conteúdo Adulto"}
-                return "Conteúdo Livre"
+                if (conteudo_adulto){return this.i18n.conteudo_adulto}
+                return this.i18n.conteudo_livre
             }
         }
     };

@@ -4,10 +4,10 @@
             <div class="col-12 offset-1 col-md-4">
                 <div class="row">
                     <div class="col-11 offset-1">
-                        <h1 class="h1">Contato</h1>
+                        <h1 class="h1">{{i18n.contatos.label}}</h1>
                     </div>
                     <div class="col-11 offset-1">
-                        <p class="p">Você pode entrar em contato conosco <br>pelos nossos canais de atendimento!</p>
+                        <p class="p" v-html="i18n.contatos.descricao"></p>
                     </div>
                     <div class="col-11 offset-1">
                         <p class="email-suporte"><q-icon name="email" class="email-icone"></q-icon>suport@netdev.com</p>
@@ -26,10 +26,10 @@
             <div class="col-12 offset-1 offset-md-0 col-md-6 mb-5">
                 <div class="row">
                     <div class="col-11 offset-1">
-                        <h1 class="h1">Redes Sociais</h1>
+                        <h1 class="h1">{{i18n.redes_sociais.label}}</h1>
                     </div>
                     <div class="col-11 offset-1">
-                        <p class="p">Siga-nos nas redes sociais! E fique <br>por dentro de todas as novidades</p>
+                        <p class="p" v-html="i18n.redes_sociais.descricao"></p>
                     </div>
                     <div class="col-11 offset-1">
                         <p class="email-suporte">
@@ -67,9 +67,11 @@
         data(){
             return {
 				darkmode: false,
+                i18n: {}
             }
         },
         created() {
+            this.i18n = this.$i18n.contato
 			setTimeout(() => {
 				let dark = this.$q.localStorage.getItem('darkmode')
 				this.darkmode = dark == 'true' ? true : false
@@ -79,6 +81,12 @@
 					this.darkmode = option
 				}, 500);
 			});
+            eventBus.$on('att-idioma', async(option) => {
+                this.selectedOption = option;
+                setTimeout(() => {
+                    this.i18n = this.$i18n.contato
+                }, 500)
+            });
         }
     }
 </script>

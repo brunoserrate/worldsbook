@@ -10,7 +10,7 @@
                             @finish="finishedUpload"
                             :loading="uploadPercent"
                             :url="getUrl()"
-                            label="Carregar imagem (max 2MB)"
+                            :label="i18n.imagem + ' (max 2MB)'"
                             ref="uploader"
                             bordered
                             batch
@@ -32,7 +32,7 @@
                             <q-list>
                                 <q-item clickable v-close-popup @click="onItemClick">
                                     <q-item-section>
-                                        <q-item-label>Remover foto</q-item-label>
+                                        <q-item-label>{{ i18n.remover_foto }}</q-item-label>
                                     </q-item-section>
                                     <q-item-section side>
                                         <q-icon name="delete" color="primary" />
@@ -46,28 +46,28 @@
                         <div class="col-12 col-card">
                             <q-card class="card_form_historia">
                                 <div class="col-12 col-sm-6">
-                                    <h3 class="title_historia">Detalhes das História</h3>
+                                    <h3 class="title_historia">{{ i18n.titulo }}</h3>
                                 </div>
                                 <div class="col-12">
                                     <q-separator class="separator_card"/>
                                 </div>
                                 <div class="col-12">
-                                    <p class="label_input">Título</p>
-                                    <q-input filled v-model="historia.titulo" placeholder="História sem título" :dense="dense" class="inputs_form_historia"/>
+                                    <p class="label_input">{{ i18n.detalhes_historia.titulo.label }}</p>
+                                    <q-input filled v-model="historia.titulo" :placeholder="i18n.detalhes_historia.titulo.placeholder" :dense="dense" class="inputs_form_historia"/>
                                 </div>
                                 <div class="col-12">
                                     <q-separator class="separator_card"/>
                                 </div>
                                 <div class="col-12">
-                                    <p class="label_input">Descrição</p>
-                                    <q-input filled v-model="historia.descricao" type="textarea" placeholder="Sinopse da história" :dense="dense" class="inputs_form_historia_descricao"/>
+                                    <p class="label_input">{{ i18n.detalhes_historia.descricao.label }}</p>
+                                    <q-input filled v-model="historia.descricao" type="textarea" :placeholder="i18n.detalhes_historia.descricao.placeholder" :dense="dense" class="inputs_form_historia_descricao"/>
                                 </div>
                                 <div class="col-12">
                                     <q-separator class="separator_card"/>
                                 </div>
                                 <div class="row">
                                     <div class="col-4 col-select">
-                                        <p class="label_select">Categoria</p>
+                                        <p class="label_select">{{i18n.detalhes_historia.categoria.label}}</p>
                                     </div>
                                     <div class="col-12 col-md-8">
                                         <q-select
@@ -75,7 +75,7 @@
                                             v-model="historia.categoria_id"
                                             :options="categorias"
                                             type="number"
-                                            label="Categoria"
+                                            :label="i18n.detalhes_historia.categoria.placeholder"
                                             :dense="dense"
                                             class="inputs_form_historia_descricao"
                                             option-value="id"
@@ -90,13 +90,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <p class="label_input">Etiquetas</p>
+                                        <p class="label_input">{{i18n.detalhes_historia.etiquetas.label}}</p>
                                         <q-select
                                             filled
                                             v-model="historia.tags"
                                             class="inputs_form_historia"
                                             color="white"
-                                            placeholder="Tags da história"
+                                            :placeholder="i18n.detalhes_historia.etiquetas.placeholder"
                                             :dense="dense"
                                             use-input
                                             use-chips
@@ -126,7 +126,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-4 col-select">
-                                        <p class="label_select">Público Alvo</p>
+                                        <p class="label_select">{{i18n.detalhes_historia.publico_alvo.label}}</p>
                                     </div>
                                     <div class="col-12 col-md-8">
                                         <q-select
@@ -134,7 +134,7 @@
                                             v-model="historia.publico_alvo_id"
                                             :options="publicos_alvo"
                                             type="number"
-                                            label="Qual o teu público alvo principal?"
+                                            :label="i18n.detalhes_historia.publico_alvo.placeholder"
                                             :dense="dense"
                                             class="inputs_form_historia_descricao"
                                             option-value="id"
@@ -149,7 +149,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-4 col-select">
-                                        <p class="label_select">Idioma</p>
+                                        <p class="label_select">{{i18n.detalhes_historia.idioma.label}}</p>
                                     </div>
                                     <div class="col-12 col-md-8">
                                         <q-select
@@ -157,7 +157,7 @@
                                             v-model="historia.idioma_id"
                                             :options="idiomas"
                                             type="number"
-                                            label="Qual o idioma?"
+                                            :label="i18n.detalhes_historia.idioma.placeholder"
                                             :dense="dense"
                                             class="inputs_form_historia_descricao"
                                             option-value="id"
@@ -172,14 +172,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-4 col-select">
-                                        <p class="label_select">Direitos do Autor</p>
+                                        <p class="label_select">{{i18n.detalhes_historia.direitos_autorais.label}}</p>
                                     </div>
                                     <div class="col-12 col-md-8">
                                         <q-select
                                             filled
                                             v-model="historia.direitos_autorais_id"
                                             :options="direitos_autorais"
-                                            label="Direitos Autorais"
+                                            :label="i18n.detalhes_historia.direitos_autorais.placeholder"
                                             :dense="dense"
                                             class="inputs_form_historia_descricao"
                                             option-value="id"
@@ -189,7 +189,7 @@
                                             />
                                     </div>
                                     <div class="col-12" v-if="historia.direitos_autorais == 1">
-                                        <p class="p_direitos" >Isto permite que qualquer pessoa utilize a tua história para qualquer propósito — podem imprimi-la, vendê-la ou transformá-la num filme.</p>
+                                        <p class="p_direitos" >i18n.detalhes_historia.direitos_autorais.aviso</p>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -197,14 +197,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-4 col-select">
-                                        <p class="label_select">Conteúdo Adulto?</p>
+                                        <p class="label_select">{{i18n.detalhes_historia.conteudo_adulto.label}}</p>
                                     </div>
                                     <div class="col-12 col-md-8">
                                         <q-select
                                             filled
                                             v-model="historia.conteudo_adulto"
                                             :options="classificacoes"
-                                            label="Conteúdo Adulto"
+                                            :label="i18n.detalhes_historia.conteudo_adulto.placeholder"
                                             :dense="dense"
                                             class="inputs_form_historia_descricao"
                                             option-value="value"
@@ -219,7 +219,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6 d-flex justify-content-center">
-                                        <q-btn flat label="Seguinte" class="btn_seguinte" @click="setLivro">
+                                        <q-btn flat :label="i18n.botoes.seguinte" class="btn_seguinte" @click="setLivro">
                                             <q-inner-loading
                                                 :showing="visible"
                                                 label-class="text-teal"
@@ -229,7 +229,7 @@
                                         </q-btn>
                                     </div>
                                     <div class="col-6 d-flex justify-content-center">
-                                        <q-btn flat label="Cancelar" class="btn_cancelar" @click="cancel"></q-btn>
+                                        <q-btn flat :label="i18n.botoes.cancelar" class="btn_cancelar" @click="cancel"></q-btn>
                                     </div>
                                 </div>
                             </q-card>
@@ -242,12 +242,12 @@
             <q-card :class="{'dark-card-remover-foto': darkmode, 'card-remover-foto': !darkmode}">
                 <q-card-section class="row items-center">
                 <q-avatar icon="delete" color="primary" text-color="white" />
-                <span class="q-ml-sm">Deseja remover a foto de perfil?</span>
+                <span class="q-ml-sm">{{i18n.dialogs.confirmacao}}</span>
                 </q-card-section>
 
                 <q-card-actions align="right">
-                    <q-btn flat label="Sim" color="primary" @click="removerFoto" v-close-popup />
-                    <q-btn flat label="Cancelar" @click="confirm = false" color="primary" v-close-popup />
+                    <q-btn flat :label="i18n.dialogs.sim" color="primary" @click="removerFoto" v-close-popup />
+                    <q-btn flat :label="i18n.dialogs.cancelar" @click="confirm = false" color="primary" v-close-popup />
                 </q-card-actions>
             </q-card>
         </q-dialog>
@@ -289,11 +289,11 @@
                 },
                 classificacoes: [
                     {
-                        label: 'Sim',
+                        label: '',
                         value: true,
                     },
                     {
-                        label: 'Não',
+                        label: '',
                         value: false,
                     },
 
@@ -304,6 +304,8 @@
                 historias: [],
                 direitos_autorais: [],
                 user: {},
+                i18n: {},
+                avisos: {},
                 visible: false,
                 showSimulatedReturnData: false
             }
@@ -323,6 +325,10 @@
             UploadHelper
         },
         created() {
+            this.i18n = this.$i18n.criar_historia
+            this.avisos = this.$i18n.avisos
+            this.classificacoes[0].label = this.$i18n.criar_historia.sim
+            this.classificacoes[1].label = this.$i18n.criar_historia.nao
 			setTimeout(() => {
 				let dark = this.$q.localStorage.getItem('darkmode')
 				this.darkmode = dark == 'true' ? true : false
@@ -332,6 +338,15 @@
 					this.darkmode = option
 				}, 500);
 			});
+            eventBus.$on('att-idioma', async(option) => {
+                this.selectedOption = option;
+                setTimeout(() => {
+                    this.i18n = this.$i18n.criar_historia
+                    this.avisos = this.$i18n.avisos
+                    this.classificacoes[0].label = this.$i18n.criar_historia.sim
+                    this.classificacoes[1].label = this.$i18n.criar_historia.nao
+                }, 500)
+            });
         },
         methods: {
             setLivro(){
@@ -357,13 +372,13 @@
                     that.visible = false
                     that.showSimulatedReturnData = true
 
-                    this.historiaCriadaSucesso()
+                    this.historiaCriadaSucesso(this.avisos.historia_criada)
                     // console.log("A: ", that.historias)
                     this.$router.push({path: `criar_historia/` + that.historias.historia_id})
                 })
                 .catch((err) => {
                     console.log(err.response)
-                    this.erroCriacao()
+                    this.erroCriacao(this.avisos.erro_criacao_historia)
                     that.visible = false
                     that.showSimulatedReturnData = true
                 })
@@ -398,37 +413,37 @@
             },
             validarHistoria() {
                 if (this.valEmpty(this.historia.titulo) ) {
-                    this.aviso('Por favor preencha o título da história')
+                    this.aviso(this.i18n.avisos.preencha_titulo)
                     return false
                 }
 
                 if (this.valEmpty(this.historia.descricao) ) {
-                    this.aviso('Por favor preencha a descrição da história')
+                    this.aviso(this.i18n.avisos.preencha_descricao)
                     return false
                 }
 
                 if (this.valEmpty(this.historia.categoria_id) ) {
-                    this.aviso('Por favor escolha alguma categoria para a história')
+                    this.aviso(this.i18n.avisos.preencha_categoria)
                     return false
                 }
 
                 if (this.valEmpty(this.historia.publico_alvo_id) ) {
-                    this.aviso('Por favor escolha o público alvo')
+                    this.aviso(this.i18n.avisos.preencha_publico_alvo)
                     return false
                 }
 
                 if (this.valEmpty(this.historia.idioma_id) ) {
-                    this.aviso('Por favor escolha um idioma')
+                    this.aviso(this.i18n.avisos.preencha_idioma)
                     return false
                 }
 
                 if (this.valEmpty(this.historia.direitos_autorais_id) ) {
-                    this.aviso('Por favor escolha uma opção de direitos autorais da história')
+                    this.aviso(this.i18n.avisos.preencha_direitos)
                     return false
                 }
 
                 if (this.valEmpty(this.historia.caminho_capa) ) {
-                    this.aviso('Por favor faça o envio da capa da história')
+                    this.aviso(this.i18n.avisos.preencha_capa)
                     return false
                 }
 

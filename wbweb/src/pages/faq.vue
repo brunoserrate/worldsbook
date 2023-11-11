@@ -3,7 +3,7 @@
         <div class="fit row justify-center items-center content-center help-cover background-cover">
             <div class="col-12">
                 <q-img src="~assets/cover_help.png" class="cover"></q-img>
-                <p class="help_p">AJUDA</p>
+                <p class="help_p">{{ i18n.ajuda }}</p>
             </div> 
             <!-- <div class="col-12 col_help_cover">
                 <p class="help_p">AJUDA</p>
@@ -11,46 +11,16 @@
         </div>
         <div class="row row-perguntas" style="padding: 50px 0px 50px 0px; height: 46vh;">
             <div class="col-10 offset-1">
-                <q-card class="card_list">
+                <q-card class="card_list" v-for="(pergunta, i) in i18n.perguntas" :key="i">
                     <q-list padding class="rounded-borders lista">
                         <q-expansion-item
                             icon="add_circle_outline"
-                            label="Como o World Books funciona?"
+                            :label="pergunta.pergunta"
                             expand-separator
                             >
                             <q-card class="textos">
                                 <q-card-section>
-                                    O WorldBoks é uma plataforma gratuita de livros online. Aonde você pode postar suas próprias obras e ler as de outros usuários!
-                                </q-card-section>
-                            </q-card>
-                        </q-expansion-item>
-                    </q-list>
-                </q-card>
-                <q-card class="card_list">
-                    <q-list padding class="rounded-borders lista">
-                        <q-expansion-item
-                            expand-separator
-                            icon="add_circle_outline"
-                            label="Eu posso publicar qualquer obra minha?"
-                            >
-                            <q-card class="textos">
-                                <q-card-section>
-                                    Sim! Você pode publicar qualquer obra sua desde que não viole as regras.
-                                </q-card-section>
-                            </q-card>
-                        </q-expansion-item>
-                    </q-list>
-                </q-card>
-                <q-card class="card_list">
-                    <q-list padding class="rounded-borders lista">
-                        <q-expansion-item
-                            expand-separator
-                            icon="add_circle_outline"
-                            label="Eu posso ler qualquer obra publicada por outros usuários?"
-                            >
-                            <q-card class="textos">
-                                <q-card-section>
-                                    Sim, você pode ler qualquer obra postada por outro usuário!
+                                    {{ pergunta.resposta }}
                                 </q-card-section>
                             </q-card>
                         </q-expansion-item>
@@ -67,9 +37,11 @@
         data(){
             return {
                 darkmode: false,
+                i18n: {}
             }
         },
         created() {
+            this.i18n = this.$i18n.faq
             setTimeout(() => {
                 let dark = this.$q.localStorage.getItem('darkmode')
                 this.darkmode = dark == 'true' ? true : false
@@ -78,6 +50,12 @@
                 setTimeout(async() => {
                     this.darkmode = option
                 }, 500);
+            });
+            eventBus.$on('att-idioma', async(option) => {
+                this.selectedOption = option;
+                setTimeout(() => {
+                    this.i18n = this.$i18n.faq
+                }, 500)
             });
         }
     }

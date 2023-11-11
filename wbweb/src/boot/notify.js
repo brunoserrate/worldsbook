@@ -2,27 +2,27 @@ import Vue from 'vue'
 
 Vue.mixin({
     methods: {
-        historiaCriadaSucesso () {
+        historiaCriadaSucesso (message) {
             this.$q.notify({
               type: 'positive',
-              message: `História criada!`
+              message: message
             })
         },
-        capituloCriadoSucesso () {
+        capituloCriadoSucesso (message) {
             this.$q.notify({
               type: 'positive',
-              message: `Capítulo criado!`
+              message: message
             })
         },
-        perfilEditado () {
+        perfilEditado (message) {
             this.$q.notify({
               type: 'positive',
-              message: `Perfil editado com sucesso!`
+              message: message
             })
         },
-        erroCriacao (err) {
+        erroCriacao (err, message) {
             this.$q.notify({
-                message: 'Erro na criação da história!',
+                message: message,
                 color: 'negative',
                 icon: 'error_outline',
                 multiLine: true,
@@ -31,9 +31,9 @@ Vue.mixin({
                 ]
             })
         },
-        erroCriacaoCapitulo (err) {
+        erroCriacaoCapitulo (err, message) {
             this.$q.notify({
-                message: 'Erro na criação do capítulo!',
+                message: message,
                 color: 'negative',
                 icon: 'error_outline',
                 multiLine: true,
@@ -42,9 +42,9 @@ Vue.mixin({
                 ]
             })
         },
-        erroCarregar(err) {
+        erroCarregar(err, message) {
             this.$q.notify({
-                message: 'Erro ao carregar!', err,
+                message: message, err,
                 color: 'negative',
                 icon: 'error_outline',
                 multiLine: true,
@@ -53,9 +53,9 @@ Vue.mixin({
                 ]
             })
         },
-        erroEditar(err) {
+        erroEditar(err, message) {
             this.$q.notify({
-                message: 'Houve um erro ao editar!', err,
+                message: message, err,
                 color: 'negative',
                 icon: 'error_outline',
                 multiLine: true,

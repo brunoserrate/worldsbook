@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="capa_img" v-if="!capitulo.caminho_capa">
-                    <h3 class="title_capa">capa</h3>
+                    <h3 class="title_capa">{{i18n.capa}}</h3>
                 </div>
                 <!-- CAPA  -->
                 <div class="capa_img_2" v-if="capitulo.caminho_capa"></div>
@@ -50,7 +50,7 @@
                                 </q-avatar>
                             </div>
                             <div class="col-12">
-                                <p  class="p_nome_usuario">de <span class="nome_usuario" @click="goToPerfil(capitulo.usuario_id)">{{capitulo.apelido_usuario}}</span></p>
+                                <p  class="p_nome_usuario">{{i18n.de}} <span class="nome_usuario" @click="goToPerfil(capitulo.usuario_id)">{{capitulo.apelido_usuario}}</span></p>
                             </div>
                             <div class="col-12">
                                 <p class="historia-titulo" @click="goToHistoria()">{{historia.titulo}}</p>
@@ -65,10 +65,10 @@
                         <!-- <p class="corpo_capitulo">{{capitulo.capitulo}}</p> -->
                         <div class="row justify-center">
                             <div v-if="capitulo.proximo_capitulo != null" class="col-12 row_status">
-                                <q-btn unelevated label="Ir para o próximo capítulo >" class="btn_proximo_capitulo" @click="nextChapter"/>
+                                <q-btn unelevated :label="i18n.proximo_capitulo + ' >'" class="btn_proximo_capitulo" @click="nextChapter"/>
                             </div>
                             <div v-else class="col-12 row_status">
-                                <q-btn unelevated label="Não há mais capítulos" disable class="btn_proximo_capitulo" @click="nextChapter"/>
+                                <q-btn unelevated :label="i18n.sem_capitulos" disable class="btn_proximo_capitulo" @click="nextChapter"/>
                             </div>
                         </div>
                     </div>
@@ -92,15 +92,15 @@
                         <q-input v-model="comment.comentario" outlined type="textarea" class="comment_textarea">
                             <q-inner-loading
                                 :showing="visible"
-                                label="Por favor aguarde..."
+                                :label="i18n.aguarde"
                                 label-class="text-teal"
                                 label-style="font-size: 1.1em"
                             />
                         </q-input>
                     </div>
                     <div class="col-6 offset-2 row_btn">
-                        <q-btn unelevated label="enviar" class="btn_enviar_comentario" v-if="comment.comentario" @click="setComentario"/>
-                        <q-btn unelevated label="enviar" class="btn_enviar_comentario" disabled v-if="!comment.comentario"/>
+                        <q-btn unelevated :label="i18n.enviar" class="btn_enviar_comentario" v-if="comment.comentario" @click="setComentario"/>
+                        <q-btn unelevated :label="i18n.enviar" class="btn_enviar_comentario" disabled v-if="!comment.comentario"/>
                     </div>
                 </div>
                 <q-separator class="separador"></q-separator>
@@ -175,13 +175,14 @@
                     usar_apelido: '',
                     usuario_id: '',
                 },
+                i18n: {},
                 comentarios: [],
                 visible: false,
                 showSimulatedReturnData: false,
                 darkmode: false, 
                 votar: {
                     icone_name: 'star_border' ,
-                    span: 'Votar!',
+                    span: '',
                     votado: false
                 },
                 timerVisualizacao: null
@@ -217,6 +218,8 @@
             },
         },
         created() {
+            this.i18n = this.$i18n.capitulo
+            this.votar.span = this.votar.votado ? this.i18n.voto.votado : this.i18n.voto.votar
             setTimeout(() => {
                 let dark = this.$q.localStorage.getItem('darkmode')
                 this.darkmode = dark == 'true' ? true : false
@@ -226,6 +229,13 @@
                     this.darkmode = option
                 }, 500);
             });
+            eventBus.$on('att-idioma', async(option) => {
+                this.selectedOption = option;
+                setTimeout(() => {
+                    this.i18n = this.$i18n.capitulo
+                    this.votar.span = this.votar.votado ? this.i18n.voto.votado : this.i18n.voto.votar
+                }, 500)
+            });
         },
         methods: {
             goToHistoria(){
@@ -234,7 +244,6 @@
             goToPerfil(usuario_id){
                 this.$router.push({path: `/perfil/` + usuario_id})
             },
-
             getCapitulo(capitulo_id){
                 let that = this
                 that.$axios.get(that.$pathAPI + '/capitulo/' + capitulo_id)
@@ -245,14 +254,14 @@
                     if(that.capitulo.votado){
                         that.votar = {
                             icone_name: 'star',
-                            span: 'Votado!',
+                            span: this.i18n.voto.votado,
                             votado: true
                         }
                     }
                     else {
                         that.votar = {
                             icone_name: 'star_border',
-                            span: 'Votar!',
+                            span: this.i18n.voto.votar,
                             votado: false
                         }
                     }
@@ -261,7 +270,7 @@
                     // console.log(that.capitulo)
                 })
                 .catch((err) => {
-                    console.log(err.response)
+                    console.log(err)
                 })
             },
             getHistoria(){
@@ -285,11 +294,11 @@
                         color: 'warning',
                         position: 'top',
                         textColor: 'black',
-                        message: 'Não há mais capítulos',
+                        message: this.i18n.sem_capitulos,
                         icon: 'warning',
                         timeout: 5000,
                         actions: [
-                            { label: 'Fechar', color: 'black', handler: () => {} }
+                            { label: this.i18n.fechar, color: 'black', handler: () => {} }
                         ]
                     })
                 }
@@ -298,7 +307,7 @@
                 let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
 
                 if(user === null){
-                    this.falha('Não é possível comentar sem estar conectado!')
+                    this.falha(this.i18n.falha_comentar)
 
                     return false
                 }
@@ -337,7 +346,6 @@
                     console.log(error)
                 }
             },
-
             vote(){
                 let that = this
 
@@ -355,11 +363,11 @@
                         // Se votar for verdadeiro, o capítulo já foi votado
                         // Então a rotina irá remover o voto que foi realizado pelo usuário
                         if(that.votar.votado){
-                            that.sucesso('Voto removido do capítulo com sucesso')
+                            that.sucesso(this.i18n.voto.voto_removido)
 
                             that.votar = {
                                 icone_name: 'star_border',
-                                span: 'Votar!',
+                                span: this.i18n.voto.votar,
                                 votado: false
                             }
 
@@ -367,11 +375,11 @@
                         // Se for falso, o capítulo ainda não foi votado
                         // Então a rotina irá adicioanr o voto feito pelo usuário
                         else {
-                            that.sucesso('Capítulo votado com sucesso')
+                            that.sucesso(this.i18n.voto.capitulo_votado)
 
                             that.votar = {
                                 icone_name: 'star',
-                                span: 'Votado!',
+                                span: this.i18n.voto.votado,
                                 votado: true
                             }
 
@@ -383,15 +391,14 @@
                 }
                 // Visitante
                 else{
-                    this.falha('Não é possível votar sem estar conectado!')
+                    this.falha(this.i18n.voto.falha_conexao)
                 }
 
             },
-
             setVoto(){
 
             },
-            visualizarCapitulo(){
+            async visualizarCapitulo(){
                 let that = this
 
                 that.$axios.post(that.$pathAPI + '/capitulo/visualizado/' + this.capitulo_id)

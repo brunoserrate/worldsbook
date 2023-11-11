@@ -29,7 +29,7 @@
 								<hr style="margin: 0 0 0 0; width: 80%;"/>
 							</div>
 							<div class="col-10 col_btn_detail">
-								<q-btn unelevated label="Iniciar leitura" class="btn_detail_iniciar_leitura" @click="getLivro(livro_detail)"/>
+								<q-btn unelevated :label="i18n.iniciar_leitura" class="btn_detail_iniciar_leitura" @click="getLivro(livro_detail)"/>
 							</div>
 							<div class="col-2 col_btn_detail">
 								<q-btn unelevated label="+" class="btn_detail_iniciar_leitura"/>
@@ -41,7 +41,7 @@
 								<q-separator class="separador"></q-separator>
 							</div>
 							<div class="col-12 col_btn_detail">
-								<p class="col_data_atualizacao"><span>Data de atualização: </span>{{ livro_detail.data_atualizacao | formatDateTime }}</p>
+								<p class="col_data_atualizacao"><span>{{i18n.data_atualizacao}}: </span>{{ livro_detail.data_atualizacao | formatDateTime }}</p>
 							</div>
 						</div>
 						<!-- <template q-slot="footer">
@@ -70,6 +70,7 @@
 				livro_dialog: false,
 				darkmode: false,
 				livros:[],
+				i18n: {},
 				livro_detail: {
 					caminho_capa: '', 
 					categoria_id: '',
@@ -97,6 +98,7 @@
 			this.buscarLivros()
 		},
 		created() {
+            this.i18n = this.$i18n.livro_dialogs
 			setTimeout(() => {
 				let dark = this.$q.localStorage.getItem('darkmode')
 				this.darkmode = dark == 'true' ? true : false
@@ -107,6 +109,12 @@
 					console.log("darkmode: ", this.darkmode)
 				}, 500);
 			});
+			eventBus.$on('att-idioma', async(option) => {
+                this.selectedOption = option;
+                setTimeout(() => {
+                    this.i18n = this.$i18n.livro_dialogs
+                }, 500)
+            });
 		},
 		components: { VueperSlides, VueperSlide },
 		filters: {

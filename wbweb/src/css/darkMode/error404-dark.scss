@@ -1,0 +1,73 @@
+.dark-error404 {
+  background-color: #332c3f;
+  transition: background-color 0.3s ease;
+  p, span, h1, h2, h3, h4, h5, h6, ol, ul, button, div, label {
+      font-family: 'Raleway';
+      color: #b1b1b1;
+  }
+  .botao {
+      margin: 26px 0 0 0;
+      color: #9a59bb;
+      text-transform: uppercase;
+      font-size: 15px;
+      &:hover {
+          background-color: #100a1229;
+      }
+  }
+  .mascote {
+      width: 70%; 
+      margin: 80px 0px 0px 0px;
+  }
+  .pagina {
+      margin-top: 0; 
+      margin-bottom: 0; 
+      font-size: 18px;
+      line-height: 1.5;
+  }
+  .notFound {
+      font-size: 68px;
+      line-height: 1;
+      font-weight: bold; 
+      font-family: Raleway; 
+      margin: 80px 0px 0px 0; 
+  }
+}
+@media screen and (min-width: 980px){
+  .dark-error404 {
+      background: url('~assets/background.svg');
+      background-size: 58vh;
+      // position: absolute;
+      background-repeat: no-repeat;
+      background-position: right center;
+      background-color: #332c3f;
+      transition: background-color 0.3s ease;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      .mascote {
+          width: 39%; 
+          margin: 0 190px 0 0;
+      }
+      .pagina {
+          margin-top: 0; 
+          margin-bottom: 0; 
+          font-size: 25px;
+      }
+      .botao {
+          margin: 51px 0 0 0;
+          color: #9a59bb;
+          text-transform: uppercase;
+          font-size: 17px;
+          &:hover {
+            background-color: #100a1229;
+          }
+      }
+      .notFound {
+          font-size: 80px; 
+          font-weight: bold; 
+          font-family: Raleway; 
+          margin: 144px 0px 0px 0; 
+      }
+  }
+}

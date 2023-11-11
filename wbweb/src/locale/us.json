@@ -1,0 +1,384 @@
+{
+    "index": {
+        "bem_vindo": "Welcome to World Books",
+        "subtitulo": "Second most loved platform in the world",
+        "descricao": "World Books is your platform to connect you with millions of books and writers around the world. Explore your imagination, develop stories and interact with various authors around the world.",
+        "botoes": {
+            "iniciar_leitura": "Start Reading",
+            "comece_escrever": "Start Writing"
+        },
+        "dialogs": {
+            "login": {
+                "titulo": "Welcome back to World Books",
+                "texto": "Welcome back to Worldbook! Log in and continue supporting writers and showing the world their universes!",
+                "inputs": {
+                    "email": "E-mail",
+                    "senha": "Password"
+                },
+                "botoes": {
+                    "logar": "Log in",
+                    "fechar": "Close"
+                },
+                "não_possui_conta": "Don't have an account?",
+                "cadastrese": "Register",
+                "esqueceu_senha": "Forgot your password?",
+                "recuperar_senha": "Recover password" 
+            },
+            "cadastro": {
+                "titulo": "oin World Books",
+                "texto": "Be part of the global community of readers and writers, all connected through the power of stories",
+                "inputs": {
+                    "nome": "Name",
+                    "apelido": "Nickname",
+                    "email": "E-mail",
+                    "senha": "Password",
+                    "confirma_senha": "Confirm password",
+                    "data_nascimento": "Date of Birth"
+                },
+                "botoes": {
+                    "cadastrar": "Register",
+                    "cancelar": "Cancel"
+                },
+                "ja_possui_conta": "Do you already have an account?",
+                "faca_login": "Log in!" 
+            },
+            "esqueci_senha": {
+                "titulo": "Forgot your password?",
+                "texto": "Enter and confirm your account e-mail",
+                "inputs": {
+                    "email": "E-mail",
+                    "confirma_email": "Confirm e-mail"
+                },
+                "botoes": {
+                    "enviar": "Send",
+                    "cancelar": "Cancel"
+                },
+                "ja_possui_conta": "Do you already have an account?",
+                "faca_login": "Log in!" 
+            },
+            "sucesso": {
+                "cadastro_sucesso": "Registered successfully! Connect to the platform."
+            },
+            "falhas": {
+                "falha_operacao": "Operation failed. Please check the form and try again",
+                "falha_cadastro": "Registration failed! Check the form information or contact our support.",
+                "preecha_forms": "Fill in required fields"
+            },
+            "botoes": {
+                "fechar": "Close"
+            },
+            "campo_obrigatorio": "Required field",
+            "digite_email_valido": "Please enter a valid e-mail",
+            "senhas_nao_coincidem": "Passwords do not match"
+        }
+    },
+    "login": {
+        "form": {
+            "usuario": "User",
+            "senha": "Password"
+        },
+        "acessar": "Access",
+        "avisos": {
+            "preechan_campos": "Fill in all fields",
+            "login_senha_incorreto": "Incorrect login and password!"
+        }
+    },
+    "iniciar_leitura": {
+       "label_inicio": "Browse the categories exploring different books, it will be an incredible experience!",
+       "bem_vindo": "Welcome",
+       "bem_vindo_subtitulo": "The best choices for you",
+       "melhores_generos": "Find the best between genres!",
+       "categoria_romance": "Romance category",
+       "categoria_terror": "Horror category",
+       "categoria_aventura": "Adventure category"
+    },
+    "header": {
+        "procurar": "Search",
+        "navegar": {
+            "label": "Browse",
+            "items": {
+                "categorias": "Categories"
+            }
+        },
+        "escrever": {
+            "label": "Write",
+            "items": {
+                "criar_historia": "Create History"
+            }
+        },
+        "avatar": {
+            "perfil": "Profile",
+            "apelido": {
+                "label": "Use nickname?",
+                "caption": "Use your nickname"
+            },
+            "modo_dark": {
+                "label": "Dark Mode",
+                "caption": "Enable dark mode"
+            },
+            "linguagem": {
+                "label": "Language",
+                "linguagens": [
+                    { "name": "English", "country": "us", "img": "us.png" },
+                    { "name": "Portuguese", "country": "br", "img": "br.png" },
+                    { "name": "Spanish", "country": "es", "img": "es.png" }
+                ]
+            }
+        },
+        "iniciar_sessao": "Start Session",
+        "iniciar_leitura": "Start Reading",
+        "comecar_escrever": "Start writing"
+    },
+    "footer": {
+        "inicio": {
+            "label": "Home",
+            "home": "Home",
+            "iniciar_leitura": "Start Reading",
+            "comecar_escrever": "Start writing",
+            "categorias": "Categories"
+        },
+        "sobre_nos": {
+            "label": "About us",
+            "sobre_empresa": "About the company",
+            "contato": "Contact",
+            "redes_sociais": "Social Networks"
+        },
+        "suporte": {
+            "label": "Support",
+            "faq": "Faq",
+            "github": "Github"
+        }
+    },
+    "criar_historia": {
+        "titulo": "Story Details",
+        "imagem": "Upload image",
+        "detalhes_historia": {
+            "titulo": {
+                "label": "Title",
+                "placeholder": "Untitled story"
+            },
+            "descricao": {
+                "label": "Description",
+                "placeholder": "Story synopsis"
+            },
+            "categoria": {
+                "label": "Category",
+                "placeholder": "Category"
+            },
+            "etiquetas": {
+                "label": "Tags",
+                "placeholder": "Story Tags"
+            },
+            "publico_alvo": {
+                "label": "Target audience",
+                "placeholder": "Who is your main target audience?"
+            },
+            "idioma": {
+                "label": "Language",
+                "placeholder": "What language?"
+            },
+            "direitos_autorais": {
+                "label": "Author's Rights",
+                "placeholder": "Copyright",
+                "aviso": "This allows anyone to use your story for any purpose — they can print it, sell it, or turn it into a movie."
+            },
+            "conteudo_adulto": {
+                "label": "Adult Content",
+                "placeholder": "Adult Content"
+            },
+            "historia_finalizada": {
+                "label": "Story finished?",
+                "placeholder": "Story finished",
+                "sim": "Yes",
+                "nao": "No"
+            }
+        },
+        "remover_foto": "Remove photo",
+        "botoes": {
+            "seguinte": "Next",
+            "postar": "Post",
+            "cancelar": "Cancel"
+        },
+        "dialogs": {
+            "confirmacao": "Do you want to remove your profile photo?",
+            "sim": "Yes",
+            "cancelar": "Cancel"
+        },
+        "carregando_historia": "Loading story",
+        "avisos": {
+            "preecha_titulo": "Please fill in the title of the story",
+            "preecha_descricao": "Please fill in the story description",
+            "preecha_categoria": "Please choose some category for the story",
+            "preecha_publico_alvo": "Please choose the target audience",
+            "preecha_idioma": "Please choose a language",
+            "preecha_direitos": "Please choose a story copyright option",
+            "preecha_capa": "Please upload the story cover"
+        },
+        "sim": "Yes",
+        "nao": "No"
+    },
+    "livro": {
+       "reacoes": {
+            "visualizacoes": "Views",
+            "votos": "Votes",
+            "capitulos": "Chapters"
+       },
+       "iniciar_leitura": "Start Reading",
+       "indice": "Index",
+       "adicionar_capitulo": "Add Chapter",
+       "sem_capitulos": "This story doesn't have chapters yet!",
+       "carregando_historia": "Loading story",
+       "dialogs": {
+            "deletar_historia": "Do you want to delete this story permanently?",
+            "deletar_capitulo": "Do you want to delete this chapter permanently?",
+            "deletar": "Delete",
+            "cancelar": "Cancel"
+       },
+       "concluida": "Completed",
+       "em_andamento": "In progress",
+       "conteudo_adulto": "Adult Content",
+       "conteudo_livre": "Free Content"
+    },
+    "capitulo": {
+        "capa": "Cover",
+        "proximo_capitulo": "Go to next chapter",
+        "sem_capitulos": "There are no more chapters",
+        "enviar": "Send",
+        "de": "by",
+        "voto": {
+            "votar": "Vote",
+            "votado": "Voted!",
+            "falha_conexao": "Can't vote without being connected!",
+            "capitulo_votado": "Chapter voted successfully",
+            "voto_removido": "Vote removed from chapter successfully"
+        },
+        "falha_comentar": "Can't comment without being logged in!",
+        "aguarde": "Please, wait...",
+        "fechar": "Close"
+    },
+    "criar_capitulo": {
+        "botoes": {
+            "publicar": "Publish",
+            "cancelar": "Cancel"
+        },
+        "capitulo_sem_nome": "Chapter without name",
+        "comece_escrever": "Start writing...",
+        "carregando_capitulo": "Loading chapter..."
+    },
+    "livro_dialogs": {
+        "iniciar_leitura": "Start Reading",
+        "data_atualizacao": "Update date"
+    },
+    "perfil": {
+        "a_seguir": "Next",
+        "editar_perfil": "Edit Profile",
+        "descricao_usuario": "User description",
+        "carregando_perfil": "Loading profile",
+        "historias": {
+            "historias_de": "Stories of",
+            "historias_publicadas": "published stories",
+            "data_atualizacao": "Update date"
+        },
+        "concluida": "Completed",
+        "em_andamento": "In progress",
+        "conteudo_adulto": "Adult Content",
+        "conteudo_livre": "Free Content"
+    },
+    "editar_perfil": {
+        "titulo": "Change your account information",
+        "nome": "Name",
+        "apelido": "Nickname",
+        "email": "E-mail",
+        "senha": "Password",
+        "descricao_usuario": "User description",
+        "imagem": "Upload image",
+        "salvar": "Save",
+        "remover_foto": "Remove photo",
+        "dialog": {
+            "confirmacao": "Do you want to remove your profile photo?",
+            "sim": "Yes",
+            "cancelar": "Cancel"
+        }
+    },
+    "categorias": {
+        "titulo": "Search for the best works according to your favorite category!",
+        "subtitulo": "Several categories for all tastes!",
+        "nao_encontrou": "Didn't find what you were looking for? Search here!"
+    },
+    "livro_categorias": {
+        "titulo": "Here are the best books in the category",
+        "sua_pesquisa_retornou": "Your search returned",
+        "diversos_livros": "Diverse books for all tastes!",
+        "carregando": "Loading books",
+        "voltar": "Back",
+        "qtd_historias": {
+            "singular": "history",
+            "plural": "stories"
+        },
+        "qtd_resultados": {
+            "singular": "result",
+            "plural": "results"
+        },
+        "de": "by",
+        "dialogs": {
+            "iniciar_leitura": "Start Reading",
+            "data_atualizacao": "Update date"
+        }
+    },
+    "sobre_empresa": {
+        "somos": {
+            "label": "We are NetDev",
+            "descricao": "<p>We are a company specialized in technical assistance, repair, preventive and corrective maintenance, configuration and installation of computer equipment, networks and peripherals. We have been operating since 2006, collaborating with our customers and partners in obtaining better results, making them more competitive.</p><p>IT services at your fingertips, for individuals, small and medium-sized companies. We offer in-home technical assistance services, with a notebook technician to provide support in your home environment WINDOWS and MAC APPLE. Maintenance and implementation of Wi-Fi wireless network, home and business for large environments.</p><p>We make the difference, because we do things differently. We seek quality solutions at low cost, to satisfy the most specific needs of our customers. Our customer service is personalized and understands what you need, to meet your expectations. So you and your company can focus on what really matters to the business.</p><p>Our objective is to offer creative and efficient solutions with quality, flexibility and speed for our customers. To do this, we have a technical team, qualified in different technological platforms, constantly updating and improving. We work to ensure the stability of systems and technologies.<p>"
+        },
+        "missao": {
+            "label": "Our mission",
+            "descricao": "Exceeding the expectations of each client through excellence in the provision of innovative services, in order to make them even more competitive in their business, thus providing high quality technological solutions."
+        },
+        "visao": {
+            "label": "Our vision",
+            "descricao": "To be seen as the main point of contact in the area of cutting-edge technology, offering quality services, with respect, responsibility and transparency, aiming for the full satisfaction of our customers and employees."
+        },
+        "valores": {
+            "label": "Our values",
+            "descricao": "<p class=text-center>Quality;</p><p class=text-center>Punctuality;</p><p class=text-center>Ethics;</p><p class =text-center>Innovation.</p>"
+        }
+    },
+    "contato": {
+        "contatos": {
+            "label": "Contact",
+            "descricao": "You can contact us <br>through our service channels!"
+        },
+        "redes_sociais": {
+            "label": "Social networks",
+            "descricao": "Follow us on social media! And stay <br>up to date with all the news"
+        }
+    },
+    "faq": {
+        "ajuda": "Help",
+        "perguntas": [
+            { "pergunta": "How does World Books work?", "resposta": "WorldBoks is a free online book platform. Where you can post your own works and read those of other users!" },
+            { "pergunta": "Can I publish any of my work?", "resposta": "Yes! You can publish any of your work as long as it does not violate the rules." },
+            { "pergunta": "Can I read any work posted by other users?", "resposta": "Yes, you can read any work posted by another user!" }
+        ]
+    },
+    "avisos": {
+        "historia_criada": "History created!",
+        "capitulo_criado": "Chapter created!",
+        "perfil_editado": "Profile edited successfully!",
+        "erro_criacao_historia": "Error creating the story!",
+        "erro_criacao_capitulo": "Error creating the chapter!",
+        "erro_editar": "There was an error editing!",
+        "erro_carregar": "Error loading!",
+        "labels": {
+            "ok": "OK",
+            "fechar": "Close"
+        },
+        "sucesso": "Operation completed successfully",
+        "falha": "Operation failed",
+        "aviso": "Incorrect data"
+    },
+    "error404": {
+        "subtitulo": "The page you want was not found",
+        "voltar": "Click to return to the beginning"
+    }
+}

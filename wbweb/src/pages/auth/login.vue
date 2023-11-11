@@ -8,7 +8,7 @@
 	      <q-card-section>
 			<div class="row gutter-lg a-field">
 				<div class="col-12">
-					<q-input :error="$v.form.username.$error" v-model.trim="form.username" label="Usuário" @keyup.enter="autenticar">
+					<q-input :error="$v.form.username.$error" v-model.trim="form.username" :label="i18n.form.usuario" @keyup.enter="autenticar">
 						<template v-slot:prepend>
 							<q-icon name="fas fa-user" />
 						</template>
@@ -17,29 +17,29 @@
 			</div>
 			<div class="row gutter-lg a-field">
 				<div class="col-12">
-					<q-input :error="$v.form.password.$error" v-model.trim="form.password" :type="visible ? 'password' : 'text'" label="Senha" @keyup.enter="autenticar">
-            <template v-slot:prepend>
-              <q-icon name="fas fa-lock" />
-            </template>
-            <template v-slot:append>
-              <q-icon
-                :name="visible ? 'visibility_off' : 'visibility'"
-                class="cursor-pointer"
-                @click="visible = !visible"
-              />
-            </template>
+					<q-input :error="$v.form.password.$error" v-model.trim="form.password" :type="visible ? 'password' : 'text'" :label="i18n.form.senha" @keyup.enter="autenticar">
+						<template v-slot:prepend>
+							<q-icon name="fas fa-lock" />
+						</template>
+						<template v-slot:append>
+							<q-icon
+								:name="visible ? 'visibility_off' : 'visibility'"
+								class="cursor-pointer"
+								@click="visible = !visible"
+							/>
+						</template>
 					</q-input>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-12 text-center a-field">
 					<q-btn
-            :loading="autenticando"
-            color="primary"
-            icon="fas fa-check"
-            label="Acessar"
-            @click.native="autenticar"
-          >
+						:loading="autenticando"
+						color="primary"
+						icon="fas fa-check"
+						:label="i18n.acessar"
+						@click.native="autenticar"
+						>
 						<span slot="loading">
 							<q-spinner-dots color="white" :size="30"/>
 						</span>
@@ -54,6 +54,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators'
+import eventBus from '../../boot/eventBus'
 
 export default {
   data (){
@@ -62,8 +63,9 @@ export default {
     		username:'',
     		password:'',
     	},
-      visible: true,
-      autenticando:false,
+		visible: true,
+		autenticando: false,
+		i18n: {}
     }
   },
   validations:{
@@ -72,6 +74,15 @@ export default {
 	  	password: { required }
   	}
   },
+  created() {
+	this.i18n = this.$i18n.iniciar_leitura
+	eventBus.$on('att-idioma', async(option) => {
+		this.selectedOption = option;
+		setTimeout(() => {
+			this.i18n = this.$i18n.iniciar_leitura
+		}, 500)
+	});
+  },
   methods:{
   	validarCampos(){
       this.$v.form.$touch()
@@ -79,7 +90,7 @@ export default {
         this.$q.notify({
           position: 'top',
           color: 'warning',
-          message: 'Preencha todos os campos',
+          message: this.i18n.preechan_campos,
           icon: 'report_problem'
         })
         return false
@@ -91,14 +102,14 @@ export default {
   		that.$set(that,'autenticando',true)
   		if(that.form.username == 'admin' && that.form.password == '1234'){
   			sessionStorage.setItem('autenticado', true)
-        sessionStorage.setItem('nome', 'Admin')
-        sessionStorage.setItem('email', 'admin@app.com.br')
+			sessionStorage.setItem('nome', 'Admin')
+			sessionStorage.setItem('email', 'admin@app.com.br')
   			// that.$router.push('/sistema/')
   		} else {
   			this.$q.notify({
   				position: 'top',
   				color: 'warning',
-  				message: 'Login e senha incorretas!',
+  				message: this.i18n.login_senha_incorreto,
   				icon: 'report_problem'
   			})
   		}
