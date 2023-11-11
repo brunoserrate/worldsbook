@@ -135,7 +135,7 @@
         .row_page {
             .mascote-image{
                 display: block;
-                width: 35em;
+                // width: 35em;
                 // float: right;
             } 
             .align_btn {
@@ -217,7 +217,7 @@
             
             .mascote-image{
                 margin: 0% 0% 0 0%;
-                width: 130%;
+                // width: 130%;
                 display: block;
             }
             
@@ -229,6 +229,18 @@
 }
 
 @media screen and (min-width: 1300px){
+    .bgindex {
+        .row_page{
+            margin-top: 120px;
+            .mascote-image{
+                // width: 80%;
+                margin: 0;
+                // float: right;
+            }
+        }
+    }
+}
+@media screen and (min-width: 1500px){
     .bgindex {
         .row_page{
             margin-top: 120px;

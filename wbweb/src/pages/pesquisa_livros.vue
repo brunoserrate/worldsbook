@@ -22,10 +22,10 @@
                     <div class="col-12 col-md-6" v-for="(livro, i) in livros" :key="i">
                         <q-card class="card-categorias" @click="openDialog(livro)">
                             <div class="row">
-                                <div class="col-6 col-sm-3 col-md-5">
+                                <div class="col-6 col-sm-4 col-md-6 col-lg-4">
 						            <img alt="Cover" :src="livro.caminho_capa" class="cover_historia"/>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 col-detalhes-historia">
                                     <div class="row">
                                         <div class="col-12">
                                             <p class="livro_titulo">{{livro.titulo}} </p>

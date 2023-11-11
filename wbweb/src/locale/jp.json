@@ -1,0 +1,406 @@
+{
+    "index": {
+        "bem_vindo": "ワールドブックスへようこそ",
+        "subtitulo": "世界で 2 番目に愛されているプラ​​ットフォーム",
+        "descricao": "World Books は、世界中の何百万もの書籍や作家とつながるためのプラットフォームです。想像力を探求し、ストーリーを開発し、世界中のさまざまな作家と交流しましょう。",
+        "botoes": {
+            "iniciar_leitura": "読み始める",
+            "comece_escrever": "書き込みを開始する"
+        },
+        "dialogs": {
+            "login": {
+                "titulo": "ワールド ブックへようこそ",
+                "texto": "ワールドブックへようこそ!ログインして作家をサポートし、彼らの世界を世界に見せ続けてください!",
+                "inputs": {
+                    "email": "Eメール",
+                    "senha": "パスワード"
+                },
+                "botoes": {
+                    "logar": "ログインする",
+                    "fechar": "閉じるには"
+                },
+                "nao_possui_conta": "アカウントをお持ちでない場合は、",
+                "cadastrese": "登録する",
+                "esqueceu_senha": "パスワードをお忘れですか？",
+                "recuperar_senha": "パスワードを回復"
+            },
+            "cadastro": {
+                "titulo": "ワールド ブックに参加する",
+                "texto": "物語の力でつながる読者と作家のグローバル コミュニティの一員になりましょう",
+                "inputs": {
+                    "nome": "名前",
+                    "apelido": "姓",
+                    "email": "Eメール",
+                    "senha": "パスワード",
+                    "confirma_senha": "パスワードを認証する",
+                    "data_nascimento": "生年月日"
+                },
+                "botoes": {
+                    "cadastrar": "登録する",
+                    "cancelar": "キャンセル"
+                },
+                "ja_possui_conta": "すでにアカウントをお持ちですか？",
+                "faca_login": "ログイン！"
+            },
+            "esqueci_senha": {
+                "titulo": "パスワードをお忘れですか？",
+                "texto": "アカウントのメールアドレスを入力して確認します",
+                "inputs": {
+                    "email": "Eメール",
+                    "confirma_email": "Eメール確認"
+                },
+                "botoes": {
+                    "enviar": "送信するには",
+                    "cancelar": "キャンセル"
+                },
+                "ja_possui_conta": "すでにアカウントをお持ちですか？",
+                "faca_login": "ログイン！"
+            },
+            "sucesso": {
+                "cadastro_sucesso": "正常に登録！プラットフォームに接続します。"
+            },
+            "falhas": {
+                "falha_operacao": "操作に失敗しました。フォームを確認してもう一度お試しください",
+                "falha_cadastro": "登録に失敗しました！フォーム情報を確認するか、サポートにお問い合わせください。",
+                "preecha_forms": "必須フィールドに入力します"
+            },
+            "botoes": {
+                "fechar": "閉じるには"
+            },
+            "campo_obrigatorio": "必須フィールド",
+            "digite_email_valido": "有効なメールアドレスを入力してください",
+            "senhas_nao_coincidem": "パスワードが一致していません"
+        }
+    },
+    "login": {
+        "form": {
+            "usuario": "ユーザー",
+            "senha": "パスワード"
+        },
+        "acessar": "アクセス",
+        "avisos": {
+            "preechan_campos": "すべてのフィールドに入力します",
+            "login_senha_incorreto": "ログイン名とパスワードが間違っています!"
+        }
+    },
+    "iniciar_leitura": {
+        "label_inicio": "カテゴリを参照してさまざまな本を探索すると、素晴らしい経験になるでしょう。",
+        "bem_vindo": "ようこそ）",
+        "bem_vindo_subtitulo": "あなたにとって最良の選択",
+        "melhores_generos": "ジャンル間のベストを見つけてください!",
+        "categoria_romance": "ロマンス部門",
+        "categoria_terror": "ホラーカテゴリー",
+        "categoria_aventura": "アドベンチャーカテゴリー"
+    },
+    "header": {
+        "procurar": "検索するには",
+        "navegar": {
+            "label": "閲覧するには",
+            "items": {
+                "categorias": "カテゴリー"
+            }
+        },
+        "escrever": {
+            "label": "書くには",
+            "items": {
+                "criar_historia": "ストーリーの作成"
+            }
+        },
+        "avatar": {
+            "perfil": "プロフィール",
+            "apelido": {
+                "label": "ニックネームを使用しますか?",
+                "caption": "自分の姓を使用してください"
+            },
+            "modo_dark": {
+                "label": "ダークモード",
+                "label_claro": "ライトモード",
+                "caption": "ダークモードを有効にする"
+            },
+            "linguagem": {
+                "label": "言語",
+                "linguagens": [
+                    {
+                        "name": "英語",
+                        "country": "私たち",
+                        "img": "私たち.png"
+                    },
+                    {
+                        "name": "ポルトガル語",
+                        "country": "br",
+                        "img": "br.png"
+                    },
+                    {
+                        "name": "スペイン語",
+                        "country": "は",
+                        "img": "es.png"
+                    }
+                ]
+            }
+        },
+        "iniciar_sessao": "セッションを開始する",
+        "iniciar_leitura": "読み始める",
+        "comecar_escrever": "書き始める"
+    },
+    "footer": {
+        "inicio": {
+            "label": "始める",
+            "home": "家",
+            "iniciar_leitura": "読み始める",
+            "comecar_escrever": "書き始める",
+            "categorias": "カテゴリー"
+        },
+        "sobre_nos": {
+            "label": "私たちについて",
+            "sobre_empresa": "会社について",
+            "contato": "接触",
+            "redes_sociais": "ソーシャルメディア"
+        },
+        "suporte": {
+            "label": "サポート",
+            "faq": "よくある質問",
+            "github": "ギットハブ"
+        }
+    },
+    "criar_historia": {
+        "titulo": "ストーリー詳細",
+        "imagem": "画像をアップロードする",
+        "detalhes_historia": {
+            "titulo": {
+                "label": "タイトル",
+                "placeholder": "題名のない物語"
+            },
+            "descricao": {
+                "label": "説明",
+                "placeholder": "ストーリーのあらすじ"
+            },
+            "categoria": {
+                "label": "カテゴリー",
+                "placeholder": "カテゴリー"
+            },
+            "etiquetas": {
+                "label": "ハングタグ",
+                "placeholder": "ストーリータグ"
+            },
+            "publico_alvo": {
+                "label": "対象者",
+                "placeholder": "主なターゲット層は何ですか?"
+            },
+            "idioma": {
+                "label": "言語",
+                "placeholder": "言語は何ですか?"
+            },
+            "direitos_autorais": {
+                "label": "著作権",
+                "placeholder": "著作権",
+                "aviso": "これにより、誰でもあなたのストーリーをあらゆる目的で使用できるようになり、印刷したり、販売したり、映画にしたりすることができます。"
+            },
+            "conteudo_adulto": {
+                "label": "成人コンテンツ",
+                "placeholder": "成人コンテンツ"
+            },
+            "historia_finalizada": {
+                "label": "物語は終わった？",
+                "placeholder": "終わった物語",
+                "sim": "はい",
+                "nao": "いいえ"
+            }
+        },
+        "remover_foto": "写真を削除",
+        "botoes": {
+            "seguinte": "続く",
+            "postar": "役職",
+            "cancelar": "キャンセル"
+        },
+        "dialogs": {
+            "confirmacao": "プロフィール写真を削除しますか?",
+            "sim": "はい",
+            "cancelar": "キャンセル"
+        },
+        "carregando_historia": "ストーリーを読み込んでいます",
+        "avisos": {
+            "preecha_titulo": "小説のタイトルを入力してください",
+            "preecha_descricao": "ストーリーの説明を入力してください",
+            "preecha_categoria": "ストーリーのカテゴリを選択してください",
+            "preecha_publico_alvo": "対象者を選択してください",
+            "preecha_idioma": "言語を選択してください",
+            "preecha_direitos": "ストーリーの著作権オプションを選択してください",
+            "preecha_capa": "ストーリーの表紙を送ってください"
+        },
+        "sim": "はい",
+        "nao": "いいえ"
+    },
+    "livro": {
+        "reacoes": {
+            "visualizacoes": "ビュー",
+            "votos": "願い事",
+            "capitulos": "章"
+        },
+        "iniciar_leitura": "読み始める",
+        "indice": "索引",
+        "adicionar_capitulo": "章を追加",
+        "sem_capitulos": "このストーリーにはまだ章がありません。",
+        "carregando_historia": "ストーリーを読み込んでいます",
+        "dialogs": {
+            "deletar_historia": "このストーリーを完全に削除しますか?",
+            "deletar_capitulo": "この章を完全に削除しますか?",
+            "deletar": "消去",
+            "cancelar": "キャンセル"
+        },
+        "concluida": "完了しました",
+        "em_andamento": "進行中",
+        "conteudo_adulto": "成人コンテンツ",
+        "conteudo_livre": "無料コンテンツ"
+    },
+    "capitulo": {
+        "capa": "カバー",
+        "proximo_capitulo": "次の章に進む",
+        "sem_capitulos": "これ以上の章はありません",
+        "enviar": "送信するには",
+        "de": "で",
+        "voto": {
+            "votar": "投票する",
+            "votado": "投票しました！",
+            "falha_conexao": "接続されていないと投票できません。",
+            "capitulo_votado": "支部は投票に成功しました",
+            "voto_removido": "投票が章から正常に削除されました"
+        },
+        "falha_comentar": "ログインしないとコメントできません！",
+        "aguarde": "お待ちください...",
+        "fechar": "閉じるには"
+    },
+    "criar_capitulo": {
+        "botoes": {
+            "publicar": "公開",
+            "cancelar": "キャンセル"
+        },
+        "capitulo_sem_nome": "無名の章",
+        "comece_escrever": "書き始めてください...",
+        "carregando_capitulo": "章を読み込んでいます..."
+    },
+    "livro_dialogs": {
+        "iniciar_leitura": "読み始める",
+        "data_atualizacao": "更新日"
+    },
+    "perfil": {
+        "a_seguir": "次",
+        "editar_perfil": "プロファイル編集",
+        "descricao_usuario": "ユーザーの説明",
+        "carregando_perfil": "プロファイルをロード中",
+        "historias": {
+            "historias_de": "の物語",
+            "historias_publicadas": "公開されたストーリー",
+            "data_atualizacao": "更新日"
+        },
+        "concluida": "完了しました",
+        "em_andamento": "進行中",
+        "conteudo_adulto": "成人コンテンツ",
+        "conteudo_livre": "無料コンテンツ"
+    },
+    "editar_perfil": {
+        "titulo": "アカウント情報を変更する",
+        "nome": "名前",
+        "apelido": "姓",
+        "email": "Eメール",
+        "senha": "パスワード",
+        "descricao_usuario": "ユーザーの説明",
+        "imagem": "画像をアップロードする",
+        "salvar": "保存する",
+        "remover_foto": "写真を削除",
+        "dialog": {
+            "confirmacao": "プロフィール写真を削除しますか?",
+            "sim": "はい",
+            "cancelar": "キャンセル"
+        }
+    },
+    "categorias": {
+        "titulo": "好きなカテゴリーから最高の作品を探してください！",
+        "subtitulo": "あらゆる好みに合わせたさまざまなカテゴリー！",
+        "nao_encontrou": "探しているものが見つかりませんでしたか?検索！"
+    },
+    "livro_categorias": {
+        "titulo": "このカテゴリーの最高の本はこちらです",
+        "sua_pesquisa_retornou": "検索結果が返されました",
+        "diversos_livros": "あらゆる好みに合わせたさまざまな本！",
+        "carregando": "本をロードしています",
+        "voltar": "戻る",
+        "qtd_historias": {
+            "singular": "歴史",
+            "plural": "物語"
+        },
+        "qtd_resultados": {
+            "singular": "結果",
+            "plural": "結果"
+        },
+        "de": "で",
+        "dialogs": {
+            "iniciar_leitura": "読み始める",
+            "data_atualizacao": "更新日"
+        }
+    },
+    "sobre_empresa": {
+        "somos": {
+            "label": "私たちは NetDev です",
+            "descricao": "<p>当社は、コンピュータ機器、ネットワーク、周辺機器の技術サポート、修理、予防および是正保守、設定および設置を専門とする会社です。当社は 2006 年から事業を開始し、クライアントやパートナーと協力してより良い成果を上げ、競争力を高めています。</p><p>個人、中小企業向けの IT サービスをすぐに利用できます。当社では、ノートブック技術者がご自宅の WINDOWS および MAC APPLE 環境でサポートを提供する在宅技術支援サービスを提供しています。大規模環境における家庭用および企業向けの Wi-Fi ワイヤレス ネットワークのメンテナンスと実装。</p><p>私たちはやり方が違うので、違いを生みます。当社は、お客様の最も具体的なニーズを満たす高品質かつ低コストのソリューションを追求しています。当社のカスタマーサービスはパーソナライズされており、お客様の期待に応えるために何が必要かを理解しています。このようにして、あなたとあなたの会社はビジネスにとって本当に重要なことに集中できます。</p><p>私たちの目標は、品質、柔軟性、スピードを備えた創造的で効率的なソリューションをお客様に提供することです。これを実現するために、当社にはさまざまな技術プラットフォームの資格を持つ技術チームがおり、常に更新と改善を行っています。私たちはシステムとテクノロジーの安定性を確保するよう努めています。<p>"
+        },
+        "missao": {
+            "label": "我々の使命",
+            "descricao": "卓越した革新的サービスの提供を通じて各クライアントの期待を超え、クライアントのビジネス競争力をさらに高め、高品質の技術ソリューションを提供します。"
+        },
+        "visao": {
+            "label": "私たちのビジョン",
+            "descricao": "最先端のテクノロジーの分野における主要な窓口として見なされ、お客様と従業員の完全な満足を目指し、敬意、責任、透明性を持って質の高いサービスを提供します。"
+        },
+        "valores": {
+            "label": "私達の価値",
+            "descricao": "<p class=text-center>品質;</p><p class=text-center>時間厳守;</p><p class=text-center>倫理;</p><p class=text-center>イノベーション。</p>"
+        }
+    },
+    "contato": {
+        "contatos": {
+            "label": "接触",
+            "descricao": "弊社のサービスチャネルを通じてお問い合わせいただけます。"
+        },
+        "redes_sociais": {
+            "label": "ソーシャルメディア",
+            "descricao": "ソーシャルメディアでフォローしてください！常に最新のニュースを入手してください"
+        }
+    },
+    "faq": {
+        "ajuda": "ヘルプ",
+        "perguntas": [
+            {
+                "pergunta": "ワールドブックはどのように機能しますか?",
+                "resposta": "WorldBoks は無料のオンライン書籍プラットフォームです。自分の作品を投稿したり、他のユーザーの作品を読んだりすることができます。"
+            },
+            {
+                "pergunta": "私の作品を出版してもいいですか？",
+                "resposta": "はい！ルールに違反しない限り、自分の作品を公開することができます。"
+            },
+            {
+                "pergunta": "他のユーザーが公開した作品を読むことはできますか?",
+                "resposta": "はい、他のユーザーが投稿した作品を読むことができます。"
+            }
+        ]
+    },
+    "avisos": {
+        "historia_criada": "歴史が作られた！",
+        "capitulo_criado": "章が作成されました!",
+        "perfil_editado": "プロフィールが正常に編集されました。",
+        "erro_criacao_historia": "ストーリーの作成中にエラーが発生しました。",
+        "erro_criacao_capitulo": "章の作成中にエラーが発生しました!",
+        "erro_editar": "編集ミスがありました！",
+        "erro_carregar": "読み込みエラー!",
+        "labels": {
+            "ok": "わかりました",
+            "fechar": "閉じるには"
+        },
+        "sucesso": "操作は正常に実行されました",
+        "falha": "操作に失敗しました",
+        "aviso": "不正確なデータ"
+    },
+    "error404": {
+        "subtitulo": "ご希望のページは見つかりませんでした",
+        "voltar": "クリックすると最初に戻ります"
+    }
+}
