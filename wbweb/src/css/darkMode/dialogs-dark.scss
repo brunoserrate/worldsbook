@@ -1,8 +1,12 @@
 .dark-card_detail_historia_mobile_index, .dark-card_detail_historia, .dark-card_detail_historia_mobile, .dark-card_detail_historia_desktop {
+    background-color: #463547;
     p, span, h1, h2, h3, h4, h5, h6, ol, ul, button, a, label {
         font-family: 'Raleway';
         color: #c1bfc2;
     }
+    .dark-cover-mobile {
+        background-color: #463547;
+    } 
     .input_cadastro{
         margin: 0px 0 30px 0;
         padding: 0 44px;
@@ -100,6 +104,7 @@
     .cover_detail_historia{
         height: 100%;
         width: 100%;
+        filter:brightness(0.3) ;
     }
     .col_btn_detail, .col_btn_detail_desktop{
         text-align: center;
@@ -209,6 +214,7 @@
         .cover_detail_historia{
             height: 100%;
             width: 100%;
+            filter: none;
         }
         .input_cadastro{
             margin: 0px 0 30px 0;

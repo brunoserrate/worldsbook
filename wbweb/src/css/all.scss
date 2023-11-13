@@ -181,3 +181,19 @@
     box-shadow: none;
     margin-top: 7px !important;
 }
+
+.dark-capitulo, .dark-sobre_empresa, .dark-categorias, .dark-contato, .dark-criar_capitulo, .dark-criar_historia, .dark-card-remover-foto, .dark-card_detail_historia_mobile_index, .dark-card_detail_historia, .dark-card_detail_historia_mobile, .dark-card_detail_historia_desktop, .dark-cadastrar, .dark-editar_perfil, .dark-card-remover-foto, .dark-error404, .dark-faq, .dark-footer, .dark-bgIniciar-leitura, .dark-bgindex, .dark-bgIniciar-leitura, .dark-bgIniciar-leitura, .dark-livro_categorias, .dark-pesquisa_livros, .dark-livro, .dark-card-delete, .dark-perfil, .dark-sobre_empresa, .dark-header, .menu-opcoes-dark, .dropdown_navegar_dark, .dark-index-header, .dark-index-menu-opcoes, .dark-index-dropdown_navegar {
+    ::selection {
+        background: #7c61ac75;
+    }
+}
+.bgindex {
+    ::selection {
+        background: #d7c2e163;
+    }
+}
+.capitulo, .sobre_empresa, .categorias, .contato, .criar_capitulo, .criar_historia, .card-remover-foto, .card_detail_historia_mobile_index, .card_detail_historia, .card_detail_historia_mobile, .card_detail_historia_desktop, .cadastrar, .editar_perfil, .card-remover-foto, .error404, .faq, .footer, .bgIniciar-leitura, .bgIniciar-leitura, .bgIniciar-leitura, .livro_categorias, .pesquisa_livros, .livro, .card-delete, .perfil, .sobre_empresa, .header, .menu-opcoes- .dropdown_navegar_dark, .index-header, .index-menu-opcoes, .index-dropdown_navegar {
+    ::selection {
+        background: #d7c2e1;
+    }
+}

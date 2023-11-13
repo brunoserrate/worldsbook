@@ -15,20 +15,20 @@
         <q-card-section>
             Para carregar a imagem basta clicar no ícone de "mais" ("+") conforme indica a imagem: <br>
             <div class="text-center">
-                <img src="../../assets/t_00.png" alt=""><br><br>
+                <!-- <img src="../../assets/t_00.png" alt=""><br><br> -->
             </div>
             Selecione a imagem desejada e depois clique no ícone de "upload" indicado na imagem: <br>
             <div class="text-center">
-                <img src="../../assets/t_01.png" alt=""><br><br>
+                <!-- <img src="../../assets/t_01.png" alt=""><br><br> -->
             </div>
             Em seguida o sistema irá carregar a imagem. Caso queira carregar outra imagem, será necessário
              remover a imagem anterior, para isso, basta clicar no ícone conforme a imagem: <br>
             <div class="text-center">
-                <img src="../../assets/t_02.png" alt=""><br><br>
+                <!-- <img src="../../assets/t_02.png" alt=""><br><br> -->
             </div>
             Clicar em "Remover foto": <br>
             <div class="text-center">
-                <img src="../../assets/t_03.png" alt=""><br><br>
+                <!-- <img src="../../assets/t_03.png" alt=""><br><br> -->
             </div>
             E confirmar em seguida.
         </q-card-section>

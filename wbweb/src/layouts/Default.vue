@@ -10,7 +10,7 @@
                 <img src="~/assets/logo.png" class="icon" @click="goIndex">
               </q-avatar>
             </div>
-            <div class="col-4 col-md-5 col-lg-6 barra-pesquisa" >
+            <div class="col-4 col-md-4 col-lg-6 barra-pesquisa" >
               <q-input 
                 outlined 
                 rounded 
@@ -114,7 +114,7 @@
                               <q-item-label style="font-family: Raleway;">{{ linguagem.name }}</q-item-label>
                             </q-item-section>
                             <q-item-section avatar>
-                              <q-img :src="require('../assets/flags/'+linguagem.img)" spinner-color="white" />
+                              <q-img :src="require('../assets/flags/'+linguagem.img)" spinner-color="white" img-class="icones-flags" style="border-radius: 5px;"/>
                             </q-item-section>
                           </q-item>
                           <q-separator />
@@ -136,10 +136,27 @@
             <!-- INICIAR SESSÃO -->
             <div v-if="!logado && user == null" class="col">
               <div class="row pt-4">
-                <div class="col-md-5 col-lg-3 col-xl-2 pe-4 pe-md-0 me-lg-5 me-xl-5">
-                  <q-btn flat :label="i18n.header.iniciar_sessao" class="iniciar-sessao" @click="logar = !logar"/>
+                <div class="col-md-4 col-lg-3 col-xl-2 pe-4 pe-md-0 me-lg-5 me-xl-5 d-flex">
+                  <q-btn flat :label="i18n.header.iniciar_sessao" class="iniciar-sessao me-2" @click="logar = !logar"/>
+                  <q-btn unelevated round :icon="darkmode ? 'dark_mode' : 'light_mode'" class="iniciar-sessao me-2" style="padding: 0px 0px;" @click="mobileDarkMode"/>
+                  <div>
+                    <q-btn unelevated round icon="translate" class="iniciar-sessao me-2" style="padding: 0px 0px;"/>
+                    <q-menu  :content-class="darkmode ? 'dark-menu-linguagens' : 'menu-linguagens'" transition-show="scale" transition-hide="scale" :offset="[30, 0]">
+                      <q-list>
+                        <q-item tag="label" v-ripple class="dark-mode" v-for="(linguagem, i) in linguagens" :key="i" @click="emitSelectI18n(linguagem.country)">
+                          <q-item-section>
+                            <q-item-label style="font-family: Raleway;">{{ linguagem.name }}</q-item-label>
+                          </q-item-section>
+                          <q-item-section avatar>
+                            <q-img :src="require('../assets/flags/'+linguagem.img)" spinner-color="white" img-class="icones-flags" style="border-radius: 5px;" />
+                          </q-item-section>
+                        </q-item>
+                        <q-separator />
+                      </q-list>
+                    </q-menu>
+                  </div>
                 </div>
-                <div class="col-md-1 col-xl-1 me-4 me-lg-2 me-xl-1 ms-lg-1 ms-xl-4">
+                <!-- <div class="col-md-1 col-xl-1 me-4 me-lg-2 me-xl-1 ms-lg-1 ms-xl-4">
                   <q-btn unelevated round :icon="darkmode ? 'dark_mode' : 'light_mode'" class="iniciar-sessao" style="padding: 0px 0px;" @click="mobileDarkMode"/>
                 </div>
                 <div class="col-md-1 col-xl-1 ms-lg-1 ms-xl-0 ">
@@ -151,13 +168,13 @@
                           <q-item-label style="font-family: Raleway;">{{ linguagem.name }}</q-item-label>
                         </q-item-section>
                         <q-item-section avatar>
-                          <q-img :src="require('../assets/flags/'+linguagem.img)" spinner-color="white" />
+                          <q-img :src="require('../assets/flags/'+linguagem.img)" spinner-color="white" img-class="icones-flags" style="border-radius: 5px;" />
                         </q-item-section>
                       </q-item>
                       <q-separator />
                     </q-list>
                   </q-menu>
-                </div>
+                </div> -->
               </div>
             </div>
             <!-- DESKTOP -->
@@ -227,7 +244,7 @@
                             <q-item-section avatar>
                               <!-- <img :src="require(`${linguagem.img}`)" /> -->
                               <!-- <q-img :src="require(`${linguagem.img}`)" spinner-color="white" /> -->
-                              <q-img :src="require('../assets/flags/'+linguagem.img)" spinner-color="white" />
+                              <q-img :src="require('../assets/flags/'+linguagem.img)" spinner-color="white" img-class="icones-flags" style="border-radius: 5px;"/>
                             </q-item-section>
                           </q-item>
                           <q-separator />
@@ -247,8 +264,6 @@
             </div>
           </div>
         </q-toolbar-title>
-        <!-- <q-img :src="require(`~/assets/flags/us.png`)" spinner-color="white" /> -->
-        <!-- <q-img src="~/assets/flags/us.png" spinner-color="white" /> -->
       </q-toolbar>
     </q-header>
     <!-- Header -->
