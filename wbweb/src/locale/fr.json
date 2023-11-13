@@ -1,6 +1,6 @@
 {
     "index": {
-        "bem_vindo": "Bienvenue dans les livres du monde",
+        "bem_vindo": "<span style='line-break: anywhere;'>Bienvenue</span> dans les livres du monde",
         "subtitulo": "Deuxième plateforme la plus appréciée au monde",
         "descricao": "World Books est votre plateforme pour vous connecter à des millions de livres et d'écrivains du monde entier. Explorez votre imagination, développez des histoires et interagissez avec divers auteurs du monde entier.",
         "botoes": {

@@ -38,6 +38,10 @@
     .separator_mobile {
         display: none;
     }
+    
+    ::selection {
+        background: #7c61ac75;
+    }
 }
 @media screen and (min-width: 980px) {
     .dark-contato{

@@ -33,6 +33,10 @@
     .separator_mobile {
         display: none;
     }
+    
+    ::selection {
+        background: #d7c2e1;
+    }
 }
 @media screen and (min-width: 980px) {
     .contato{

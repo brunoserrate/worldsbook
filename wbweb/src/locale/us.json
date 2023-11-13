@@ -1,6 +1,6 @@
 {
     "index": {
-        "bem_vindo": "Welcome to World Books",
+        "bem_vindo": "<span style='line-break: anywhere;'>Welcome</span> to World Books",
         "subtitulo": "Second most loved platform in the world",
         "descricao": "World Books is your platform to connect you with millions of books and writers around the world. Explore your imagination, develop stories and interact with various authors around the world.",
         "botoes": {

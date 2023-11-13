@@ -1,6 +1,6 @@
 {
     "index": {
-        "bem_vindo": "Bienvenido a World Books",
+        "bem_vindo": "<span style='line-break: anywhere;'>Bienvenido</span> a World Books",
         "subtitulo": "Segunda plataforma más querida en el mundo",
         "descricao": "World Books es tu plataforma para conectarte con millones de libros y escritores de todo el mundo. Explora tu imaginación, desarrolla historias e interactúa con varios autores de todo el mundo.",
         "botoes": {

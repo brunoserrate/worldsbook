@@ -20,6 +20,7 @@
             background-clip: text;
             background-image: linear-gradient(268deg, #853197, #e5cbe4);
             color: transparent;
+            // line-break: anywhere;
         }
         .texto{
             font-size: 19px;
@@ -79,15 +80,15 @@
         .row_page {
             .mascote-image{
                 display: block;
-                width: 25em;
-                margin: 68px 0 0 0;
+                width: 19em;
+                margin: 68px 0 0px 23px;
             } 
             .welcomeWorldBooks{
                 margin: 20px 0 5px 0px;
-                font-size: 8vh;
+                font-size: 6vh;
                 text-align: left;
                 text-transform: uppercase;
-                line-height: 8vh;
+                line-height: 6vh;
                 padding: 0;
                 font-family: "Poppins";
                 font-weight: 700;
@@ -121,8 +122,8 @@
         .row_page {
             .mascote-image{
                 display: block;
-                // width: 35em;
-                // float: right;
+                width: 22em;
+                margin: 68px 0 0 0;
             } 
             .align_btn {
                 display: flex;
@@ -226,7 +227,7 @@
         .row_page{
             margin-top: 120px;
             .mascote-image{
-                width: 80%;
+                width: 60%;
                 margin: 0;
                 // float: right;
             }

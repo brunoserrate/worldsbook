@@ -1,10 +1,10 @@
 <template>
 	<q-page :class="{'dark-bgindex': darkmode, 'bgindex': !darkmode}" >
 		<div class="row row_page">
-			<div class="col-12 col-sm-6">
+			<div class="col-12 col-sm-7">
 				<div class="row">
 					<div class="col-12 offset-sm-1">
-						<h1 class="welcomeWorldBooks">{{ i18n.bem_vindo }}</h1>
+						<h1 class="welcomeWorldBooks" v-html="i18n.bem_vindo"></h1>
 					</div>
 				</div>
 				<div class="row">
