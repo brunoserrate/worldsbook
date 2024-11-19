@@ -21,24 +21,22 @@ else{
 Vue.mixin(functions)
 
 // Busca o CSRF Token para autenticação
-if(process.env.DEV){
-  axios.get('/wbcore/sanctum').then((res)=> {
-    // console.log(res);
-  })
-  .catch((err) => {
-    console.log('dev')
-    console.log(err)
-  })
-}
-else{
-  axios.get('wbcore/public/sanctum').then((res)=> {
-    // console.log(res);
-  })
-  .catch((err) => {
-      console.log('prod_02')
-      console.log(err)
-  })
-}
+// if(process.env.DEV){
+//   axios.get('/wbcore/sanctum').then((res)=> {
+  
+//   })
+//   .catch((err) => {
+  
+//   })
+// }
+// else{
+//   axios.get('wbcore/public/sanctum').then((res)=> {
+  
+//   })
+//   .catch((err) => {
+  
+//   })
+// }
 
 // Filtros
 Vue.filter('converterBoolean', (valor) => {
@@ -124,14 +122,14 @@ export default function (/* { store, ssrContext } */) {
   })
 
   Router.beforeEach((to, from, next) => {
-
+    
     // Caso público, continua para a próxima rota/pagina
     if(to.matched.some(record => record.meta.public)){
       next();
     }
     // Rota privada
     else {
-      let user = JSON.parse( SessionStorage.getItem('auth') )
+      let user = SessionStorage.getItem('auth')
 
       // Usuário poosui token
       if(user !== null) {
@@ -139,7 +137,7 @@ export default function (/* { store, ssrContext } */) {
       }
       // Usuário não possui token. Não está logado
       else {
-        next( { path:from.path } )
+        next( { path: from.path } )
       }
 
     }

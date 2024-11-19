@@ -213,6 +213,7 @@
             "preecha_publico_alvo": "Please choose the target audience",
             "preecha_idioma": "Please choose a language",
             "preecha_direitos": "Please choose a story copyright option",
+            "preecha_conteudo_adulto": "Please select if the content is adult",
             "preecha_capa": "Please upload the story cover"
         },
         "sim": "Yes",
@@ -276,6 +277,7 @@
         "descricao_usuario": "User description",
         "carregando_perfil": "Loading profile",
         "historias": {
+            "historia_sem_titulo": "Untitled story...",
             "historias_de": "Stories of",
             "historias_publicadas": "published stories",
             "data_atualizacao": "Update date"

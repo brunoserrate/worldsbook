@@ -225,6 +225,7 @@
             "preecha_publico_alvo": "対象者を選択してください",
             "preecha_idioma": "言語を選択してください",
             "preecha_direitos": "ストーリーの著作権オプションを選択してください",
+            "preecha_conteudo_adulto": "コンテンツが成人向けである場合は選択してください",
             "preecha_capa": "ストーリーの表紙を送ってください"
         },
         "sim": "はい",
@@ -288,6 +289,7 @@
         "descricao_usuario": "ユーザーの説明",
         "carregando_perfil": "プロファイルをロード中",
         "historias": {
+            "historia_sem_titulo": "題名のない物語…",
             "historias_de": "の物語",
             "historias_publicadas": "公開されたストーリー",
             "data_atualizacao": "更新日"

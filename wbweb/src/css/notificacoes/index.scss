@@ -1,0 +1,24 @@
+@import 'src/css/variables.scss';
+
+.lista-notificacoes {
+    .item-notificacao {
+        .div-notificacao {
+
+            .b-link {
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            .btn-aceitar {
+
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .lista-notificacoes {
+
+    }
+}

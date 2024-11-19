@@ -1,0 +1,34 @@
+@import 'src/css/variables.scss';
+
+.create-projeto-dark {
+    background: $bgColorPatternDark;
+    
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select, .q-radio__label {
+        color: $textColorDark;
+    }
+    .capa-projeto {
+        background: $textColorPattern38;
+    }
+    
+    .row-projetos {
+        .card-projeto {
+            background: $textColorPattern38;
+
+            .inputs-form-projeto {
+                color: white;
+            } 
+        }
+    }
+}
+
+@media screen and (min-width: 600px){
+    .create-projeto-dark {
+        
+    }
+}
+
+@media screen and (min-width: 980px){
+    .create-projeto-dark{
+        
+    }   
+}

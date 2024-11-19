@@ -4,11 +4,44 @@
             <div class="col-10 offset-1 mt-5">
                 <p class="text-over-cover">{{ i18n.label_inicio }}</p>
             </div>
-            <div class="col-12 align-cover mb-lg-5" v-if="!darkmode">
-                <img alt="Cover" src="~assets/abstract_cover_8.png" class="cover"/>
-            </div>
-            <div class="col-12 align-cover mb-lg-5" v-if="darkmode">
-                <img alt="Cover" src="~assets/abstract_cover_8_dark.png" class="cover"/>
+            <!-- <div class="col-12 align-cover mb-lg-5" v-if="!darkmode">
+                <img alt="Cover" src="~assets/carrossel/1.png" class="cover"/>
+            </div> -->
+			<!-- <img alt="Cover" src="~assets/carrossel/1-dark.png" class="cover"/> -->
+            <!-- <div class="col-12 align-cover mb-lg-5" v-if="darkmode"> -->
+            <div class="col-12 align-cover mb-lg-5" >
+				<!-- <div class="q-pa-md w-100"> -->
+				<q-carousel
+						animated
+						swipeable
+						navigation
+						infinite
+						padding
+						class="w-100"
+						style="height: auto; background: transparent;"
+						v-model="slide"
+						:autoplay="autoplay"
+						arrows
+						transition-prev="slide-right"
+						transition-next="slide-left"
+						prev-icon="arrow_left"
+					 	next-icon="arrow_right"
+						:control-color="darkmode ? 'white' : 'black'"
+						@mouseenter="autoplay = false"
+						@mouseleave="autoplay = true"
+					>
+					  <q-carousel-slide :name="1" >
+						<div class="d-flex justify-content-center">
+							<img alt="Cover" :src="require(darkmode ? '../assets/carrossel/1-dark.png' : '../assets/carrossel/1.png')" class="cover"/>
+						</div>
+					  </q-carousel-slide>
+					  <q-carousel-slide :name="2" >
+						<div class="d-flex justify-content-center">
+							<img alt="Cover" src="~assets/carrossel/2.png" class="cover" @click="$router.push({ path: `projetos/672463889a306d7eda6514c5` })" />
+						</div>
+					  </q-carousel-slide>
+				</q-carousel>
+				<!-- </div> -->
             </div>
             <div class="row row-saudacoes w-100 mt-5 mb-5">
 				<div class="col-12 w-100">
@@ -37,11 +70,11 @@
 				<p class="title-categorias">{{ i18n.categoria_romance }}</p>
 			</div>
 			<div class="col-12 col-categorias col-categorias-1" v-if="window.width > 980">
-				<categoria-historia categoriaID="3" class="categorias">
+				<categoria-historia categoriaID="671a9391a5197c771aa8a458" class="categorias">
 				</categoria-historia>
 			</div>
 			<div class="col-12 col-categorias col-categorias-1" v-if="window.width < 980">
-				<categoria-historia-mobile categoriaID="3" class="categorias">
+				<categoria-historia-mobile categoriaID="671a9391a5197c771aa8a458" class="categorias">
 				</categoria-historia-mobile>
 			</div>
 
@@ -49,11 +82,11 @@
 				<p class="title-categorias" :class="{ 'text-grey-4': darkmode }">{{ i18n.categoria_terror }}</p>
 			</div>
 			<div class="col-12 col-categorias col-categorias-2" v-if="window.width > 980">
-				<categoria-historia categoriaID="4" class="categorias">
+				<categoria-historia categoriaID="671a9395a5197c771aa8a45a" class="categorias">
 				</categoria-historia>
 			</div>
 			<div class="col-12 col-categorias col-categorias-2" v-if="window.width < 980">
-				<categoria-historia-mobile categoriaID="4" class="categorias">
+				<categoria-historia-mobile categoriaID="671a9395a5197c771aa8a45a" class="categorias">
 				</categoria-historia-mobile>
 			</div>
 			
@@ -61,11 +94,11 @@
 				<p class="title-categorias">{{ i18n.categoria_aventura }}</p>
 			</div>
 			<div class="col-12 col-categorias col-categorias-1" v-if="window.width > 980">
-				<categoria-historia categoriaID="2" class="categorias">
+				<categoria-historia categoriaID="671a938da5197c771aa8a456" class="categorias">
 				</categoria-historia>
 			</div>
 			<div class="col-12 col-categorias col-categorias-1"  v-if="window.width < 980">
-				<categoria-historia-mobile categoriaID="2" class="categorias">
+				<categoria-historia-mobile categoriaID="671a938da5197c771aa8a456" class="categorias">
 				</categoria-historia-mobile>
 			</div>
 		</div>
@@ -84,6 +117,7 @@
 		data (){
 			return {
 				sessao: false,
+				autoplay:true,
 				livros:[],
 				livro_dialog: false,
 				darkmode: false,
@@ -98,11 +132,12 @@
 				user: {},
 				window: {
 					width: 0,
-				}
+				},
+				currentUser: this.$q.sessionStorage.getItem('auth')
 			}
 		},
 		mounted(){
-			this.user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
+			this.user = this.currentUser ? this.currentUser.usuario : null
 		},
 		created() {
 			window.addEventListener('resize', this.handleResize);
@@ -140,22 +175,19 @@
 			handleResize() {
 				this.window.width = window.innerWidth;
 			},
-			buscarLivros(){
-				let that = this
-
-				that.$axios.get(that.$pathAPI + '/historia?limit=15')
+			async buscarLivros(){
+				await this.$api.get('historias?limit=15')
 				.then((res) => {
-					that.livros = res.data.data
-					// console.log(that.livros)
+					this.livros = res.data.data
+					
 				})
 				.catch((err) => {
-					// console.log(err.response)
+					
 				})
 			},
 			cutSinopse(){
 				for(let i=0; i < this.livros.length; i++){
 					this.livros[i].attributes.sinopse = this.livros[i].attributes.sinopse.substring(0, 200);
-					// console.log(this.livros[i].attributes.sinopse)
 				}
 			},
 			ucFirstFiltro(valor){
@@ -168,13 +200,14 @@
 					let arr = valor.split(' ')
 					let result
 
-					for (let i = 0; i < arr.length; i++) {
-						arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-					}
+					return arr[0]
+					// for (let i = 0; i < arr.length; i++) {
+					// 	arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+					// }
 
-					result = arr.join(' ')
+					// result = arr.join(' ')
 
-					return result
+					// return result
 				}
 			},
 		},
@@ -183,5 +216,5 @@
 <style lang="scss" scoped>
    @import '../css/iniciar-leitura-2.scss';
    @import '../css/darkMode/iniciar-leitura-dark.scss';
-   /* @import '../css/iniciar-leitura-mobile.scss'; */
+
 </style>

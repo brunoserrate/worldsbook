@@ -1,3 +1,5 @@
+@import 'src/css/variables.scss';
+
 .dark-card_detail_historia_mobile_index, .dark-card_detail_historia, .dark-card_detail_historia_mobile, .dark-card_detail_historia_desktop {
     p, span, h1, h2, h3, h4, h5, h6, ol, ul, button, a, label {
         font-family: 'Raleway';
@@ -69,9 +71,7 @@
     .card_detail_historia{
         width: 100%;
         border-radius: 0px 20px 20px 0px;
-        // max-width: 70.5%;
         max-width: 84.5%;
-        /* min-height: 100% !important; */
         overflow: hidden;
         display: flex;
         align-items: center;
@@ -79,7 +79,8 @@
     .card_detail_historia_mobile{
         width: 100%;
         border-radius: 0px 20px 20px 0px;
-        max-width: 61.5%;
+        max-width: 750px;
+        max-height: 800px;
         overflow: hidden;
         display: flex;
         align-items: center;
@@ -90,9 +91,8 @@
     .card_detail_historia_desktop{
         width: 100%;
         border-radius: 0px 20px 20px 0px;
-        // max-width: 70.5%;
-        max-width: 50.5%;
-        /* min-height: 100% !important; */
+        max-width: 750px;
+        max-height: 800px;
         overflow: hidden;
         display: flex;
         align-items: center;
@@ -104,22 +104,20 @@
     .col_btn_detail, .col_btn_detail_desktop{
         text-align: center;
         padding: 12px 0px;
-        margin: 0px -8px;
+        // margin: 0px -8px;
         .btn_detail_iniciar_leitura{
             color: rgb(255 255 255);
-            // background-color: #7A22A7;
             box-shadow: none; 
-            width: 70%;
+            // width: 70%;
             font-family: Raleway;
             font-size: 13px;
-            // background: linear-gradient(88deg, #7A22A7,#c270cb);
             background: linear-gradient(88deg, #9c7093, #554c74);
         }
         .col_descricao_detail{
             text-align: justify;
-            padding: 0 25px; 
-            margin: 0px 0px 0px 16px;
-            font-size: 20px;
+            // padding: 0 25px; 
+            // margin: 0px 0px 0px 16px;
+            font-size: 17px;
             font-family: 'Raleway';
         }
         .col_descricao_detail_desktop{
@@ -198,11 +196,34 @@
         color: #928993;
     }
 }
+
+.dialog-pedir-para-participar-dark {
+    background-color: $bgColorPatternDark;
+    
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select {
+        color: $textColorDark;
+        font-family: 'Raleway';
+        line-height: 1;
+    }
+
+
+    
+    .lista-historias {
+        .item-historia {
+            .avatar-capa {
+                border: solid 5px $textColorPattern59;
+                .capa {
+                }
+            }
+        }
+    }
+}
 @media screen and (min-width: 980px){
     .dark-card_detail_historia_mobile_index, .dark-card_detail_historia, .dark-card_detail_historia_desktop {
         width: 100%;
         border-radius: 0px 20px 20px 0px;
-        max-width: 47.5%;
+        max-width: 750px;
+        max-height: 800px;
         overflow: hidden;
         background: #3d333b;
         outline: solid 2px #6b696b;
@@ -271,21 +292,28 @@
         .col_btn_detail, .col_btn_detail_desktop{
             text-align: center;
             padding: 12px 0px;
-            margin: 0px -8px;
+            // margin: 0px -8px;
             .btn_detail_iniciar_leitura{
                 color: rgb(255 255 255);
-                // background-color: #7A22A7;
                 box-shadow: none; 
-                width: 70%;
-                font-family: Raleway;
+                width: 90%;
+                font-family: 'Raleway';
                 font-size: 13px;
                 // background: linear-gradient(88deg, #7A22A7,#c270cb);
                 background: linear-gradient(88deg, #9c7093, #554c74);
             }
+            .btn_detail_iniciar_leitura_mais{
+                color: rgb(255 255 255);
+                box-shadow: none; 
+                width: 10%;
+                font-family: 'Raleway';
+                font-size: 13px;
+                background: linear-gradient(88deg, #9c7093, #554c74);
+            }
             .col_descricao_detail{
                 text-align: justify;
-                padding: 0 25px;
-                margin: 0px 0px 0px 16px;
+                // padding: 0 25px;
+                // margin: 0px 0px 0px 16px;
             }
             .col_data_atualizacao {
                 font-family: Raleway;

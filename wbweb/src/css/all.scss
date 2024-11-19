@@ -1,10 +1,69 @@
+@import './variables';
+@import './ribbons';
+@import './dialogs';
+
+.btn {
+    font-size: 21px;
+    padding: 3px 24px;
+    border-radius: 19px;
+    border: 0;
+    font-family: 'Raleway';
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &.type-1 {
+        background-color: $textColorPattern11 !important;
+        color: $primary !important;
+    }
+    &.type-2 {
+        background-color: $textColorPattern9 !important;
+        color: $textColorPattern10 !important;
+    }
+    &.type-3 {
+        background-color: $primary !important;
+        color: $white !important;
+        font-weight: bold;
+        font-size: 16px;
+
+        &:hover {
+            background-color: $textColorPattern21 !important;
+        }
+    }
+    &.type-4 {
+        padding: 0px 16px;
+        border: solid 1px $white;
+        border-radius: 10px;
+        font-size: 15px;
+    }
+    &.type-5 {
+        background-color: $textColorPattern23 !important;
+        font-size: 16px;
+        color: $white !important;
+    }
+}
+
+.loading {
+    z-index: 1;
+}
+
 .title_capitulo {
     .q-field__native, .q-field__input {
         text-align: center;
     }
 }
+p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select, .q-field--auto-height.q-field--dense.q-field--labeled .q-field__control-container, .q-item__label, .q-radio__label {
+    font-family: 'Raleway';
+}
+.bgIniciar-leitura, .dark-bgIniciar-leitura {
+    .q-carousel__arrow .q-icon {
+        font-size: 70px;
+    }
+}
 .q-editor > div:first-child, .q-editor__toolbars-container, .q-editor__toolbars-container > div:first-child {
     border: 0;
+}
+.q-dialog__inner--minimized > div {
+    box-shadow: none;
 }
 .criar_capitulo {
     .input_search {
@@ -106,7 +165,7 @@
 }
 .dark-criar_historia {
     .q-field__native, .q-field__input {
-        color: #b3b3b3 !important;
+        color: $textColorPattern60 !important;
         font-family: 'Raleway' !important;
     }
     .q-uploader {
@@ -116,7 +175,7 @@
         }
     }
     .q-field--dense .q-field__label {
-        color: #b3b3b3;
+        color: $textColorPattern60;
         font-family: 'Raleway';
     }
 }
@@ -152,6 +211,10 @@
     .q-field__label {
         color: #b7b5b9;
     }
+
+    .q-field--labeled .q-field__native, .q-field--labeled .q-field__prefix, .q-field--labeled .q-field__suffix {
+        color: white;
+    }
 }
 .dark-sidebar-drawer {
     background: linear-gradient(358deg, #2e2035 0%, #4f375b 100%);
@@ -175,9 +238,232 @@
     box-shadow: none;
     margin-top: 7px !important;
 }
+.perfil {
+    .q-carousel__arrow .q-icon {
+        color: black;
+    }
+}
+.dark-perfil {
+    .q-carousel__arrow .q-icon {
+        color: rgb(236, 236, 236);
+    }
+}
+.perfil, .dark-perfil {
+    .q-tab__label {
+        line-height: 4.215em;
+        font-weight: 700;
+    }
+}
 .popup_pesquisa {
     // background: #785498;
     border-radius: 30px;
     box-shadow: none;
     margin-top: 7px !important;
+}
+.invalid-feedback {
+    color: red;
+    font-size: 11px;
+    font-family: 'Raleway';
+    letter-spacing: 0.7px;
+}
+.row_foto {
+    // display: flex;
+    // justify-content: center;
+    // margin: 25px 0 18px 0;
+
+    input[type=file] {
+        display: none;
+    }
+    
+    .avatar-profile {
+        width: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        label {
+            position: absolute;
+            z-index: 1;
+        }
+
+        .icon-photo {
+            cursor: pointer;
+            color: #ffffffb2;
+            font-size: 100px;
+            transition: background-color 0.3s ease;
+        }
+
+        .img-avatar {
+            transition: filter 0.3s ease;
+            border-radius: 20px;
+            
+            &:hover {
+                filter: brightness(0.7);
+            }
+        }
+        
+    }
+}
+.convite-dark {
+    .card-convite {
+        .q-field--standout.q-field--rounded .q-field__control {
+            background: #ffffff1c;
+        }
+    }
+}
+.header {
+    .navegar {
+        .q-icon {
+            color: black;
+        }
+    }
+}
+
+.dark-visao-gestor {
+    .bg-card-select {
+        background-color: #423855 !important;
+    }
+    .q-field--auto-height .q-field__native {
+        color: #cecece;
+    }
+}
+.visao-gestor {
+    .bg-card-select {
+        background-color: #FFF;
+    }
+}
+.dark-visao-gestor, .visao-gestor {
+    .q-field--auto-height .q-field__native {
+        justify-content: center;
+        font-family: Raleway;
+        text-transform: uppercase;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+
+.wb-form-dark {
+    .inputs-form-projeto {
+        color: $white;
+    } 
+    .q-field__control {
+        background-color: $backgroundFormDark;
+        color: $white;
+    }
+    .q-field__label {
+        color: $white;
+    }
+    .q-field--auto-height.q-field--dense.q-field--labeled .q-field__native {
+        color: $white;
+    }
+    .editor-text {
+        background-color: $backgroundFormDark !important;
+        color: $white;
+    }
+}
+
+.wb-form-dark-outlined {    
+    .q-field__control {
+        background-color: transparent;
+        color: $white;
+        
+        &:hover {
+            border-color: $white !important;
+        }
+    }
+    .q-field__control:before {
+        border: 1px solid $white;
+    }
+    input {
+        color: $white;
+    }
+    i {
+        color: $white;
+    }
+    
+    .q-field__native, .q-field__input {
+        color: $textColorPattern60 !important;
+        font-family: 'Raleway' !important;
+    }
+}
+
+.wb-form {
+    .editor-text {
+        border: 0;
+        background-color: $backgroundForm;
+        font-family: 'Raleway';
+    }
+}
+
+.tooltips {
+    font-size: 13px;
+    font-family: 'Raleway';
+}
+
+.paginacao {
+    .q-btn__wrapper:before {
+        box-shadow: none;
+    }
+}
+
+.popup-remove {
+    background: transparent;
+    box-shadow: 0px 0px 20px 0px $textColorPattern58;
+
+    .card-remove {
+        .button-remover-historia {
+            font-size: 14px;
+            padding: 0 20px;
+            border-radius: 9px;
+            
+            ::before {
+                box-shadow: none;
+
+            }
+        }
+    }
+}
+
+.popup-remove-dark {
+    box-shadow: none;
+    .card-remove {
+        background: $textColorPattern24;
+        color: $white;
+        border: solid 1px $textColorPattern57;
+    }
+}
+
+.dropdown-notificacoes {
+    box-shadow: none;
+    font-family: 'Raleway';
+    min-width: 500px !important;
+    
+    .lista-notificacoes {
+        .item-notificacao {
+            span {
+                font-size: 12px;
+                color: #000000b0;
+            }
+    
+            .btn-aceitar {
+                background: #7a22a7;
+                border: 0;
+                border-radius: 30px;
+                padding: 0px 13px;
+                color: white;
+                cursor: pointer;
+            }
+    
+            .icones {
+                i {
+                    font-size: 17px;
+                    color: #636363;
+                }
+            }
+        }
+        .notificacao-lida {
+            background: #7a22a72e;
+        }
+    }
+
 }

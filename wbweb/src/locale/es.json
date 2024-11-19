@@ -212,7 +212,8 @@
             "preecha_categoria": "Por favor elige alguna categoría para la historia",
             "preecha_publico_alvo": "Por favor elija el público objetivo",
             "preecha_idioma": "Por favor elige un idioma",
-            "preecha_direitos": "Por favor, elige una opción de derechos de autor para la historia",
+            "preecha_direitos": "Por favor elige una opción de derechos de autor para la historia",
+            "preecha_conteudo_adulto": "Por favor selecciona si el contenido es para adultos.",
             "preecha_capa": "Por favor sube la portada de la historia"
         },
         "sim": "Si",
@@ -276,9 +277,10 @@
          "descricao_usuario": "Descripción de usuario",
          "carregando_perfil": "Cargando perfil",
          "historias": {
-             "historias_de": "Historias de",
-             "historias_publicadas": "historias publicadas",
-             "data_atualizacao": "Fecha de actualización"
+            "historia_sem_titulo": "Historia sin título...",
+            "historias_de": "Historias de",
+            "historias_publicadas": "historias publicadas",
+            "data_atualizacao": "Fecha de actualización"
          },
          "concluida": "Completado",
          "em_andamento": "En progreso",

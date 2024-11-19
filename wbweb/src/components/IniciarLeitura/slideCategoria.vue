@@ -10,8 +10,8 @@
             :dragging-distance="70"
             >
             <vueper-slide
-                v-for="(livro, i) in livros" :key="i"
-                :image="livro.caminho_capa" class="slides_historias"
+                v-for="(livro, i) in livros.historias" :key="i"
+                :image="livro.caminho_capa ? (livro.caminho_capa ? `${path_photo}/${livro.caminho_capa}` : ``) : `${path_photo}/default.png`" class="slides_historias"
                 @click.native="openDialog(livro)"
             />
         </vueper-slides>
@@ -20,36 +20,29 @@
 			<q-card :class="{ 'dark-card_detail_historia_mobile_index': darkmode, 'card_detail_historia_mobile_index': !darkmode }">
 				<div class="row" style="height: 100%;">
 					<div class="col-6">
-						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
+						<img alt="Cover" :src="livro_detail.caminho_capa ? (livro_detail.caminho_capa ? `${path_photo}/${livro_detail.caminho_capa}` : ``) : `${path_photo}/default.png`" class="cover_detail_historia"/>
 					</div>
 					<div class="col-6">
-						<h1 class="title_dialog_historia">{{livro_detail.titulo}}</h1>
-						<div class="row">
-							<div class="col-12" style="display: flex; justify-content: center;">
-								<hr style="margin: 0 0 0 0; width: 80%;"/>
-							</div>
-							<div class="col-10 col_btn_detail">
-								<q-btn unelevated :label="i18n.iniciar_leitura" class="btn_detail_iniciar_leitura" @click="getLivro(livro_detail)"/>
-							</div>
-							<div class="col-2 col_btn_detail">
-								<q-btn unelevated label="+" class="btn_detail_iniciar_leitura"/>
-							</div>
-							<div class="col-12 col_btn_detail">
-								<p class="col_descricao_detail">{{livro_detail.descricao | cutDescricao}}</p>
-							</div>
+						<div class="row h-100 d-flex justify-content-space-between">
 							<div class="col-12">
-								<q-separator class="separador"></q-separator>
-							</div>
-							<div class="col-12 col_btn_detail">
-								<p class="col_data_atualizacao"><span>{{i18n.data_atualizacao}}: </span>{{ livro_detail.data_atualizacao | formatDateTime }}</p>
-							</div>
-						</div>
-						<!-- <template q-slot="footer">
-							<div class="row">
-								<div class="col-12 col_btn_detail">
+								<h1 class="title_dialog_historia">{{livro_detail.titulo}}</h1>
+								<q-separator class="separador mb-4"></q-separator>
+
+								<div class="row m-0 p-0 mt-4">
+									<div class="col-12 col_btn_detail d-flex align-items-center px-4">
+										<q-btn unelevated :label="i18n.iniciar_leitura" class="btn_detail_iniciar_leitura me-2" @click="getLivro(livro_detail)"/>
+										<q-btn unelevated label="+" class="btn_detail_iniciar_leitura_mais"/>
+									</div>
+									<div class="col-12 col_btn_detail px-4">
+										<p class="col_descricao_detail">{{livro_detail.descricao | cutDescricao}}</p>
+									</div>
 								</div>
 							</div>
-						</template> -->
+							<div class="col-12 col_btn_detail d-flex flex-direction-column justify-content-end">
+								<q-separator class="separador mb-4"></q-separator>
+								<p class="col_data_atualizacao"><span>{{i18n.data_atualizacao}}: </span>{{ livro_detail.updatedAt | formatDateTime }}</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</q-card>
@@ -60,6 +53,8 @@
 	import { VueperSlides, VueperSlide } from 'vueperslides'
 	import 'vueperslides/dist/vueperslides.css'
 	import eventBus from '../../boot/eventBus'
+	import { environment } from 'src/helpers/environment';
+
 	export default {
 		// props:['breadcrumbs'],
 		name: 'slideCategoriaVue',
@@ -73,16 +68,14 @@
 				i18n: {},
 				livro_detail: {
 					caminho_capa: '', 
-					categoria_id: '',
+					categoria: '',
 					conteudo_adulto: '',
-					data_atualizacao: '',
-					data_criacao: '',
 					descricao: '',
-					direitos_autorais_id: '',
-					idioma_id: '',
-					publico_alvo_id: '',
+					direitos_autorais: '',
+					idioma: '',
+					publico_alvo: '',
 					titulo: '',
-					usuario_id: '',
+					usuario: '',
 				},
 				slide: 1,
 				slides: [
@@ -90,8 +83,10 @@
 						title: 'Slide #1',
 						content: 'Slide content.'
 					}
-				]
-
+				],
+                path_photo: `${environment.host}historias/capa-image`,
+                path_photo_profile: `${environment.host}usuarios/profile-image`,
+				currentUser: this.$q.sessionStorage.getItem('auth')
 			}
 		},
 		mounted(){
@@ -106,7 +101,6 @@
 			eventBus.$on('att-darkmode', async (option) => {
 				setTimeout(async() => {
 					this.darkmode = option
-					console.log("darkmode: ", this.darkmode)
 				}, 500);
 			});
 			eventBus.$on('att-idioma', async(option) => {
@@ -132,25 +126,16 @@
 		},
 		methods:{
 			getLivro(livro_detail){
-				this.$router.push({path: `livro/` + livro_detail.id})
+				this.$router.push({path: `livro/` + livro_detail._id})
 			},
 			openDialog(livro){
 				this.livro_dialog = true
 				this.livro_detail = livro
 			},
-			buscarLivros(){
-				let that = this
-
-				let url = '/historia?limit=15';
-
-				if(this.categoriaID != ''){
-					url += '&categoria_id=' + this.categoriaID
-				}
-
-				that.$axios.get(that.$pathAPI + url)
+			async buscarLivros(){
+				await this.$api.get(`historias?limit=15&categoria=${this.categoriaID}&mode=index`)
 				.then((res) => {
-					that.livros = res.data.data
-					// console.log(that.livros)
+					this.livros = res.data
 				})
 				.catch((err) => {
 					console.log(err.response)

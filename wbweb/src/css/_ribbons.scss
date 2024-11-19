@@ -1,0 +1,189 @@
+@import './variables';
+
+.ribbon-1 {
+    &.ribbon {
+        font-size: 28px;
+        font-weight: bold;
+        color: #FFF;
+    }
+    &.ribbon {
+        --c: #DFBA69;
+    
+        padding: .6em 1.3em; /* you may need to adjust this based on your content */
+        aspect-ratio: 1;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        position: relative;
+        z-index: 0;
+        width: fit-content;
+        box-sizing: border-box;
+    }
+    &.ribbon:before {
+        content:"";
+        position: absolute;
+        z-index: -1;
+        inset: 50% 0 auto;
+        aspect-ratio: 1;
+        background: color-mix(in srgb, var(--c), #000 35%);
+        clip-path: polygon(calc(100%/3) 0,calc(200%/3) 0,100% 90%,80% 85%,calc(200%/3) 100%,calc(100%/3) 0,calc(200%/3) 0,calc(100%/3) 100%,20% 85%,0 90%);
+    }
+    &.ribbon:after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background: radial-gradient(closest-side at 35% 35%, #00000000 96%, transparent 97% 99%, #0000) var(--c);
+        clip-path: polygon(100.00% 50.00%,89.23% 57.80%,96.19% 69.13%,83.26% 72.22%,85.36% 85.36%,72.22% 83.26%,69.13% 96.19%,57.80% 89.23%,50.00% 100.00%,42.20% 89.23%,30.87% 96.19%,27.78% 83.26%,14.64% 85.36%,16.74% 72.22%,3.81% 69.13%,10.77% 57.80%,0.00% 50.00%,10.77% 42.20%,3.81% 30.87%,16.74% 27.78%,14.64% 14.64%,27.78% 16.74%,30.87% 3.81%,42.20% 10.77%,50.00% 0.00%,57.80% 10.77%,69.13% 3.81%,72.22% 16.74%,85.36% 14.64%,83.26% 27.78%,96.19% 30.87%,89.23% 42.20%); /* from https://css-generators.com/starburst-shape/ */
+    }
+}
+
+.ribbon-2 {
+    rotate: 347deg;
+    &.ribbon {
+        font-size: 28px;
+        font-weight: bold;
+        color: #FFF;
+    }
+    &.ribbon {
+        --c: #a5a5a5;
+    
+        padding: .6em 1.3em; /* you may need to adjust this based on your content */
+        aspect-ratio: 1;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        position: relative;
+        z-index: 0;
+        width: fit-content;
+        box-sizing: border-box;
+    }
+    &.ribbon:before {
+        content:"";
+        position: absolute;
+        z-index: -1;
+        inset: 50% 0 auto;
+        aspect-ratio: 1;
+        background: color-mix(in srgb, var(--c), #000 35%);
+        clip-path: polygon(calc(100%/3) 0,calc(200%/3) 0,100% 90%,80% 85%,calc(200%/3) 100%,calc(100%/3) 0,calc(200%/3) 0,calc(100%/3) 100%,20% 85%,0 90%);
+    }
+    &.ribbon:after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background: radial-gradient(closest-side at 35% 35%,#0000 96%, transparent 97% 99%,#0000) var(--c);
+        clip-path: polygon(100.00% 50.00%,89.23% 57.80%,96.19% 69.13%,83.26% 72.22%,85.36% 85.36%,72.22% 83.26%,69.13% 96.19%,57.80% 89.23%,50.00% 100.00%,42.20% 89.23%,30.87% 96.19%,27.78% 83.26%,14.64% 85.36%,16.74% 72.22%,3.81% 69.13%,10.77% 57.80%,0.00% 50.00%,10.77% 42.20%,3.81% 30.87%,16.74% 27.78%,14.64% 14.64%,27.78% 16.74%,30.87% 3.81%,42.20% 10.77%,50.00% 0.00%,57.80% 10.77%,69.13% 3.81%,72.22% 16.74%,85.36% 14.64%,83.26% 27.78%,96.19% 30.87%,89.23% 42.20%); /* from https://css-generators.com/starburst-shape/ */
+    }
+}
+
+.ribbon-3 {
+    rotate: -347deg;
+    &.ribbon {
+        font-size: 28px;
+        font-weight: bold;
+        color: #FFF;
+    }
+    &.ribbon {
+        --c: #cd7536;
+    
+        padding: .6em 1.3em; /* you may need to adjust this based on your content */
+        aspect-ratio: 1;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        position: relative;
+        z-index: 0;
+        width: fit-content;
+        box-sizing: border-box;
+    }
+    &.ribbon:before {
+        content:"";
+        position: absolute;
+        z-index: -1;
+        inset: 50% 0 auto;
+        aspect-ratio: 1;
+        background: color-mix(in srgb, var(--c), #000 35%);
+        clip-path: polygon(calc(100%/3) 0,calc(200%/3) 0,100% 90%,80% 85%,calc(200%/3) 100%,calc(100%/3) 0,calc(200%/3) 0,calc(100%/3) 100%,20% 85%,0 90%);
+    }
+    &.ribbon:after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background: radial-gradient(closest-side at 35% 35%,#0000 96%, transparent 97% 99%,#0000) var(--c);
+        clip-path: polygon(100.00% 50.00%,89.23% 57.80%,96.19% 69.13%,83.26% 72.22%,85.36% 85.36%,72.22% 83.26%,69.13% 96.19%,57.80% 89.23%,50.00% 100.00%,42.20% 89.23%,30.87% 96.19%,27.78% 83.26%,14.64% 85.36%,16.74% 72.22%,3.81% 69.13%,10.77% 57.80%,0.00% 50.00%,10.77% 42.20%,3.81% 30.87%,16.74% 27.78%,14.64% 14.64%,27.78% 16.74%,30.87% 3.81%,42.20% 10.77%,50.00% 0.00%,57.80% 10.77%,69.13% 3.81%,72.22% 16.74%,85.36% 14.64%,83.26% 27.78%,96.19% 30.87%,89.23% 42.20%); /* from https://css-generators.com/starburst-shape/ */
+    }
+}
+
+.ribbon-4 {
+    font-family: Raleway;
+    &.ribbon {
+        font-size: 28px;
+        font-weight: bold;
+        color: #fff;
+    }
+    &.ribbon {
+        --s: 1.8em; /* the ribbon size */
+        --d: .8em;  /* the depth */
+        --c: .8em;  /* the cutout part */
+        
+        padding: var(--d) calc(var(--s) + .5em) 0;
+        line-height: 1.8;
+        background:
+        conic-gradient(from  45deg at left  var(--s) top var(--d),
+        #0008 12.5%,#0000 0 37.5%,#0004 0) 0   /50% 100% no-repeat,
+        conic-gradient(from -45deg at right var(--s) top var(--d),
+        #0004 62.5%,#0000 0 87.5%,#0008 0) 100%/50% 100% no-repeat;
+        clip-path: polygon(0 0,calc(var(--s) + var(--d)) 0,calc(var(--s) + var(--d)) var(--d),calc(100% - var(--s) - var(--d)) var(--d),calc(100% - var(--s) - var(--d)) 0,100% 0, calc(100% - var(--c)) calc(50% - var(--d)/2),100% calc(100% - var(--d)),calc(100% - var(--s)) calc(100% - var(--d)),calc(100% - var(--s)) 100%,var(--s) 100%,var(--s) calc(100% - var(--d)),0 calc(100% - var(--d)),var(--c) calc(50% - var(--d)/2));
+        background-color: #c270cb; /* the main color */
+        width: fit-content;
+    }
+}
+
+.ribbon-5 {
+    font-family: Raleway;
+    &.ribbon {
+        font-size: 28px;
+        font-weight: bold;
+        color: #fff;
+    }
+    &.ribbon {
+        --r: .8em; /* control the ribbon shape */
+        
+        padding-inline: calc(var(--r) + .3em);
+        line-height: 1.8;
+        clip-path: polygon(0 0,100% 0,calc(100% - var(--r)) 50%,100% 100%,0 100%, var(--r) 50%);
+        background: #c270cb; /* the main color */
+        width: fit-content;
+    }
+}
+
+.ribbon-6 {
+    font-family: Raleway;
+    &.ribbon {
+        font-size: 28px;
+        font-weight: bold;
+        color: #fff;
+    }
+    &.ribbon {
+        --s: 1.8em; /* the ribbon size */
+        --d: .5em;  /* the depth */
+        --c: .8em;  /* the cutout part */
+        
+        padding: var(--d) calc(var(--s) + var(--d) + .5em) 0;
+        line-height: 1.8;
+        background: 
+        linear-gradient(90deg,#0004 var(--d),#0000 0 calc(100% - var(--d)),#0004 0) 
+        50%/calc(100% - 2*var(--s)) 100% no-repeat;
+        clip-path: polygon(0 0,var(--s) 0,calc(var(--s) + var(--d)) var(--d),calc(100% - var(--s) - var(--d)) var(--d),calc(100% - var(--s)) 0,100% 0,calc(100% - var(--c)) calc(50% - var(--d)/2),100% calc(100% - var(--d)),calc(100% - var(--s)) calc(100% - var(--d)),calc(100% - var(--s) - var(--d)) 100%,calc(var(--s) + var(--d)) 100%,var(--s) calc(100% - var(--d)),0 calc(100% - var(--d)),var(--c) calc(50% - var(--d)/2));
+        background-color: #c270cb; /* the main color */
+        width: fit-content;
+    }
+}
+
+.ribbon-6-dark {
+    &.ribbon {
+        background-color: #91349b !important;
+    }
+}

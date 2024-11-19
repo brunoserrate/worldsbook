@@ -2,6 +2,37 @@
     transition: background-color 0.3s ease;
     .inputs_row {
         margin-top: 20px;
+        
+        .row_foto {
+            display: flex;
+            justify-content: center;
+            margin: 25px 0 18px 0;
+
+            input[type=file] {
+                display: none;
+            }
+            
+            .avatar-profile {
+                label {
+                    position: absolute;
+                    z-index: 1;
+                }
+
+                .icon-photo {
+                    cursor: pointer;
+                    color: #ffffffb2;
+                    transition: background-color 0.3s ease;
+                }
+
+                .img-avatar {
+                    transition: filter 0.3s ease;
+                    &:hover {
+                        filter: brightness(0.7);
+                    }
+                }
+                
+            }
+        }
     }
     .p-altere-informacoes{
         font-family: Raleway;
@@ -24,9 +55,6 @@
     .align-form {
         display: flex;
         justify-content: center;
-    }
-    .input_form {
-        // width: 280px;
     }
     .foto_perfil {
         width: 90%;
@@ -67,11 +95,6 @@
             border-radius: 40px;
         }
     }
-    .row_foto {
-        display: flex;
-        justify-content: center;
-        margin: 25px 0 18px 0;
-    }
     .dropdown_remove {
         background: #00000069;
         position: absolute;
@@ -97,11 +120,11 @@
         }
         .inputs_row {
             margin-top: 20px;
-        }
-        .row_foto {
-            display: flex;
-            justify-content: flex-start;
-            margin: 25px 0 18px 0;
+            .row_foto {
+                display: flex;
+                justify-content: flex-start;
+                margin: 0px 0 18px 0;
+            }
         }
         .p-altere-informacoes{
             font-family: Raleway;

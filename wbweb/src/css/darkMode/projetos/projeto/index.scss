@@ -1,0 +1,51 @@
+@import 'src/css/variables.scss';
+
+.projeto-dark{
+    background: linear-gradient(88deg, $textColorPattern7 0%, $textColorPattern40 50%, $backgroundFormCoverDark 100%);
+    transition: background-color 0.3s ease;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+
+    .background-cover {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        z-index: -1;
+    }
+    
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select {
+        color: $textColorDark;
+    }
+
+    .content {
+        .btn-veja-participantes {
+            background-color: $textColorPattern9 !important;
+            color: $textColorPattern10 !important;
+        }
+    }
+    
+    .status-projeto {
+        .row-status-projeto {
+            background: $textColorPattern4;
+        }
+    }
+} 
+
+@media screen and (min-width: 600px){
+    .projeto-dark {
+        .content {
+            
+        }
+    }
+}
+@media screen and (min-width: 980px){
+    .projeto-dark{
+        
+    }   
+}

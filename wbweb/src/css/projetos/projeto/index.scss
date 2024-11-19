@@ -1,0 +1,144 @@
+@import 'src/css/variables.scss';
+
+.projeto{
+    transition: background-color 0.3s ease;
+    background: linear-gradient(88deg, $white 0%, $textColorPattern41 50%, $backgroundFormCover 100%);
+    
+    .background-cover {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        z-index: -1;
+    }
+
+    h1 {
+        font-family: "Raleway", "Century Gothic", serif;
+        text-align: center;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 2em;
+        line-height: 2;
+    }
+     
+    h3 {
+        font-weight: 200;
+        font-size: 25px;
+    }
+
+    .content {
+        padding: 0 2em;
+        .img-instituto {
+            width: 15em;
+            border-radius: 500px;
+        }
+
+        p, span {
+            font-size: 19px;
+            letter-spacing: 1px;
+            text-align: justify;
+            line-height: 2;
+        }
+
+        .btn-veja-participantes {
+            background-color: $textColorPattern11 !important;
+            color: $primary !important;
+            font-size: 21px;
+            padding: 3px 24px;
+            border-radius: 19px;
+        }
+
+        .organizado-por {
+            font-size: 12px;
+            font-style: italic;
+
+            b {
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .status-projeto {
+        .row-status-projeto {
+            background: $textColorPattern42;
+            padding: 8px 21px;
+            border-radius: 20px;
+
+            .pulsating-border {
+                position: relative;
+                color: $primary;
+            }
+            
+            .pulsating-border::before {
+                content: "";
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                border: 2px solid $textColorPattern30;
+                border-radius: 50%;
+                animation: pulse-border 1.5s infinite;
+            }
+            
+            @keyframes pulse-border {
+                0% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+                50% {
+                    transform: scale(1.4);
+                    opacity: 0;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 0;
+                }
+            }
+    
+            .p-link {
+                font-weight: 900;
+                cursor: pointer;
+                font-size: 17px;
+                width: fit-content;
+                padding: 2px 37px;
+                border-radius: 20px;
+                transition: text-decoration 1s ease;
+    
+                &:hover {
+                    // background-color: $textColorPattern26;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+    
+} 
+
+@media screen and (min-width: 600px){
+    .projeto {
+        .content {
+            
+        }
+    }
+}
+@media screen and (min-width: 980px){
+    .projeto{
+        .content {
+            padding: 0 10em;
+            
+            .img-instituto {
+                width: 20em;
+            }
+        }
+    }   
+}

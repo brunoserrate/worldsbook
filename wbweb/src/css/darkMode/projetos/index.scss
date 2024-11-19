@@ -1,0 +1,52 @@
+@import 'src/css/variables.scss';
+
+.projetos-dark {
+    transition: background-color 0.3s ease;
+    background-color: $bgColorPatternDark !important;
+    
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select {
+        color: $textColorDark !important;
+        z-index: 1;
+    }
+
+    .row_projetos {
+        .col-projetos {
+            .card-projeto {
+                background-color: transparent !important;
+                // background: linear-gradient(88deg, $textColorPattern7 0%, $textColorPattern40 50%, $backgroundFormCoverDark 100%);
+                border: solid 1px $textColorPattern43 !important;
+                background: linear-gradient(88deg, $textColorPattern44 0%, $textColorPattern45 50%, $bgColorPatternDark 100%);
+
+                hr {
+                    border: 0;
+                    border-bottom: solid 1px $textColorPattern6 !important;
+                }
+
+                &:hover {
+                    background-color: $textColorPattern4 !important;
+                }
+            }
+ 
+            .background-cover {
+                background: linear-gradient(88deg, $textColorPattern7 0%, $textColorPattern40 50%, $backgroundFormCoverDark 100%);
+                opacity: 0.03;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 980px) {
+    .projetos-dark {
+
+    }
+}
+@media screen and (min-width: 1260px) {
+    .projetos-dark {
+        
+    }
+}
+@media screen and (min-width: 1440px) {
+    .projetos-dark {
+        
+    }
+}

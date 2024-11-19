@@ -1,0 +1,187 @@
+@import 'src/css/variables.scss';
+
+.ranking {
+    transition: background-color 0.3s ease;
+    background-color: $bgColorPattern;
+    background-image: url('~assets/backgrounds/background-10.svg');
+    background-repeat: repeat-y;
+    background-size: cover;
+    background-position: 0% 0%;
+    
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select {
+        font-family: 'Raleway';
+    } 
+
+    h1 {
+        font-family: "Raleway", "Century Gothic", serif;
+        text-align: center;
+        font-weight: 100;
+        text-transform: uppercase;
+        font-size: 2em;
+        line-height: 1;
+    }
+     
+    h3 {
+        font-weight: 200;
+        font-size: 25px;
+        line-height: 1;
+    }   
+
+    .titulo {
+        .h1-confira-o-ranking {
+            letter-spacing: 0.47em;
+            font-size: 17px;
+        }
+
+        .h1-melhores-historias {
+            font-weight: 800;
+            color: $textColorPattern32;
+            -webkit-text-stroke-width: medium;
+            letter-spacing: 4px;
+        }
+
+        .h1-projeto {
+            letter-spacing: 0.27em;
+            font-size: 15px;
+        }
+    }
+
+    .ranking-tres-primeiros {
+        position: relative;
+        .div-capa {
+            // width: 200px;
+            position: absolute;
+
+            .div-capa-historia {
+                height: 10em;
+                width: 10em;
+                overflow: hidden;
+                border: solid 9px $white;
+                border-radius: 500px;
+                box-shadow: 2px 1px 18px 1px $textColorPattern4;
+                cursor: pointer;
+                transition: box-shadow 0.3s ease;
+
+                .cover-historia {
+                    width: 130px;
+                }
+
+                &:hover {
+                    box-shadow: 0px 0px 18px 20px $textColorPattern37;
+                }
+            }
+
+            p {
+                position: absolute;
+                top: 80%;
+                left: 43%;
+                font-size: 50px;
+                font-family: 'Ubuntu';
+                font-weight: bold;
+                color: $primary;
+                text-shadow: $white 2px 0px 0px, $white 1.75517px 0.958851px 0px, $white 1.0806px 1.68294px 0px, $white 0.141474px 1.99499px 0px, $white -0.832294px 1.81859px 0px, $white -1.60229px 1.19694px 0px, $white -1.97998px 0.28224px 0px, $white -1.87291px -0.701566px 0px, $white -1.30729px -1.5136px 0px, $white -0.421592px -1.95506px 0px, $white 0.567324px -1.91785px 0px, $white 1.41734px -1.41108px 0px, $white 1.92034px -0.558831px 0px;
+            }
+        }
+
+        .primeiro {
+            .div-capa-historia {
+                box-shadow: 0px 0px 18px 20px $textColorPattern37;
+            }
+        } 
+        .segundo {
+            top: 70px;
+            left: calc(52% - 200px);
+        } 
+        .terceiro {
+            top: 70px;
+            right: calc(52% - 200px);
+        }
+    }
+
+    .col-restante-colocacoes {
+        margin-top: 20em;
+
+        .textos {
+            .h1-projeto {
+
+            }
+
+            .p-organizado-por {
+                font-size: 16px;
+
+                strong {
+                    font-size: 19px;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .col-historias-ranking {
+            padding: 0 0 0 calc(50.8% - 130px);
+            .col-historia {
+    
+                .div-text-historia {
+                    line-height: 10px;
+                    h1 {
+                        line-height: 0;
+                    }
+                    
+                    .p-historia {
+                        line-height: 0;
+                    }
+                }
+
+                .span-autor {
+                    opacity: 0.7;
+                }
+            }
+        }
+    }
+} 
+
+@media screen and (min-width: 500px){
+    .ranking {
+        .ranking-tres-primeiros {
+            .div-capa {
+                .div-capa-historia {
+                    height: 14em;
+                    width: 14em;
+                    
+                    .cover-historia {
+                        width: 200px;
+                    }
+                    
+                    &:hover {
+                        // height: 15em;
+                        // width: 15em;
+                    }
+                }
+            }
+            
+            .segundo {
+                top: 70px;
+                left: calc(37% - 200px);
+            } 
+            .terceiro {
+                top: 70px;
+                right: calc(37% - 200px);
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 600px){
+    .ranking {
+        
+    }
+}
+@media screen and (min-width: 750px){
+    .ranking{
+        background-image: url('~assets/backgrounds/background-12.svg');
+    }   
+}
+@media screen and (min-width: 980px){
+    .ranking{
+        
+    }   
+}

@@ -1,79 +1,68 @@
 import Vue from 'vue'
-import eventBus from './eventBus'
+import eventBus from './eventBus';
 
 let i18n = ''
 
 Vue.mixin({
     methods: {
-        getComentarios(){
-			let that = this
-
-			that.$axios.get(that.$pathAPI + '/comentario')
+        async getComentarios(){
+			await this.$api.get(`comentarios`)
 			.then((res) => {
-				that.comment = res.data.data
-				console.log(that.comentarios)
+				this.comment = res.data
 			})
 			.catch((err) => {
 				console.log(err.response)
 			})
 		},
 		
-        getCategorias(){
-            let that = this
-
-			that.$axios.get(that.$pathAPI + '/categoria')
+        async getCategorias(){
+			await this.$api.get(`categorias`)
 			.then((res) => {
-				that.categorias = res.data.data
-				// console.log("cat: ", this.categorias)
+				this.categorias = res.data
 			})
 			.catch((err) => {
 				console.log(err.response)
 			})
         },
 
-        getPublicoAlvo(){
-            let that = this
-
-			that.$axios.get(that.$pathAPI + '/publico_alvo')
+        async getPublicoAlvo(){
+			await this.$api.get(`publicos-alvos`)
 			.then((res) => {
-				that.publicos_alvo = res.data.data
+				this.publicos_alvo = res.data
 			})
 			.catch((err) => {
 				console.log(err.response)
 			})
         },
 
-        getIdiomas(){
-            let that = this
-
-			that.$axios.get(that.$pathAPI + '/idioma')
+        async getIdiomas(){
+			await this.$api.get(`idiomas`)
 			.then((res) => {
-				that.idiomas = res.data.data
+				this.idiomas = res.data
 			})
 			.catch((err) => {
 				console.log(err.response)
 			})
         },
 
-        getDireitoAutorais(){
-            let that = this
-
-			that.$axios.get(that.$pathAPI + '/direitos_autorais')
+        async getDireitoAutorais(){
+			await this.$api.get(`direitos-autorais`)
 			.then((res) => {
-				that.direitos_autorais = res.data.data
+				this.direitos_autorais = res.data
 			})
 			.catch((err) => {
 				console.log(err.response)
 			})
         },
-    },
-	// created() {
-	// 	eventBus.$on('att-idioma', async(option) => {
-	// 		this.selectedOption = option;
-	// 		setTimeout(() => {
-	// 			i18n = option
-	// 			console.log("option ", i18n)
-	// 		}, 500)
-	// 	});
-	// }
+
+        async getTipos(grupo){
+			try {
+				let tipos = await this.$api.get(`tipos?grupo=${grupo ? grupo : ''}`)
+				return tipos.data
+			} catch (error) {
+				console.log(error)
+			}
+			
+        },
+    }
 })

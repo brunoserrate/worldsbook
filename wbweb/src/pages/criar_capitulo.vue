@@ -53,7 +53,7 @@
                 capitulo: {
                     titulo: '',
                     capitulo: '',
-                    historia_id: this.$route.params.historia_id,
+                    historia: this.$route.params.historia_id,
                     caminho_capa: null,
                     votacao: 0,
                     quantidade_visualizacao: 0
@@ -86,23 +86,21 @@
             });
         },
         methods: {
-            setCapitulo(){
-                let that = this
+            async setCapitulo(){
+                this.visible = true
+                this.showSimulatedReturnData = false
 
-                that.visible = true
-                that.showSimulatedReturnData = false
-
-                that.$axios.post(that.$pathAPI + '/capitulo', that.capitulo)
+                await this.$api.post(`capitulos`, this.capitulo)
                 .then((res) => {
                     // console.log("res: ", res)
-                    that.capitulos = res.data.data
-                    // console.log(that.capitulos)
-                    that.visible = false
-                    that.showSimulatedReturnData = true
-                    that.sucesso()
+                    this.capitulos = res.data
+                    // console.log(this.capitulos)
+                    this.visible = false
+                    this.showSimulatedReturnData = true
+                    this.sucesso()
                     this.capituloCriadoSucesso(this.avisos.capitulo_criado)
 
-                    this.$router.push({path: `/livro/capitulo/` + res.data.data.id})
+                    this.$router.push({path: `/livro/capitulo/` + res.data._id})
                 })
                 .catch((err) => {
                     console.log(err.response)
@@ -110,8 +108,8 @@
                     this.erroCriacaoCapitulo(this.avisos.erro_criacao_capitulo)
                 })
                 .finally(() => {
-                    that.visible = false
-                    that.showSimulatedReturnData = true
+                    this.visible = false
+                    this.showSimulatedReturnData = true
                 })
             },
             cancelar(){

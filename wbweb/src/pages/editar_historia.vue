@@ -2,274 +2,239 @@
     <q-page :class="{'dark-criar_historia': darkmode, 'criar_historia': !darkmode}">
         <div class="row justify-center">
             <div class="col-12">
-                <div class="row justify-center" style="margin: 60px 0 36px 0;">
-                    <div v-if="historia.caminho_capa === '' " class="col-12 col-md-auto col_upload_image mb-5">
-                        <q-uploader
-                            auto-upload
-                            :factory="uploadFiles"
-                            @finish="finishedUpload"
-                            :loading="uploadPercent"
-                            :url="getUrl()"
-                            :label="i18n.imagem + ' (max 2MB)'"
-                            ref="uploader" 
-                            bordered
-                            batch
-                            accept=".png, .jpeg, .jpg"
-                            :max-file-size="2048000"
-                            class="upload_image"
-                            color="transparent"
-                            text-color="black"
-                            flat
-                        />
+                <div class="row justify-center" style="margin: 60px 0px 36px 0px">
+                    <div class="col-12 d-block d-md-none mb-4">
+                        <h3 class="title_historia text-center m-0">{{ i18n.titulo }}</h3>
                     </div>
-                    <div v-else class="col-12 col-md-auto image_upload mb-5">
-                        <q-inner-loading
-                            :showing="visible_page"
-                            :label="i18n.carregando_historia + '...'"
-                            label-class="text-teal"
-                            label-style="font-size: 1.5em"
-                        />
-                        <q-btn-dropdown
-                            dropdown-icon="info"
-                            flat
-                            @click="onMainClick"
-                            class="dropdown_remove"
-                            >
-                            <q-list>
-                                <q-item clickable v-close-popup @click="onItemClick">
-                                    <q-item-section>
-                                        <q-item-label>{{ i18n.remover_foto }}</q-item-label>
-                                    </q-item-section>
-                                    <q-item-section side>
-                                        <q-icon name="delete" color="primary" />
-                                    </q-item-section>
-                                </q-item>
-                            </q-list>
-                        </q-btn-dropdown>
-                        <img :src="historia.caminho_capa" alt="" class="historia_caminho_capa">
+                    <div class="col-12 col-md-4 col-lg-3 d-flex col_upload_image mb-5 me-0 me-md-5">
+                        <!-- <div class="avatar-profile" @mouseover="mouseover = true" @mouseout="mouseover = false"> -->
+                        <div class="row_foto">
+                            <div class="avatar-profile">
+                                <label for='selecao-arquivo'>
+                                    <!-- <q-icon name="photo_camera" class="icon-photo" :style="`display: ${mouseover ? 'block' : 'none'};`" /> -->
+                                    <q-icon name="photo_camera" class="icon-photo m-3" />
+                                </label>
+                                <q-img :src="historia.caminho_capa ? `${path_photo}/${historia.caminho_capa}` : `${path_photo}/default.png`" class="img-avatar" ></q-img>
+                                <q-inner-loading :showing="loading_photo">
+                                    <q-spinner size="50px" color="primary" :thickness="7" />
+                                </q-inner-loading>
+                            </div>
+                            <input
+                                type="file"
+                                accept="image/png, image/jpeg"
+                                placeholder="a"
+                                id="selecao-arquivo"
+                                name="selecao-arquivo"
+                                ref="fileInput"
+                                @change="handleFileChange"
+                            />
+                            <div v-if="submitted && !$v.historia.caminho_capa.required" class="invalid-feedback text-center">Insira uma capa</div>
+                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 col-card">
-                            <q-card class="card_form_historia">
-                                <q-inner-loading
-                                    :showing="visible_page"
-                                    :label="i18n.carregando_historia + '...'"
-                                    label-class="text-teal"
-                                    label-style="font-size: 1.5em"
-                                />
-                                <div class="col-12 col-sm-6">
-                                    <h3 class="title_historia">{{ i18n.titulo }}</h3>
-                                </div>
-                                <div class="col-12">
-                                    <q-separator class="separator_card"/>
-                                </div>
-                                <div class="col-12">
-                                    <p class="label_input">{{ i18n.detalhes_historia.titulo.label }}</p>
-                                    <q-input filled v-model="historia.titulo" :placeholder="i18n.detalhes_historia.titulo.placeholder" :dense="dense" class="inputs_form_historia"/>
-                                </div>
-                                <div class="col-12">
-                                    <q-separator class="separator_card"/>
-                                </div>
-                                <div class="col-12">
-                                    <p class="label_input">{{ i18n.detalhes_historia.descricao.label }}</p>
-                                    <q-input filled v-model="historia.descricao" type="textarea" :placeholder="i18n.detalhes_historia.descricao.placeholder" :dense="dense" class="inputs_form_historia_descricao"/>
-                                </div>
-                                <div class="col-12">
-                                    <q-separator class="separator_card"/>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4 col-select">
-                                        <p class="label_select">{{i18n.detalhes_historia.categoria.label}}</p>
+                    <div class="col-12 col-md-6">
+                        <div class="row">
+                            <div class="col-12 col-card d-flex justify-content-center">
+                                <q-card class="card_form_historia">
+                                    <div class="col-12 col-sm-6 d-none d-md-block">
+                                        <h3 class="title_historia">{{ i18n.titulo }}</h3>
                                     </div>
-                                    <div class="col-12 col-md-8">
-                                        <q-select
-                                            filled
-                                            v-model="historia.categoria_id"
-                                            :options="categorias"
-                                            type="number"
-                                            :label="i18n.detalhes_historia.categoria.placeholder"
-                                            :dense="dense"
-                                            class="inputs_form_historia_descricao"
-                                            option-value="id"
-                                            option-label="genero"
-                                            emit-value
-                                            map-options
-                                            />
+                                    <div class="col-12 my-4 my-md-0">
+                                        <q-separator class="d-none d-md-block separator_card"/>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <q-separator class="separator_card"/>
-                                </div>
-                                <div class="row">
                                     <div class="col-12">
-                                        <p class="label_input">{{i18n.detalhes_historia.etiquetas.label}}</p>
-                                        <q-select
-                                            filled
-                                            v-model="historia.tags"
-                                            class="inputs_form_historia"
-                                            color="white"
-                                            :placeholder="i18n.detalhes_historia.etiquetas.placeholder"
-                                            :dense="dense"
-                                            use-input
-                                            use-chips
-                                            multiple
-                                            hide-dropdown-icon
-                                            input-debounce="0"
-                                            new-value-mode="add-unique"
-                                            emit-value
-                                            map-options
-                                            >
-                                            <template v-slot:selected>
-                                                <q-chip
-                                                    v-for="(chip, i) in historia.tags" :key="i"
-                                                    dense
-                                                    square
-                                                    color="accent"
-                                                    text-color="white"
-                                                    >
-                                                    {{ chip }}
-                                                </q-chip>
-                                            </template>
-                                        </q-select>
+                                        <p class="label_input">{{ i18n.detalhes_historia.titulo.label }}</p>
+                                        <q-input filled v-model="historia.titulo" :placeholder="i18n.detalhes_historia.titulo.placeholder" :error="submitted && !$v.historia.titulo.required" :dense="dense" class="inputs_form_historia p-0" />
+                                        <div v-if="submitted && !$v.historia.titulo.required" class="invalid-feedback">{{ i18n.avisos.preecha_titulo }}</div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <q-separator class="separator_card"/>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4 col-select">
-                                        <p class="label_select">{{i18n.detalhes_historia.publico_alvo.label}}</p>
+                                    <div class="col-12 my-4 my-md-0">
+                                        <q-separator class="d-none d-md-block separator_card"/>
                                     </div>
-                                    <div class="col-12 col-md-8">
-                                        <q-select
-                                            filled
-                                            v-model="historia.publico_alvo_id"
-                                            :options="publicos_alvo"
-                                            type="number"
-                                            :label="i18n.detalhes_historia.publico_alvo.placeholder"
-                                            :dense="dense"
-                                            class="inputs_form_historia_descricao"
-                                            option-value="id"
-                                            option-label="publico"
-                                            emit-value
-                                            map-options
+                                    <div class="col-12">
+                                        <p class="label_input">{{ i18n.detalhes_historia.descricao.label }}</p>
+                                        <q-input filled v-model="historia.descricao" type="textarea" :placeholder="i18n.detalhes_historia.descricao.placeholder" :error="submitted && !$v.historia.descricao.required" :dense="dense" class="inputs_form_historia_descricao p-0" />
+                                        <div v-if="submitted && !$v.historia.descricao.required" class="invalid-feedback">{{ i18n.avisos.preecha_descricao }}</div>
+                                    </div>
+                                    <div class="col-12 my-4 my-md-0">
+                                        <q-separator class="d-none d-md-block separator_card"/>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 col-select">
+                                            <p class="label_select">{{i18n.detalhes_historia.categoria.label}}</p>
+                                        </div>
+                                        <div class="col-12 col-md-8">
+                                            <q-select
+                                                filled
+                                                v-model="historia.categoria"
+                                                :options="categorias"
+                                                type="number"
+                                                :label="i18n.detalhes_historia.categoria.placeholder"
+                                                :error="submitted && !$v.historia.categoria.required"
+                                                :dense="dense"
+                                                class="inputs_form_historia_descricao p-0"
+                                                option-value="_id"
+                                                option-label="nome"
+                                                emit-value
+                                                map-options
                                             />
+                                            <div v-if="submitted && !$v.historia.categoria.required" class="invalid-feedback">{{ i18n.avisos.preecha_categoria }}</div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <q-separator class="separator_card"/>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4 col-select">
-                                        <p class="label_select">{{i18n.detalhes_historia.idioma.label}}</p>
+                                    <div class="col-12 my-4 my-md-0">
+                                        <q-separator class="d-none d-md-block separator_card"/>
                                     </div>
-                                    <div class="col-12 col-md-8">
-                                        <q-select
-                                            filled
-                                            v-model="historia.idioma_id"
-                                            :options="idiomas"
-                                            type="number"
-                                            :label="i18n.detalhes_historia.idioma.placeholder"
-                                            :dense="dense"
-                                            class="inputs_form_historia_descricao"
-                                            option-value="id"
-                                            option-label="idioma"
-                                            emit-value
-                                            map-options
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p class="label_input">{{ i18n.detalhes_historia.etiquetas.label }}</p>
+                                            <q-select
+                                                filled
+                                                v-model="historia.tags"
+                                                class="inputs_form_historia p-0"
+                                                color="white"
+                                                :placeholder="i18n.detalhes_historia.etiquetas.placeholder"
+                                                :dense="dense"
+                                                use-input
+                                                use-chips
+                                                multiple
+                                                hide-dropdown-icon
+                                                input-debounce="0"
+                                                new-value-mode="add-unique"
+                                                emit-value
+                                                map-options
+                                                >
+                                                <template v-slot:selected>
+                                                    <q-chip
+                                                        v-for="(chip, i) in historia.tags" :key="i"
+                                                        dense
+                                                        square
+                                                        color="accent"
+                                                        text-color="white"
+                                                        >
+                                                        {{ chip }}
+                                                    </q-chip>
+                                                </template>
+                                            </q-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 my-4 my-md-0">
+                                        <q-separator class="d-none d-md-block separator_card"/>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4 col-select">
+                                            <p class="label_select">{{ i18n.detalhes_historia.publico_alvo.label }}</p>
+                                        </div>
+                                        <div class="col-12 col-md-8">
+                                            <q-select
+                                                filled
+                                                v-model="historia.publico_alvo"
+                                                :options="publicos_alvo"
+                                                type="number"
+                                                :label="i18n.detalhes_historia.publico_alvo.placeholder"
+                                                :error="submitted && !$v.historia.publico_alvo.required"
+                                                :dense="dense"
+                                                class="inputs_form_historia_descricao p-0"
+                                                option-value="_id"
+                                                option-label="publico"
+                                                emit-value
+                                                map-options
                                             />
+                                            <div v-if="submitted && !$v.historia.publico_alvo.required" class="invalid-feedback">{{ i18n.avisos.preecha_publico_alvo }}</div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <q-separator class="separator_card"/>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4 col-select">
-                                        <p class="label_select">{{i18n.detalhes_historia.direitos_autorais.label}}</p>
+                                    <div class="col-12 my-4 my-md-0">
+                                        <q-separator class="d-none d-md-block separator_card"/>
                                     </div>
-                                    <div class="col-12 col-md-8">
-                                        <q-select
-                                            filled
-                                            v-model="historia.direitos_autorais_id"
-                                            :options="direitos_autorais"
-                                            :label="i18n.detalhes_historia.direitos_autorais.placeholder"
-                                            :dense="dense"
-                                            class="inputs_form_historia_descricao"
-                                            option-value="id"
-                                            option-label="tipo_autoral"
-                                            emit-value
-                                            map-options
+                                    <div class="row">
+                                        <div class="col-4 col-select">
+                                            <p class="label_select">{{ i18n.detalhes_historia.idioma.label }}</p>
+                                        </div>
+                                        <div class="col-12 col-md-8">
+                                            <q-select
+                                                filled
+                                                v-model="historia.idioma"
+                                                :options="idiomas"
+                                                type="number"
+                                                :label="i18n.detalhes_historia.idioma.placeholder"
+                                                :error="submitted && !$v.historia.idioma.required"
+                                                :dense="dense"
+                                                class="inputs_form_historia_descricao p-0"
+                                                option-value="_id"
+                                                option-label="nome"
+                                                emit-value
+                                                map-options
                                             />
+                                            <div v-if="submitted && !$v.historia.idioma.required" class="invalid-feedback">{{ i18n.avisos.preecha_idioma }}</div>
+                                        </div>
                                     </div>
-                                    <div class="col-12" v-if="historia.direitos_autorais == 1">
-                                        <p class="p_direitos" >i18n.detalhes_historia.direitos_autorais.aviso</p>
+                                    <div class="col-12 my-4 my-md-0">
+                                        <q-separator class="d-none d-md-block separator_card"/>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <q-separator class="separator_card"/>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4 col-select">
-                                        <p class="label_select">{{i18n.detalhes_historia.conteudo_adulto.label}}</p>
-                                    </div>
-                                    <div class="col-12 col-md-8">
-                                        <q-select
-                                            filled
-                                            v-model="historia.conteudo_adulto"
-                                            :options="classificacoes"
-                                            :label="i18n.detalhes_historia.conteudo_adulto.placeholder"
-                                            :dense="dense"
-                                            class="inputs_form_historia_descricao"
-                                            option-value="value"
-                                            option-label="label"
-                                            emit-value
-                                            map-options
+                                    <div class="row">
+                                        <div class="col-4 col-select">
+                                            <p class="label_select">{{ i18n.detalhes_historia.direitos_autorais.label }}</p>
+                                        </div>
+                                        <div class="col-12 col-md-8">
+                                            <q-select
+                                                filled
+                                                v-model="historia.direitos_autorais"
+                                                :options="direitos_autorais"
+                                                :label="i18n.detalhes_historia.direitos_autorais.placeholder"
+                                                :error="submitted && !$v.historia.direitos_autorais.required"
+                                                :dense="dense"
+                                                class="inputs_form_historia_descricao p-0"
+                                                option-value="_id"
+                                                option-label="tipo_autoral"
+                                                emit-value
+                                                map-options
                                             />
+                                            <div v-if="submitted && !$v.historia.direitos_autorais.required" class="invalid-feedback">{{ i18n.avisos.preecha_direitos }}</div>
+                                        </div>
+                                        <div class="col-12" v-if="historia.direitos_autorais == 1">
+                                            <p class="p_direitos" >i18n.detalhes_historia.direitos_autorais.aviso</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <q-separator class="separator_card"/>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4 col-select">
-                                        <p class="label_select">{{i18n.detalhes_historia.historia_finalizada.label}}</p>
+                                    <div class="col-12 my-4 my-md-0">
+                                        <q-separator class="d-none d-md-block separator_card"/>
                                     </div>
-                                    <div class="col-12 col-md-8">
-                                        <q-select
-                                            filled
-                                            v-model="historia.historia_finalizada"
-                                            :options="[
-                                                { label: i18n.detalhes_historia.historia_finalizada.sim, value: true },
-                                                { label: i18n.detalhes_historia.historia_finalizada.nao, value: false },
-                                            ]"
-                                            :label="i18n.detalhes_historia.historia_finalizada.placeholder"
-                                            :dense="dense"
-                                            class="inputs_form_historia_descricao"
-                                            option-value="value"
-                                            option-label="label"
-                                            emit-value
-                                            map-options
-                                            />
+                                    <div class="row">
+                                        <div class="col-4 col-select d-block">
+                                            <p class="label_select">{{ i18n.detalhes_historia.conteudo_adulto.label }}</p>
+                                        </div>
+                                        <div class="col-8">
+                                            <q-toggle v-model="historia.conteudo_adulto" color="#8e1cac" />
+                                            <div v-if="submitted && !$v.historia.conteudo_adulto.required" class="invalid-feedback">{{ i18n.avisos.preecha_conteudo_adulto }}</div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <q-separator class="separator_card"/>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 d-flex justify-content-center">
-                                        <q-btn flat :label="i18n.botoes.postar" class="btn_seguinte" @click="setLivro">
-                                            <q-inner-loading 
-                                                :showing="visible"
-                                                label-class="text-teal"
-                                                label-style="font-size: 1.1em"
-                                            >
-                                            </q-inner-loading>
-                                        </q-btn>
+                                    <div class="col-12">
+                                        <q-separator class="separator_card"/>
                                     </div>
-                                    <div class="col-6 d-flex justify-content-center">
-                                        <q-btn flat :label="i18n.botoes.cancelar" class="btn_cancelar" @click="cancel"></q-btn>
+                                    <div class="row">
+                                        <div class="col-4 col-select">
+                                            <p class="label_select">{{ i18n.detalhes_historia.historia_finalizada.label }}</p>
+                                        </div>
+                                        <div class="col-12 col-md-8">
+                                            <q-toggle v-model="historia.historia_finalizada" color="#8e1cac" />
+                                        </div>
                                     </div>
-                                </div>
-                            </q-card>
+                                    <div class="col-12 my-4 my-md-0">
+                                        <q-separator class="d-none d-md-block separator_card"/>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6 d-flex justify-content-center">
+                                            <q-btn flat :label="i18n.botoes.seguinte" class="btn_seguinte" @click="setLivro">
+                                                <q-inner-loading
+                                                    :showing="visible"
+                                                    label-class="text-teal"
+                                                    label-style="font-size: 1.1em"
+                                                >
+                                                </q-inner-loading>
+                                            </q-btn>
+                                        </div>
+                                        <div class="col-12 col-sm-6 d-flex justify-content-center my-3 my-sm-0">
+                                            <q-btn flat :label="i18n.botoes.cancelar" class="btn_cancelar" @click="cancel"></q-btn>
+                                        </div>
+                                    </div>
+                                </q-card>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -291,36 +256,40 @@
     </q-page>
 </template>
 <script>
-    import eventBus from '../boot/eventBus'
+    import eventBus from '../boot/eventBus';
+    import { required, minLength } from 'vuelidate/lib/validators'
+    import { environment } from 'src/helpers/environment';
+
     export default {
-        name: 'criar-historia',
+        name: 'edit-historia',
         data(){
             return {
                 // Uploader
                 uploadPercentage: 0,
                 uploadPercent:null,
                 livro_id: this.$route.params.livro_id,
-                files:null,
+                submitted: false,
+                loading_photo: false,
+                files: null,
                 confirm: false,
                 errors: null,
                 data: null,
-                // Uploader
                 dense: true,
                 historia: {
                     titulo: '',
                     descricao: '',
                     personagens_principais: [],
-                    categoria_id: '',
-                    publico_alvo_id: '',
-                    idioma_id: '',
-                    direitos_autorais_id: '',
+                    categoria: {},
+                    publico_alvo: {},
+                    idioma: {},
+                    direitos_autorais: {},
                     conteudo_adulto: '',
                     caminho_capa: '',
                     tags: [],
                     historia_finalizada: '',
                     data_atualizacao: '',
                     data_criacao: '',
-                    usuario_id: ''
+                    usuario: {}
                 },
                 classificacoes: [
                     {
@@ -344,17 +313,37 @@
                 darkmode: false,
                 visible: false,
                 visible_page: false,
-                showSimulatedReturnData: false
+                showSimulatedReturnData: false,
+                path_photo: `${environment.host}historias/capa-image`,
+				currentUser: this.$q.sessionStorage.getItem('auth')
             }
         },
-        mounted(){
-            this.getCategorias()
-            this.getPublicoAlvo()
-            this.getIdiomas()
-            this.getDireitoAutorais()
-            this.getUser()
-            this.getLivro()
-            console.log(this.livro_id)
+        validations() {
+            return {
+                historia: {
+                    titulo: { required },
+                    descricao: { required },
+                    categoria: { required },
+                    publico_alvo: { required },
+                    idioma: { required },
+                    direitos_autorais: { required },
+                    conteudo_adulto: { required },
+                    caminho_capa: { required }
+                },
+            }
+        },
+        async mounted(){
+            await this.getCategorias()
+            await this.getPublicoAlvo()
+            await this.getIdiomas()
+            await this.getDireitoAutorais()
+            await this.getUser()
+            await this.getLivro()
+            this.currentUser = this.currentUser ? (this.currentUser.usuario ? this.currentUser.usuario : '') : ''
+
+            if (this.currentUser._id != this.historia.usuario._id) {
+                this.$router.push({ path: `/perfil` })
+            }
         },
         created() {
             this.i18n = this.$i18n.criar_historia
@@ -385,95 +374,105 @@
         },
         methods: { 
             async getLivro(){
-                let that = this
 
-                that.visible_page = true
-                that.showSimulatedReturnData = false
+                this.visible_page = true
+                this.showSimulatedReturnData = false
 
-                that.$axios.get(that.$pathAPI + '/historia/' + this.$route.params.livro_id)
+                await this.$api.get(`historias/${this.$route.params.livro_id}`)
                 .then((res) => {
-                    that.historia = res.data.data
-                    console.log(that.historia)
+                    this.historia = res.data
+                    this.historia.tags = this.historia.tags.map((item) => item.nome)
                     
-                    that.visible_page = false
-                    that.showSimulatedReturnData = true
+                    this.visible_page = false
+                    this.showSimulatedReturnData = true
                 })
                 .catch((err) => {
                     console.log(err.response)
                     this.erroCarregar(err, this.avisos.erro_carregar)
-                    that.visible_page = false
-                    that.showSimulatedReturnData = true
+                    this.visible_page = false
+                    this.showSimulatedReturnData = true
                 })
                 
                 
             },
-            setLivro(){
-                let that = this
-                console.log(that.historia)
+            async setLivro(){
+                this.submitted = true;
+                this.$v.historia.$touch()
 
-                that.visible = true
-                that.showSimulatedReturnData = false
-
-                that.$axios.patch(that.$pathAPI + `/historia/${this.livro_id}`, that.historia)
-                .then((res) => {
-                    console.log("res: ", res)
-                    that.historias = res.data.data
-                    that.visible = false
-                    that.showSimulatedReturnData = true
-                    
-                    this.historiaCriadaSucesso(this.avisos.historia_criada)
-                    this.$router.push({path: `/livro/${this.livro_id}`})
-                })
-                .catch((err) => {
-                    console.log(err.response)
-                    this.erroCriacao(this.avisos.erro_criacao_historia)
-                    that.visible = false
-                    that.showSimulatedReturnData = true
-                })
+                if (!this.$v.historia.$invalid) {
+                    this.visible = true
+                    this.showSimulatedReturnData = false
+    
+                    await this.$api.patch(`/historias/finalizar-criacao/${this.livro_id}`, this.historia)
+                    .then((res) => {
+                        this.historias = res.data
+                        this.visible = false
+                        this.showSimulatedReturnData = true
+                        
+                        this.historiaCriadaSucesso(this.avisos.historia_criada)
+                        this.$router.push({path: `/livro/${this.livro_id}`})
+                    })
+                    .catch((err) => {
+                        console.log(err.response)
+                        this.erroCriacao(this.avisos.erro_criacao_historia)
+                        this.visible = false
+                        this.showSimulatedReturnData = true
+                    })
+                }
             },
             cancel(){
                 
             },
             goCapitulo(){
-                // console.log("A: ", this.historias)
                 // this.$router.push({path: `criar_historia/` + livro_detail.id})
             },
 
             // Uploader
-            uploadFiles(file){
-                this.uploadPercentage = true
-                let data = new FormData()
-                data.append(`file`, file[0])
+            async handleFileChange() {
+                this.loading_photo = true
+                const fileInput = this.$refs.fileInput;
+                if (fileInput.files.length > 0) {
+                    this.selectedFile = fileInput.files[0];
+                    await this.uploadFiles(this.selectedFile)
+                } else {
+                    this.selectedFile = null;
+                    this.loading_photo = false
+                }
+            },
+            async uploadFiles(file){
+                if (!this.selectedFile) {
+                    console.error('Nenhum arquivo selecionado.');
+                    return;
+                }
 
-                return new Promise((resolve, reject) => {
-                this.$axios.post(this.$pathAPI + '/historia/upload/capa', data, {
-                    headers: { 'content-type': 'multipart/form-data' },
-                    processData: false,  contentType: false
-                })
+                let data = new FormData();
+                data.append('file', this.selectedFile);
+
+                try {
+                    await this.$api.post(`historias/upload/capa/${this.historia._id}`, data, {
+                        headers: {
+                            'content-type': 'multipart/form-data',
+                        },
+                        processData: false,
+                        contentType: false
+                    })
                     .then(res => {
-                        resolve(null)
-                        this.historia.caminho_capa = res.data.data.full_path
-                        this.uploadPercentage = false
+                        this.historia.caminho_capa = res.data.caminho_capa
                         this.sucesso()
                     })
                     .catch(err => {
-                        reject(err)
-                        this.uploadPercentage = false
+                        console.log(err)
                         this.falha()
                     })
-                })
-            },
-            getUrl(){
-                return this.$pathAPI + '/uploads'
-            },
-            finishedUpload () {
-                this.$refs.uploader.reset()
-            },
-            onMainClick () {
-                // console.log('Clicked on main button')
-            },
-            onItemClick () {
-                this.confirm = true
+
+                    setTimeout(() => {
+                        this.loading_photo = false
+                    }, 1000)
+                    console.log('Upload concluído com sucesso.');
+                } catch (error) {
+                    console.error('Erro ao fazer upload do arquivo:', error);
+                    this.loading_photo = false
+                }
             },
             removerFoto(){
                 this.historia.caminho_capa = ''

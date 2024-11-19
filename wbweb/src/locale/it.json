@@ -225,6 +225,7 @@
             "preecha_publico_alvo": "Scegli il pubblico di destinazione",
             "preecha_idioma": "Scegli una lingua",
             "preecha_direitos": "Scegli un'opzione di copyright per la storia",
+            "preecha_conteudo_adulto": "Seleziona se il contenuto è per adulti",
             "preecha_capa": "Si prega di inviare la copertina della storia"
         },
         "sim": "SÌ",
@@ -288,6 +289,7 @@
         "descricao_usuario": "Descrizione utente",
         "carregando_perfil": "Caricamento profilo",
         "historias": {
+            "historia_sem_titulo": "Storia senza titolo...",
             "historias_de": "Storie di",
             "historias_publicadas": "storie pubblicate",
             "data_atualizacao": "Data di aggiornamento"

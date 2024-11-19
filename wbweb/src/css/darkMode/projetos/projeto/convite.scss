@@ -1,0 +1,40 @@
+@import 'src/css/variables.scss';
+
+.convite-dark {
+    background: $bgColorPatternDark !important;
+
+    hr {
+        background: $textColorPattern27 !important;
+    }
+    
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select, .q-radio__label {
+        color: $textColorDark !important;
+    } 
+
+    .card-convite {
+        border: solid 1px $textColorPattern28 !important;
+        background-color: transparent !important;
+
+        .historia {
+            .historia-capa {
+                border: solid 11px $textColorPattern29 !important;
+            }
+        }
+    }
+    
+    .sem-projetos {
+        .p-link {
+            border: solid 1px $textColorDark;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: $textColorPattern26;
+            }
+        }
+    }
+}
+@media screen and (min-width: 1024px){
+    .convite-dark {
+
+    }
+}

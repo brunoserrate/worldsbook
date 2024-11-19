@@ -1,5 +1,5 @@
 <template>
-    <q-page :class="{'dark-pesquisa_livros': darkmode, 'pesquisa_livros': !darkmode}">
+    <q-page :class="{'dark-pesquisa_livros': darkmode, 'pesquisa_livros': !darkmode}" id="pesquisa-livros">
         <q-inner-loading
             :showing="visible"
             label-class="text-teal"
@@ -23,7 +23,7 @@
                         <q-card class="card-categorias" @click="openDialog(livro)">
                             <div class="row">
                                 <div class="col-6 col-sm-4 col-md-6 col-lg-4">
-						            <img alt="Cover" :src="livro.caminho_capa" class="cover_historia"/>
+						            <img alt="Cover" :src="livro.caminho_capa ? (livro.caminho_capa ? `${path_cover}/${livro.caminho_capa}` : ``) : `${path_cover}/default.png`" class="cover_historia"/>
                                 </div>
                                 <div class="col-6 col-detalhes-historia">
                                     <div class="row">
@@ -31,7 +31,7 @@
                                             <p class="livro_titulo">{{livro.titulo}} </p>
                                         </div>
                                         <div class="col-12">
-                                            <p class="livro_autor">{{i18n.de}} {{livro.apelido_usuario}} </p>
+                                            <p class="livro_autor">{{i18n.de}} {{livro.usuario ? livro.usuario.name : ''}} </p>
                                         </div>
                                         <div class="col-12">
                                             <div class="row  row_icones">
@@ -53,40 +53,50 @@
                                             <p class="livro_descricao">{{livro.descricao | cutDescricao}}</p>
                                         </div>
                                         <div class="col-12">
-                                            <q-chip v-for="(tag, i) in livro.tags.slice(0, 4)" :key="i" >{{tag}}</q-chip> <!--Dar um slice-->
+                                            <q-chip v-for="(tag, i) in livro.tags.slice(0, 4)" :key="i" >{{tag.nome}}</q-chip> <!--Dar um slice-->
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </q-card>
                     </div>
+                    <div class="col-12 mt-4 paginacao d-flex justify-content-center">
+                        <q-pagination
+                            v-model="page"
+                            :max="pagesNumber"
+                            direction-links
+                            color="grey"
+                            active-color="primary"
+                            class="paginacao"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
 		<q-dialog v-model="livro_dialog_mobile" class="navbar_classe_mobile">
-			<q-card :class="{ 'dark-card_detail_historia_mobile': darkmode, 'card_detail_historia_mobile': !darkmode }">
+			<q-card :class="{'dark-card_detail_historia': darkmode, 'card_detail_historia': !darkmode}">
 				<div class="row" style="height: 100%;">
 					<div class="col-12 cover_dialog">
-						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
+						<img alt="Cover" :src="livro_detail.caminho_capa ? (livro_detail.caminho_capa ? `${path_cover}/${livro_detail.caminho_capa}` : ``) : `${path_cover}/default.png`" class="cover_detail_historia"/>
 					</div>
 					<div class="col-12"> 
 						<h1 class="title_dialog_historia">{{livro_detail.titulo}}</h1>
 						<div class="row">
 							<div class="col-12" style="display: flex; justify-content: center;">
-								<hr style="margin: 0 0 0 0; width: 80%;"/>
+								<hr style="margin: 0 0 0 0; width: 80%;" class="w-100" />
 							</div>
-							<div class="col-12 col_btn_detail">
-								<p class="col_descricao_detail_mobile">{{livro_detail.descricao | cutDescricao}}</p>
+							<div class="col-12 col_btn_detail px-5">
+								<p class="col_descricao_detail">{{livro_detail.descricao | cutDescricao}}</p>
 							</div>
-							<div class="col-12 col_btn_detail">
-								<q-btn unelevated :label="i18n.dialogs.iniciar_leitura" class="btn_detail_iniciar_leitura" @click="goLivro(livro_detail)"/>
+							<div class="col-12 col_btn_detail px-5">
+								<q-btn unelevated :label="i18n.dialogs.iniciar_leitura" class="btn_detail_iniciar_leitura w-100" @click="goLivro(livro_detail)"/>
 							</div>
 						</div>
 						<q-separator></q-separator>
 						<template q-slot="footer">
 							<div class="row">
 								<div class="col-12 col_btn_detail">
-									<p class="col_data_atualizacao"><span>{{i18n.dialogs.data_atualizacao}}: </span>{{ livro_detail.data_atualizacao | formatDateTime }}</p>
+									<p class="col_data_atualizacao"><span>{{i18n.dialogs.data_atualizacao}}: </span>{{ livro_detail.updatedAt | formatDateTime }}</p>
 								</div>
 							</div>
 						</template>
@@ -94,36 +104,33 @@
 				</div>
 			</q-card>
 		</q-dialog>
-		<q-dialog v-model="livro_dialog" class="navbar_classe">
-			<q-card :class="{'dark-card_detail_historia_desktop': darkmode, 'card_detail_historia_desktop': !darkmode}">
+		<q-dialog v-model="livro_dialog">
+			<q-card :class="{ 'dark-card_detail_historia_mobile_index': darkmode, 'card_detail_historia_mobile_index': !darkmode }">
 				<div class="row" style="height: 100%;">
 					<div class="col-6">
-						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
+						<img alt="Cover" :src="livro_detail.caminho_capa ? (livro_detail.caminho_capa ? `${path_cover}/${livro_detail.caminho_capa}` : ``) : `${path_cover}/default.png`" class="cover_detail_historia"/>
 					</div>
 					<div class="col-6">
-						<h1 class="title_dialog_historia_desktop">{{livro_detail.titulo}}</h1>
-						<div class="row">
-							<div class="col-12" style="display: flex; justify-content: center;">
-								<hr style="margin: 0 0 0 0; width: 80%;"/>
-							</div>
-							<div class="col-10 col_btn_detail">
-								<q-btn unelevated :label="i18n.dialogs.iniciar_leitura" class="btn_detail_iniciar_leitura" @click="goLivro(livro_detail)"/>
-							</div>
-							<div class="col-2 col_btn_detail">
-								<q-btn unelevated label="+" class="btn_detail_iniciar_leitura"/>
-							</div>
-							<div class="col-12 col_btn_detail_desktop">
-								<p class="col_descricao_detail_desktop">{{livro_detail.descricao | cutDescricao}}</p>
-							</div>
-						</div>
-						<q-separator></q-separator>
-						<template q-slot="footer">
-							<div class="row">
-								<div class="col-12 col_btn_detail">
-									<p class="col_data_atualizacao"><span>{{i18n.dialogs.data_atualizacao}}: </span>{{ livro_detail.data_atualizacao | formatDateTime }}</p>
+						<div class="row h-100 d-flex justify-content-space-between">
+							<div class="col-12">
+								<h1 class="title_dialog_historia">{{livro_detail.titulo}}</h1>
+								<q-separator class="separador mb-4"></q-separator>
+
+								<div class="row m-0 p-0 mt-4">
+									<div class="col-12 col_btn_detail d-flex align-items-center px-4">
+										<q-btn unelevated :label="i18n.dialogs.iniciar_leitura" class="btn_detail_iniciar_leitura me-2" @click="goLivro(livro_detail)"/>
+										<q-btn unelevated label="+" class="btn_detail_iniciar_leitura_mais"/>
+									</div>
+									<div class="col-12 col_btn_detail px-4">
+										<p class="col_descricao_detail">{{livro_detail.descricao | cutDescricao}}</p>
+									</div>
 								</div>
 							</div>
-						</template>
+							<div class="col-12 col_btn_detail d-flex flex-direction-column justify-content-end">
+								<q-separator class="separador mb-4"></q-separator>
+								<p class="col_data_atualizacao"><span>{{i18n.dialogs.data_atualizacao}}: </span>{{ livro_detail.updatedAt | formatDateTime }}</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</q-card>
@@ -131,150 +138,169 @@
     </q-page>
 </template>
 <script>
-import eventBus from '../boot/eventBus'
-export default {
-    name:'livro-categoria',
-	data (){
-		return {
-			pesquisa: this.$route.params.pesquisa,
-            categoria: {},
-            livro_dialog: false,
-            livro_dialog_mobile: false,
-            darkmode: false,
-            livro_detail: {},
-            avisos: {},
-            i18n: {},
-			livros:[],
-			livro: {
-				apelido_usuario: '',
-                caminho_capa: '',
-                capitulos: '',
-                categoria_id: '',
-                conteudo_adulto: '',
-                data_atualizacao: '',
-                data_criacao: '',
-                descricao: '',
-                direito_autoral: '',
-                direitos_autorais_id: '',
-                foto_perfil: '',
-                historia_finalizada: '',
-                id: '',
-                idioma_id: '',
-                nome_usuario: '',
-                publico_alvo_id: '',
-                tags: '',
-                titulo: '',
-                total_capitulos: '',
-                total_visualizacoes: '',
-                total_votos: '',
-                usar_apelido: '',
-                usuario_id: '',
-			},
-			window: {
-				width: 0,
-			},
-            visible: false,
-            showSimulatedReturnData: false
-        }
-    },
-    mounted(){
-        this.getLivros()
-        // console.log(this.pesquisa)
-    },
-    created() {
-        window.addEventListener('resize', this.handleResize);
-        this.handleResize();
-        this.i18n = this.$i18n.livro_categorias
-        this.avisos = this.$i18n.avisos
-        setTimeout(() => {
-            let dark = this.$q.localStorage.getItem('darkmode')
-            this.darkmode = dark == 'true' ? true : false
-        }, 500)
-        eventBus.$on('att-darkmode', async (option) => {
-            setTimeout(async() => {
-                this.darkmode = option
-            }, 500);
-        });
-        eventBus.$on('att-idioma', async(option) => {
-            this.selectedOption = option;
-            setTimeout(() => {
-                this.i18n = this.$i18n.livro_categorias
-                this.avisos = this.$i18n.avisos
-            }, 500)
-        });
-    },
-    destroyed() {
-        window.removeEventListener('resize', this.handleResize);
-    },
-	watch:{
-		'$route' (to,from){
-            this.livros = [];
-            this.pesquisa = this.$route.params.pesquisa
+    import eventBus from '../boot/eventBus'
+    import { environment } from 'src/helpers/environment';
+
+    export default {
+        name:'livro-categoria',
+        data (){
+            return {
+                pesquisa: this.$route.params.pesquisa,
+                categoria: {},
+                livro_dialog: false,
+                livro_dialog_mobile: false,
+                darkmode: false,
+                livro_detail: {},
+                avisos: {},
+                i18n: {},
+                livros:[],
+                livro: {
+                    apelido_usuario: '',
+                    caminho_capa: '',
+                    capitulos: '',
+                    categoria: '',
+                    conteudo_adulto: '',
+                    data_atualizacao: '',
+                    data_criacao: '',
+                    descricao: '',
+                    direito_autoral: '',
+                    direitos_autorais: '',
+                    foto_perfil: '',
+                    historia_finalizada: '',
+                    id: '',
+                    idioma: '',
+                    nome_usuario: '',
+                    publico_alvo: '',
+                    tags: '',
+                    titulo: '',
+                    total_capitulos: '',
+                    total_visualizacoes: '',
+                    total_votos: '',
+                    usar_apelido: '',
+                    usuario: '',
+                },
+                window: {
+                    width: 0,
+                },
+                visible: false,
+                page: 1,
+                pagesNumber: 0,
+                limit: 10,
+                showSimulatedReturnData: false,
+                path_cover: `${environment.host}historias/capa-image`,
+                path_photo: `${environment.host}usuarios/profile-image`,
+            }
+        },
+        mounted(){
             this.getLivros()
-			// this.$set(this,'token', this.$route.params.token)
-		},
-	},
-	filters: {
-		cutDescricao(value){
-			let tamanho_max = 150;
-
-			if(value != undefined && value != null) {
-				if(value.length > tamanho_max) {
-					return value.substring(0, tamanho_max) + '...'
-				}
-				return value
-			}
-
-		}
-	},
-    methods: {
-		handleResize() {
-            this.window.width = window.innerWidth;
         },
-		getLivros(){
-			let that = this
+        created() {
+            window.addEventListener('resize', this.handleResize);
+            this.handleResize();
+            this.i18n = this.$i18n.livro_categorias
+            this.avisos = this.$i18n.avisos
+            setTimeout(() => {
+                let dark = this.$q.localStorage.getItem('darkmode')
+                this.darkmode = dark == 'true' ? true : false
+            }, 500)
+            eventBus.$on('att-darkmode', async (option) => {
+                setTimeout(async() => {
+                    this.darkmode = option
+                }, 500);
+            });
+            eventBus.$on('att-idioma', async(option) => {
+                this.selectedOption = option;
+                setTimeout(() => {
+                    this.i18n = this.$i18n.livro_categorias
+                    this.avisos = this.$i18n.avisos
+                }, 500)
+            });
+        },
+        destroyed() {
+            window.removeEventListener('resize', this.handleResize);
+        },
+        watch:{
+            '$route' (to,from){
+                this.livros = [];
+                this.pesquisa = this.$route.params.pesquisa
+                this.getLivros()
+                // this.$set(this,'token', this.$route.params.token)
+            },
+        },
+        filters: {
+            cutDescricao(value){
+                let tamanho_max = 150;
 
-            that.visible = true
-            that.showSimulatedReturnData = false
-            // console.log(this.$route.params.pesquisa)
-			that.$axios.get(that.$pathAPI + `/historia/pesquisa?pesquisa=${this.pesquisa}`)
-			.then((res) => {
-				that.livros = res.data.data
-				// console.log("livros", that.livros)
+                if(value != undefined && value != null) {
+                    if(value.length > tamanho_max) {
+                        return value.substring(0, tamanho_max) + '...'
+                    }
+                    return value
+                }
 
-                that.visible = false
-                that.showSimulatedReturnData = true
-			})
-			.catch((err) => {
-				console.log(err.response)
-                that.visible = false
-                that.showSimulatedReturnData = true
-                this.erroCarregar(err, this.avisos.erro_carregar)
-			})
-		},
-        getLivro(livro){
-            // console.log(livro)
-            this.livro_detail = livro
-            this.livro_dialog = true
+            }
         },
-        openDialog(livro){
-            if (this.window.width > 980){
-                this.getLivro(livro)
-            }else { 
-                this.getLivroMobile(livro)
-            }   
+        methods: {
+            handleResize() {
+                this.window.width = window.innerWidth;
+            },
+            async changePage(e) {
+                await this.getLivros()
+
+                let element = document.getElementById('pesquisa-livros');
+                if (element) {
+                    let pixels_parar = 50;
+                    let offsetTop = element.offsetTop - pixels_parar;
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                }
+            },
+            async getLivros(){
+                this.visible = true
+                this.showSimulatedReturnData = false
+                await this.$api.get(`historias?pesquisa=${this.pesquisa}&limit=${this.limit}&page=${this.page}`)
+                .then((res) => {
+                    this.livros = res.data.historias
+                    this.pagesNumber = Math.ceil(res.data.count / this.limit)
+
+                    this.visible = false
+                    this.showSimulatedReturnData = true
+                })
+                .catch((err) => {
+                    console.log(err.response)
+                    this.visible = false
+                    this.showSimulatedReturnData = true
+                    this.erroCarregar(err, this.avisos.erro_carregar)
+                })
+            },
+            getLivro(livro){
+                this.livro_detail = livro
+                this.livro_dialog = true
+            },
+            openDialog(livro){
+                if (this.window.width > 980){
+                    this.getLivro(livro)
+                }else { 
+                    this.getLivroMobile(livro)
+                }   
+            },
+            getLivroMobile(livro){
+                this.livro_detail = livro
+                this.livro_dialog_mobile = true
+            },
+            goLivro(livro_detail){
+                this.$router.push({path: `/livro/${livro_detail._id}`})
+            }
         },
-        getLivroMobile(livro){
-            // console.log(livro)
-            this.livro_detail = livro
-            this.livro_dialog_mobile = true
-        },
-        goLivro(livro_detail){
-            // console.log(livro_detail)
-            this.$router.push({path: `/livro/` + livro_detail.id})
+        watch: {
+            page() {
+                this.changePage();
+                if (!this.isInitialLoad) {
+                } else {
+                    this.isInitialLoad = false
+                }
+            }
         }
     }
-}
 </script>
 <style lang="scss" scoped>
     @import '../css/livro_categorias.scss';

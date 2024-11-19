@@ -1,0 +1,91 @@
+@import 'src/css/variables.scss';
+
+.historias-participantes {
+    transition: background-color 0.3s ease;
+    
+    h1 {
+        font-family: "Raleway", "Century Gothic", serif;
+        text-align: center;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 2em;
+        line-height: 1;
+    }
+     
+    h3 {
+        font-weight: 200;
+        font-size: 25px;
+        line-height: 1;
+    }    
+
+    .subtitulo {
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
+
+    .col-historias {
+        cursor: pointer;
+        border-bottom: solid 1px $textColorPattern17;
+        transition: background-color 0.3s ease;
+
+        .cover-historia {
+            width: 188px;
+            height: 270px;
+            cursor: pointer;
+            border-radius: 20px;
+            box-shadow: 6px 6px 4px 0px rgba(0, 0, 0, 0.19);
+            outline: solid 6px $textColorPattern14;
+        }
+
+        .content-historia {
+            h3 {
+                font-weight: bolder;
+                text-transform: uppercase;
+                font-size: 1.5em;
+                line-height: 1;
+            }
+            span {
+                opacity: 0.7;
+                letter-spacing: 1px;
+            }
+
+            .descricao {
+                p {
+                    letter-spacing: 1px;
+                }
+            }
+
+            .tags {
+                .tag {
+                    height: auto;
+                    padding: 0px 12px;
+                    background: $textColorPattern13;
+                    color: $black;
+                    font-family: 'Raleway';
+                }
+            }
+        }
+
+        &:hover {
+            background-color: $textColorPattern15;
+            border-radius: 30px;
+        }
+    }
+
+    .col-btn-votacao {
+        
+    }
+} 
+
+@media screen and (min-width: 600px){
+    .historias-participantes {
+        .col-historias {
+            border-bottom: 0 !important;
+        }
+    }
+}
+@media screen and (min-width: 980px){
+    .historias-participantes{
+        
+    }   
+}

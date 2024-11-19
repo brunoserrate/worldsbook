@@ -1,166 +1,155 @@
 <template>
-    <q-page :class="{'dark-perfil': darkmode, 'perfil': !darkmode}">
+    <div :class="{'dark-perfil': darkmode }" class="perfil">
         <q-inner-loading
             :showing="visible"
+            class="loading"
             label-class="text-teal"
             label-style="font-size: 1.1em"
             :label="i18n.carregando_perfil+'...'"
         ></q-inner-loading>
-        <div class="fit row justify-center items-center content-center user-cover background-cover">
+        <div class="fit row d-flex justify-content-center align-items-center background-cover">
             <div class="col-12">
                 <q-img src="https://img.freepik.com/fotos-gratis/fundo-aquarela-pintado-a-mao-com-forma-de-ceu-e-nuvens_24972-1095.jpg?w=2000" class="cover"></q-img>
             </div> 
-            <div class="col-12 col_perfil_cover">
+            <div class="col-12 col_perfil_cover d-flex align-items-center justify-content-center">
                 <q-avatar size="80px" class="avatar" style="margin: 61px 0 0 0;">
-                    <img :src="usuario.foto_perfil" />
+                    <img :src="usuario ? (usuario.foto_perfil ? `${path_photo}/${usuario.foto_perfil}` : `${path_photo}/default.jpg`) : `${path_photo}/default.jpg`" />
                 </q-avatar>
             </div>
-            <div class="col-12 col_perfil_cover">
-                <p class="cover_apelido">{{usuario.name}}</p>
+            <div class="col-12 col_perfil_cover d-flex align-items-center justify-content-center">
+                <p class="cover_apelido">{{ usuario.name }}</p>
             </div>
-            <div class="col-12 col_perfil_cover">
-                <p class="cover_nome">@{{usuario.apelido}}</p>
+            <div class="col-12 col_perfil_cover d-flex align-items-center justify-content-center">
+                <p class="cover_nome">@{{ usuario.apelido }}</p>
             </div>
         </div>
         <div class="row">
-            <div cols="12" style="width: 100%;">
+            <div cols="12" class="w-100">
                 <q-card class="card_barra">
-                    <p class="a-seguir">{{ i18n.a_seguir }}</p>
-                    <q-btn v-if="usuario.user_id == user.user_id" flat style="primary" :label="i18n.editar_perfil" icon="settings" class="btn-editar-perfil" @click="goEditPerfil"/>
+                    <q-tabs
+                        v-model="tabUsuario"
+                        align="justify"
+                        narrow-indicator
+                        class="tab-usuarios"
+                        indicator-color="purple"
+                    >
+                        <q-tab class="tab-a-seguir" name="a_seguir" :label="i18n.a_seguir" />
+                        <q-tab class="tab-dashboards" name="dashboard" :label="i18n.dashboard || 'Dashboards'" v-if="!$route.params.perfil_id || $route.params.perfil_id == currentUser._id" />
+                        <q-tab class="tab-cadastros" name="cadastros" :label="i18n.cadastros || 'Cadastros'" v-if="!$route.params.perfil_id || $route.params.perfil_id == currentUser._id"/>
+                    </q-tabs>
+                    <!-- <q-btn v-if="usuario._id == currentUser._id" flat style="primary" :label="i18n.editar_perfil" icon="settings" class="btn-editar-perfil" @click="goEditPerfil"/> -->
                 </q-card>
             </div>
         </div>
-        <div class="row historias">
-            <div class="col-10 col-md-4 offset-1">
-                <q-card class="card_desc_user">
-                    <div class="row">
-                        <div class="col-11 offset-1">
-                            <h3 class="p-descricao-usuario">{{ i18n.descricao_usuario }}</h3>
-                        </div>
-                        <div class="col-12">
-                            <q-separator color="gray" inset />
-                        </div>
-                        <div class="col-11 offset-1">
-                            <p class="p-descricao">{{ usuario.sobre }}</p>
-                        </div>
-                    </div>
-                </q-card>
-            </div>
-            <div class="col-10 offset-1 mobile-carousel">
-                <q-card class="carousel-card">
-                    <div class="row">
-                        <div class="col-10 offset-1 col-md-12 offset-md-0">
-                            <h4 class="historias-de-usuario">{{ i18n.historias.historias_de }} {{ usuario.apelido }}</h4>
-                        </div>
-                        <div class="col-10 offset-1 col-md-12 offset-md-0">
-                            <p class="qtd_historias">{{usuario.qtd_historias}} {{ i18n.historias.historias_publicadas }}</p>
-                        </div>
-                        <div class="col-12">
-                            <q-carousel
-                                v-model="slide"
-                                transition-prev="slide-right"
-                                transition-next="slide-left"
-                                swipeable
-                                animated
-                                control-color="white"
-                                padding
-                                arrows
-                                class="shadow-2 rounded-borders carousel-format"
-                                >
-                                <q-carousel-slide :name="i" class="column no-wrap" v-for="(livro, i) in usuario.historias" :key="i" @click="goLivro(livro)">
+        <div class="row historias pb-5">
+            <div class="col-12">
+                <q-tab-panels v-model="tabUsuario" animated class="m-0 p-0 painel-perfil" id="painel-perfil">
+                    <q-tab-panel name="a_seguir" class="m-0 p-0 painel-a-seguir">
+                        <div class="row m-0 d-flex justify-content-center px-4 px-md-0">
+                            <div class="col-12 col-md-4 descricao px-0 px-md-2">
+                                <q-card class="card_desc_user mt-4">
                                     <div class="row">
-                                        <div class="col-12 col-sm-7 align_cover_carousel">
-                                            <img :src="livro.caminho_capa" class="livro_cover-carousel">
+                                        <div class="col-12 px-4">
+                                            <h3 class="p-descricao-usuario">{{ i18n.descricao_usuario }}</h3>
                                         </div>
-                                        <div class="col-12 col-sm-5">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <p class="livro_titulo_carousel">{{livro.titulo}}</p>
-                                                </div>
-                                                <div class="row" style="width: 100%; margin: 0 0px 0 -17px; justify-content: center;">
-                                                    <div class="col-2 align_icone">
-                                                        <q-icon name="grade" class="icons_card" />
+                                        <div class="col-12">
+                                            <q-separator color="gray" inset />
+                                        </div>
+                                        <div class="col-12 offset-0 px-4">
+                                            <p class="p-descricao">{{ usuario.sobre }}</p>
+                                        </div>
+                                    </div>
+                                </q-card>
+                            </div>
+                            <div class="col-12 col-md-6 desktop-carousel px-0 px-md-2">
+                                <q-card class="card_historias px-4 py-4 mt-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h4 class="historias-de-usuario m-0 mt-3">{{ i18n.historias.historias_de }} {{ usuario.apelido }}</h4>
+                                        </div>
+                                        <div class="col-12">
+                                            <p class="qtd_historias">{{ historias.count }} {{ i18n.historias.historias_publicadas }}</p>
+                                        </div>
+                                        <div class="row row_livros w-100 mt-3 mb-4 mb-sm-2" v-for="(livro, i) in historias.historias" :key="i" @click="goLivro(livro)">
+                                            <div class="col-12 col-sm-4 col-lg-3 d-flex align-items-center justify-content-center justify-sm-content-start">
+                                                <img :src="livro.caminho_capa ? (livro.caminho_capa ? `${path_cover}/${livro.caminho_capa}` : ``) : `${path_cover}/default.png`" class="livro_cover"/>
+                                            </div>
+                                            <div class="col-12 col-sm-7 col-lg-8 py-2 col-historia-details">
+                                                <div class="row h-100 d-flex align-content-space-between">
+                                                    <div class="col-12">
+                                                        <p class="livro_titulo text-center text-sm-start">{{ livro.titulo ? livro.titulo : i18n.historias.historia_sem_titulo }}</p>
+                                                        <div class="row align-icons-historias w-100 justify-content-center justify-sm-content-start">
+                                                            <div class="col-2 align_icone d-flex align-items-center justify-content-center justify-sm-content-start">
+                                                                <q-icon name="grade" class="icons_card me-1" />
+                                                                <div class="col-1 align_result"> {{ livro.total_votos ? livro.total_votos : 0 }} </div>
+                                                            </div>
+                                                            <div class="col-2 align_icone d-flex align-items-center justify-content-center justify-sm-content-start">
+                                                                <q-icon name="visibility" class="icons_card me-1" />
+                                                                <div class="col-1 align_result"> {{ livro.total_visualizacoes ? livro.total_visualizacoes : 0 }} </div>
+                                                            </div>
+                                                            <div class="col-2 align_icone d-flex align-items-center justify-content-center justify-sm-content-start">
+                                                                <q-icon name="list" class="icons_card me-1" />
+                                                                <div class="col-1 align_result"> {{ livro.total_capitulos ? livro.total_capitulos : 0 }} </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-2 align_result"> {{livro.total_votos}} </div>
-                                                    <div class="col-2 align_icone">
-                                                        <q-icon name="visibility" class="icons_card" />
+                                                    <div class="col-12 mt-4">
+                                                        <p class="p_descricao text-justify"> {{ livro.descricao | cutDescricao }} </p>
                                                     </div>
-                                                    <div class="col-2 align_result"> {{livro.total_visualizacoes}} </div>
-                                                    <div class="col-2 align_icone">
-                                                        <q-icon name="list" class="icons_card" />
+                                                    <div class="col-12 mt-1">
+                                                        <div class="col-12">
+                                                            <q-chip class="historia_finalizada m-0 me-2">{{ getHistoriaFinalizada(livro.historia_finalizada) }}</q-chip>
+                                                            <q-chip class="historia_finalizada m-0 " :style="`background-color: ${livro.status ? (livro.status.color ? livro.status.color : '#000') : '#000'}`">{{ livro.status ? livro.status.nome : '' }}</q-chip>
+                                                        </div>
+                                                        <div class="col-12 mt-1">
+                                                            <p class="p_data p-0 m-0"><strong>{{ i18n.historias.data_atualizacao }}:</strong> {{ livro.updatedAt | formatDateTime }} </p>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-2 align_result"> {{livro.total_capitulos}} </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <p class="p_descricao"> {{livro.descricao | cutDescricao}} </p>
-                                                </div>
-                                                <div class="col-12">
-                                                    <q-chip class="historia_finalizada">{{getHistoriaFinalizada(livro.historia_finalizada)}}</q-chip>
-                                                </div>
-                                                <div class="col-12">
-                                                    <p class="p_data">{{ i18n.historias.data_atualizacao }}: {{ livro.data_atualizacao | formatDateTime }} </p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </q-carousel-slide>
-                            </q-carousel>
-                        </div>
-                    </div>
-                </q-card>
-            </div>
-            <div class="col-10 offset-1 offset-md-0 col-md-6 desktop-carousel">
-                <q-card class="card_historias">
-                    <div class="row">
-                        <div class="col-12">
-                            <h4 class="historias-de-usuario">{{ i18n.historias.historias_de }} {{ usuario.apelido }}</h4>
-                        </div>
-                        <div class="col-12">
-                            <p class="qtd_historias">{{usuario.qtd_historias}} {{ i18n.historias.historias_publicadas }}</p>
-                        </div>
-                        <div class="row row_livros" v-for="(livro, i) in usuario.historias" :key="i" @click="goLivro(livro)">
-                            <div class="col-4 col-lg-3">
-                                <img :src="livro.caminho_capa" class="livro_cover"/>
-                            </div>
-                            <div class="col-7  col-lg-8" style="margin: 0 0px 0 13px;">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <p class="livro_titulo">{{livro.titulo}}</p>
-                                    </div>
-                                    <div class="row align-icons-historias">
-                                        <div class="col-1 align_icone">
-                                            <q-icon name="grade" class="icons_card" />
+                                        <div class="row w-100 mt-5 mb-4 mb-sm-2 paginacao" v-if="pagesNumber > 0">
+                                            <div class="col-12">
+                                                <q-pagination
+                                                    v-model="page"
+                                                    :max="pagesNumber"
+                                                    direction-links
+                                                    color="grey"
+                                                    active-color="primary"
+                                                    class="paginacao"
+                                                />
+                                            </div>
                                         </div>
-                                        <div class="col-1 align_result"> {{livro.total_votos}} </div>
-                                        <div class="col-1 align_icone">
-                                            <q-icon name="visibility" class="icons_card" />
-                                        </div>
-                                        <div class="col-1 align_result"> {{livro.total_visualizacoes}} </div>
-                                        <div class="col-1 align_icone">
-                                            <q-icon name="list" class="icons_card" />
-                                        </div>
-                                        <div class="col-1 align_result"> {{livro.total_capitulos}} </div>
                                     </div>
-                                    <div class="col-12">
-                                        <p class="p_descricao"> {{livro.descricao | cutDescricao}} </p>
-                                    </div>
-                                    <div class="col-12">
-                                        <q-chip class="historia_finalizada">{{getHistoriaFinalizada(livro.historia_finalizada)}}</q-chip>
-                                    </div>
-                                    <div class="col-12">
-                                        <p class="p_data">{{ i18n.historias.data_atualizacao }}: {{ livro.data_atualizacao | formatDateTime }} </p>
-                                    </div>
-                                </div>
+                                </q-card>
                             </div>
                         </div>
-                    </div>
-                </q-card>
+                    </q-tab-panel>
+                    <q-tab-panel name="dashboard" class="m-0 p-0 painel-dashboard">
+                        <div class="row m-0">
+                            <div class="col-12">
+                                <visao-gestor />
+                            </div>
+                        </div>
+                    </q-tab-panel>
+                    <q-tab-panel name="cadastros" class="m-0 p-0 painel-cadastros">
+                        <div class="row m-0">
+                            <div class="col-12">
+                                <projeto-convite />
+                            </div>
+                        </div>
+                    </q-tab-panel>
+                </q-tab-panels>
             </div>
         </div>
-    </q-page>
+    </div>
 </template>
 <script>
-    import eventBus from '../boot/eventBus'
+    import eventBus from '../boot/eventBus';
+    import { environment } from 'src/helpers/environment';
+    import ProjetosVisaoGestor from 'src/components/Projetos/Gestor/index.vue';
+    import ProjetoConvite from 'src/components/Projetos/Gestor/Convite.vue';
+
     export default {
         name: 'criar-historia',
         data(){
@@ -168,6 +157,8 @@
                 user: {},
                 i18n: {},
                 avisos: {},
+                tabUsuario: 'a_seguir',
+                perfil_id: '',
                 usuario: {
                     apelido: '',
                     avatar: '',
@@ -178,25 +169,41 @@
                     capa: '',
                     historias: []
                 },
+                historias: [],
                 slide: 1,
-                descricao: 'Siga-me nas redes sociais! :D',
+                page: 1,
+                pagesNumber: 0,
+                limit: 10,
                 visible: false,
                 showSimulatedReturnData: false,
 				darkmode: false,
+                isInitialLoad: true,
+				currentUser: this.$q.sessionStorage.getItem('auth'),
+                path_cover: `${environment.host}historias/capa-image`,
+                path_photo: `${environment.host}usuarios/profile-image`,
+				currentUser: this.$q.sessionStorage.getItem('auth')
             }
         },
 
         mounted(){
             let param_id = this.$route.params.perfil_id
-
+            this.perfil_id = this.$route.params.perfil_id || ''
+            this.currentUser = this.currentUser ? (this.currentUser.usuario ? this.currentUser.usuario : '') : ''
+            
+            this.tabUsuario = 'a_seguir'
+            
             if(param_id != undefined){
-                this.getUser()
                 this.getUserEndpoint(param_id)
+                this.getHistorias(param_id)
             }
             else {
-                this.getUser()
                 this.getUserEndpoint(0)
+                this.getHistorias(this.currentUser._id)
             }
+        },
+        components: {
+            VisaoGestor: ProjetosVisaoGestor,
+            ProjetoConvite: ProjetoConvite
         },
         created() {
             this.i18n = this.$i18n.perfil
@@ -233,36 +240,59 @@
         },
         methods: {
             goLivro(livro){
-                // console.log(livro)
-                this.$router.push({path: `/livro/` + livro.id})
+                this.$router.push({path: `/livro/${livro._id}`})
             },
             goEditPerfil(){
-                this.$router.push({path: `/editar_perfil/` + this.user.user_id})
+                this.$router.push({path: `/editar_perfil/` + this.currentUser._id})
             },
-            getUserEndpoint(user_id){
-                let that = this
-
-                that.visible = true
-                that.showSimulatedReturnData = false
-
-                let url = `/user/pesquisa?pesquisa=${this.user.user_id}`
-
-                if(user_id != 0){
-                    url = `/user/pesquisa?pesquisa=${user_id}`
+            async changePage(e) {
+                
+                if(this.perfil_id != undefined){
+                    this.getUserEndpoint(this.perfil_id)
+                    this.getHistorias(this.perfil_id)
                 }
+                else {
+                    this.getUserEndpoint(0)
+                    this.getHistorias(this.currentUser._id)
+                }
+                
+                let element = document.getElementById('painel-perfil');
+                if (element) {
+                    let pixels_parar = 50;
+                    let offsetTop = element.offsetTop - pixels_parar;
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                }
+            },
+            async getHistorias(user){
+                this.visible_page = true
+                this.showSimulatedReturnData = false
 
-                that.$axios.get(that.$pathAPI + url)
+                await this.$api.get(`historias?usuario=${user}&user=${this.currentUser._id ? this.currentUser._id : ''}&limit=${this.limit}&page=${this.page}`)
                 .then((res) => {
-                    this.usuario = res.data.data
-                    // console.log(that.usuario)
+                    this.historias = res.data
+                    this.pagesNumber = Math.ceil(this.historias.count / this.limit)
+                })
+                .catch((err) => {
+                    console.log(err)
+                    this.falha()
+                    this.erroCarregar(err, this.avisos.erro_carregar)
+                })
+            },
+            async getUserEndpoint(user_id){
+                this.visible = true
+                this.showSimulatedReturnData = false
 
-                    that.visible = false
-                    that.showSimulatedReturnData = true
+                await this.$api.get(`usuarios/${user_id ? user_id : this.currentUser._id}`)
+                .then((res) => {
+                    this.usuario = res.data
+
+                    this.visible = false
+                    this.showSimulatedReturnData = true
                 })
                 .catch((err) => {
                     console.log(err.response)
-                    that.visible = false
-                    that.showSimulatedReturnData = true
+                    this.visible = false
+                    this.showSimulatedReturnData = true
                     this.erroCarregar(err, this.avisos.erro_carregar)
                 })
             },
@@ -270,6 +300,15 @@
                 if(historia_finalizada == 0){ return this.i18n.em_andamento }
                 return this.i18n.concluida
             },
+        },
+        watch: {
+            page() {
+                this.changePage();
+                if (!this.isInitialLoad) {
+                } else {
+                    this.isInitialLoad = false
+                }
+            }
         }
     }
 </script>

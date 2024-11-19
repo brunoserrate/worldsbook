@@ -9,8 +9,7 @@
                     :label="i18n.carregando_capitulo"
                 >
                 </q-inner-loading>
-                <q-btn flat :label="i18n.botoes.publicar" class="btn_seguinte" @click="setCapitulo">
-                </q-btn>
+                <q-btn flat :label="i18n.botoes.publicar" class="btn_seguinte" @click="setCapitulo"></q-btn>
             </div>
             <div class="col-4 col-sm-2">
                 <q-btn flat :label="i18n.botoes.cancelar" class="btn_cancelar" @click="cancelar"></q-btn>
@@ -54,7 +53,7 @@
                 capitulo: {
                     titulo: '',
                     capitulo: '',
-                    historia_id: this.$route.params.historia_id,
+                    historia: this.$route.params.historia_id,
                     caminho_capa: null,
                     votacao: 0,
                     quantidade_visualizacao: 0
@@ -65,12 +64,18 @@
                 darkmode: false,
                 visible: false,
                 visible_page: false,
-                showSimulatedReturnData: false
+                showSimulatedReturnData: false,
+				currentUser: this.$q.sessionStorage.getItem('auth')
             }
         },
-        mounted(){
+        async mounted(){
             // console.log(this.capitulo_id)
-            this.getCapitulo()
+            await this.getCapitulo()
+            this.currentUser = this.currentUser ? (this.currentUser.usuario ? this.currentUser.usuario : '') : ''
+            
+            if (this.currentUser._id != this.capitulo.usuario._id) {
+                this.$router.push({ path: `/perfil` })
+            }
         },
         created() {
             this.i18n = this.$i18n.criar_capitulo
@@ -94,55 +99,47 @@
         },
         methods: {
             async getCapitulo(){
-                let that = this
+                this.visible_page = true
+                this.showSimulatedReturnData = false
 
-                that.visible_page = true
-                that.showSimulatedReturnData = false
-
-                that.$axios.get(that.$pathAPI + '/capitulo/' + this.capitulo_id)
+                await this.$api.get(`capitulos/${this.capitulo_id}`)
                 .then((res) => {
-                    that.capitulo = res.data.data
-                    // console.log("cap", that.capitulo)
+                    this.capitulo = res.data
 
-                    that.visible_page = false
-                    that.showSimulatedReturnData = true
+                    this.visible_page = false
+                    this.showSimulatedReturnData = true
                 })
                 .catch((err) => {
                     console.log(err.response)
                     this.erroCarregar(err, this.avisos.erro_carregar)
-                    that.falha()
-                    that.visible_page = false
-                    that.showSimulatedReturnData = true
+                    this.falha()
+                    this.visible_page = false
+                    this.showSimulatedReturnData = true
                 })
 
 
             },
-            setCapitulo(){
-                let that = this
+            async setCapitulo(){
+                this.visible = true
+                this.showSimulatedReturnData = false
 
-                that.visible = true
-                that.showSimulatedReturnData = false
-                // console.log(that.capitulo)
-
-                that.$axios.patch(that.$pathAPI + `/capitulo/${this.capitulo_id}`, that.capitulo)
+                await this.$api.patch(`capitulos/${ this.capitulo_id }`, this.capitulo)
                 .then((res) => {
-                    // console.log("res: ", res)
-                    that.capitulos = res.data.data
-                    // console.log(that.capitulos)
-                    that.visible = false
-                    that.showSimulatedReturnData = true
+                    this.capitulos = res.data
+                    this.visible = false
+                    this.showSimulatedReturnData = true
                     this.capituloCriadoSucesso(this.avisos.capitulo_criado)
-                    that.sucesso()
+                    this.sucesso()
 
-                    this.$router.push({path: `../livro/capitulo/` + res.data.data.id})
+                    this.$router.push({ path: `../livro/capitulo/${res.data._id}` })
                 })
                 .catch((err) => {
                     console.log(err.response)
-                    that.falha()
+                    this.falha()
                 })
             },
             cancelar(){
-                this.$router.push({path: `../livro/` + this.capitulo.historia_id})
+                this.$router.push({path: `../livro/` + this.capitulo.historia._id})
             }
         }
     }

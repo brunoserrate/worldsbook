@@ -1,0 +1,34 @@
+@import 'src/css/variables.scss';
+
+.historias-participantes-dark  {
+    background: linear-gradient(88deg, $textColorPattern7 0%, $textColorPattern8 100%);
+    transition: background-color 0.3s ease;
+    
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select {
+        color: $textColorDark;
+    }
+    
+    .col-historias {
+        border-bottom: solid 1px $textColorPattern16 !important;
+        .content-historia {
+            .tags {
+                .tag {
+                    // background: $textColorPattern12 !important;
+                }
+            }
+        }
+    }
+} 
+
+@media screen and (min-width: 600px){
+    .historias-participantes-dark  {
+        .col-historias {
+            border-bottom: 0 !important;
+        }
+    }
+}
+@media screen and (min-width: 980px){
+    .historias-participantes-dark {
+        
+    }   
+}

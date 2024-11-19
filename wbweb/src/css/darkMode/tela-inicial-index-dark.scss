@@ -80,6 +80,16 @@
         color: #d9c2d8 !important;
         margin: 0 100px 0 0px;
     }
+    .dropdown-notificacoes {
+        box-shadow: none;
+        
+        .lista-notificacoes {
+            span {
+                font-size: 12px;
+                color: #000000b0;
+            }
+        }
+    }
     .icon_criar_historia{
         font-size: 24px;
         margin: 0px 11px 0 0px;

@@ -213,6 +213,7 @@
             "preecha_publico_alvo": "Por favor, escolha o público alvo",
             "preecha_idioma": "Por favor, escolha um idioma",
             "preecha_direitos": "Por favor, escolha uma opção de direitos autorais da história",
+            "preecha_conteudo_adulto": "Por favor, selecione se o contéudo é adulto",
             "preecha_capa": "Por favor, faça o envio da capa da história"
         },
         "sim": "Sim",
@@ -276,6 +277,7 @@
         "descricao_usuario": "Descrição do usuário",
         "carregando_perfil": "Carregando perfil",
         "historias": {
+            "historia_sem_titulo": "História sem título...",
             "historias_de": "Histórias de",
             "historias_publicadas": "histórias publicadas",
             "data_atualizacao": "Data de atualização"

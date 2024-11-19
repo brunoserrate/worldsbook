@@ -1,0 +1,124 @@
+@import 'src/css/variables.scss';
+
+.visao-gestor {
+    
+    h3 {
+        text-transform: uppercase;
+        font-size: 1em;
+        font-weight: bold;
+        line-height: 1;
+    }
+
+    p {
+        font-size: 10px;
+    }
+
+    .card-chart-historias-mais-votadas {
+        box-shadow: none;
+        
+        .total-participantes {
+            font-size: 35px;
+            font-weight: bold;
+        }
+        
+        .btn-editar-projeto {
+            border: solid 1px $black;
+            background-color: transparent;
+            padding: 0px 30px;
+            font-weight: bolder;
+            font-size: 15px;
+            width: 80%;
+        }
+        
+        .btn-encerrar-votacoes {
+            background-color: $textColorPattern25;
+            padding: 0px 30px;
+            font-weight: bolder;
+            font-size: 15px;
+            width: 80%;
+        }
+
+        .tabela {
+            .tr-dados {
+                transition: all 0.3s ease;
+                cursor: pointer;
+
+                .th-titulo {
+                    max-width: 100%;
+                }
+                .barra {
+                    background: $white;
+                    height: 10px;
+                    font-family: 'Raleway';
+                }
+
+                i {
+                    font-size: 20px;
+                }
+
+                .popup-remove {
+                    .card-remove {
+                        .button-remover-historia {
+                            font-size: 10px;
+                        }
+                    }
+                }
+
+                &:hover {
+                    background-color: $textColorPattern26;
+                }
+            }
+            
+            tr, th, table {
+                font-family: 'Raleway';
+                color: $black;
+                font-weight: 300;
+            }
+        }
+    }
+    
+    .bg-card-select {
+        background-color: $white;
+    }
+
+    .sem-projetos {
+        .p-link {
+            font-weight: 900;
+            cursor: pointer;
+            font-size: 17px;
+            border: solid 1px $black;
+            width: fit-content;
+            padding: 2px 37px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: $textColorPattern26;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .visao-gestor {
+        h3 {
+            font-size: 1.5em;
+        }
+    
+        p {
+            font-size: 12px;
+        }
+    }
+}
+
+@media screen and (min-width: 1440px){
+    .visao-gestor {
+        h3 {
+            font-size: 1.7em;
+        }
+    
+        p {
+            font-size: 14px;
+        }
+    }
+}

@@ -29,7 +29,7 @@
                         <q-card class="card-categorias" @click="goCategoria(categoria)">
                             <div class="row">
                                 <div class="col-6">
-                                    <p>{{categoria.genero}}</p>
+                                    <p>{{ categoria.nome }}</p>
                                 </div>
                             </div>
                         </q-card>
@@ -52,7 +52,8 @@
                 search: {
                     categoria: '',
                     pesquisa: ''
-                }
+                },
+				currentUser: this.$q.sessionStorage.getItem('auth')
             }
         },
 
@@ -80,20 +81,15 @@
         },
         methods: {
             goCategoria(categoria){
-                // console.log(categoria)
-                this.$router.push({path: `/livro_categorias/` + categoria.id + '/' + categoria.genero})
+                this.$router.push({path: `/livro_categorias/` + categoria._id + '/' + categoria.nome})
             },
             pesquisar(){
-                // console.log(this.search.pesquisa)
                 this.$router.push({ path: `/historia/${this.search.pesquisa}` })
             },
-            getCategorias(){
-                let that = this
-
-                that.$axios.get(that.$pathAPI + `/categoria?lang=${this.selectedOption}`)
+            async getCategorias(){
+                await this.$api.get(`categorias?lang=${this.selectedOption}`)
                 .then((res) => {
-                    that.categorias = res.data.data
-                    console.log("that ", that.categorias)
+                    this.categorias = res.data
                 })
                 .catch((err) => {
                     console.log(err.response)

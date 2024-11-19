@@ -1,5 +1,6 @@
 import { Notify } from 'quasar'
 import eventBus from '../boot/eventBus'
+import { format } from 'date-fns';
 
 let avisos = {}
 
@@ -44,6 +45,11 @@ export default {
 				]
 			})
 		},
+		formatDate(date) {
+			if (!date || isNaN(new Date(date).getTime())) return ''
+
+			return format(new Date(date), 'dd/MM/yyyy HH:mm:ss')
+		}
 	},
 	created() {
         avisos = this.$i18n.avisos

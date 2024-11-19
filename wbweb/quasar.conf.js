@@ -79,31 +79,31 @@ module.exports = function (/* ctx */) {
       host: '0.0.0.0',
       port: 8084,
       open: true, // opens browser window automatically
-      proxy: {
-        '/wbcore/api': {
-          // target: 'http://localhost:1337/api/',
-          target: 'http://127.0.0.1:8000',
-          changeOrigin: true,
-          pathRewrite: {
-            '^/wbcore/api': '/api'
-          }
-        },
-        '/wbcore/sanctum': {
-          target: 'http://127.0.0.1:8000/',
-          changeOrigin: false,
-          pathRewrite: {
-            '^/wbcore/sanctum': '/sanctum/csrf-cookie'
-          }
-        },
-        '/wbcore': {
-          target: 'http://127.0.0.1:8000',
-          changeOrigin: true,
-          pathRewrite: {
-            '^/wbcore': '/'
-          }
-        }
+      // proxy: {
+      //   '/wbcore/api': {
+      //     // target: 'http://localhost:1337/api/',
+      //     target: 'http://127.0.0.1:8000',
+      //     changeOrigin: true,
+      //     pathRewrite: {
+      //       '^/wbcore/api': '/api'
+      //     }
+      //   },
+      //   '/wbcore/sanctum': {
+      //     target: 'http://127.0.0.1:8000/',
+      //     changeOrigin: false,
+      //     pathRewrite: {
+      //       '^/wbcore/sanctum': '/sanctum/csrf-cookie'
+      //     }
+      //   },
+      //   '/wbcore': {
+      //     target: 'http://127.0.0.1:8000',
+      //     changeOrigin: true,
+      //     pathRewrite: {
+      //       '^/wbcore': '/'
+      //     }
+      //   }
 
-      }
+      // }
     },
 
     // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
@@ -126,6 +126,7 @@ module.exports = function (/* ctx */) {
       // Quasar plugins
       plugins: [
         'Notify',
+        'Dialog',
         'Loading',
         'LocalStorage',
         'SessionStorage',

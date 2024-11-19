@@ -1,8 +1,9 @@
 .dark-capitulo {    
     background-color: #332c3f;
     transition: background-color 0.3s ease;
-    p, span, h1, h2, h3, h4, h5, h6, ol, ul, button, a, label, i, div {
+    p, span, h1, h2, h3, h4, h5, h6, ol, ul, button, a, label, div {
         color: #b1b1b1;
+        font-family: 'Raleway' !important;
     }
     .capa_img{
         background-color: #b1b1b1;
@@ -80,6 +81,10 @@
         line-height: 35px;
         padding: 0px 0%;
         margin: 76px 0 0 0;
+    }
+    :deep(.corpo_capitulo > p) {
+        font-family: 'Raleway' !important;
+        font-size: 15px !important;
     }
     .separador{
         margin: 4px 0 20px 0;

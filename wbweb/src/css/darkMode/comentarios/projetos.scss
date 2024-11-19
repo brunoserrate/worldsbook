@@ -1,0 +1,14 @@
+@import 'src/css/variables.scss';
+
+.dark-comentarios {
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select {
+        color: $textColorDark;
+        font-family: 'Raleway';
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .dark-comentarios {
+
+    }
+}

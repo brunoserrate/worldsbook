@@ -1,0 +1,66 @@
+@import 'src/css/variables.scss';
+
+.comentarios {
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select {
+        font-family: 'Raleway';
+    }
+
+    .col-avatar {
+        .avatar_comentario {
+            cursor: pointer;
+        }
+    }
+
+    .col-comentario {
+        .nome_usuario_comentario {
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .data_comentario {
+            opacity: 0.6;
+            font-size: 12px;
+        }
+
+        .responder_comentario {
+            font-size: 12px;
+            opacity: 0.6;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .row-responder-comentario {
+            .avatar_comentario_resposta {
+                font-size: 45px;
+                cursor: pointer;
+            }
+
+            .row_btn {
+                .btn_enviar_comentario {
+                    padding: 0 20px;
+                    font-size: 13px;
+                    border-radius: 10px;
+                }
+            }
+        }
+
+        .row-respostas {
+            .avatar_resposta {
+                font-size: 50px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .comentarios {
+
+    }
+}

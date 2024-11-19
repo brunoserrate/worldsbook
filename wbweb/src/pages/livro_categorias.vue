@@ -228,24 +228,20 @@
             handleResize() {
                 this.window.width = window.innerWidth;
             },
-            getLivros(){
-                let that = this
+            async getLivros(){
+                this.visible = true
+                this.showSimulatedReturnData = false
 
-                that.visible = true
-                that.showSimulatedReturnData = false
-
-                that.$axios.get(that.$pathAPI + `/historia/categoria/pesquisa?categoria_id=${this.categoria_id}`)
+                await this.$api.get(`historias?categoria=${this.categoria_id}`)
                 .then((res) => {
-                    that.livros = res.data.data
-                    // console.log("livros", that.livros)
-
-                    that.visible = false
-                    that.showSimulatedReturnData = true
+                    this.livros = res.data
+                    this.visible = false
+                    this.showSimulatedReturnData = true
                 })
                 .catch((err) => {
                     console.log(err.response)
-                    that.visible = false
-                    that.showSimulatedReturnData = true
+                    this.visible = false
+                    this.showSimulatedReturnData = true
                     this.erroCarregar(err, this.avisos.erro_carregar)
                 })
             },

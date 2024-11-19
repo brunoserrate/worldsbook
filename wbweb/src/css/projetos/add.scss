@@ -1,0 +1,86 @@
+@import 'src/css/variables.scss';
+
+.create-projeto {
+    background-color: $bgColorPattern;
+
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select, .q-radio__label {
+        font-family: 'Raleway';
+    }
+    
+    h1 {
+        text-transform: uppercase;
+        font-size: 1.7em;
+        font-weight: bold;
+        line-height: 1;
+    }
+
+    .capa-projeto {
+        box-shadow: none;
+        width: 100%;
+
+        .row-capa-projeto {
+            display: flex;
+            justify-content: center;
+            margin: 25px 0 18px 0;
+
+            input[type=file] {
+                display: none;
+            }
+            
+            .avatar-profile {
+                label {
+                    position: absolute;
+                    z-index: 1;
+                }
+
+                .icon-photo {
+                    cursor: pointer;
+                    color: $textColorPattern39;
+                    transition: background-color 0.3s ease;
+                    font-size: 100px;
+                }
+
+                .img-avatar {
+                    transition: filter 0.3s ease;
+                    border-radius: 5px;
+                    width: 96%;
+
+                    &:hover {
+                        filter: brightness(0.7);
+                    }
+                }
+                
+            }
+        }
+
+        span {
+            font-size: 12px;
+        }
+    }
+
+    .row-projetos {
+        .card-projeto {
+            box-shadow: none;
+            .label_input{
+                font-weight: bold;
+                font-family: 'Raleway';
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 600px){
+    .create-projeto {
+        .capa-projeto {
+            
+        }
+    }
+}
+
+@media screen and (min-width: 980px){
+    .create-projeto{
+        .capa-projeto {
+            width: 50%;
+        }
+    }   
+}

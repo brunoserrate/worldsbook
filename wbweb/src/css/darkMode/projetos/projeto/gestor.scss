@@ -1,0 +1,103 @@
+@import 'src/css/variables.scss';
+
+.dark-visao-gestor {
+    background: $bgColorPatternDark;
+    
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select, .q-radio__label {
+        color: $textColorDark;
+    } 
+    
+    h3 {
+        text-transform: uppercase;
+        font-size: 1em;
+        font-weight: bold;
+        line-height: 1;
+    }
+    
+    p {
+        font-size: 10px;
+    }
+
+    .card-chart-historias-mais-votadas {
+        background: $textColorPattern24;
+
+        .total-participantes {
+            color: $white;
+        }
+
+        .btn-editar-projeto {
+            border: solid 1px white;
+            color: $white;
+        }
+
+        .btn-encerrar-votacoes {
+            background-color: $textColorPattern25;
+        }
+
+        
+        .tabela {
+            .tr-dados {
+                .barra {
+                    background: $white;
+                }
+
+                i {
+                    font-size: 20px;
+                }
+
+                &:hover {
+                    background-color: $textColorPattern26;
+                }
+            }
+            
+            tr, th, table {
+                color: $white;
+            }
+        }
+    }
+
+    .bg-card-select {
+        background-color: $textColorPattern24 !important;
+    }
+    
+    .sem-projetos {
+        .p-link {
+            border: solid 1px $textColorDark;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: $textColorPattern26;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 600px){
+    .dark-visao-gestor {
+
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .dark-visao-gestor {
+        h3 {
+            font-size: 1.5em;
+        }
+    
+        p {
+            font-size: 14px;
+        }
+    }
+}
+
+@media screen and (min-width: 1440px){
+    .dark-visao-gestor {
+        h3 {
+            font-size: 1.7em;
+        }
+    
+        p {
+            font-size: 14px;
+        }
+    }
+}

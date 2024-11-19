@@ -32,7 +32,7 @@
                     <div class="col-8 col-md-6">
                         <q-input square outlined type="password" disable v-model="user.password" :dense="dense" class="input_form"/>
                     </div>
-                    <div class="col-1 align_icon">
+                    <div class="col-1 align_icon d-flex align-items-center justify-content-center">
                         <q-icon name="edit" class="icone_edit_password"></q-icon>
                     </div>
                     <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-2 offset-md-0 alinhar_label_utilizador">
@@ -54,45 +54,25 @@
             </div>
             <div class="col-12 col-md-5">
                 <div class="row row_foto">
-                    <div v-if="user.foto_perfil === '' " class="col-6 col-md-auto foto_perfil_uploader">
-                        <q-uploader
-                            auto-upload
-                            :factory="uploadFiles"
-                            @finish="finishedUpload"
-                            :loading="uploadPercent"
-                            :url="getUrl()"
-                            :label="i18n.imagem + '(max 2MB)'"
-                            ref="uploader"
-                            bordered
-                            batch
-                            accept=".png, .jpeg, .jpg"
-                            :max-file-size="2048000"
-                            class="upload_image"
-                            color="transparent"
-                            text-color="black"
-                            flat
+                    <div class="col-5 col-md-6">
+                        <q-avatar size="17em" class="avatar-profile" @mouseover="mouseover = true" @mouseout="mouseover = false">
+                            <label for='selecao-arquivo'>
+                                <q-icon name="photo_camera" class="icon-photo" :style="`display: ${mouseover ? 'block' : 'none'};`" />
+                            </label>
+                            <q-img :src="user.foto_perfil ? `${path_photo}/${user.foto_perfil}` : `${path_photo}/default.jpg`" class="img-avatar" ></q-img>
+                            <q-inner-loading :showing="loading_photo">
+                                <q-spinner size="50px" color="primary" :thickness="7" />
+                            </q-inner-loading>
+                        </q-avatar>
+                        <input
+                            type="file"
+                            accept="image/png, image/jpeg"
+                            placeholder="a"
+                            id="selecao-arquivo"
+                            name="selecao-arquivo"
+                            ref="fileInput"
+                            @change="handleFileChange"
                         />
-                    </div>
-                    <div v-else class="col-5 col-md-6">
-                        <q-img :src="user.foto_perfil" alt="" class="foto_perfil">
-                            <q-btn-dropdown
-                                dropdown-icon="info"
-                                flat
-                                class="dropdown_remove"
-                                @click="onMainClick"
-                                >
-                                <q-list>
-                                    <q-item clickable v-close-popup @click="onItemClick">
-                                        <q-item-section>
-                                            <q-item-label>{{ i18n.remover_foto }}</q-item-label>
-                                        </q-item-section>
-                                        <q-item-section side>
-                                            <q-icon name="delete" color="primary" />
-                                        </q-item-section>
-                                    </q-item>
-                                </q-list>
-                            </q-btn-dropdown>
-                        </q-img>
                     </div>
                 </div>
             </div>
@@ -123,10 +103,12 @@
 </template>
 <script>
     import eventBus from '../boot/eventBus'
+    import { environment } from 'src/helpers/environment';
     export default {
         name: 'editar-perfil',
         data(){
             return {
+                mouseover: false,
                 dense: true,
                 uploadPercentage: 0,
                 uploadPercent:null,
@@ -141,12 +123,16 @@
                     apelido: '',
                     email: '',
                 },
+                selectedFile: {},
+                loading_photo: false,
                 visible: false,
                 showSimulatedReturnData: false,
                 users: [],
                 visible: false,
                 showSimulatedReturnData: false,
-                darkmode: false
+                darkmode: false,
+                path_photo: `${environment.host}usuarios/profile-image`,
+				currentUser: this.$q.sessionStorage.getItem('auth')
             }
         },
         created() {
@@ -169,93 +155,78 @@
                 }, 500)
             });
         },
-        mounted(){
-            this.getUser()
-            // console.log(this.user)
+        async mounted(){
+            await this.getUsuario()
+            this.currentUser = this.currentUser ? (this.currentUser.usuario ? this.currentUser.usuario : '') : ''
         },
         methods: {
-            setPerfil(){
-                let that = this
+            async setPerfil(){
+                this.visible = true
+                this.showSimulatedReturnData = false
 
-                that.visible = true
-                that.showSimulatedReturnData = false
-
-                let params = {
-                    name: that.user.nome,
-                    sobre: that.user.sobre,
-                    foto_perfil: that.user.foto_perfil,
-                    apelido: that.user.apelido,
-                    email: that.user.email,
-                }
-
-                that.$axios.patch(that.$pathAPI + `/user/perfil/${this.user.user_id}`, params)
+                await this.$api.patch(`/usuarios/${this.currentUser._id}`, this.user)
                 .then((res) => {
-                    console.log("res: ", res)
 
-                    let storage_user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
-                    let token = storage_user.token
-                    // Alterar os dados necessários
-                    storage_user = res.data.data // Nome, apelido, avatar,
-                    storage_user.token = token
-                    // Sobrepor a chave auth do session storage
+                    let storage_user = this.$q.sessionStorage.getItem('auth')
+                    storage_user.usuario = res.data
+                    
                     this.$q.sessionStorage.set('auth', JSON.stringify( storage_user ))
 
-                    that.visible = false
-                    that.showSimulatedReturnData = true
+                    this.visible = false
+                    this.showSimulatedReturnData = true
                     this.perfilEditado(this.avisos.perfil_editado)
-
                 })
                 .catch((err) => {
                     console.log("err: ", err)
-                    that.visible = false
-                    that.showSimulatedReturnData = true
+                    this.visible = false
+                    this.showSimulatedReturnData = true
                     this.erroEditar(err, this.avisos.erro_editar)
                 })
             },
-            uploadFiles(file){
-                this.uploadPercentage = true
-                let data = new FormData()
-                data.append(`file`, file[0])
+            async handleFileChange() {
+                this.loading_photo = true
+                const fileInput = this.$refs.fileInput;
+                if (fileInput.files.length > 0) {
+                    this.selectedFile = fileInput.files[0];
+                    await this.uploadFiles(this.selectedFile)
+                } else {
+                    this.selectedFile = null;
+                    this.loading_photo = false
+                }
+            },
+            async uploadFiles(file){
+                if (!this.selectedFile) {
+                    console.error('Nenhum arquivo selecionado.');
+                    return;
+                }
 
-                return new Promise((resolve, reject) => {
-                this.$axios.post(this.$pathAPI + '/user/upload/foto', data, {
-                    headers: { 'content-type': 'multipart/form-data' },
-                    processData: false,  contentType: false
-                })
-                    .then(res => {
-                        resolve(null)
-                        this.user.foto_perfil = res.data.data.full_path
-                        this.uploadPercentage = false
-                        this.sucesso()
-                    })
-                    .catch(err => {
-                        reject(err)
-                        this.uploadPercentage = false
-                        this.falha()
-                    })
-                })
-            },
-            finishedUpload () {
-                this.$refs.uploader.reset()
-            },
-            getUrl(){
-                return this.$pathAPI + '/uploads'
-            },
-            onMainClick () {
-                // console.log('Clicked on main button')
-            },
-            onItemClick () {
-                this.confirm = true
+                let data = new FormData();
+                data.append('file', this.selectedFile);
+
+                try {
+                    await this.$api.post('usuarios/upload/foto', data, {
+                        headers: {
+                            'content-type': 'multipart/form-data',
+                        },
+                        processData: false,
+                        contentType: false
+                    });
+
+                    await this.getUsuario()
+                    this.$router.go()
+
+                    setTimeout(() => {
+                        this.loading_photo = false
+                    }, 1000)
+                    console.log('Upload concluído com sucesso.');
+                } catch (error) {
+                    console.error('Erro ao fazer upload do arquivo:', error);
+                    this.loading_photo = false
+                }
             },
             removerFoto(){
                 this.user.foto_perfil = ''
             },
-            buscarString(string, busca) {
-                if(string != null || string != undefined){
-                    return string.indexOf(busca)
-                }
-                return 1
-            }
         },
     }
 </script>

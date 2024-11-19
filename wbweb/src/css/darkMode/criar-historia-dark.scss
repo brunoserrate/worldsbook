@@ -18,7 +18,8 @@
         height: 26em;
     }
     .card_form_historia{
-        width: 450px;
+        // width: 450px;
+        width: 100%;
         height: auto;
         box-shadow: none;
         /* border: solid 1px #e0e0e0; */
@@ -123,7 +124,7 @@
         color: #c0c0c0 !important;
     }
 }
-@media screen and (min-width: 860px){
+@media screen and (min-width: 1024px){
     .dark-criar_historia {
         .upload_image{
             max-width: 245px;
@@ -138,11 +139,11 @@
             height: 26em;
         }
         .card_form_historia{
-            width: 450px;
+            // width: 450px;
             height: auto;
-            box-shadow: 0px 0px 0px #00000024;
+            // box-shadow: 0px 0px 0px #00000024;
             /* border: solid 1px #e0e0e0; */
-            padding: 24px;
+            // padding: 24px;
         }
         .title_historia{
             font-size: 17px;
@@ -220,7 +221,7 @@
             border-radius: 13px;
         }
         .col-card{
-            margin: 0 0px 0 58px;
+            // margin: 0 0px 0 58px;
         }
         .col-select{
             display: block;

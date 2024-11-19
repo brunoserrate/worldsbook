@@ -1,0 +1,59 @@
+@import 'src/css/variables.scss';
+
+.convite {
+    
+    .card-convite {
+        box-shadow: none;
+        background-color: $white;
+        
+        h1 {
+            font-size: 2.8em;
+            line-height: 1;
+        }
+        
+        .col-id {
+            .input-id-historia {
+                
+            }
+        }
+        
+        .historia {
+            .historia-capa {
+                width: 12em;
+                border-radius: 10px;
+                // border: solid 11px #ffffff29;
+            }
+
+            h1 {
+                font-size: 2em;
+                font-weight: bold;
+            }
+
+            p {
+                text-align: justify;
+            }
+        }
+    }
+    
+    .sem-projetos {
+        .p-link {
+            font-weight: 900;
+            cursor: pointer;
+            font-size: 17px;
+            border: solid 1px $black;
+            width: fit-content;
+            padding: 2px 37px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: $textColorPattern26;
+            }
+        }
+    }
+}
+@media screen and (min-width: 1024px){
+    .convite {
+
+    }
+}

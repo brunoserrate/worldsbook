@@ -225,6 +225,7 @@
             "preecha_publico_alvo": "타겟층을 선택해주세요",
             "preecha_idioma": "언어를 선택하세요",
             "preecha_direitos": "스토리 저작권 옵션을 선택하세요.",
+            "preecha_conteudo_adulto": "콘텐츠가 성인용인 경우 선택하세요",
             "preecha_capa": "스토리 표지를 보내주세요"
         },
         "sim": "예",
@@ -288,6 +289,7 @@
         "descricao_usuario": "사용자 설명",
         "carregando_perfil": "프로필 로드 중",
         "historias": {
+            "historia_sem_titulo": "제목 없는 이야기...",
             "historias_de": "이야기",
             "historias_publicadas": "출판된 이야기",
             "data_atualizacao": "업데이트 날짜"

@@ -1,0 +1,58 @@
+@import 'src/css/variables.scss';
+
+.ranking-dark {
+    transition: background-color 0.3s ease, background-image 0.3s ease;
+    background: linear-gradient(88deg, $textColorPattern7 0%, $textColorPattern8 100%);
+    background-color: $bgColorPatternDark;
+    background-image: url('~assets/backgrounds/background-11.svg');
+    background-repeat: repeat-y;
+    background-size: cover;
+    background-position: 0% 0%;
+    
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select, .q-radio__label {
+        color: $textColorDark;
+    }  
+    
+    .titulo {
+        .h1-melhores-historias {
+            color: $textColorPattern33;
+        }
+    }
+    
+    .ranking-tres-primeiros {
+        .div-capa {
+            p {
+                color: $textColorPattern34;
+            }
+
+            .div-capa-historia { 
+                box-shadow: 2px 1px 18px 1px $textColorPattern4;
+                &:hover {
+                    box-shadow: 0px 0px 18px 20px $textColorPattern36;
+                }
+            }
+        }
+        
+        .primeiro {
+            .div-capa-historia {
+                box-shadow: 0px 0px 18px 20px $textColorPattern36;
+            }
+        } 
+    }
+} 
+
+@media screen and (min-width: 600px){
+    .ranking-dark {
+        
+    }
+}
+@media screen and (min-width: 750px){
+    .ranking-dark {
+        background-image: url('~assets/backgrounds/background-13.svg');
+    }   
+}
+@media screen and (min-width: 980px){
+    .ranking-dark {
+        
+    }   
+}

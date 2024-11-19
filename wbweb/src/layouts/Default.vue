@@ -23,15 +23,15 @@
                 @keyup.enter="pesquisar"
                 >
                 <template v-slot:append>
-                    <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
-                    <q-icon name="search"  @click="pesquisar" class="icone_search" />
+                  <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
+                  <q-icon name="search"  @click="pesquisar" class="icone_search" />
                 </template>
               </q-input>
             </div>
             <!-- MOBILE -->
             <div class="col-2 offset-3 col-menu-hamburguer">
               <q-icon name="search" class="lupa">
-                <q-popup-edit v-model="label" auto-save v-slot="scope" :content-class="darkmode ? 'dark-popup_pesquisa' : 'popup_pesquisa'">
+                <q-popup-edit v-model="label" auto-save :content-class="darkmode ? 'dark-popup_pesquisa' : 'popup_pesquisa'">
                   <q-input v-model="search.pesquisa" dense autofocus rounded outlined @keyup.enter="pesquisar" class="popup_search">
                     <template v-slot:append>
                         <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
@@ -60,7 +60,7 @@
                   <div class="col-12">
                     <q-item clickable v-ripple v-if="logado && user" class="avatar_sidebar">
                       <q-avatar size="52px" style="padding: 0 79px;">
-                        <img :src="user.foto_perfil" />
+                        <img :src="user.foto_perfil ? `${path_photo}/${user.foto_perfil}` : `${path_photo}/default.jpg`" />
                       </q-avatar>
                       <q-item-section>{{user.nome}} </q-item-section>
                     </q-item>
@@ -70,6 +70,12 @@
                         <q-icon name="account_circle" class="icone-sidebar"/>
                       </q-item-section>
                       <q-item-section class="itens-sidebar" >{{ i18n.header.avatar.perfil }}</q-item-section>
+                    </q-item>
+                    <q-item clickable v-ripple v-if="logado && user" @click="$router.push({path: `/editar_perfil/${currentUser._id}`})">
+                      <q-item-section avatar>
+                        <q-icon name="settings" class="icone-sidebar"/>
+                      </q-item-section>
+                      <q-item-section class="itens-sidebar" >Editar perfil</q-item-section>
                     </q-item>
                     <q-item clickable v-ripple v-if="!logado && user == null" @click="logar = !logar" class="avatar_sidebar">
                       <q-item-section avatar>
@@ -90,6 +96,12 @@
                         <q-icon name="border_color" class="icone-sidebar"/>
                       </q-item-section>
                       <q-item-section class="itens-sidebar" @click="getNewHistoria">{{ i18n.header.comecar_escrever }}</q-item-section>
+                    </q-item>
+                    <q-item clickable v-ripple v-if="logado && user">
+                      <q-item-section avatar>
+                        <q-icon name="group" class="icone-sidebar"/>
+                      </q-item-section>
+                      <q-item-section class="itens-sidebar" @click="$router.push({ path: '/projetos/criar_projeto' })">Criar projeto</q-item-section>
                     </q-item>
                     <q-separator />
                     <q-item clickable v-ripple>
@@ -161,94 +173,119 @@
               </div>
             </div>
             <!-- DESKTOP -->
-            <div v-else class="col navegar" style="margin: 25px 277px 7px 0;" >
+            <div v-else class="col navegar " style="margin: 25px 277px 7px 0;" >
               <q-btn-dropdown unelevated :label="i18n.header.navegar.label" class="btn_dropdown_navegar">
                 <div :class="{ 'dropdown_navegar_dark': darkmode, 'dropdown_navegar': darkmode }">
-                  <q-item clickable v-close-popup>
-                    <q-item-section>
-                      <q-item-label @click="goCategoria">{{ i18n.header.navegar.items.categorias }}</q-item-label>
-                    </q-item-section>
-                  </q-item>
+                  <q-list separator>
+                    <q-item clickable v-close-popup>
+                      <q-item-section>
+                        <q-item-label @click="goCategoria">{{ i18n.header.navegar.items.categorias }}</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-item clickable v-close-popup>
+                      <q-item-section>
+                        <q-item-label @click="$router.push({ path: `/projetos` })">Projetos</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
                 </div>
               </q-btn-dropdown>
               <q-btn-dropdown unelevated :label="i18n.header.escrever.label" class="btn_dropdown_escrever">
                 <div  :class="{ 'dropdown_navegar_dark': darkmode, 'dropdown_navegar': darkmode }">
-                  <q-item clickable v-close-popup>
-                    <q-item-section>
-                      <q-item-label @click="getNewHistoria"><q-icon name="post_add" class="icon_criar_historia me-2"></q-icon>{{ i18n.header.escrever.items.criar_historia }}</q-item-label>
-                    </q-item-section>
-                  </q-item>
+                  <q-list separator>
+                    <q-item clickable v-close-popup>
+                      <q-item-section>
+                        <q-item-label @click="getNewHistoria">{{ i18n.header.escrever.items.criar_historia }}</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                    <q-item clickable v-close-popup>
+                      <q-item-section>
+                        <q-item-label @click="$router.push({ path: '/projetos/criar_projeto' })">Criar projeto</q-item-label>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
                 </div>
               </q-btn-dropdown>
-              <q-btn round size="lg" class="button-profile">
-                <q-menu>
-                  <div class="menu-opcoes">
-                    <q-item clickable v-close-popup class="profile">
-                      <q-item-section @click="goPerfil">
-                        {{ i18n.header.avatar.perfil }}
-                      </q-item-section>
-                      <q-item-section avatar>
-                          <q-icon name="account_circle" color="primary" size="32px" />
-                      </q-item-section>
-                    </q-item>
-                    <q-separator />
-                    <q-item tag="label" v-ripple class="apelido">
-                      <q-item-section>
-                        <q-item-label>{{ i18n.header.avatar.apelido.label }}</q-item-label>
-                        <q-item-label caption>{{ i18n.header.avatar.apelido.caption }}</q-item-label>
-                      </q-item-section>
-                      <q-item-section avatar>
-                        <q-toggle color="primary" keep-color v-model="user.usar_apelido" @input="alterarParametro" />
-                      </q-item-section>
-                    </q-item>
-                    <q-separator />
-                    <q-item tag="label" v-ripple class="dark-mode">
-                      <q-item-section>
-                        <q-item-label>{{ i18n.header.avatar.modo_dark.label }}</q-item-label>
-                        <q-item-label caption>{{ i18n.header.avatar.modo_dark.caption }}</q-item-label>
-                      </q-item-section>
-                      <q-item-section avatar>
-                        <q-toggle icon="dark_mode" color="dark" keep-color v-model="darkmode" @input="emitSelectDarkMode" />
-                      </q-item-section>
-                    </q-item>
-                    <q-separator />
-                    <q-item tag="label" v-ripple class="dark-mode">
-                      <q-item-section>
-                        <span><q-icon name="translate" style="font-size: 17px;" class="me-2"/>{{ i18n.header.avatar.linguagem.label }}</span></q-item-section>
-                      <q-item-section side>
-                        <q-icon name="keyboard_arrow_right" />
-                      </q-item-section>
-                      <q-menu :content-class="darkmode ? 'dark-menu-linguagens' : 'menu-linguagens'" transition-show="scale" transition-hide="scale" :offset="[-35, 0]">
-                        <q-list>
-                          <q-item tag="label" v-ripple class="dark-mode" v-for="(linguagem, i) in linguagens" :key="i" @click="emitSelectI18n(linguagem.country)">
-                            <q-item-section>
-                              <q-item-label style="font-family: Raleway;">{{ linguagem.name }}</q-item-label>
-                            </q-item-section>
-                            <q-item-section avatar>
-                              <!-- <img :src="require(`${linguagem.img}`)" /> -->
-                              <!-- <q-img :src="require(`${linguagem.img}`)" spinner-color="white" /> -->
-                              <q-img :src="require('../assets/flags/'+linguagem.img)" spinner-color="white" />
-                            </q-item-section>
-                          </q-item>
-                          <q-separator />
-                        </q-list>
-                      </q-menu>
-                    </q-item>
-                    <q-separator />
-                    <q-item clickable v-close-popup class="logout">
-                      <q-item-section @click="logout()" >Logout</q-item-section>
-                    </q-item>
-                  </div>
-                </q-menu>
-                <q-avatar size="52px">
-                  <img :src="user.foto_perfil" />
-                </q-avatar>
-              </q-btn>
+              <div class="d-contents">
+                <q-badge color="red" class="badge-notifications" v-if="notificacoes_nao_lidas > 0">{{ notificacoes_nao_lidas }}</q-badge>
+                <q-btn-dropdown unelevated dropdown-icon="notifications" class="notifications" no-icon-animation content-class="dropdown-notificacoes">
+                  <notificacoes @notificacoesNaoLidas="(value) => { this.notificacoes_nao_lidas = value }"/>
+                </q-btn-dropdown>
+                <q-btn round size="lg" class="button-profile">
+                  <q-menu>
+                    <div class="menu-opcoes">
+                      <q-item clickable v-close-popup class="profile">
+                        <q-item-section @click="goPerfil">
+                          {{ i18n.header.avatar.perfil }}
+                        </q-item-section>
+                        <q-item-section avatar>
+                            <q-icon name="account_circle" color="primary" size="32px" />
+                        </q-item-section>
+                      </q-item>
+                      <q-separator />
+                      <q-item tag="label" v-ripple class="apelido" @click="$router.push({path: `/editar_perfil/${currentUser._id}` })">
+                        <q-item-section>
+                          <span>Editar perfil</span>
+                        </q-item-section>
+                        <q-item-section avatar>
+                          <q-icon name="settings" style="font-size: 17px;" class="me-2"/>
+                        </q-item-section>
+                      </q-item>
+                      <q-separator />
+                      <q-item tag="label" v-ripple class="apelido">
+                        <q-item-section>
+                          <q-item-label>{{ i18n.header.avatar.apelido.label }}</q-item-label>
+                          <q-item-label caption>{{ i18n.header.avatar.apelido.caption }}</q-item-label>
+                        </q-item-section>
+                        <q-item-section avatar>
+                          <q-toggle color="primary" keep-color v-model="user.usar_apelido" @input="alterarParametro" />
+                        </q-item-section>
+                      </q-item>
+                      <q-separator />
+                      <q-item tag="label" v-ripple class="dark-mode">
+                        <q-item-section>
+                          <q-item-label>{{ i18n.header.avatar.modo_dark.label }}</q-item-label>
+                          <q-item-label caption>{{ i18n.header.avatar.modo_dark.caption }}</q-item-label>
+                        </q-item-section>
+                        <q-item-section avatar>
+                          <q-toggle icon="dark_mode" color="dark" keep-color v-model="darkmode" @input="emitSelectDarkMode" />
+                        </q-item-section>
+                      </q-item>
+                      <q-separator />
+                      <q-item tag="label" v-ripple class="dark-mode">
+                        <q-item-section>
+                          <span><q-icon name="translate" style="font-size: 17px;" class="me-2"/>{{ i18n.header.avatar.linguagem.label }}</span></q-item-section>
+                        <q-item-section side>
+                          <q-icon name="keyboard_arrow_right" />
+                        </q-item-section>
+                        <q-menu :content-class="darkmode ? 'dark-menu-linguagens' : 'menu-linguagens'" transition-show="scale" transition-hide="scale" :offset="[-35, 0]">
+                          <q-list>
+                            <q-item tag="label" v-ripple class="dark-mode" v-for="(linguagem, i) in linguagens" :key="i" @click="emitSelectI18n(linguagem.country)">
+                              <q-item-section>
+                                <q-item-label style="font-family: Raleway;">{{ linguagem.name }}</q-item-label>
+                              </q-item-section>
+                              <q-item-section avatar>
+                                <q-img :src="require('../assets/flags/'+linguagem.img)" spinner-color="white" />
+                              </q-item-section>
+                            </q-item>
+                            <q-separator />
+                          </q-list>
+                        </q-menu>
+                      </q-item>
+                      <q-separator />
+                      <q-item clickable v-close-popup class="logout">
+                        <q-item-section @click="logout()" >Logout</q-item-section>
+                      </q-item>
+                    </div>
+                  </q-menu>
+                  <q-avatar size="52px">
+                    <img :src="user.foto_perfil ? `${path_photo}/${user.foto_perfil}` : `${path_photo}/default.jpg`" />
+                  </q-avatar>
+                </q-btn>
+              </div>
             </div>
           </div>
         </q-toolbar-title>
-        <!-- <q-img :src="require(`~/assets/flags/us.png`)" spinner-color="white" /> -->
-        <!-- <q-img src="~/assets/flags/us.png" spinner-color="white" /> -->
       </q-toolbar>
     </q-header>
     <!-- Header -->
@@ -275,6 +312,9 @@
           </div>
           <div class="col-12">
             <q-btn class="footer_subs" :label="i18n.footer.inicio.categorias" flat to="/categorias" ></q-btn>
+          </div>
+          <div class="col-12">
+            <q-btn class="footer_subs" :label="'Projetos'" flat to="/projetos" ></q-btn>
           </div>
         </div>
         <div class="col-4 col-md-2 offset-md-0 offset-1">
@@ -338,8 +378,10 @@
 
 <script>
   import { required, sameAs, email } from 'vuelidate/lib/validators'
-  import LoginRegisterForgot from '../components/LoginRegisterForgot.vue'
-  import eventBus from '../boot/eventBus'
+  import LoginRegisterForgot from 'src/components/LoginRegisterForgot.vue'
+  import Notificacoes from 'src/components/Notificacoes/Index.vue'
+  import eventBus from 'src/boot/eventBus'
+  import { environment } from 'src/helpers/environment';
 
   export default {
     name: 'MainLayout',
@@ -390,11 +432,15 @@
         },
         search: {
           pesquisa: ''
-        }
+        },
+        notificacoes_nao_lidas: 0,
+        path_photo: `${environment.host}usuarios/profile-image`,
+				currentUser: this.$q.sessionStorage.getItem('auth')
       }
     },
     components: {
-      LoginRegisterForgot: LoginRegisterForgot
+      LoginRegisterForgot: LoginRegisterForgot,
+      Notificacoes: Notificacoes
     },
     watch:{
       '$route' (to,from){
@@ -418,11 +464,13 @@
       }
     },
     mounted(){
-      let user = JSON.parse( this.$q.sessionStorage.getItem('auth') )
+      let user = this.$q.sessionStorage.getItem('auth')
+      this.currentUser = this.currentUser ? (this.currentUser.usuario ? this.currentUser.usuario : '') : ''
 
       if(user !== null) {
-        this.user = user
+        this.user = user.usuario
         this.logado = true
+        this.buscarNotificacoes()
       }
 
       if(this.$route.path == '/'){
@@ -475,7 +523,6 @@
       },
       pesquisar(){
         if (!this.search.pesquisa) return false
-        // console.log(this.search.pesquisa)
         this.$router.push({ path: `/historia/${this.search.pesquisa}` })
       },
       goCategoria(){
@@ -488,8 +535,8 @@
         this.$router.push({ path: '/criar_historia' })
       },
       section(){
-        this.logar=false
-        this.sessao=true
+        this.logar = false
+        this.sessao = true
         this.esqueciSenhaModal = false
 
         this.$set(this,'formRegister', {
@@ -520,8 +567,8 @@
         }
       },
       logar_conta(){
-        this.sessao=false
-        this.logar=true
+        this.sessao = false
+        this.logar = true
         this.esqueciSenhaModal = false
 
         this.$set(this,'formRegister', {
@@ -538,15 +585,13 @@
           senha: '',
         })
       },
-      login(){
-        let that = this
-
+      async login(){
         let params = {
-          email: that.formLogin.email,
-          password: that.formLogin.senha
+          email: this.formLogin.email,
+          password: this.formLogin.senha
         }
 
-        that.$axios.post(that.$pathWeb + '/login', params)
+        await this.$api.post('auth/login', params)
         .then((res) => {
           // console.log(res)
           this.$q.sessionStorage.set('auth', JSON.stringify( res.data.data ))
@@ -557,50 +602,46 @@
           this.logar = false
           this.esqueciSenhaModal = false
 
-          // that.sucesso()
+          // this.sucesso()
           this.$router.push({path: '/iniciar_leitura'})
 
         })
         .catch((err) => {
           // console.log(err.response)
-          that.falha('Falha na operação. Por favor verifique o formulário e tente novamente')
+          this.falha('Falha na operação. Por favor verifique o formulário e tente novamente')
         })
       },
-      logout(){
-        let that = this
+      async logout(){
+        this.user = null
+        this.logado = false
+        this.isIndex = true
+        this.$q.sessionStorage.remove('auth')
 
-        that.$axios.post(that.$pathWeb + '/logout', this.user)
-        .then((res) => {
-          // console.log(res)
-          this.user = null
-          this.logado = false
-          this.isIndex = true
-          this.$q.sessionStorage.remove('auth')
-
-          this.$router.push({path: '/'})
-        })
-        .catch((err) => {
-          // console.log(err.response)
-        })
+        this.$router.push({path: '/'})
+        // this.$axios.post(this.$pathWeb + '/logout', this.user)
+        // .then((res) => {
+        //   // console.log(res)
+        // })
+        // .catch((err) => {
+        //   // console.log(err.response)
+        // })
       },
-      cadastrarUsuario(){
-        let that = this
-
+      async cadastrarUsuario(){
         if(!this.validarCadastro()) return false
 
         let params = {
-          name: that.formRegister.nome,
-          apelido: that.formRegister.apelido,
-          email: that.formRegister.email,
-          password: that.formRegister.senha,
-          password_confirmation: that.formRegister.repita_senha,
-          data_nascimento: that.formRegister.data_nascimento
+          name: this.formRegister.nome,
+          apelido: this.formRegister.apelido,
+          email: this.formRegister.email,
+          password: this.formRegister.senha,
+          password_confirmation: this.formRegister.repita_senha,
+          data_nascimento: this.formRegister.data_nascimento
         }
 
-        that.$axios.post(that.$pathAPI + '/register', params)
-        .then((res) => {
+        await this.$api.post('usuarios', params)
+        .then(async (res) => {
           this.sessao = false
-          this.logar=true
+          this.logar = true
 
           this.$set(this,'formRegister', {
             nome: '',
@@ -611,26 +652,24 @@
             data_nascimento: '',
           })
 
-          that.sucesso('Cadastrado com sucesso! Conecte-se na plataforma.')
+          await this.sucesso('Cadastrado com sucesso! Conecte-se na plataforma.')
 
           this.$v.$reset()
         })
         .catch((err) => {
-          that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
+          this.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
           // console.log(err)
         })
       },
       enviarRedefinirSenha(){
-        let that = this
-
         if(!this.validarRedefinirSenha()) return false
 
         let params = {
-          email: that.formEsqueciSenha.email,
-          email_confirmation: that.formEsqueciSenha.confirma_email
+          email: this.formEsqueciSenha.email,
+          email_confirmation: this.formEsqueciSenha.confirma_email
         }
 
-        that.$axios.post(that.$pathAPI + '/forgot_password', params)
+        this.$axios.post(this.$pathAPI + '/forgot_password', params)
         .then((res) => {
           this.$set(this,'formEsqueciSenha', {
             email: '',
@@ -641,25 +680,24 @@
           this.logar=false
           this.esqueciSenhaModal = false
 
-          that.sucesso('Redefinição de senha enviada com sucesso! Instrunções foram enviadas por e-mail')
+          this.sucesso('Redefinição de senha enviada com sucesso! Instrunções foram enviadas por e-mail')
 
           this.$v.$reset()
         })
         .catch((err) => {
           // console.log(err.response)
-          that.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
+          this.falha('Falha no cadastro! Verifique as informações do formulário ou contate o nosso suporte.', 10000)
 
         })
       },
-      alterarParametro(){
-        let that = this
-
-        that.$axios.post(that.$pathAPI + '/user/preferencia/apelido')
+      async alterarParametro(){
+        this.user.usar_apelido = !this.user.usar_apelido 
+        await this.$api.patch(`usuarios/${this.user._id}`, this.user)
         .then((res) => {
           this.$q.sessionStorage.set('auth', JSON.stringify( this.user ))
         })
         .catch((err) => {
-
+          console.log(err)
         })
       },
       validarCadastro() {
@@ -721,6 +759,17 @@
         })
 
       },
+      
+      async buscarNotificacoes() {
+          try {
+              if (this.currentUser) {
+                  let notificacao = await this.$api.get(`notificacoes?lido=${false}`)
+                  this.notificacoes_nao_lidas = notificacao.data.countNaoLidas
+              }
+          } catch (error) {
+              console.log(error)
+          }
+      },
     }
   }
 </script>
@@ -733,5 +782,14 @@
   @import '../css/darkMode/footer-dark.scss';
   @import '../css/footer.scss';
   @import '../css/dialogs.scss';
+
+  .badge-notifications {
+    position: absolute;
+    top: 4.7vh;
+    // right: 10.5%;
+    z-index: 2;
+    border-radius: 50px;
+    padding: 2px 4px;
+  }
 
 </style>
