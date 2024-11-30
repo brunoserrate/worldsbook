@@ -1,6 +1,6 @@
 @import 'src/css/variables.scss';
 
-.historias-participantes {
+.lista-historias {
     transition: background-color 0.3s ease;
     
     h1 {
@@ -77,14 +77,14 @@
 } 
 
 @media screen and (min-width: 600px){
-    .historias-participantes {
+    .lista-historias {
         .col-historias {
             border-bottom: 0 !important;
         }
     }
 }
 @media screen and (min-width: 980px){
-    .historias-participantes{
+    .lista-historias{
         
     }   
 }

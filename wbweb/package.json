@@ -6,7 +6,10 @@
   "author": "netdev",
   "private": true,
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "NODE_ENV=development quasar dev",
+    "homolog": "NODE_ENV=homologacao quasar dev",
+    "start": "NODE_ENV=production quasar dev"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
@@ -15,9 +18,12 @@
     "core-js": "^3.6.5",
     "date-fns": "^2.28.0",
     "quasar": "^1.0.0",
+    "socket.io-client": "^4.8.1",
     "vue-slick-carousel": "^1.0.6",
     "vuelidate": "^0.7.7",
-    "vueperslides": "^2.15.2"
+    "vueperslides": "^2.15.2",
+    "vuex": "^3.6.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.12.3",

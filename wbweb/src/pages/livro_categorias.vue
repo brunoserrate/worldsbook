@@ -1,145 +1,45 @@
 <template>
-    <q-page :class="{ 'dark-livro_categorias': darkmode, 'livro_categorias': !darkmode }">
+    <q-page class="livro_categorias" :class="{ 'dark-livro_categorias': darkmode }">
         <q-inner-loading
             :showing="visible"
             label-class="text-teal"
             label-style="font-size: 1.1em"
             :label="i18n.carregando+'...'"
         ></q-inner-loading>
-        <div class="row row_categorias" >
+        <div class="row row-livros pt-5" >
             <div class="col-12">
-                <q-card style="height: 100%;" class="card_search">
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="p_search">{{i18n.titulo}} <b>{{categoria | lowercase}}</b></p>
-                        </div>
-                        <div class="col-12">
-                            <p class="p_text">{{i18n.diversos_livros}}</p>
-                        </div>
+                <div class="row">
+                    <div class="col-12 mt-5">
+                        <h1 class="p_search p-0 m-0">{{ i18n.titulo }} <b>{{ categoria | lowercase }}</b></h1>
                     </div>
-                </q-card>
-            </div>
-            <div class="col-12 align_livros">
-                <div class="row row_livros_mobile">
-                    <div class="col-6"><p class="total_historias">{{livros.length}} {{ (livros.length == 1) ? i18n.qtd_historias.singular : i18n.qtd_historias.plural }}</p></div>
-                    <div class="col-6 text-right">
-                        <q-btn flat style="color: #7A22A7" :label="i18n.voltar" @click="goBackPageCategorias"/>
-                    </div>
-                    <div class="col-12 col-md-6" v-for="(livro, i) in livros" :key="i">
-                        <q-card class="card-categorias" @click="openDialog(livro)">
-                            <div class="row">
-                                <div class="col-6 col-sm-4 col-md-6 col-lg-4">
-						            <img alt="Cover" :src="livro.caminho_capa" class="cover_historia"/>
-                                </div>
-                                <div class="col-6 col-detalhes-historia">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <p class="livro_titulo">{{livro.titulo}} </p>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="livro_autor">{{i18n.de}} {{livro.apelido_usuario}} </p>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="row  row_icones">
-                                                <div class="col-1 align_icone">
-                                                    <q-icon name="grade" class="icons_card" />
-                                                </div>
-                                                <div class="col-1 align_result"> {{livro.total_votos}} </div>
-                                                <div class="col-1 align_icone">
-                                                    <q-icon name="visibility" class="icons_card" />
-                                                </div>
-                                                <div class="col-1 align_result"> {{livro.total_visualizacoes}} </div>
-                                                <div class="col-1 align_icone">
-                                                    <q-icon name="list" class="icons_card" />
-                                                </div>
-                                                <div class="col-1 align_result"> {{livro.total_capitulos}} </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="livro_descricao">{{livro.descricao | cutDescricao}}</p>
-                                        </div>
-                                        <div class="col-12">
-                                            <q-chip v-for="(tag, i) in livro.tags.slice(0,4)" :key="i" class="tags">{{tag}}</q-chip> <!--Dar um slice-->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </q-card>
+                    <div class="col-12">
+                        <h3 class="p_text">{{i18n.diversos_livros}}</h3>
                     </div>
                 </div>
             </div>
+            <div class="col-12 px-5 mt-4"><p class="total-historias p-0">{{livros.length}} {{ (livros.length == 1) ? i18n.qtd_historias.singular : i18n.qtd_historias.plural }}</p></div>
+            <div class="col-12 align_livros">
+                <livros-lista 
+                    :historias="livros" 
+                    :count_historias="count" 
+                    :pagesNumber="pagesNumber" 
+                    :page="page" 
+                    @alterPage="(value) => {
+                        this.page = value
+                        this.getLivros()
+                    }"
+                />
+            </div>
         </div>
-		<q-dialog v-model="livro_dialog_mobile">
-			<q-card :class="{'dark-card_detail_historia_mobile': darkmode, 'card_detail_historia_mobile': !darkmode}">
-				<div class="row" style="height: 100%;">
-					<div class="col-12 cover_dialog">
-						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
-					</div>
-					<div class="col-12"> 
-						<h1 class="title_dialog_historia">{{livro_detail.titulo}}</h1>
-						<div class="row">
-							<div class="col-12" style="display: flex; justify-content: center;">
-								<hr style="margin: 0 0 0 0; width: 80%;"/>
-							</div>
-							<div class="col-12 col_btn_detail">
-								<p class="col_descricao_detail_mobile">{{livro_detail.descricao | cutDescricao}}</p>
-							</div>
-							<div class="col-12 col_btn_detail">
-								<q-btn unelevated :label="i18n.dialogs.iniciar_leitura" class="btn_detail_iniciar_leitura" @click="goLivro(livro_detail)"/>
-							</div>
-						</div>
-						<q-separator></q-separator>
-						<template q-slot="footer">
-							<div class="row">
-								<div class="col-12 col_btn_detail">
-									<p class="col_data_atualizacao"><span>{{i18n.dialogs.data_atualizacao}}: </span>{{ livro_detail.data_atualizacao | formatDateTime }}</p>
-								</div>
-							</div>
-						</template>
-					</div>
-				</div>
-			</q-card>
-		</q-dialog>
-		<q-dialog v-model="livro_dialog">
-			<q-card :class="{'dark-card_detail_historia_desktop': darkmode, 'card_detail_historia_desktop': !darkmode}">
-				<div class="row" style="height: 100%;">
-					<div class="col-6">
-						<img alt="Cover" :src="livro_detail.caminho_capa" class="cover_detail_historia"/>
-					</div>
-					<div class="col-6">
-						<h1 class="title_dialog_historia_desktop">{{livro_detail.titulo}}</h1>
-						<div class="row">
-							<div class="col-12" style="display: flex; justify-content: center;">
-								<hr style="margin: 0 0 0 0; width: 80%;"/>
-							</div>
-							<div class="col-10 col_btn_detail">
-								<q-btn unelevated :label="i18n.dialogs.iniciar_leitura" class="btn_detail_iniciar_leitura" @click="goLivro(livro_detail)"/>
-							</div>
-							<div class="col-2 col_btn_detail">
-								<q-btn unelevated label="+" class="btn_detail_iniciar_leitura"/>
-							</div>
-							<div class="col-12 col_btn_detail_desktop">
-								<p class="col_descricao_detail_desktop">{{livro_detail.descricao | cutDescricao}}</p>
-							</div>
-						</div>
-						<q-separator></q-separator>
-						<template q-slot="footer">
-							<div class="row">
-								<div class="col-12 col_btn_detail">
-									<p class="col_data_atualizacao"><span>{{i18n.dialogs.data_atualizacao}}: </span>{{ livro_detail.data_atualizacao | formatDateTime }}</p>
-								</div>
-							</div>
-						</template>
-					</div>
-				</div>
-			</q-card>
-		</q-dialog>
     </q-page>
 </template>
 <script>
-    import eventBus from '../boot/eventBus'
+    import eventBus from 'src/boot/eventBus'
+    import { environment } from 'src/helpers/environment';
+	import Livros from 'src/components/Livros/Index.vue'
+
     export default {
-        name:'livro-categoria',
+        name: 'livro-categoria',
         data (){
             return {
                 categoria_id: this.$route.params.categoria_id,
@@ -149,7 +49,7 @@
                 livro_detail: {},
                 i18n: {},
                 avisos: {},
-                livros:[],
+                livros: [],
                 livro: {
                     apelido_usuario: '',
                     caminho_capa: '',
@@ -175,33 +75,24 @@
                     usar_apelido: '',
                     usuario_id: '',
                 },
-                window: {
-                    width: 0,
-                },
+                count: 0,
+                page: 1,
+                limit: 10,
+                pagesNumber: 0,
                 visible: false,
                 showSimulatedReturnData: false,
-                darkmode: false
+                darkmode: false,
+                path_cover: `${environment.host}historias/capa-image`,
+                path_photo: `${environment.host}usuarios/profile-image`,
             }
+        },
+        components: {
+            LivrosLista: Livros
         },
         mounted(){
             this.getLivros()
         },
-        filters: {
-            cutDescricao(value){
-                let tamanho_max = 150;
-
-                if(value != undefined && value != null) {
-                    if(value.length > tamanho_max) {
-                        return value.substring(0, tamanho_max) + '...'
-                    }
-                    return value
-                }
-
-            }
-        },
         created() {
-            window.addEventListener('resize', this.handleResize);
-            this.handleResize();
             this.i18n = this.$i18n.livro_categorias
             this.avisos = this.$i18n.avisos
             setTimeout(() => {
@@ -221,20 +112,17 @@
                 }, 500)
             });
         },
-        destroyed() {
-            window.removeEventListener('resize', this.handleResize);
-        },
         methods: {
-            handleResize() {
-                this.window.width = window.innerWidth;
-            },
             async getLivros(){
                 this.visible = true
                 this.showSimulatedReturnData = false
 
-                await this.$api.get(`historias?categoria=${this.categoria_id}`)
+                await this.$api.get(`historias?categoria=${this.categoria_id}&page=${this.page}&limit=${this.limit}&mode=index&sort=total_visualizacoes&ordem=-1`)
                 .then((res) => {
-                    this.livros = res.data
+                    this.livros = res.data.historias
+                    this.count = res.data.count
+                    this.pagesNumber = Math.ceil(this.count / this.limit)
+
                     this.visible = false
                     this.showSimulatedReturnData = true
                 })
@@ -248,33 +136,12 @@
             goBackPageCategorias(){
                 this.$router.push({ path: `/categorias` })
             },
-            openDialog(livro){
-                if (this.window.width > 980){
-                    this.getLivro(livro)
-                }else { 
-                    this.getLivroMobile(livro)
-                }   
-            },
-            getLivro(livro){
-                // console.log(livro)
-                this.livro_detail = livro
-                this.livro_dialog = true
-            },
-            getLivroMobile(livro){
-                // console.log(livro)
-                this.livro_detail = livro
-                this.livro_dialog_mobile = true
-            },
-            goLivro(livro_detail){
-                // console.log(livro_detail)
-                this.$router.push({path: `/livro/` + livro_detail.id})
-            }
         }
     }
 </script>
 <style lang="scss" scoped>
-    @import '../css/livro_categorias.scss';
-    @import '../css/dialogs.scss';
-    @import '../css/darkMode/livro_categorias-dark.scss';
-    @import '../css/darkMode/dialogs-dark.scss';
+    @import 'src/css/livro_categorias.scss';
+    @import 'src/css/dialogs.scss';
+    @import 'src/css/darkMode/livro_categorias-dark.scss';
+    @import 'src/css/darkMode/dialogs-dark.scss';
 </style>

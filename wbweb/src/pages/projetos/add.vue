@@ -49,7 +49,7 @@
                             <q-input filled v-model="projeto.nome" :placeholder="'Insira o nome'" :error="submitted && !$v.projeto.nome.required" :dense="dense" input-class="inputs-form-projeto" class="inputs-form-projeto p-0" />
                             <div v-if="submitted && !$v.projeto.nome.required" class="invalid-feedback">Insira o nome!</div>
                         </div>
-                        <!-- <div class="col-12 col-sm-6 col-md-2 px-1 mt-3 mt-md-0">
+                        <div class="col-12 col-sm-6 col-md-2 px-1 mt-3 mt-md-0">
                             <p class="label_input mb-1 p-0 m-0">Nº Min. 
                                 <q-icon class="cursor-pointer" name="help">
                                     <q-tooltip content-class="bg-purple tooltips" anchor="center right" self="center left" :offset="[10, 10]">
@@ -72,7 +72,7 @@
                             <q-input filled v-model="projeto.numero_max_participantes" type="number"  :maxlength="30" :placeholder="'Nº máx'" :error="submitted && !$v.projeto.numero_max_participantes.required" :dense="dense" input-class="inputs-form-projeto" class="inputs-form-projeto p-0" />
                             <div v-if="submitted && !$v.projeto.numero_max_participantes.required" class="invalid-feedback">Insira o número máximo!</div>
                             <div v-if="submitted && !$v.projeto.numero_max_participantes.maxLength" class="invalid-feedback">O máximo são 30 participantes</div>
-                        </div> -->
+                        </div>
                         <div class="col-12 mt-3 px-1">
                             <p class="label_input mb-1 p-0 m-0">Descrição</p>
                             <q-editor
@@ -157,7 +157,9 @@
                     sobre: '',
                     capa: '',
                     tipo: '',
-                    aberto_publico: true
+                    aberto_publico: true,
+                    numero_min_participantes: 3,
+                    numero_max_participantes: 30,
                 },
                 selectedFile: {},
                 mouseover: false,
@@ -175,14 +177,14 @@
                 projeto: {
                     nome: { required },
                     sobre: { required },
-                    // numero_min_participantes: { 
-                    //     minLength: this.minLength(3),
-                    //     required,
-                    // },
-                    // numero_max_participantes: { 
-                    //     required,
-                    //     maxLength: this.maxLength(30)
-                    // },
+                    numero_min_participantes: { 
+                        minLength: this.minLength(3),
+                        required,
+                    },
+                    numero_max_participantes: { 
+                        required,
+                        maxLength: this.maxLength(30)
+                    },
                     tipo: { required },
                     aberto_publico: { required }
                 },
