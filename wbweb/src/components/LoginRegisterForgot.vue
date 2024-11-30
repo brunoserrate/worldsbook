@@ -62,7 +62,7 @@
 
           <!-- Form -->
           <q-card-section class="q-pt-none">
-            <div class="row">
+            <div class="row wb-form-dark-outlined">
               <div class="col-12">
                 <q-input
                   v-model="$v.formRegister.nome.$model"
@@ -138,7 +138,7 @@
               </div>
               <div class="col-12">
                   <!-- label="Data de nascimento *" -->
-                <q-input
+                <!-- <q-input
                   v-model="$v.formRegister.data_nascimento.$model"
                   type="date"
                   outlined
@@ -147,7 +147,20 @@
                   stack-label
                   :error="$v.formRegister.data_nascimento.$error"
                   :error-message="i18n.dialogs.campo_obrigatorio"
-                />
+                /> -->
+                <q-input outlined v-model="$v.formRegister.data_nascimento.$model" :label="i18n.dialogs.cadastro.inputs.data_nascimento+' *'" mask="##/##/####" stack-label class="dark-input input_cadastro">
+                  <template v-slot:append>
+                    <q-icon name="event" class="cursor-pointer">
+                      <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                        <q-date v-model="$v.formRegister.data_nascimento.$model" mask="DD-MM-YYYY" minimal :options="optionsFn">
+                          <div class="row items-center justify-end">
+                            <q-btn v-close-popup label="Close" color="primary" flat />
+                          </div>
+                        </q-date>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
               </div>
             </div>
           </q-card-section>
@@ -219,7 +232,8 @@
 
 <script>
   import { required, sameAs, email } from 'vuelidate/lib/validators'
-  import eventBus from '../boot/eventBus'
+  import eventBus from 'src/boot/eventBus';
+  import { format } from 'date-fns';
 
   export default {
       name: 'LoginRegisterForgot',
@@ -287,6 +301,12 @@
               this.esqueciSenhaModal = to
           },
       },
+      // computed: {
+      //   optionsFn (date) {
+      //     console.log("date: ", date)
+      //     return date <= '2019/02/15'
+      //   },
+      // },
       mounted(){
           this.$v.$reset()
       },
@@ -409,7 +429,6 @@
               // })
           },
           async cadastrarUsuario(){
-              if(!this.validarCadastro()) return false
 
               let params = {
                   name: this.formRegister.nome,
@@ -417,8 +436,12 @@
                   email: this.formRegister.email,
                   password: this.formRegister.senha,
                   password_confirmation: this.formRegister.repita_senha,
-                  data_nascimento: this.formRegister.data_nascimento
+                  data_nascimento: this.formatDateForAmerica(this.formRegister.data_nascimento)
               }
+
+              console.log(params)
+
+              if(!this.validarCadastro()) return false
 
               await this.$api.post('usuarios', params)
               .then(async (res) => {
@@ -557,6 +580,10 @@
               })
 
               this.hideLogin()
+          },
+          optionsFn (date) {
+            let dataAtual = format(new Date(), 'yyyy/MM/dd')
+            return date <= dataAtual
           },
       }
   }

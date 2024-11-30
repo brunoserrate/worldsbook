@@ -50,6 +50,27 @@ export default {
 
 			return format(new Date(date), 'dd/MM/yyyy HH:mm:ss')
 		},
+		formatDateAmerica(date) {
+			console.log(date)
+			try {
+				if (!date || isNaN(new Date(date).getTime())) return ''
+	
+				return format(new Date(date), 'yyyy-MM-dd')
+
+			} catch (error) {
+				console.log(error)
+			}
+		},
+		formatDateForAmerica(date) {
+			try {
+				if (!date || isNaN(new Date(date).getTime())) return ''
+				
+				let data = date.split('/')
+				return format(new Date(data[2], (data[1] - 1), data[0]), "yyyy-MM-dd")
+			} catch (error) {
+				console.log(error)
+			}
+		},
 		
 		cutDescricao(value, tam){
 			let tamanho_max = tam;
