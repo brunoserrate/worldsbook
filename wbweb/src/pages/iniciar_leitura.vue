@@ -53,13 +53,10 @@
 			</div>
         </div>
 		<div class="row row_livros">
-			<div class="col-12 col-livros mb-5" v-if="window.width > 980">
+
+			<div class="col-12 col-livros mb-5">
 				<categoria-historia categoriaID="" class="categorias">
 				</categoria-historia>
-			</div>
-			<div class="col-12 col-livros mb-5" v-if="window.width < 980">
-				<categoria-historia-mobile categoriaID="" class="categorias">
-				</categoria-historia-mobile>
 			</div>
 
 			<div class="col-12 mt-5">
@@ -69,37 +66,28 @@
 			<div class="col-12 chooses_titulos chooses-1">
 				<p class="title-categorias">{{ i18n.categoria_romance }}</p>
 			</div>
-			<div class="col-12 col-categorias col-categorias-1" v-if="window.width > 980">
+
+			<div class="col-12 col-categorias col-categorias-1">
 				<categoria-historia categoriaID="671a9391a5197c771aa8a458" class="categorias">
 				</categoria-historia>
-			</div>
-			<div class="col-12 col-categorias col-categorias-1" v-if="window.width < 980">
-				<categoria-historia-mobile categoriaID="671a9391a5197c771aa8a458" class="categorias">
-				</categoria-historia-mobile>
 			</div>
 
 			<div class="col-12 chooses_titulos chooses-2">
 				<p class="title-categorias" :class="{ 'text-grey-4': darkmode }">{{ i18n.categoria_terror }}</p>
 			</div>
-			<div class="col-12 col-categorias col-categorias-2" v-if="window.width > 980">
+
+			<div class="col-12 col-categorias col-categorias-2">
 				<categoria-historia categoriaID="671a9395a5197c771aa8a45a" class="categorias">
 				</categoria-historia>
-			</div>
-			<div class="col-12 col-categorias col-categorias-2" v-if="window.width < 980">
-				<categoria-historia-mobile categoriaID="671a9395a5197c771aa8a45a" class="categorias">
-				</categoria-historia-mobile>
 			</div>
 			
 			<div class="col-12 chooses_titulos chooses-1">
 				<p class="title-categorias">{{ i18n.categoria_aventura }}</p>
 			</div>
-			<div class="col-12 col-categorias col-categorias-1" v-if="window.width > 980">
+
+			<div class="col-12 col-categorias col-categorias-1">
 				<categoria-historia categoriaID="671a938da5197c771aa8a456" class="categorias">
 				</categoria-historia>
-			</div>
-			<div class="col-12 col-categorias col-categorias-1"  v-if="window.width < 980">
-				<categoria-historia-mobile categoriaID="671a938da5197c771aa8a456" class="categorias">
-				</categoria-historia-mobile>
 			</div>
 		</div>
     </q-page>
@@ -108,8 +96,7 @@
 	import { VueperSlides, VueperSlide } from 'vueperslides'
 	import 'vueperslides/dist/vueperslides.css'
 	import slideCategoriaVue from 'src/components/IniciarLeitura/slideCategoria.vue';
-	import slideCategoriaVueMobile from 'src/components/IniciarLeitura/slideCategoriaMobile.vue';
-	import categoriasVue from './categorias.vue';
+    import DialogHistoria from 'src/components/Dialogs/Historia.vue'
   	import eventBus from '../boot/eventBus'
 
 	export default {
@@ -130,9 +117,6 @@
 					}
 				],
 				user: {},
-				window: {
-					width: 0,
-				},
 				currentUser: this.$q.sessionStorage.getItem('auth')
 			}
 		},
@@ -140,8 +124,6 @@
 			this.user = this.currentUser ? this.currentUser.usuario : null
 		},
 		created() {
-			window.addEventListener('resize', this.handleResize);
-			this.handleResize();
             this.i18n = this.$i18n.iniciar_leitura
 			setTimeout(() => {
 				let dark = this.$q.localStorage.getItem('darkmode')
@@ -159,55 +141,20 @@
                 }, 500)
             });
 		},
-		destroyed() {
-			window.removeEventListener('resize', this.handleResize);
-		},
-		watch: {
-			
-		},
+		
 		components: {
 			VueperSlides,
 			VueperSlide,
 			categoriaHistoria: slideCategoriaVue,
-			categoriaHistoriaMobile: slideCategoriaVueMobile
+            DialogHistoria: DialogHistoria
 		},
-		methods:{
-			handleResize() {
-				this.window.width = window.innerWidth;
-			},
-			async buscarLivros(){
-				await this.$api.get('historias?limit=15')
-				.then((res) => {
-					this.livros = res.data.data
-					
-				})
-				.catch((err) => {
-					
-				})
-			},
-			cutSinopse(){
-				for(let i=0; i < this.livros.length; i++){
-					this.livros[i].attributes.sinopse = this.livros[i].attributes.sinopse.substring(0, 200);
-				}
-			},
-			ucFirstFiltro(valor){
-				if(valor != undefined || valor != null || valor === ''){
-					return valor[0].toUpperCase() + valor.slice(1).toLowerCase()
-				}
-			},
+		methods: {
 			ucWordsFiltro(valor){
 				if(valor != undefined || valor != null || valor === ''){
 					let arr = valor.split(' ')
 					let result
 
 					return arr[0]
-					// for (let i = 0; i < arr.length; i++) {
-					// 	arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-					// }
-
-					// result = arr.join(' ')
-
-					// return result
 				}
 			},
 		},

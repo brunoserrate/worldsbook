@@ -1,8 +1,9 @@
 <template>
     <div>
+		<!-- :visible-slides="6" -->
         <vueper-slides
             class="no-shadow slides_style"
-            :visible-slides="6"
+			:breakpoints="breakpoints"
             :arrows="true"
             :slide-ratio="1 / 5"
             slide-multiple
@@ -16,44 +17,15 @@
             />
         </vueper-slides>
 		
-		<q-dialog v-model="livro_dialog">
-			<q-card :class="{ 'dark-card_detail_historia_mobile_index': darkmode, 'card_detail_historia_mobile_index': !darkmode }">
-				<div class="row" style="height: 100%;">
-					<div class="col-6">
-						<img alt="Cover" :src="livro_detail.caminho_capa ? (livro_detail.caminho_capa ? `${path_photo}/${livro_detail.caminho_capa}` : ``) : `${path_photo}/default.png`" class="cover_detail_historia"/>
-					</div>
-					<div class="col-6">
-						<div class="row h-100 d-flex justify-content-space-between">
-							<div class="col-12">
-								<h1 class="title_dialog_historia">{{livro_detail.titulo}}</h1>
-								<q-separator class="separador mb-4"></q-separator>
-
-								<div class="row m-0 p-0 mt-4">
-									<div class="col-12 col_btn_detail d-flex align-items-center px-4">
-										<q-btn unelevated :label="i18n.iniciar_leitura" class="btn_detail_iniciar_leitura me-2" @click="getLivro(livro_detail)"/>
-										<q-btn unelevated label="+" class="btn_detail_iniciar_leitura_mais"/>
-									</div>
-									<div class="col-12 col_btn_detail px-4">
-										<p class="col_descricao_detail">{{livro_detail.descricao | cutDescricao}}</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-12 col_btn_detail d-flex flex-direction-column justify-content-end">
-								<q-separator class="separador mb-4"></q-separator>
-								<p class="col_data_atualizacao"><span>{{i18n.data_atualizacao}}: </span>{{ livro_detail.updatedAt | formatDateTime }}</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</q-card>
-		</q-dialog>
+        <dialog-historia />
     </div>
 </template>
 <script>
 	import { VueperSlides, VueperSlide } from 'vueperslides'
 	import 'vueperslides/dist/vueperslides.css'
-	import eventBus from '../../boot/eventBus'
+	import eventBus from 'src/boot/eventBus'
 	import { environment } from 'src/helpers/environment';
+    import DialogHistoria from 'src/components/Dialogs/Historia.vue'
 
 	export default {
 		// props:['breadcrumbs'],
@@ -64,26 +36,26 @@
 				sessao: false,
 				livro_dialog: false,
 				darkmode: false,
-				livros:[],
+				livros: [],
 				i18n: {},
-				livro_detail: {
-					caminho_capa: '', 
-					categoria: '',
-					conteudo_adulto: '',
-					descricao: '',
-					direitos_autorais: '',
-					idioma: '',
-					publico_alvo: '',
-					titulo: '',
-					usuario: '',
-				},
+				livro_detail: {},
+				index_livro: null,
+				activeDialogHistoria: false,
 				slide: 1,
-				slides: [
-					{
-						title: 'Slide #1',
-						content: 'Slide content.'
+				breakpoints: {
+					20000: {
+						slideRatio: 1 / 5,
+						visibleSlides: 8
+					},
+					2100: {
+						slideRatio: 1 / 5,
+						visibleSlides: 6
+					},
+					900: {
+						slideRatio: 1 / 2,
+						visibleSlides: 3
 					}
-				],
+				},
                 path_photo: `${environment.host}historias/capa-image`,
                 path_photo_profile: `${environment.host}usuarios/profile-image`,
 				currentUser: this.$q.sessionStorage.getItem('auth')
@@ -110,7 +82,11 @@
                 }, 500)
             });
 		},
-		components: { VueperSlides, VueperSlide },
+		components: { 
+			VueperSlides, 
+			VueperSlide,
+            DialogHistoria: DialogHistoria
+		},
 		filters: {
 			cutDescricao(value){
 				let tamanho_max = 300;
@@ -124,16 +100,12 @@
 
 			}
 		},
-		methods:{
-			getLivro(livro_detail){
-				this.$router.push({path: `livro/` + livro_detail._id})
-			},
-			openDialog(livro){
-				this.livro_dialog = true
-				this.livro_detail = livro
-			},
+		methods: {
+            openDialog(livro){
+				this.$store.commit("dialog/OPEN_DIALOG", livro);
+            },
 			async buscarLivros(){
-				await this.$api.get(`historias?limit=15&categoria=${this.categoriaID}&mode=index`)
+				await this.$api.get(`historias?limit=15&categoria=${this.categoriaID}&mode=index&sort=total_visualizacoes&ordem=-1`)
 				.then((res) => {
 					this.livros = res.data
 				})
@@ -145,8 +117,9 @@
 	};
 </script>
 <style lang="scss" scoped>
-    @import '../../css/iniciar-leitura-2.scss';
-    @import '../../css/darkMode/iniciar-leitura-dark.scss';
-    @import '../../css/dialogs.scss';
-    @import '../../css/darkMode/dialogs-dark.scss';
+    @import 'src/css/iniciar-leitura-2.scss';
+    @import 'src/css/darkMode/iniciar-leitura-dark.scss';
+	
+    @import 'src/css/dialogs.scss';
+    @import 'src/css/darkMode/dialogs-dark.scss';
 </style>

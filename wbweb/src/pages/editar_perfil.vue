@@ -1,60 +1,77 @@
 <template>
-    <q-page :class="{'dark-editar_perfil': darkmode, 'editar_perfil': !darkmode}">
-        <div class="row row-dark-perfil">
-            <div class="col-10 offset-2">
-                <p class="p-altere-informacoes">{{ i18n.titulo }}</p>
-            </div>
-        </div>
-        <div class="row inputs_row pb-5">
+    <q-page class="editar_perfil" :class="{'dark-editar_perfil': darkmode }">
+        <div class="row inputs_row py-5" v-if="alterar_senha == false">
             <div class="col-12 col-md-7 alinhar_inputs">
-                <div class="row align-form">
-                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-2 offset-md-0 alinhar_label_utilizador">
-                        <span>{{ i18n.nome }}</span>
+                <div class="row align-form px-4 px-md-0">
+                    
+                    <div class="col-12 mb-3">
+                        <p class="p-altere-informacoes text-center">{{ i18n.titulo }}</p>
                     </div>
-                    <div class="col-9 col-md-7">
-                        <q-input square outlined v-model="user.name" :dense="dense" class="input_form"/>
-                    </div> 
-                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-2 offset-md-0 alinhar_label_utilizador">
-                        <span>{{ i18n.apelido }}</span>
+
+                    <div class="col-12">
+                        <div class="row m-0">
+                            <div class="col-12 col-md-4 alinhar_label_utilizador">
+                                <span class="me-3">{{ i18n.nome }}</span>
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <q-input square outlined v-model="user.name" :dense="dense" class="input_form"/>
+                            </div> 
+                        </div>
                     </div>
-                    <div class="col-9 col-md-7">
-                        <q-input square outlined v-model="user.apelido" :dense="dense" class="input_form"/>
+
+                    <div class="col-12 mt-3">
+                        <div class="row m-0">
+                            <div class="col-12 col-md-4 alinhar_label_utilizador">
+                                <span class="me-3">{{ i18n.apelido }}</span>
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <q-input square outlined v-model="user.apelido" :dense="dense" class="input_form"/>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-2 offset-md-0 alinhar_label_utilizador">
-                        <span>{{ i18n.email }}</span>
+                    
+                    <div class="col-12 mt-3">
+                        <div class="row m-0">
+                            <div class="col-12 col-md-4 alinhar_label_utilizador">
+                                <span class="me-3">{{ i18n.email }}</span>
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <q-input square outlined type="email" v-model="user.email" :dense="dense" class="input_form"/>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-9 col-md-7">
-                        <q-input square outlined type="email" v-model="user.email" :dense="dense" class="input_form"/>
+
+                    <div class="col-12 mt-3">
+                        <div class="row m-0">
+                            <div class="col-12 col-md-4 alinhar_label_utilizador">
+                                <span class="me-3">{{ i18n.descricao_usuario }}</span>
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <q-input v-model="user.sobre" outlined type="textarea" style="border-radius: 0"/>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-2 offset-md-0 alinhar_label_utilizador">
-                        <span>{{ i18n.senha }}</span>
+
+                    <div class="col-12 btn-query-desk">
+                        <div class="row m-0">
+                            <div class="col-12 col-md-7 offset-4 d-none d-md-block mt-3">
+                                <q-btn :label="i18n.salvar" flat @click="setPerfil" class="btn-salvar">
+                                    <q-inner-loading
+                                        :showing="visible"
+                                        label-class="text-teal"
+                                        label-style="font-size: 1.1em"
+                                    ></q-inner-loading>
+                                </q-btn>
+                                <q-btn :label="'Alterar senha'" flat @click="alterar_senha = true" class="btn-salvar mt-2"></q-btn>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-8 col-md-6">
-                        <q-input square outlined type="password" disable v-model="user.password" :dense="dense" class="input_form"/>
-                    </div>
-                    <div class="col-1 align_icon d-flex align-items-center justify-content-center">
-                        <q-icon name="edit" class="icone_edit_password"></q-icon>
-                    </div>
-                    <div class="col-9 col-md-4 mt-md-2 mt-lg-2 mt-xl-2 offset-md-0 alinhar_label_utilizador">
-                        <span>{{ i18n.descricao_usuario }}</span>
-                    </div>
-                    <div class="col-9 col-md-7">
-                        <q-input v-model="user.sobre" outlined type="textarea" style="border-radius: 0"/>
-                    </div>
-                    <div class="col-9 col-md-7 offset-4 btn-query">
-                        <q-btn :label="i18n.salvar" flat @click="setPerfil" class="btn-salvar">
-                            <q-inner-loading
-                                :showing="visible"
-                                label-class="text-teal"
-                                label-style="font-size: 1.1em"
-                            ></q-inner-loading>
-                        </q-btn>
-                    </div>
+
                 </div>
             </div>
-            <div class="col-12 col-md-5">
-                <div class="row row_foto">
-                    <div class="col-5 col-md-6">
+            <div class="col-12 col-md-5 mt-4">
+                <div class="row row_foto d-flex justify-content-center justify-md-content-start">
+                    <div class="col-5 col-md-6 d-flex justify-content-center">
                         <q-avatar size="17em" class="avatar-profile" @mouseover="mouseover = true" @mouseout="mouseover = false">
                             <label for='selecao-arquivo'>
                                 <q-icon name="photo_camera" class="icon-photo" :style="`display: ${mouseover ? 'block' : 'none'};`" />
@@ -76,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-8 offset-2 btn-query-desk">
+            <div class="col-8 offset-2 mt-5 btn-query-desk d-block d-md-none">
                 <q-btn :label="i18n.salvar" flat @click="setPerfil" class="btn-salvar">
                     <q-inner-loading
                         :showing="visible"
@@ -84,6 +101,73 @@
                         label-style="font-size: 1.1em"
                     ></q-inner-loading>
                 </q-btn>
+                <q-btn :label="'Alterar senha'" flat @click="alterar_senha = true" class="btn-salvar mt-2"></q-btn>
+            </div>
+        </div>
+        <div class="row py-5 inputs_row" v-else>
+            <div class="col-12 col-md-7 alinhar_inputs">
+                <div class="row align-form px-4 px-md-0">
+                    
+                    <div class="col-12 mb-3">
+                        <p class="p-altere-informacoes text-center">{{ 'Alterar senha' }}</p>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="row m-0">
+                            <div class="col-12 col-md-4 alinhar_label_utilizador">
+                                <span class="me-3">{{ 'Nova senha' }}</span>
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <q-input 
+                                square 
+                                outlined 
+                                v-model="altSenha.password" 
+                                type="password" 
+                                :dense="dense" 
+                                class="input_form mb-0 pb-0"
+                                :error="submittedPassword && !$v.altSenha.password.required"
+                            />
+                            <div v-if="submittedPassword && !$v.altSenha.password.required" class="invalid-feedback">{{ 'Digite a senha' }}</div>
+                            </div> 
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <div class="row m-0">
+                            <div class="col-12 col-md-4 alinhar_label_utilizador">
+                                <span class="me-3">{{ 'Repita a senha' }}</span>
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <q-input 
+                                    square 
+                                    outlined 
+                                    v-model="altSenha.repeat_password" 
+                                    type="password" 
+                                    :dense="dense" 
+                                    class="input_form mb-0 pb-0"
+                                    :error="submittedPassword && !$v.altSenha.repeat_password.required || !$v.altSenha.repeat_password.sameAsPassword"
+                                />
+                                <div v-if="submittedPassword && !$v.altSenha.repeat_password.required" class="invalid-feedback">{{ 'Digite a senha' }}</div>
+                                <div v-if="submittedPassword && !$v.altSenha.repeat_password.sameAsPassword" class="invalid-feedback">{{ 'Senhas não coincidem' }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 btn-query-desk">
+                        <div class="row m-0">
+                            <div class="col-12 col-md-7 offset-4 d-none d-md-block mt-3">
+                                <q-btn :label="i18n.salvar" flat @click="alterarSenha" class="btn-salvar">
+                                    <q-inner-loading
+                                        :showing="visible"
+                                        label-class="text-teal"
+                                        label-style="font-size: 1.1em"
+                                    ></q-inner-loading>
+                                </q-btn>
+                                <q-btn :label="'Cancelar'" flat variant="secondary" @click="alterar_senha = false" class="btn-salvar mt-2"></q-btn>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <q-dialog v-model="confirm" persistent>
@@ -104,6 +188,8 @@
 <script>
     import eventBus from '../boot/eventBus'
     import { environment } from 'src/helpers/environment';
+    import { required, sameAs, email } from 'vuelidate/lib/validators'
+
     export default {
         name: 'editar-perfil',
         data(){
@@ -123,6 +209,11 @@
                     apelido: '',
                     email: '',
                 },
+                altSenha: {
+                    password: '',
+                    repeat_password: ''
+                },
+                alterar_senha: false,
                 selectedFile: {},
                 loading_photo: false,
                 visible: false,
@@ -130,10 +221,17 @@
                 users: [],
                 visible: false,
                 showSimulatedReturnData: false,
+                submittedPassword: false,
                 darkmode: false,
                 path_photo: `${environment.host}usuarios/profile-image`,
 				currentUser: this.$q.sessionStorage.getItem('auth')
             }
+        },
+        validations: {
+            altSenha: {
+                password: { required },
+                repeat_password: { required, sameAsPassword: sameAs('password') }
+            },
         },
         created() {
             this.i18n = this.$i18n.editar_perfil
@@ -170,7 +268,7 @@
                     let storage_user = this.$q.sessionStorage.getItem('auth')
                     storage_user.usuario = res.data
                     
-                    this.$q.sessionStorage.set('auth', JSON.stringify( storage_user ))
+                    this.$q.sessionStorage.set('auth', storage_user)
 
                     this.visible = false
                     this.showSimulatedReturnData = true
@@ -182,6 +280,30 @@
                     this.showSimulatedReturnData = true
                     this.erroEditar(err, this.avisos.erro_editar)
                 })
+            },
+            async alterarSenha() {
+                try {
+                    this.submittedPassword = true
+                    if (!this.$v.altSenha.$invalid) {
+                        this.visible = true
+                        let alterar_senha = await this.$api.patch(`usuarios/alterar-senha/${this.currentUser._id}`, this.altSenha)
+                        console.log(alterar_senha.data)
+                        
+                        setTimeout(() => {
+                            this.$q.sessionStorage.remove('auth')
+                            this.$router.go({ path: '/' })
+                            this.visible = false
+                        }, 2000)
+
+                    } else {
+                        console.log(this.$v)
+                    }
+
+                } catch (error) {
+                    console.log(error)
+                    this.falha('Houve um erro ao tentar alterar a senha, tente novamente!')
+                    this.visible = false
+                }
             },
             async handleFileChange() {
                 this.loading_photo = true

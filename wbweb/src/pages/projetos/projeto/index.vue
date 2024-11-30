@@ -78,7 +78,12 @@
 		</div>
 		<q-dialog v-model="dialog_pedir_para_participar" >
 			<q-card class="dialog-pedir-para-participar p-3" :class="{ 'dialog-pedir-para-participar-dark': darkmode }" >
-				<div class="row m-0 h-100">
+				<div class="row m-0 h-100 p-5" v-if="projeto_limite_max == true">
+					<div class="col-12 mt-3">
+						<h3 class="p-0 m-0 text-center">Infelizmente, esse projeto chegou ao limite máximo de histórias participantes!</h3>
+					</div>
+				</div>
+				<div class="row m-0 h-100" v-else>
 					<div class="col-12 mt-3">
 						<h3 class="p-0 m-0 text-center">Escolha a história que deseja inscrever!</h3>
 					</div>
@@ -150,6 +155,7 @@
 				livros: [],
 				livro_dialog: false,
 				darkmode: false,
+				projeto_limite_max: false,
 				slide: 1,
                 page: 1,
                 pagesNumber: 0,
@@ -222,6 +228,25 @@
 					console.log(error)
 				}
 			},
+			
+            async verificaNumeroMax() {
+                try {
+                    if (!this.projeto._id) return ''
+
+                    let verificaNumeroMax = await this.$api.get(`projetos/verifica-limite-participantes/${this.projeto._id}`)
+                    
+                    if (verificaNumeroMax.data == true) {
+                        this.projeto_limite_max = true
+                    } else {
+                        this.projeto_limite_max = false
+						await this.getHistorias()
+                    }
+
+                } catch (error) {
+                    console.log(error)
+                }
+            },
+
 			async getHistorias() {
 				try {
 					let historias = await this.$api.get(`historias?usuario=${this.currentUser._id}&limit=200`)
@@ -267,7 +292,7 @@
 		},
         watch: {
             page() {
-                this.changePage();
+                // this.changePage();
                 if (!this.isInitialLoad) {
                 } else {
                     this.isInitialLoad = false
@@ -276,7 +301,7 @@
 
 			dialog_pedir_para_participar() {
 				if (this.dialog_pedir_para_participar) {
-					this.getHistorias()
+					this.verificaNumeroMax()
 				}
 			}
         }

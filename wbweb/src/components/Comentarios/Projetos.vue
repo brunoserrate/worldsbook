@@ -33,7 +33,7 @@
                                 <strong class="nome_usuario_comentario p-0 m-0" @click="$router.push({ path: `/perfil/${comentario.usuario._id}` })" >{{ comentario.usuario ? comentario.usuario.name : '' }}</strong>
                             </div>
                             <div class="col-12">
-                                <p class="data_comentario p-0 m-0">{{ comentario.createdAt | formatDateTime }}</p>
+                                <p class="data_comentario p-0 m-0">{{ formatDate(comentario.createdAt) }}</p>
                             </div>
                             <div class="col-12 mt-3">
                                 <p class="comentario_corpo p-0 m-0">{{ comentario.comentario }}</p>
@@ -71,7 +71,7 @@
                                                         <strong class="nome_usuario_comentario p-0 m-0" @click="$router.push({ path: `/perfil/${resposta.usuario._id}` })" >{{ resposta.usuario ? resposta.usuario.name : '' }}</strong>
                                                     </div>
                                                     <div class="col-12">
-                                                        <p class="data_comentario p-0 m-0">{{ resposta.createdAt | formatDateTime }}</p>
+                                                        <p class="data_comentario p-0 m-0">{{ formatDate(resposta.createdAt) }}</p>
                                                     </div>
                                                     <div class="col-12 mt-3">
                                                         <p class="comentario_corpo p-0 m-0">{{ resposta.comentario }}</p>

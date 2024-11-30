@@ -49,6 +49,18 @@ export default {
 			if (!date || isNaN(new Date(date).getTime())) return ''
 
 			return format(new Date(date), 'dd/MM/yyyy HH:mm:ss')
+		},
+		
+		cutDescricao(value, tam){
+			let tamanho_max = tam;
+
+			if(value != undefined && value != null) {
+				if(value.length > tamanho_max) {
+					return value.substring(0, tamanho_max) + '...'
+				}
+				return value
+			}
+
 		}
 	},
 	created() {

@@ -1,0 +1,22 @@
+@import 'src/css/variables.scss';
+
+.dark-dialog-historia {
+    transition: background-color 0.3s ease;
+    background: $bgColorPatternDark;
+    
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select, .q-radio__label {
+        color: $textColorDark;
+    } 
+    
+} 
+
+@media screen and (min-width: 600px){
+    .dark-dialog-historia {
+        
+    }
+}
+@media screen and (min-width: 980px){
+    .dark-dialog-historia{
+        
+    }   
+}

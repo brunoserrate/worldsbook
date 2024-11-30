@@ -232,7 +232,7 @@
                         </q-item-section>
                       </q-item>
                       <q-separator />
-                      <q-item tag="label" v-ripple class="apelido">
+                      <!-- <q-item tag="label" v-ripple class="apelido">
                         <q-item-section>
                           <q-item-label>{{ i18n.header.avatar.apelido.label }}</q-item-label>
                           <q-item-label caption>{{ i18n.header.avatar.apelido.caption }}</q-item-label>
@@ -240,7 +240,7 @@
                         <q-item-section avatar>
                           <q-toggle color="primary" keep-color v-model="user.usar_apelido" @input="alterarParametro" />
                         </q-item-section>
-                      </q-item>
+                      </q-item> -->
                       <q-separator />
                       <q-item tag="label" v-ripple class="dark-mode">
                         <q-item-section>
@@ -521,15 +521,26 @@
           this.logar = !this.logar
         }
       },
-      pesquisar(){
-        if (!this.search.pesquisa) return false
-        this.$router.push({ path: `/historia/${this.search.pesquisa}` })
+      pesquisar() {
+        if (!this.search.pesquisa) return false;
+
+        this.$router.push({ path: `/historia/${this.search.pesquisa}` }).then(res => {
+          this.$router.go()
+        })
+        .catch(err => {
+          this.$router.go()
+        });
       },
       goCategoria(){
         this.$router.push({ path: '/categorias' })
       },
       goPerfil(){
-        this.$router.push({ path: '/perfil' })
+        this.$router.push({ path: '/perfil' }).then(res => {
+          this.$router.go()
+        })
+        .catch(err => {
+          this.$router.go()
+        });
       },
       getNewHistoria(){
         this.$router.push({ path: '/criar_historia' })
@@ -618,13 +629,6 @@
         this.$q.sessionStorage.remove('auth')
 
         this.$router.push({path: '/'})
-        // this.$axios.post(this.$pathWeb + '/logout', this.user)
-        // .then((res) => {
-        //   // console.log(res)
-        // })
-        // .catch((err) => {
-        //   // console.log(err.response)
-        // })
       },
       async cadastrarUsuario(){
         if(!this.validarCadastro()) return false

@@ -159,8 +159,16 @@
             async acceptConvite(notificacao) {
                 try {
                     let aceitarConvite = await this.$api.patch(`notificacoes/aceitar-convite/${notificacao._id}`)
+                    console.log(aceitarConvite)
                     await this.buscarNotificacoes()
-                    await this.sucesso('Convite aceito!')
+
+                    if (aceitarConvite.data.code == 5) {
+                        await this.falha('Sentimos muito! Mas esse projeto chegou no limite de participantes')
+
+                    } else {
+
+                        await this.sucesso('Convite aceito!')
+                    }
                 
                 } catch (error) {
                     console.log(error)

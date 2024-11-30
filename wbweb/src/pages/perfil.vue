@@ -102,7 +102,7 @@
                                                             <q-chip class="historia_finalizada m-0 " :style="`background-color: ${livro.status ? (livro.status.color ? livro.status.color : '#000') : '#000'}`">{{ livro.status ? livro.status.nome : '' }}</q-chip>
                                                         </div>
                                                         <div class="col-12 mt-1">
-                                                            <p class="p_data p-0 m-0"><strong>{{ i18n.historias.data_atualizacao }}:</strong> {{ livro.updatedAt | formatDateTime }} </p>
+                                                            <p class="p_data p-0 m-0"><strong>{{ i18n.historias.data_atualizacao }}:</strong> {{ formatDate(livro.updatedAt) }} </p>
                                                         </div>
                                                     </div>
                                                 </div>

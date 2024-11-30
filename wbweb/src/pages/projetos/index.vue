@@ -25,7 +25,7 @@
                                     backgroundImage: `url(${projeto.capa ? `${path_cover_projeto}/${projeto.capa}` : ``})`
                                 }">
                             </div>
-                            <div class="row">
+                            <div class="row h-100 d-flex align-content-space-between">
                                 <div class="col-12 titulo">
                                     <div class="ribbon"> {{ projeto.status && cutDescricao(projeto.status.nome, 15) }} </div>
                                     <h3 class="p-0 m-0"> {{ projeto.nome }} <span>({{ projeto.tipo && projeto.tipo.nome }})</span></h3>
@@ -34,16 +34,20 @@
                                 <div class="col-12 mt-3">
                                     <span class="p-0 m-0" v-html="cutDescricao(projeto.sobre, 250)" ></span>
                                 </div>
-                                <div class="col-12 py-3">
-                                    <hr />
-                                </div>
                                 <div class="col-12">
-                                    <p class="p-0 m-0"> 
-                                        <q-icon name="trip_origin" ></q-icon>
-                                        {{ projeto.numero_participantes }} 
-                                        {{ projeto.numero_participantes == 1 ? 'pessoa' : 'pessoas' }} 
-                                        {{ projeto.numero_participantes == 1 ? 'está' : 'estão' }} participando! 
-                                    </p>
+                                    <div class="row m-0">
+                                        <div class="col-12 py-3">
+                                            <hr />
+                                        </div>
+                                        <div class="col-12">
+                                            <p class="p-0 m-0"> 
+                                                <q-icon name="trip_origin" ></q-icon>
+                                                {{ projeto.numero_participantes }} 
+                                                {{ projeto.numero_participantes == 1 ? 'pessoa' : 'pessoas' }} 
+                                                {{ projeto.numero_participantes == 1 ? 'está' : 'estão' }} participando! 
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </q-card>

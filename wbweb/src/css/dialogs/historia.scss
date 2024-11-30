@@ -1,0 +1,91 @@
+@import 'src/css/variables.scss';
+
+.dialog-historia {
+    transition: background-color 0.3s ease;
+    background-color: $white;
+    width: 100%;
+    border-radius: 20px;
+    max-width: 1000px;
+    max-height: 800px;
+    overflow: hidden;
+    
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select, .q-radio__label {
+        font-family: "Raleway", "Century Gothic", serif;
+    } 
+
+    h1 {
+        text-align: center;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 1.5em;
+        line-height: 1;
+    }
+     
+    h3 {
+        font-weight: 200;
+        font-size: 25px;
+        line-height: 1;
+    }
+
+    .col-cover {
+        overflow: hidden;
+        display: flex;
+        max-height: 200px;
+
+        .cover_detail_historia {
+            width: 100%;
+            height: 300%;
+        }
+    }
+
+    .col-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .col_btn_detail {
+            .btn_detail_iniciar_leitura {
+                width: 100%;
+                font-size: 15px;
+                border-radius: 10px 0px 0px 10px;
+            }
+
+            .btn_detail_mais {
+                width: 100%;
+                font-size: 15px;
+                border-radius: 0px 10px 10px 0px;
+            }
+
+        }
+        .col_btn_detail_desktop {
+            p {
+                font-size: 15px;
+            }
+        }
+
+        .footer {
+            .col_btn_detail {
+                p {
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+} 
+
+@media screen and (min-width: 600px){
+    .dialog-historia {
+        
+        .col-cover {
+            max-height: 100%;
+            .cover_detail_historia {
+                height: 100%;
+            }
+        }
+    }
+}
+@media screen and (min-width: 980px){
+    .dialog-historia{
+        
+    }   
+}

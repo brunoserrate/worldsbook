@@ -17,12 +17,14 @@
                                 @blur="getHistoria"
                                 class="input-id-historia mt-3"
                             ></q-input>
+
                             <p class="m-0 p-0 mt-4">Selecione o projeto</p>
                             <q-select 
                                 rounded standout 
                                 v-model="convite.projeto" 
                                 :options="projetos" 
-                                emit-value
+                                @input="verificaNumeroMax"
+                                
                                 option-value="_id"
                                 option-label="nome"
                                 map-options
@@ -32,7 +34,13 @@
                             <q-separator vertical inset class="p-0 m-0 h-100 d-none d-md-block" />
                             <q-separator inset class="my-4 m-0 w-100 d-block d-md-none" />
                         </div>
-                        <div class="col-12 col-md-6 historia">
+                        <div class="col-12 col-md-6 historia" v-if="projeto_limite_max.mode">
+                            <div class="row h-100 d-flex justify-content-center align-items-center flex-direction-column">
+                                <p class=" p-0 m-0">{{ projeto_limite_max.message }}</p>
+                                <q-icon name="cancel" class="icon-cancel" ></q-icon>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 historia" v-else>
                             <div class="row" v-if="Object.keys(historia).length > 0">
                                 <div class="col-12 col-sm-4 col-md-5 col-lg-4 d-flex justify-content-center justify-sm-content-start">
                                     <img :src="historia.caminho_capa ? (historia.caminho_capa ? `${path_cover}/${historia.caminho_capa}` : ``) : `${path_cover}/default.png`" class="historia-capa">
@@ -85,6 +93,10 @@
                 convite: {
                     idHistoria: '',
                     projeto: ''
+                },
+                projeto_limite_max: {
+                    mode: false,
+                    message: ""
                 },
                 historia: {},
 				darkmode: false,
@@ -158,7 +170,7 @@
                 try {
                     let body = {
                         historia: this.historia._id,
-                        projeto: this.convite.projeto,
+                        projeto: this.convite.projeto._id,
                         destinatario: this.historia.usuario._id,
                         tipo: '67294ed209990319bb0b4c1e' // convite
                     }
@@ -170,6 +182,43 @@
                         cancel: false,
                         persistent: true
                     })
+                } catch (error) {
+                    console.log(error)
+                }
+            },
+
+            async verificaNumeroMax() {
+                try {
+                    console.log(this.convite.projeto)
+                    if (!this.convite.projeto) return ''
+
+                    if (this.convite.projeto.status._id != '67246270d7ee7f7570218e6d') {
+
+                        console.log(this.convite.projeto.status._id)
+
+                        this.projeto_limite_max = {
+                            mode: true,
+                            message: "Este projeto não está com as inscrições abertas"
+                        }
+
+                        return ''
+                    }
+
+                    let verificaNumeroMax = await this.$api.get(`projetos/verifica-limite-participantes/${this.convite.projeto._id}`)
+                    
+                    if (verificaNumeroMax.data == true) {
+                        this.projeto_limite_max = {
+                            mode: true,
+                            message: "Este projeto chegou no limite de histórias para participar!"
+                        }
+
+                    } else {
+                        this.projeto_limite_max = {
+                            mode: false,
+                            message: ""
+                        }
+                    }
+
                 } catch (error) {
                     console.log(error)
                 }
