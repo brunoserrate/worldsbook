@@ -57,6 +57,23 @@
             }
 
         }
+        
+        .col-icon-id {
+            display: flex;
+            align-items: center;
+
+            span {
+                font-size: 12px;
+            }
+
+            .help {
+                background: $black;
+                border-radius: 100px;
+                padding: 1px;
+                font-size: 12px;
+                color: $white;
+            }
+        }
         .col_btn_detail_desktop {
             p {
                 font-size: 15px;

@@ -1,5 +1,5 @@
 <template>
-    <q-page :class="{'dark-livro': darkmode, 'livro': !darkmode}">
+    <q-page class="livro" :class="{ 'dark-livro': darkmode }">
         <q-inner-loading
             :showing="visible_page"
             label-class="text-teal"
@@ -8,15 +8,15 @@
         ></q-inner-loading>
         <div class="row geral">
             <div class="col-12">
-                <q-card class="card_livro">
+                <q-card class="card_livro py-3">
                     <div class="row justify-center">
-                        <div class="col-6 offset-sm-0 col-sm-auto offset-md-2">
-                            <img alt="Cover" :src="livro.caminho_capa ? (livro.caminho_capa ? `${path_photo}/${livro.caminho_capa}` : ``) : `${path_photo}/default.png`" class="capa_card"/>
+                        <div class="col-6 offset-sm-0 col-sm-auto offset-md-2 d-flex justify-content-center justify-sm-content-start">
+                            <img alt="Cover" :src="livro.caminho_capa ? (livro.caminho_capa ? `${path_photo}/${livro.caminho_capa}` : ``) : `${path_photo}/default.png`" class="capa_card h-100 me-sm-5"/>
                         </div>
                         <div class="col-10 col-sm-6 offset-sm-0 ">
                             <div class="row">
                                 <div class="col-12">
-                                    <h3 class="title_card">{{ livro.titulo }}</h3>
+                                    <h3 class="title_card text-center text-md-start">{{ livro.titulo }}</h3>
                                 </div>
                                 <div class="col-12 col-md-10">
                                     <div class="row align_icons_status">
@@ -69,12 +69,20 @@
                                 <div class="col-2 col-md-1">
                                     <q-btn unelevated icon="add" class="btn_add_lista"/>
                                 </div>
+                                <div class="col-12 mt-3 col-icon-id">
+                                    <span>
+                                        <b>Código da história: </b>{{ livro._id }}
+                                    </span>
+                                    <q-icon class="help ms-2" name="question_mark">
+                                        <q-tooltip content-class="bg-purple tooltips" anchor="center right" self="center left" :offset="[10, 10]">
+                                            ID/Código de indentificação da história
+                                        </q-tooltip>
+                                    </q-icon>
+                                </div>
                                 <div class="col-12">
                                     <div class="row">
-                                        <div class="col-2 offset-4 offset-sm-0 col-sm-2 col-md-1">
-                                            <q-btn flat icon="edit" class="btn-editar-historia" @click="goEditHistoria" v-if="livro.usuario ? (livro.usuario._id == (currentUser ? (currentUser.usuario ? currentUser.usuario._id : false) : false)) : false"/>
-                                        </div>
-                                        <div class="col-1">
+                                        <div class="col-12 offset-4 offset-sm-0 mt-3">
+                                            <q-btn flat icon="edit" class="btn-editar-historia me-2" @click="goEditHistoria" v-if="livro.usuario ? (livro.usuario._id == (currentUser ? (currentUser.usuario ? currentUser.usuario._id : false) : false)) : false"/>
                                             <q-btn flat icon="delete" class="btn-deletar-historia" @click="delete_historia = true" v-if="livro.usuario ? (livro.usuario._id == (currentUser ? (currentUser.usuario ? currentUser.usuario._id : false) : false)) : false"/>
                                         </div>
                                     </div>
@@ -85,7 +93,7 @@
                 </q-card>
             </div>
         </div>
-        <div class="row descricao">
+        <div class="row descricao mt-4">
             <div class="col-10 offset-2">
                 <q-avatar size="40px" style="background-color: #ddd;">
                     <img :src="livro.usuario ? (livro.usuario.foto_perfil ? `${path_photo_profile}/${livro.usuario.foto_perfil}` : ``) : `${path_photo_profile}/default.jpg`" />

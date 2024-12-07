@@ -7,9 +7,9 @@
 			}">
 		</div>
         <div class="row row-projeto m-0 py-5">
-            <div class="col-12">
+            <div class="col-12 px-2">
                 <h1 class="mb-0 pb-0">{{ melhor_literatura.titulo }} "{{ projeto.nome }}"</h1>
-				<h3 class="m-0 p-0 text-center" v-if="projeto.parceiro">{{ melhor_literatura.subtitulo }} {{ projeto.parceiro && projeto.parceiro.name }} </h3>
+				<h3 class="m-0 p-0 text-center mt-2" v-if="projeto.parceiro">{{ melhor_literatura.subtitulo }} {{ projeto.parceiro && projeto.parceiro.name }} </h3>
             </div>
             <div class="col-12 mt-5 content" v-if="projeto.parceiro">
 				<div class="row m-0">

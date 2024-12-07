@@ -1,19 +1,20 @@
+@import 'src/css/variables.scss';
+
 .livro {
     transition: background-color 0.3s ease;
     padding-bottom: 40px;
-    p, span, h1, h2, h3, h4, h5, h6, ol, ul, button {
-        font-family: 'Raleway';
-    }
+    
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select, .q-radio__label {
+        font-family: "Raleway", "Century Gothic", serif;
+    } 
+
     .geral {
         .card_livro{
-            box-shadow: 0px 4px 6px #00000042;
+            box-shadow: 0px 4px 6px $textColorPattern62;
             height: auto;
-            margin: 46px 0 46px 0;
-            padding-bottom: 15px;
             .capa_card{
                 width: 16em;
                 border-radius: 14px;
-                margin: 0px 35px 0 0;
                 transition: filter .3s ease, border-radius .3s ease;
                 &:hover{
                     border-radius: 12px;
@@ -22,7 +23,6 @@
                 }
             }
             .title_card{
-                font-family: Raleway;
                 font-size: 24px;
                 text-transform: uppercase;
                 font-weight: bold;
@@ -41,80 +41,89 @@
                     text-align: center;
                 }
             }
+            .col-icon-id {
+                display: flex;
+                align-items: center;
+    
+                span {
+                    font-size: 12px;
+                }
+    
+                .help {
+                    background: $black;
+                    border-radius: 100px;
+                    padding: 1px;
+                    font-size: 12px;
+                    color: $white;
+                }
+            }
             .separator_card{
                 margin: 0 27px;
-                background-color: #0000005e;
+                background-color: $textColorPattern63;
             }
             .btn_iniciar_leitura_livro{
-                // background-color: #8e1cac;
-                color: #FFF;
+                color: $white;
                 width: 98%;
                 border-radius: 7px 0px 0px 7px;
-                // margin: 32px 0 43px 0;
                 margin: 32px 0 0px 0;
-                background: linear-gradient(88deg, #7A22A7,#c270cb);
+                background: linear-gradient(88deg, $primary, $textColorPattern35);
             }
             .btn_add_lista{
-                background-color: #8e1cac;
-                color: #FFF;
+                background-color: $primaryVariantColorPattern;
+                color: $white;
                 width: 100%;
                 border-radius: 0px 7px 7px 0px;
                 margin: 32px 0 0 0;
             }
             .btn-editar-historia{
-                // background: #e0e0e0;
-                margin: 26px 0 29px 0;
                 font-size: 13px;
-                background: linear-gradient(88deg, #7a6d81,#7e717f);
-                color: white;
+                background: linear-gradient(88deg, $textColorPattern64, $textColorPattern65);
+                color: $white;
             }
             .btn-deletar-historia{
-                // background: #e0e0e0;
-                margin: 26px 0px 0 0px;
                 font-size: 13px;
-                background: linear-gradient(88deg, #7a6d81,#7e717f);
-                color: white;
+                background: linear-gradient(88deg, $textColorPattern64, $textColorPattern65);
+                color: $white;
             }
         }
     }
     .descricao {
         .apelido_usuario{
-            font-family: "Raleway", serif;
             font-weight: bold;
             margin: 0px 0px 0 14px;
             cursor: pointer;
             &:hover{
-                color: #4a4a4a
+                color: $grayVariantColorPattern
             }
         }
         .historia_finalizada{
-            background-color: #7A22A7;
-            color: #FFF;
+            background-color: $primary;
+            color: $white;
             border-radius: 10px;
             height: 24px;
             font-size: 14px;
             justify-content: center;
             margin: 20px 11px 20px 0;
-            font-family: 'Raleway';
         }
         .descricao_p{
             text-align: justify;
         }
         .separator_livro{
-            background-color: #00000024;
+            background-color: $textColorPattern4;
             height: 1px;
             margin: 0px 0 18px 0px;
         }
     }
     .tags-generos {
         .tag-genero {
-            font-family: 'Raleway';
+            font-family: "Raleway", "Century Gothic", serif;
         }
     }
     .capitulos {
         .card_indice{
             padding: 10px 50px 30px 50px;
             margin: 40px 0 0 0;
+
             .title_indice_card{
                 font-size: 1.2em;
                 font-weight: bold; 
@@ -125,34 +134,37 @@
                 display: flex;
                 justify-content: flex-end;
                 align-items: center;
+
                 .btn_adicionar{
                     background-color: transparent;
-                    font-family: "Raleway";
                     font-weight: bold;
                     font-size: 12px;
                     padding: 0px 8px;
-                    border: solid 1px #a3a3a3;
+                    border: solid 1px $textColorPattern59;
                 }
             }
             .lista {
+                font-family: "Raleway", "Century Gothic", serif;
                 .item_list{
-                    background-color: #fcf5ff;
+                    background-color: $grayVariantColorPattern01;
                     margin: 6px 0;
                     align-items: center;
-                    font-family: 'Raleway';
+                    transition: all 0.1s ease;
+
                     &:hover{
-                        border-left: solid 3px #ba8ed1;
-                        background-color: #f2d9ff;
+                        transition: all 0.1s ease;
+                        border-left: solid 3px $primaryVariantColorPattern01;
+                        background-color: $grayVariantColorPattern02;
                     }
                 }
                 .item_edit{
-                    background-color: #fcf5ff;
+                    background-color: $grayVariantColorPattern01;
                     margin: 6px 0;
                     align-items: center;
                     justify-content: center;
                     font-size: 20px;
                     &:hover{
-                        background-color: #f2d9ff;
+                        background-color: $grayVariantColorPattern02;
                     }
                 }
             }
@@ -164,179 +176,16 @@
         font-family: 'Raleway';
     }
     .btn-cancelar {
-        background: #7a22a73b;
+        background: $primaryVariantColorPattern02;
     }
 }
 @media screen and (min-width: 600px) and (max-width: 700px){
     .livro {
-        .card_livro {
-            .title_card {
-                font-family: Raleway;
-                font-size: 25px;
-                text-transform: uppercase;
-                font-weight: bold;
-                text-align: center;
-                line-height: 1.5;
-            }
-            .align_icons_status {
-                .labels_icon{
-                    display: none;
-                }
-            }
-            .btn_iniciar_leitura_livro{
-                // background-color: #8e1cac;
-                color: #FFF;
-                width: 98%;
-                border-radius: 7px 0px 0px 7px;
-                margin: 32px 0 0px 0;
-                background: linear-gradient(88deg, #7A22A7,#c270cb);
-            }
-        }
+    
     }
 }
 @media screen and (min-width: 980px){
     .livro {
-        .geral {
-            .card_livro{
-                box-shadow: 0px 4px 6px #00000042;
-                height: auto;
-                margin: 46px 0 46px 0;
-                .capa_card{
-                    width: 16em;
-                    border-radius: 14px;
-                    margin: 0px 35px 0 0;
-                }
-                .title_card{
-                    font-family: Raleway;
-                    font-size: 26px;
-                    text-transform: uppercase;
-                    font-weight: bold;
-                    text-align: left;
-                }
-                .align_icons_status {
-                    display: flex;
-                    justify-content: flex-start;
-                    .icons_card{
-                        font-size: 20px;
-                    }
-                    .labels_icon{
-                        display: block;
-                    }
-                    .align_text_details{
-                        text-align: center;
-                    }
-                }
-                .separator_card{
-                    margin: 0 27px;
-                    background-color: #0000005e;
-                }
-                .btn_iniciar_leitura_livro{
-                    // background-color: #8e1cac;
-                    color: #FFF;
-                    width: 98%;
-                    border-radius: 7px 0px 0px 7px;
-                    margin: 66px 0 0px 0;
-                    background: linear-gradient(88deg, #7A22A7,#c270cb);
-                }
-                .btn_add_lista{
-                    background-color: #8e1cac;
-                    color: #FFF;
-                    width: 100%;
-                    border-radius: 0px 7px 7px 0px;
-                    margin: 66px 0 0 0;
-                }
-                .btn-editar-historia{
-                    // background: #e0e0e0;
-                    // margin: 26px 0 0 0;
-                    font-size: 13px;
-                    background: linear-gradient(88deg, #7a6d81,#7e717f);
-                    color: white;
-                }
-                .btn-deletar-historia{
-                    // background: #e0e0e0;
-                    // margin: 26px 0px 0 0px;
-                    font-size: 13px;
-                    background: linear-gradient(88deg, #7a6d81,#7e717f);
-                    color: white;
-                }
-            }
-        }
-        .descricao {
-            .apelido_usuario{
-                font-family: "Raleway", serif;
-                font-weight: bold;
-                margin: 0px 0px 0 14px;
-                cursor: pointer;
-                &:hover{
-                    color: #4a4a4a
-                }
-            }
-            .historia_finalizada{
-                background-color: #7A22A7;
-                color: #FFF;
-                border-radius: 10px;
-                height: 24px;
-                font-size: 14px;
-                justify-content: center;
-                margin: 20px 11px 20px 0;
-            }
-            .descricao_p{
-                text-align: justify;
-            }
-            .separator_livro{
-                background-color: #00000024;
-                height: 1px;
-                margin: 0px 0 18px 0px;
-            }
-        }
-        .tags-generos {
-
-        } 
-        .capitulos {
-            .card_indice{
-                padding: 10px 50px 30px 50px;
-                margin: 40px 0 0 0;
-                .title_indice_card{
-                    font-size: 1.2em;
-                    font-weight: bold; 
-                    text-transform: uppercase;
-                    margin: 0 0;
-                }
-                .row_add_capitulo {
-                    display: flex;
-                    justify-content: flex-end;
-                    align-items: center;
-                    .btn_adicionar{
-                        background-color: transparent;
-                        font-family: "Raleway";
-                        font-weight: bold;
-                        font-size: 12px;
-                        padding: 0px 8px;
-                        border: solid 1px #a3a3a3;
-                    }
-                }
-                .lista {
-                    .item_list{
-                        background-color: #fcf5ff;
-                        margin: 6px 0;
-                        align-items: center;
-                        &:hover{
-                            border-left: solid 3px #ba8ed1;
-                            background-color: #f2d9ff;
-                        }
-                    }
-                    .item_edit{
-                        background-color: #fcf5ff;
-                        margin: 6px 0;
-                        align-items: center;
-                        justify-content: center;
-                        font-size: 20px;
-                        &:hover{
-                            background-color: #f2d9ff;
-                        }
-                    }
-                }
-            }
-        }
+    
     }
 }

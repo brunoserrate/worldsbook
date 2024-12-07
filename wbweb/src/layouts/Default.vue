@@ -58,7 +58,7 @@
               <q-scroll-area class="fit">
                 <q-list>
                   <div class="col-12">
-                    <q-item clickable v-ripple v-if="logado && user" class="avatar_sidebar">
+                    <q-item clickable v-ripple v-if="logado && user" class="avatar_sidebar" @click="goPerfil">
                       <q-avatar size="52px" style="padding: 0 79px;">
                         <img :src="user.foto_perfil ? `${path_photo}/${user.foto_perfil}` : `${path_photo}/default.jpg`" />
                       </q-avatar>
@@ -208,7 +208,7 @@
               </q-btn-dropdown>
               <div class="d-contents">
                 <q-badge color="red" class="badge-notifications" v-if="notificacoes_nao_lidas > 0">{{ notificacoes_nao_lidas }}</q-badge>
-                <q-btn-dropdown unelevated dropdown-icon="notifications" class="notifications" no-icon-animation content-class="dropdown-notificacoes">
+                <q-btn-dropdown unelevated dropdown-icon="notifications" class="notifications" no-icon-animation :content-class="!darkmode ? 'dropdown-notificacoes' : 'dropdown-notificacoes dropdown-notificacoes-dark'">
                   <notificacoes @notificacoesNaoLidas="(value) => { this.notificacoes_nao_lidas = value }"/>
                 </q-btn-dropdown>
                 <q-btn round size="lg" class="button-profile">

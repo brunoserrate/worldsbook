@@ -1,11 +1,16 @@
 @import 'src/css/variables.scss';
 
-.lista-notificacoes-dark {
-
+.wb-notificacoes-dark {
+    transition: background-color 0.3s ease;
+    
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select {
+        color: $textColorDark !important;
+        z-index: 1;
+    }
 }
 
 @media screen and (min-width: 1024px){
-    .lista-notificacoes-dark {
-
+    .wb-notificacoes-dark {
+    
     }
 }

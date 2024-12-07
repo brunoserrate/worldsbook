@@ -4,19 +4,13 @@
             <div class="col-10 offset-1 mt-5">
                 <p class="text-over-cover">{{ i18n.label_inicio }}</p>
             </div>
-            <!-- <div class="col-12 align-cover mb-lg-5" v-if="!darkmode">
-                <img alt="Cover" src="~assets/carrossel/1.png" class="cover"/>
-            </div> -->
-			<!-- <img alt="Cover" src="~assets/carrossel/1-dark.png" class="cover"/> -->
-            <!-- <div class="col-12 align-cover mb-lg-5" v-if="darkmode"> -->
             <div class="col-12 align-cover mb-lg-5" >
-				<!-- <div class="q-pa-md w-100"> -->
 				<q-carousel
+						:padding="isLargeScreen ? true : false" 
 						animated
 						swipeable
 						navigation
 						infinite
-						padding
 						class="w-100"
 						style="height: auto; background: transparent;"
 						v-model="slide"
@@ -41,7 +35,6 @@
 						</div>
 					  </q-carousel-slide>
 				</q-carousel>
-				<!-- </div> -->
             </div>
             <div class="row row-saudacoes w-100 mt-5 mb-5">
 				<div class="col-12 w-100">
@@ -104,7 +97,7 @@
 		data (){
 			return {
 				sessao: false,
-				autoplay:true,
+				autoplay: true,
 				livros:[],
 				livro_dialog: false,
 				darkmode: false,
@@ -122,6 +115,7 @@
 		},
 		mounted(){
 			this.user = this.currentUser ? this.currentUser.usuario : null
+			console.log(this.$q.screen)
 		},
 		created() {
             this.i18n = this.$i18n.iniciar_leitura
@@ -141,7 +135,11 @@
                 }, 500)
             });
 		},
-		
+		computed: {
+			isLargeScreen() {
+				return this.$q.screen.gt.xs
+			}
+		},
 		components: {
 			VueperSlides,
 			VueperSlide,

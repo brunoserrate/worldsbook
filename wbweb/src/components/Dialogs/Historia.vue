@@ -34,6 +34,16 @@
                                         :class="{ 'type-1': !darkmode, 'type-2': darkmode }" 
                                     />
                                 </div>
+                                <div class="col-12 mt-3 col-icon-id">
+                                    <span>
+                                        <b>Código da história: </b>{{ $store.state.dialog.livro_detail._id }}
+                                    </span>
+                                    <q-icon class="help ms-2" name="question_mark">
+                                        <q-tooltip content-class="bg-purple tooltips" anchor="center right" self="center left" :offset="[10, 10]">
+                                            ID/Código de indentificação da história
+                                        </q-tooltip>
+                                    </q-icon>
+                                </div>
                                 <div class="col-12 col_btn_detail_desktop mt-3">
                                     <p>{{ cutDescricao($store.state.dialog.livro_detail.descricao, 200) }}</p>
                                 </div>
