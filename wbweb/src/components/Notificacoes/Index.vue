@@ -4,67 +4,71 @@
         :bar-style="barStyle"
         style="height: 300px; max-width: 100%;"
     >
-        <q-list class="lista-notificacoes" :class="{'lista-notificacoes-dark': darkmode }" separator v-if="notificacoes.length > 0">
-            <q-item clickable v-for="(notificacao, i) in notificacoes" :key="i" class="item-notificacao" :class="{ 'notificacao-lida': !notificacao.lido }" @click="lerNotificacao(notificacao)">
-            <!-- convite -->
-                <q-item-section avatar>
-                    <q-avatar>
-                        <img :src="notificacao.remetente && notificacao.remetente.foto_perfil ? `${path_photo}/${notificacao.remetente.foto_perfil}` : `${path_photo}/default.jpg`" 
-                              @click="$router.push({ path: `/perfil/${notificacao.remetente._id}` })"/>
-                    </q-avatar>
-                </q-item-section>
-
+        <div class="wb-notificacoes" :class="{'wb-notificacoes-dark': darkmode }">
+            <q-list class="lista-notificacoes" :class="{'lista-notificacoes-dark': darkmode }" separator v-if="notificacoes.length > 0">
+                <q-item clickable v-for="(notificacao, i) in notificacoes" :key="i" class="item-notificacao" :class="{ 'notificacao-lida': !notificacao.lido }" @click="lerNotificacao(notificacao)">
                 <!-- convite -->
-                <q-item-section v-if="notificacao.tipo && notificacao.tipo._id == '67294ed209990319bb0b4c1e'">
-                    <div class="div-notificacao">
-                        <span>{{ formatDate(notificacao.createdAt) }}</span>
-                        <p>A sua história <b class="b-link" @click="$router.push({ path: `/livro/${notificacao.historia._id}` })" >{{ notificacao.historia.titulo }}</b> 
-                            foi convidado(a) à participar do projeto 
-                            <strong class="b-link" @click="$router.push({ path: `/projetos/${notificacao.projeto._id}` })">{{ notificacao.projeto.nome }}</strong> 
-                        </p>
-                        <div>
-                            <button class="btn-aceitar" @click="acceptConvite(notificacao)">Aceitar</button>
+                    <q-item-section avatar>
+                        <q-avatar>
+                            <img :src="notificacao.remetente && notificacao.remetente.foto_perfil ? `${path_photo}/${notificacao.remetente.foto_perfil}` : `${path_photo}/default.jpg`" 
+                                  @click="$router.push({ path: `/perfil/${notificacao.remetente._id}` })"/>
+                        </q-avatar>
+                    </q-item-section>
+    
+                    <!-- convite -->
+                    <q-item-section v-if="notificacao.tipo && notificacao.tipo._id == '67294ed209990319bb0b4c1e'">
+                        <div class="div-notificacao">
+                            <span>{{ formatDate(notificacao.createdAt) }}</span>
+                            <p>A sua história <b class="b-link" @click="$router.push({ path: `/livro/${notificacao.historia._id}` })" >{{ notificacao.historia.titulo }}</b> 
+                                foi convidado(a) à participar do projeto 
+                                <strong class="b-link" @click="$router.push({ path: `/projetos/${notificacao.projeto._id}` })">{{ notificacao.projeto.nome }}</strong> 
+                            </p>
+                            <div>
+                                <button class="btn-aceitar" @click="acceptConvite(notificacao)">Aceitar</button>
+                            </div>
                         </div>
-                    </div>
-                </q-item-section>
-
-                <!-- Pedido de participação para um projeto -->
-                <q-item-section v-if="notificacao.tipo && notificacao.tipo._id == '6732b726f5941d1308fd4029'">
-                    <div class="div-notificacao">
-                        <span>{{ formatDate(notificacao.createdAt) }}</span>
-                        <p>
-                            <b class="b-link" @click="$router.push({ path: `/perfil/${notificacao.remetente._id}` })">{{ notificacao.remetente && notificacao.remetente.name }}</b> 
-                            enviou um pedido de participação para o projeto  <strong class="b-link" @click="$router.push({ path: `/projetos/${notificacao.projeto._id}` })">{{ notificacao.projeto.nome }}</strong> 
-                            com a sua história <b class="b-link" @click="$router.push({ path: `/livro/${notificacao.historia._id}` })">{{ notificacao.historia.titulo }}</b>                            
-                        </p>
-                        <div>
-                            <button class="btn-aceitar" @click="acceptConvite(notificacao)">Aceitar</button>
+                    </q-item-section>
+    
+                    <!-- Pedido de participação para um projeto -->
+                    <q-item-section v-if="notificacao.tipo && notificacao.tipo._id == '6732b726f5941d1308fd4029'">
+                        <div class="div-notificacao">
+                            <span>{{ formatDate(notificacao.createdAt) }}</span>
+                            <p>
+                                <b class="b-link" @click="$router.push({ path: `/perfil/${notificacao.remetente._id}` })">{{ notificacao.remetente && notificacao.remetente.name }}</b> 
+                                enviou um pedido de participação para o projeto  <strong class="b-link" @click="$router.push({ path: `/projetos/${notificacao.projeto._id}` })">{{ notificacao.projeto ? notificacao.projeto.nome : "" }}</strong> 
+                                com a sua história <b class="b-link" @click="$router.push({ path: `/livro/${notificacao.historia._id}` })">{{ notificacao.historia ? notificacao.historia.titulo : "" }}</b>                            
+                            </p>
+                            <div>
+                                <button class="btn-aceitar" @click="acceptConvite(notificacao)">Aceitar</button>
+                            </div>
                         </div>
-                    </div>
-                </q-item-section>
-
-                <!-- Pedido/Convite aceito -->
-                <q-item-section v-if="notificacao.tipo && (notificacao.tipo._id == '6733b72911c6cd33882cb282' || notificacao.tipo._id == '6733b71f11c6cd33882cb281')">
-                    <div class="div-notificacao">
-                        <span>{{ formatDate(notificacao.createdAt) }}</span>
-                        <p class="" v-if="notificacao.tipo && (notificacao.tipo._id == '6733b72911c6cd33882cb282')">
-                            A sua solicitação para participar do projeto <strong class="b-link" @click="$router.push({ path: `/projetos/${notificacao.projeto._id}` })">{{ notificacao.projeto.nome }}</strong> foi aceita
-                        </p>
-                        <p class="" v-if="notificacao.tipo && (notificacao.tipo._id == '6733b71f11c6cd33882cb281')">
-                            O convite para <b class="b-link" @click="$router.push({ path: `/livro/${notificacao.historia._id}` })">{{ notificacao.historia.titulo }}</b>
-                            participar de <strong class="b-link" @click="$router.push({ path: `/projetos/${notificacao.projeto._id}` })">{{ notificacao.projeto.nome }}</strong> 
-                            foi aceito
-                        </p>
-                    </div>
-                </q-item-section>
-
-                <q-item-section avatar class="icones">
-                    <q-icon name="delete" @click="removeNotificacao(notificacao._id)"></q-icon>
-                </q-item-section>
-            </q-item>
-        </q-list>
-        <div v-else>
-            Nenhuma notificação
+                    </q-item-section>
+    
+                    <!-- Pedido/Convite aceito -->
+                    <q-item-section v-if="notificacao.tipo && (notificacao.tipo._id == '6733b72911c6cd33882cb282' || notificacao.tipo._id == '6733b71f11c6cd33882cb281')">
+                        <div class="div-notificacao">
+                            <span>{{ formatDate(notificacao.createdAt) }}</span>
+                            <p class="" v-if="notificacao.tipo && (notificacao.tipo._id == '6733b72911c6cd33882cb282')">
+                                A sua solicitação para participar do projeto <strong class="b-link" @click="$router.push({ path: `/projetos/${notificacao.projeto._id}` })">{{ notificacao.projeto.nome }}</strong> foi aceita
+                            </p>
+                            <p class="" v-if="notificacao.tipo && (notificacao.tipo._id == '6733b71f11c6cd33882cb281')">
+                                O convite para <b class="b-link" @click="$router.push({ path: `/livro/${notificacao.historia._id}` })">{{ notificacao.historia.titulo }}</b>
+                                participar de <strong class="b-link" @click="$router.push({ path: `/projetos/${notificacao.projeto._id}` })">{{ notificacao.projeto.nome }}</strong> 
+                                foi aceito
+                            </p>
+                        </div>
+                    </q-item-section>
+    
+                    <q-item-section avatar class="icones">
+                        <q-icon name="delete" @click="removeNotificacao(notificacao._id)"></q-icon>
+                    </q-item-section>
+                </q-item>
+            </q-list>
+            <div class="nenhuma-notificacao py-5" v-else>
+                <p>
+                    Nenhuma notificação
+                </p>
+            </div>
         </div>
     </q-scroll-area>
 </template>
@@ -141,6 +145,7 @@
                         this.notificacoes = notificacao.data.notificacoes
                         this.notificacoes_nao_lidas = notificacao.data.countNaoLidas
                         this.$emit('notificacoesNaoLidas', this.notificacoes_nao_lidas)
+                        console.log("notificacao: ", this.notificacoes)
                     }
                 } catch (error) {
                     console.log(error)

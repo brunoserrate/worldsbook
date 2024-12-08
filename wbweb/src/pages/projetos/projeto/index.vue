@@ -1,5 +1,10 @@
 <template>
     <q-page :class="{'projeto-dark': darkmode}" class="projeto" :style="{ position: 'relative' }" id="projeto">
+		<q-inner-loading
+            :showing="visible"
+            label-class="text-teal"
+            label-style="font-size: 1.1em"
+        ></q-inner-loading>
 		<div 
 			class="background-cover" 
 			:style="{
@@ -7,9 +12,9 @@
 			}">
 		</div>
         <div class="row row-projeto m-0 py-5">
-            <div class="col-12">
+            <div class="col-12 px-2">
                 <h1 class="mb-0 pb-0">{{ melhor_literatura.titulo }} "{{ projeto.nome }}"</h1>
-				<h3 class="m-0 p-0 text-center" v-if="projeto.parceiro">{{ melhor_literatura.subtitulo }} {{ projeto.parceiro && projeto.parceiro.name }} </h3>
+				<h3 class="m-0 p-0 text-center mt-2" v-if="projeto.parceiro">{{ melhor_literatura.subtitulo }} {{ projeto.parceiro && projeto.parceiro.name }} </h3>
             </div>
             <div class="col-12 mt-5 content" v-if="projeto.parceiro">
 				<div class="row m-0">
@@ -41,6 +46,11 @@
 					<div class="col-12" v-if="(projeto.tipo && projeto.tipo._id == '67246115d7ee7f7570218e6b') && (projeto.status && projeto.status._id == '672462dad7ee7f7570218e79')">
 						<p class="m-0 p-0 p-link" @click="$router.push({ path: `/projetos/ranking/${projeto._id}` })">
 							Clique aqui para ver os resultados!
+						</p>
+					</div>
+					<div class="col-12" v-if="(projeto.tipo && projeto.tipo._id == '67246115d7ee7f7570218e6b') && (projeto.status && projeto.status._id == '672462b7d7ee7f7570218e71')">
+						<p class="m-0 p-0 p-link" @click="$router.push({ path: `/projetos/votacao/${projeto._id}` })">
+							Ir para a votação
 						</p>
 					</div>
 					<div class="col-12" v-if="projeto.status && projeto.status._id == '67246270d7ee7f7570218e6d' && projeto.aberto_publico && currentUser != '' && currentUser._id != projeto.gestor._id">
@@ -147,6 +157,7 @@
 	export default {
 		data (){
 			return {
+                visible: false,
                 projeto_id: this.$route.params.projeto_id,
 				dialog_pedir_para_participar: false,
 				dialog_check: false,
@@ -214,10 +225,13 @@
 		methods:{
 			async getProjeto() {
 				try {
+					this.visible = true
 					let projeto = await this.$api.get(`projetos/${this.projeto_id}`)
 					this.projeto = projeto.data
+					this.visible = false
 					console.log(this.projeto)
 				} catch (error) {
+					this.visible = false
 					console.log(error)
 				}
 			},

@@ -68,7 +68,7 @@
                         border-radius: 0px;
                         cursor: pointer;
                         transition: filter 0.3s ease, border-radius 0.3s ease;
-                        border: solid 12px #b5b5b5;
+                        border: solid 5px #b5b5b5;
                         &:hover{
                             // border: solid 4px #fff;
                             border-radius: 12px;
@@ -177,6 +177,12 @@
             .col-categorias, .col-livros {
                 .categorias {
                     padding: 43px 90px;
+
+                    .slides_style{
+                        .slides_historias{
+                            border: solid 12px #b5b5b5;
+                        }
+                    }
                 }
             }
             

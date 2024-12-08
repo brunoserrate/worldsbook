@@ -1,5 +1,5 @@
 <template>
-    <q-page class="livro_categorias" :class="{ 'dark-livro_categorias': darkmode }">
+    <q-page class="livro_categorias" :class="{ 'dark-livro_categorias': darkmode }" id="pesquisa-livros">
         <q-inner-loading
             :showing="visible"
             label-class="text-teal"
@@ -152,10 +152,6 @@
         watch: {
             page() {
                 this.changePage();
-                if (!this.isInitialLoad) {
-                } else {
-                    this.isInitialLoad = false
-                }
             }
         }
     }

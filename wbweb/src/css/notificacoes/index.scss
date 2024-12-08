@@ -1,6 +1,6 @@
 @import 'src/css/variables.scss';
 
-.lista-notificacoes {
+.wb-notificacoes {
     .item-notificacao {
         .div-notificacao {
 
@@ -15,10 +15,14 @@
             }
         }
     }
+
+    .nenhuma-notificacao {
+        text-align: center;
+    }
 }
 
 @media screen and (min-width: 1024px){
-    .lista-notificacoes {
+    .wb-notificacoes {
 
     }
 }

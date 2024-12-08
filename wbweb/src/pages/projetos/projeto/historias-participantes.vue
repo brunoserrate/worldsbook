@@ -1,5 +1,10 @@
 <template>
     <q-page :class="{'historias-participantes-dark': darkmode}" class="historias-participantes" id="historias-participantes" >
+        <q-inner-loading
+            :showing="visible_page"
+            label-class="text-teal"
+            label-style="font-size: 1.1em"
+        ></q-inner-loading>
         <div class="row m-0 py-5">
             <div class="col-12 px-4 mt-3">
                 <h1 class="mb-0 pb-0">Conheça as histórias participantes</h1>
@@ -52,6 +57,7 @@
                 page: 1,
                 limit: 10,
                 pagesNumber: 0,
+                visible_page: false,
                 path_cover: `${environment.host}historias/capa-image`,
                 path_photo: `${environment.host}usuarios/profile-image`,
                 path_cover_parceiro: `${environment.host}parceiros/parceiro-image`,
@@ -97,13 +103,18 @@
 			},
             async getProjeto() {
                 try {
+                    this.visible_page = true
+                    
                     let projeto = await this.$api.get(`projetos/${this.projeto_id}?&limit=${this.limit}&page=${this.page}&sort=titulo`)
                     this.projeto = projeto.data
                     this.livros = projeto.data.historias.historias
                     this.count_historias = projeto.data.historias.count
                     this.pagesNumber = Math.ceil(this.count_historias / this.limit)
+                    
+                    this.visible_page = false
                 } catch (error) {
                     console.log(error)
+                    this.visible_page = false
                 }
             },
 		},

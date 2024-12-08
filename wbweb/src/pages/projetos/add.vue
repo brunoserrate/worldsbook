@@ -80,9 +80,10 @@
                                 :placeholder="'Fale sobre o seu projeto...'"
                                 :toolbar-text-color="darkmode ? 'grey-6' : ''"
                                 v-model="projeto.sobre"
-                                :definitions="{
-                                    bold: { label: 'Bold', icon: null, tip: 'My bold tooltip' }
-                                }"
+                                :toolbar="toolbar"
+                                :fonts="fonts"
+                                ref="editor"
+                                @paste="handlePaste"
                             />
                             <div v-if="submitted && !$v.projeto.nome.required" class="invalid-feedback">Escreva um pouco sobre o seu projeto</div>
                         </div>
@@ -161,6 +162,66 @@
                     numero_min_participantes: 3,
                     numero_max_participantes: 30,
                 },
+                toolbar: [
+                    [
+                        {
+                            label: this.$q.lang.editor.align,
+                            icon: this.$q.iconSet.editor.align,
+                            fixedLabel: true,
+                            list: 'only-icons',
+                            options: ['left', 'center', 'right', 'justify']
+                        },
+                        {
+                            label: this.$q.lang.editor.align,
+                            icon: this.$q.iconSet.editor.align,
+                            fixedLabel: true,
+                            options: ['left', 'center', 'right', 'justify']
+                        }
+                    ],
+                    ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
+                    ['token', 'hr', 'link', 'custom_btn'],
+                    ['print', 'fullscreen'],
+                    [
+                        {
+                            label: this.$q.lang.editor.formatting,
+                            icon: this.$q.iconSet.editor.formatting,
+                            list: 'no-icons',
+                            options: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'code']
+                        },
+                        {
+                            label: this.$q.lang.editor.fontSize,
+                            icon: this.$q.iconSet.editor.fontSize,
+                            fixedLabel: true,
+                            fixedIcon: true,
+                            list: 'no-icons',
+                            options: ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7' ]
+                        },
+                        {
+                            label: this.$q.lang.editor.defaultFont,
+                            icon: this.$q.iconSet.editor.font,
+                            fixedIcon: true,
+                            list: 'no-icons',
+                            options: ['default_font', 'arial', 'arial_black', 'comic_sans', 'courier_new', 'impact', 'lucida_grande', 'times_new_roman', 'verdana', 'raleway' ]
+                        },
+                        'removeFormat'
+                    ],
+                    ['quote', 'unordered', 'ordered', 'outdent', 'indent'],
+                    ['undo', 'redo'],
+                    ['viewsource']
+                ],
+                fonts: {
+                    arial: 'Arial',
+                    arial_black: 'Arial Black',
+                    comic_sans: 'Comic Sans MS',
+                    courier_new: 'Courier New',
+                    impact: 'Impact',
+                    lucida_grande: 'Lucida Grande',
+                    times_new_roman: 'Times New Roman',
+                    verdana: 'Verdana',
+                    raleway: 'Raleway',
+                },
+                maxSizeMB: 2,
+                currentSize: 0,
                 selectedFile: {},
                 mouseover: false,
                 darkmode: false,
@@ -271,6 +332,7 @@
                     if (!this.$v.projeto.$invalid) {
                         this.loading = true
 
+                        console.log(this.projeto)
                         let projeto = await this.$api.patch(`projetos/${this.projeto_id}`, this.projeto)
 
                         setTimeout(() => {
@@ -283,6 +345,7 @@
                     }
                 } catch (error) {
                     console.log(error)
+                    this.loading = false
                 }
             },
             async handleFileChange() {
@@ -349,16 +412,33 @@
                     return true; 
                 }.bind(this);
             },
-            cutDescricao(value, tam){
-                let tamanho_max = tam;
 
-                if(value != undefined && value != null) {
-                    if(value.length > tamanho_max) {
-                        return value.substring(0, tamanho_max) + '...'
-                    }
-                    return value
+            /**
+             * @param {string}
+             * @param {number}
+             * @returns {string}
+             */
+            truncateToMaxSize(content, maxSizeBytes) {
+                let truncatedContent = content;
+
+                while (new Blob([truncatedContent]).size > maxSizeBytes) {
+                    truncatedContent = truncatedContent.slice(0, -1);
                 }
 
+                return truncatedContent;
+            },
+            handlePaste(event) {
+                event.preventDefault();
+                const plainText = event.clipboardData.getData('text/plain');
+
+                const editor = this.$refs.editor;
+                const selection = window.getSelection();
+
+                if (selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0);
+                    range.deleteContents();
+                    range.insertNode(document.createTextNode(plainText));
+                }
             },
         },
         watch: {
@@ -371,7 +451,19 @@
                 if (this.projeto.numero_min_participantes < 0) {
                     this.projeto.numero_min_participantes = 0
                 }
-            }
+            },
+            "projeto.sobre"(newValue) {
+                let currentSize = new Blob([newValue]).size;
+                let maxSizeMB = 0.5
+
+                const maxSizeBytes = maxSizeMB * 1024 * 1024;
+
+                if (currentSize > maxSizeBytes) {
+                    alert(`O conteúdo excede o limite de ${this.maxSizeMB} MB! Reduza o tamanho.`);
+                    this.projeto.sobre = this.truncateToMaxSize(newValue, maxSizeBytes);
+                }
+            },
+
         }
     }
 </script>
@@ -379,4 +471,9 @@
     @import 'src/css/projetos/add.scss';
     /* DARK MODE */
     @import 'src/css/darkMode/projetos/add.scss';
+
+    :deep(.q-editor__content > p) {
+        font-family: 'Raleway' !important;
+        font-size: 15px !important;
+    }
 </style>

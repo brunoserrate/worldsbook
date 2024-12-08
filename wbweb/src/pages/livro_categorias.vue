@@ -1,5 +1,5 @@
 <template>
-    <q-page class="livro_categorias" :class="{ 'dark-livro_categorias': darkmode }">
+    <q-page class="livro_categorias" :class="{ 'dark-livro_categorias': darkmode }" id="livro-categorias">
         <q-inner-loading
             :showing="visible"
             label-class="text-teal"
@@ -113,6 +113,16 @@
             });
         },
         methods: {
+            async changePage(e) {
+                await this.getLivros()
+
+                let element = document.getElementById('livro-categorias');
+                if (element) {
+                    let pixels_parar = 50;
+                    let offsetTop = element.offsetTop - pixels_parar;
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                }
+            },
             async getLivros(){
                 this.visible = true
                 this.showSimulatedReturnData = false
@@ -136,6 +146,11 @@
             goBackPageCategorias(){
                 this.$router.push({ path: `/categorias` })
             },
+        },
+        watch: {
+            page() {
+                this.changePage();
+            }
         }
     }
 </script>
