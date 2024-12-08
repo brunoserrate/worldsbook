@@ -177,6 +177,12 @@
             .col-categorias, .col-livros {
                 .categorias {
                     padding: 43px 90px;
+
+                    .slides_style{
+                        .slides_historias{
+                            border: solid 12px #b5b5b5;
+                        }
+                    }
                 }
             }
             

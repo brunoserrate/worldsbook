@@ -1,5 +1,10 @@
 <template>
     <q-page :class="{'votacoes-dark': darkmode}" class="votacoes" >
+        <q-inner-loading
+            :showing="loading"
+            label-class="text-teal"
+            label-style="font-size: 1.1em"
+        ></q-inner-loading>
         <div class="aviso" v-if="projeto.status && projeto.status._id != '672462b7d7ee7f7570218e71'">
             <h1 v-if="projeto.status && projeto.status._id == '67246270d7ee7f7570218e6d' || projeto.status._id == '67246274d7ee7f7570218e6f'">No momento, as votações ainda não estão abertas</h1>
             <h1 v-if="projeto.status && projeto.status._id == '672462c3d7ee7f7570218e73'">No momento, as votações já foram encerradas</h1>
@@ -30,7 +35,8 @@
                             <p class="m-0 p-0 text-center p-link" @click="$router.push({ path: `/projetos/${projeto._id}` })">{{ projeto.nome }}</p>
                         </div>
                         <div class="col-12 mt-5 radios d-flex flex-direction-column">
-                            <div v-for="(historia, i) in historias" :key="i" @mouseover="mouseHistory = historia._id" @mouseout="mouseHistory = null" class="div-radio">
+                            <!-- <div v-for="(historia, i) in historias" :key="i" @mouseover="mouseHistory = historia._id" @mouseout="mouseHistory = null" class="div-radio"> -->
+                            <div v-for="(historia, i) in historias" :key="i" class="div-radio">
                                 <div clas="div-radio-span">
                                     <q-radio 
                                         v-model="historia_selecionada" 
@@ -42,10 +48,10 @@
                                     <span class="ms-1">by {{ historia.usuario && historia.usuario.name }}</span>
                                 </div>
                                 <transition name="slide-fade">
-                                    <p class="ms-4 sinopse" v-show="mouseHistory === historia._id">{{ cutDescricao(historia.descricao, 100) }}</p>
+                                    <p class="ms-4 sinopse" v-show="historia_selecionada === historia._id">{{ cutDescricao(historia.descricao, 100) }}</p>
                                 </transition>
                             </div>
-                            <div class="">
+                            <div class="buttons">
                                 <button unelevated rounded class="btn type-3 w-100 mt-5" :disabled="!historia_selecionada" v-if="currentUser && projeto.status && projeto.status._id == '672462b7d7ee7f7570218e71'" @click="votar">Votar</button>
                                 <button unelevated rounded class="btn type-3 w-100 mt-5" disabled v-if="!currentUser && projeto.status && projeto.status._id != '672462b7d7ee7f7570218e71'">Você precisa estar logado</button>
                                 <button unelevated rounded class="btn type-5 w-100 mt-2" v-if="votoExistente && projeto.status && projeto.status._id == '672462b7d7ee7f7570218e71'" @click="removerVoto">Remover voto</button>
@@ -83,6 +89,7 @@
 		data (){
 			return {
                 projeto_id: this.$route.params.projeto_id,
+                loading: false,
 				autoplay: true,
                 dialog_check: false,
 				historias: [],
@@ -130,11 +137,14 @@
 		methods: {
             async getProjeto() {
                 try {
+                    this.loading = true
                     let projeto = await this.$api.get(`projetos/${this.projeto_id}`)
                     this.projeto = projeto.data
                     this.historias = projeto.data.historias.historias
+                    this.loading = false
                 } catch (error) {
                     console.log(error)
+                    this.loading = false
                 }
             },
             async verificarVotoExistente() {

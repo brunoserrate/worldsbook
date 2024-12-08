@@ -4,14 +4,22 @@
     transition: background-color 0.3s ease;
     background: $bgColorPatternDark;
     
-    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select, .q-radio__label {
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select, .q-radio__label, .tags-generos {
         color: $textColorDark;
     } 
 
     .col-content {        
         .col-icon-id {
             .help {
+                color: $bgColorPatternDark;
                 background: $textColorDark;
+            }
+        }
+        
+        .tags-generos {
+            .tag-genero {
+                background: $colorTagDark;
+                color: $textColorDark;
             }
         }
     }

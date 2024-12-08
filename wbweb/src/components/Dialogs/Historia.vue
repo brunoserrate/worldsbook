@@ -10,7 +10,8 @@
                 <div class="col-12 col-sm-7 col-content">
                     <div class="row">
                         <div class="col-12 py-2">
-                            <h1 class="title_dialog_historia_desktop px-3">{{ $store.state.dialog.livro_detail.titulo }}</h1>
+                            <h1 class="px-3 mb-1">{{ $store.state.dialog.livro_detail.titulo }}</h1>
+                            <p class="p-0 m-0 text-center p-autor" @click="$router.push({ path: `/perfil/${$store.state.dialog.livro_detail.usuario._id}` })"><b>por: </b>{{ $store.state.dialog.livro_detail.usuario ? $store.state.dialog.livro_detail.usuario.name : '' }}</p>
                         </div>
                         <div class="col-12">
                             <q-separator class="separador" :dark="darkmode"></q-separator>
@@ -21,7 +22,7 @@
                                     <q-btn 
                                         unelevated 
                                         :label="i18n.dialogs.iniciar_leitura" 
-                                        class="btn_detail_iniciar_leitura btn" 
+                                        class="btn_detail_iniciar_leitura btn p-0" 
                                         :class="{ 'type-1': !darkmode, 'type-2': darkmode }" 
                                         @click="$router.push({ path: `/livro/${$store.state.dialog.livro_detail._id }` })"
                                     />
@@ -30,7 +31,7 @@
                                     <q-btn 
                                         unelevated 
                                         label="+" 
-                                        class="btn_detail_mais btn"
+                                        class="btn_detail_mais btn p-0"
                                         :class="{ 'type-1': !darkmode, 'type-2': darkmode }" 
                                     />
                                 </div>
@@ -44,8 +45,20 @@
                                         </q-tooltip>
                                     </q-icon>
                                 </div>
-                                <div class="col-12 col_btn_detail_desktop mt-3">
-                                    <p>{{ cutDescricao($store.state.dialog.livro_detail.descricao, 200) }}</p>
+                                <div class="row categoria mt-1">
+                                    <div class="col-12">
+                                        <div>
+                                            <b>Categoria: </b> <q-chip class="tag-categoria" >{{ $store.state.dialog.livro_detail.categoria ? $store.state.dialog.livro_detail.categoria.nome : '' }}</q-chip>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row tags-generos mt-3">
+                                    <div class="col-12">
+                                        <q-chip v-for="(tag, i) in $store.state.dialog.livro_detail.tags.slice(0, 6)" :key="i" class="tag-genero" >{{ tag.nome }}</q-chip>
+                                    </div>
+                                </div>
+                                <div class="col-12 col_btn_detail_desktop mt-4">
+                                    <p>{{ cutDescricao($store.state.dialog.livro_detail.descricao, 400) }}</p>
                                 </div>
                             </div>
                         </div>

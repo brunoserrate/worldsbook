@@ -148,15 +148,11 @@
             <!-- INICIAR SESSÃO -->
             <div v-if="!logado && user == null" class="col">
               <div class="row pt-4">
-                <div class="col-md-5 col-lg-3 col-xl-2 pe-4 pe-md-0 me-lg-5 me-xl-5">
+                <div class="col-12 d-flex pe-4 pe-md-0 me-lg-5 me-xl-5" style="gap: 5px">
                   <q-btn flat :label="i18n.header.iniciar_sessao" class="iniciar-sessao" @click="logar = !logar"/>
-                </div>
-                <div class="col-md-1 col-xl-1 me-4 me-lg-2 me-xl-1 ms-lg-1 ms-xl-4">
                   <q-btn unelevated round :icon="darkmode ? 'dark_mode' : 'light_mode'" class="iniciar-sessao" style="padding: 0px 0px;" @click="mobileDarkMode"/>
-                </div>
-                <div class="col-md-1 col-xl-1 ms-lg-1 ms-xl-0 ">
                   <q-btn unelevated round icon="translate" class="iniciar-sessao" style="padding: 0px 0px;"/>
-                  <q-menu  :content-class="darkmode ? 'dark-menu-linguagens' : 'menu-linguagens'" transition-show="scale" transition-hide="scale" :offset="[25, 0]">
+                  <q-menu :content-class="darkmode ? 'dark-menu-linguagens' : 'menu-linguagens'" transition-show="scale" transition-hide="scale" :offset="[25, 0]">
                     <q-list>
                       <q-item tag="label" v-ripple class="dark-mode" v-for="(linguagem, i) in linguagens" :key="i" @click="emitSelectI18n(linguagem.country)">
                         <q-item-section>
@@ -170,6 +166,10 @@
                     </q-list>
                   </q-menu>
                 </div>
+                <!-- <div class="col-md-1 col-xl-1 me-4 me-lg-2 me-xl-1 ms-lg-1 ms-xl-4">
+                </div>
+                <div class="col-md-1 col-xl-1 ms-lg-1 ms-xl-0 ">
+                </div> -->
               </div>
             </div>
             <!-- DESKTOP -->

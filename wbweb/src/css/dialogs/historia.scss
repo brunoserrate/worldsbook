@@ -7,9 +7,9 @@
     border-radius: 20px;
     max-width: 1000px;
     max-height: 800px;
-    overflow: hidden;
+    overflow-x: hidden;
     
-    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select, .q-radio__label {
+    p, span, h1, h2, h3, h4, h5, h6, li, ul, ol, label, strong, b, input, textarea, select, .q-radio__label, .tags-generos, .tag-categoria {
         font-family: "Raleway", "Century Gothic", serif;
     } 
 
@@ -43,6 +43,11 @@
         flex-direction: column;
         justify-content: space-between;
 
+        .p-autor {
+            font-style: italic;
+            font-size: 12px;
+        }
+
         .col_btn_detail {
             .btn_detail_iniciar_leitura {
                 width: 100%;
@@ -72,6 +77,24 @@
                 padding: 1px;
                 font-size: 12px;
                 color: $white;
+            }
+        }
+        .categoria {
+            .tag-categoria {
+                padding: 9px 15px;
+                font-size: 12px;
+                background: $primaryVariantColorPattern04;
+                color: $white;
+                height: 0;
+            }
+        }
+        .tags-generos {
+            .tag-genero {
+                padding: 9px 15px;
+                font-size: 12px;
+                background: $textColorPattern11;
+                color: $primary;
+                height: 0;
             }
         }
         .col_btn_detail_desktop {

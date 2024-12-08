@@ -108,7 +108,12 @@
 @media screen and (min-width: 500px){
     .votacoes {
         .radios {
-            padding: 0 calc(50.8% - 200px);
+            // padding: 0 calc(50.8% - 200px);
+            padding: 0 0 0 calc(50.8% - 200px);
+            .buttons {
+                padding: 0 calc(75% - 200px) 0 0;
+
+            }
         }
     }
 }
